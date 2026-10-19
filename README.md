@@ -195,10 +195,59 @@ What the self tests check:
   pattern is `k_i = -B sign(g_i)`;
 - the **chirality gap** `lambda_1(k) - lambda_1(-k)` is first order, `2 k . grad lambda_1(0)`.
 
+### Patches of tiles and the tiling condition
+
+`spectre_patch.py` ports the supertile substitution of `spectre.py` in the `brentharts/spectre` fork (checked to reproduce its
+transforms exactly) and places the tile of this repository with it. A level-`n` patch has 1, 9, 71, 559, ... tiles, and the
+count grows by `4 + sqrt(15)` per level (the Perron eigenvalue of the substitution matrix).
+
+```python
+from spectre_patch import SpectrePatch
+p = SpectrePatch(levels=3)                       # 559 tiles
+polys = p.polygons(curves=1.0, scale=0.5)        # their curved outlines
+p.edge_pairs(), p.pair_matrix()                  # which edge i of which tile meets which edge j of which tile
+p.compatible_classes()                           # groups of edge indices forced to carry equal amounts
+p.mismatch_area(curves, scale)                   # exact overlap + gap area for any per-edge amounts
+```
+
+![patch](figures/spectre_patch.png)
+
+**The per-edge amounts of `spectre_operator` only tile when they are all equal.** A curved edge is an S that is point
+symmetric about its midpoint, so two tiles that share an edge fit exactly if both edges carry the same amount. If they differ,
+the two curves cross at the midpoint and enclose an overlap lobe and a gap lobe of area `|k_i - k_j| |d|^2 (3/32)` each. In the
+tiling every edge index meets every other one (the meeting graph is connected), so the compatible subspace of the 14 amounts is
+the uniform line `k_i = k` only. Every other pattern, including the optimal ones of `spectre_optimize`, is a single tile that
+does not tile the plane.
+
+What the self tests check: the counts and the inflation factor from an independent substitution-matrix route; all placements are
+proper rotations in multiples of 30 degrees; the tiles meet edge to edge with no overlap (also for `a != b`, which brings in the
+Mystic tile with its lengths swapped); meeting edges always have equal kind and length, which pins down the cyclic shift of the
+port; the lobe area against a polygon computation; and the predicted overlap `half the mismatch area` against a rasterised patch.
+
+### Form factor and diffraction
+
+`spectre_diffract.py` computes the Fourier transform of the tile, `F(k) = integral of exp(i k.x) over the tile`, by Green's theorem
+along the 14 Bezier edges, and the exact amplitude of a whole patch as a sum over its tiles.
+
+```python
+from spectre_diffract import form_factor, patch_amplitude, diffraction_intensity, porod_constant
+F = form_factor(k, a=1, b=1, curves=1.0, scale=0.5)        # k: array (..., 2)
+I = diffraction_intensity(SpectrePatch(3), k)              # |FT of the patch|^2 per tile
+```
+
+![diffraction](figures/spectre_diffract.png)
+
+What the self tests check: `F(0)` is the area and the small-`k` terms are the centroid and second moments; the straight tile agrees
+with the exact polygon formula and the curved tile with rasterisation; placement (rotation, mirror, translation) matches a direct
+integral; **Porod's law**, `k^3 <|F|^2> -> 2 P`, returns the exact perimeter of the curved and of the straight tile (they differ by
+18 %), and **Plancherel's identity** `integral |F|^2 d^2k / (2 pi)^2 = area` holds with that Porod tail; the patch amplitude equals the
+Fourier transform of the rasterised union. So the same perimeter shows up in the offset areas (`spectre_fields`), the heat content
+(`spectre_fem`) and the high-`k` tail of the diffraction.
+
 ### Makefile
 
 ```
-make test        # self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py, spectre_optimize.py
+make test        # self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py, spectre_optimize.py, spectre_patch.py, spectre_diffract.py
 make verify      # symbolic (SymPy) curves vs the numeric spectre.py
 make check       # test + verify
 make figures     # rebuild every figure in figures/
@@ -208,6 +257,8 @@ make show-fields # run the tests, then open the distance-field window
 make show-fem    # run the tests, then open the finite-element window
 make show-curvature # run the tests, then open the curvature window
 make show-optimize # run the tests, then open the optimisation window
+make show-patch  # run the tests, then open the patch window
+make show-diffract # run the tests, then open the diffraction window
 make install-min # pip install numpy scipy matplotlib sympy (the bezier package is optional)
 make clean       # remove build/ and Python caches
 ```

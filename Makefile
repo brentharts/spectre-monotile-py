@@ -1,7 +1,8 @@
 # ------------------------------------------------------ curved spectre monotile
 #
 #   make               list the targets (same as `make help`)
-#   make test          self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py, spectre_optimize.py
+#   make test          self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py, spectre_optimize.py,
+#                      spectre_patch.py, spectre_diffract.py
 #   make verify        check the symbolic (SymPy) curves against spectre.py
 #   make check         test + verify
 #   make figures       rebuild every figure in figures/
@@ -11,6 +12,8 @@
 #   make show-fem      open the interactive finite-element window (torsion, modes, heat)
 #   make show-curvature open the interactive curvature window (comb, turning function)
 #   make show-optimize open the interactive sensitivity / optimisation window
+#   make show-patch    open the interactive patch / tiling-condition window
+#   make show-diffract open the interactive form factor / diffraction window
 #   make all           check + figures + pdf
 #   make install       pip install -r requirements.txt
 #   make install-min   pip install only numpy, scipy, matplotlib and sympy
@@ -28,9 +31,11 @@ FIELDS_PNG     := $(FIGDIR)/spectre_distance_fields.png
 FEM_PNG        := $(FIGDIR)/spectre_fem_fields.png
 CURVATURE_PNG  := $(FIGDIR)/spectre_curvature.png
 OPTIMIZE_PNG   := $(FIGDIR)/spectre_optimize.png
+PATCH_PNG      := $(FIGDIR)/spectre_patch.png
+DIFFRACT_PNG   := $(FIGDIR)/spectre_diffract.png
 
 .DEFAULT_GOAL := help
-.PHONY: help all check test verify figures pdf show show-fields show-fem show-curvature show-optimize install install-min clean
+.PHONY: help all check test verify figures pdf show show-fields show-fem show-curvature show-optimize show-patch show-diffract install install-min clean
 
 help:  ## list the targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) | \
@@ -40,13 +45,15 @@ all: check figures pdf  ## check + figures + pdf
 
 check: test verify  ## test + verify
 
-test:  ## run the self tests (bezierpy, spectre_operator, spectre_fields, spectre_fem, spectre_curvature, spectre_optimize)
+test:  ## run the self tests (bezierpy, spectre_operator, spectre_fields, spectre_fem, spectre_curvature, spectre_optimize, spectre_patch, spectre_diffract)
 	$(PYTHON) bezierpy.py
 	$(PYTHON) spectre_operator.py --tests-only
 	$(PYTHON) spectre_fields.py --tests-only
 	$(PYTHON) spectre_fem.py --tests-only
 	$(PYTHON) spectre_curvature.py --tests-only
 	$(PYTHON) spectre_optimize.py --tests-only
+	$(PYTHON) spectre_patch.py --tests-only
+	$(PYTHON) spectre_diffract.py --tests-only
 
 verify:  ## symbolic (SymPy) curves vs the numeric spectre.py
 	$(PYTHON) symspectre.py --verify --no-pdf --outdir $(BUILD)
@@ -57,6 +64,8 @@ figures:  ## rebuild every figure in figures/
 	$(PYTHON) spectre_fem.py --skip-tests --no-show --save $(FEM_PNG)
 	$(PYTHON) spectre_curvature.py --skip-tests --no-show --save $(CURVATURE_PNG)
 	$(PYTHON) spectre_optimize.py --skip-tests --no-show --save $(OPTIMIZE_PNG)
+	$(PYTHON) spectre_patch.py --skip-tests --no-show --save $(PATCH_PNG)
+	$(PYTHON) spectre_diffract.py --skip-tests --no-show --save $(DIFFRACT_PNG)
 
 pdf:  ## build/symspectre.pdf, the symbolic LaTeX document (needs pdflatex)
 	$(PYTHON) symspectre.py --outdir $(BUILD)
@@ -75,6 +84,12 @@ show-curvature:  ## run the tests, then open the interactive curvature window
 
 show-optimize:  ## run the tests, then open the interactive sensitivity / optimisation window
 	$(PYTHON) spectre_optimize.py
+
+show-patch:  ## run the tests, then open the interactive patch window
+	$(PYTHON) spectre_patch.py
+
+show-diffract:  ## run the tests, then open the interactive diffraction window
+	$(PYTHON) spectre_diffract.py
 
 install:  ## pip install -r requirements.txt
 	$(PYTHON) -m pip install -r requirements.txt
