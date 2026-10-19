@@ -107,16 +107,45 @@ What the self tests check:
 Very different amounts on neighbouring edges make sharp corners and shrink the range of `r` where the small-`r`
 formulas hold.
 
+### Fields on the filled tile: torsion, drum modes, heat
+
+`spectre_fem.py` meshes the solid tile with triangles and solves three classical problems with linear finite
+elements (numpy + `scipy.sparse` only, no mesh library). The area is the same for every curve amount, so every
+difference below is due to the shape alone.
+
+```python
+from spectre_fem import TileMesh
+m = TileMesh.tile(a=1, b=1, curves=1.0, scale=0.5, h=0.05)   # same arguments as spectre_operator
+tor = m.torsion()              # phi, J = 2*integral(phi), shear stress |grad phi| per triangle
+lam, modes = m.eigenmodes(6)   # Dirichlet drum modes: -lap u = lambda u, u = 0 on the outline
+Q = m.heat_content([0.01, 0.1, 1.0])   # heat left after cooling from u = 1 with the outline at 0
+```
+
+![finite element fields](figures/spectre_fem_fields.png)
+
+What the self tests check:
+
+- the solver reproduces the exact **disc** and **square** results (torsional rigidity, eigenvalues, heat content);
+- the tile obeys the **Saint-Venant** bound `J <= A^2 / (2 pi)` and **Faber-Krahn** `lambda_1 >= pi j01^2 / A`
+  (the disc of equal area is the extremal shape) and the Polya bound `lambda_1 J / (4 A) < 1`;
+- the early **heat content** is `Q(t) = A - 2 P sqrt(t / pi) + O(t)`: cooling feels the perimeter from step 1
+  (`spectre_operator.perimeter`), while late cooling decays like `exp(-lambda_1 t)`;
+- the torsion shear stress is **singular at the reflex corners** (it keeps growing as the mesh is refined, so
+  its maximum is shown, not trusted to high accuracy), and is zero at the centre;
+- the numbers converge with the mesh size, are unchanged by rotating the tile, scale exactly with `a, b`
+  (`lambda ~ 1/s^2`, `J ~ s^4`), and the two chiralities `k` and `-k` have lowest tones that differ by about 1 %.
+
 ### Makefile
 
 ```
-make test        # self tests: bezierpy.py, spectre_operator.py, spectre_fields.py
+make test        # self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py
 make verify      # symbolic (SymPy) curves vs the numeric spectre.py
 make check       # test + verify
 make figures     # rebuild every figure in figures/
 make pdf         # build/symspectre.pdf (needs pdflatex)
 make show        # run the tests, then open the per-edge variations window
 make show-fields # run the tests, then open the distance-field window
+make show-fem    # run the tests, then open the finite-element window
 make install-min # pip install numpy scipy matplotlib sympy (the bezier package is optional)
 make clean       # remove build/ and Python caches
 ```
