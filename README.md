@@ -56,3 +56,40 @@ to PDF if `pdflatex` is installed. The numeric values only affect the TikZ figur
 
 Use `--no-pdf` to only write the `.tex` file, and `--verify` to cross-check the symbolic curves against `spectre.py`
 (needs `numpy`).
+
+### Per-edge curve control
+
+`spectre_operator.py` builds the curved monotile with a separate curve amount for each of the 14 edges, plus one
+`scale` that multiplies them all (the effective strength of edge `i` is `scale * curves[i]`):
+
+```python
+from spectre_operator import curved_spectre
+x, y = curved_spectre(a=1, b=1, curves=1.0, scale=0.5)          # same as spectre.py with k=0.5
+x, y = curved_spectre(curves=[1, -1] * 7, scale=0.4)            # alternating edges
+x, y = curved_spectre(curves={3: 1.0, 7: -1.0}, scale=0.6)      # only edges 3 and 7
+```
+
+Run `python3 spectre_operator.py` to execute its self tests and show a figure with the edge numbering and a set of
+variations (`--no-show --save out.png` to write the figure instead of opening a window).
+The area stays `2√3·a² + 3ab + √3·b²` for any amounts; very different amounts on neighbouring edges can make the
+outline cross itself (`is_simple` checks this).
+
+![spectre_operator variations](figures/spectre_operator_variations.png)
+
+The figure shows the edge numbering (top left) and per-edge variations; edge colour is red for positive and blue for
+negative curve amounts. Rebuild it with `make figures`.
+
+### Makefile
+
+```
+make test        # self tests: bezierpy.py and spectre_operator.py
+make verify      # symbolic (SymPy) curves vs the numeric spectre.py
+make check       # test + verify
+make figures     # rebuild figures/spectre_operator_variations.png
+make pdf         # build/symspectre.pdf (needs pdflatex)
+make show        # run the tests, then open the interactive matplotlib window
+make install-min # pip install numpy matplotlib sympy (the bezier package is optional)
+make clean       # remove build/ and Python caches
+```
+
+`make` on its own lists all targets.
