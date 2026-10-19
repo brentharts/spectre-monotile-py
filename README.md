@@ -135,10 +135,37 @@ What the self tests check:
 - the numbers converge with the mesh size, are unchanged by rotating the tile, scale exactly with `a, b`
   (`lambda ~ 1/s^2`, `J ~ s^4`), and the two chiralities `k` and `-k` have lowest tones that differ by about 1 %.
 
+### Curvature, turning function and bending energy
+
+`spectre_curvature.py` works out the curvature of the curved outline in closed form. For an edge with chord `d` and
+strength `k` the numerator of the curvature collapses to a line, `kappa(t) = -18 k (1 - 2t) / (|d| (s'^2 + k^2 w'^2)^(3/2))`,
+so every edge is an S with exactly one inflection point (at its middle) and the curvature is odd about it.
+
+```python
+from spectre_curvature import curvature_profile, total_absolute_curvature, bending_energy, max_curvature
+prof = curvature_profile(a=1, b=1, curves=1.0, scale=0.5)   # kappa, tangent angle theta, corner turns along the outline
+total_absolute_curvature(1, 1, 1.0, 0.5)    # exact: sum |corner turns| + sum 4 arctan(2|k_i|)
+bending_energy(1, 1, 1.0, 0.5)              # integral of kappa^2 ds over the smooth edges
+```
+
+![curvature](figures/spectre_curvature.png)
+
+What the self tests check:
+
+- the closed form agrees with finite differences of the Bezier edges; every edge has **zero net curvature** and its
+  absolute curvature integrates to exactly **`4 arctan(2|k|)`**;
+- the corner turns obtained from the Bezier control points agree with the step-1 formula, and the **Umlaufsatz** holds:
+  the total turning of the clockwise tile is exactly `-2 pi`;
+- the total absolute curvature of the straight tile is `16 pi / 3` (8/3 of the convex value `2 pi`, because of the
+  reflex corners), and curving adds `4 arctan(2|k|)` per edge, independent of `a` and `b`;
+- the bending energy agrees between the closed-form quadrature and a sum along the outline, has the right small-`k` limit,
+  and scales like `1/s` when lengths are scaled by `s` (while the turning angles do not change at all);
+- the sharpest bend is on the shortest edge, and `k` and `-k` are exact mirror images (`kappa` changes sign, nothing else).
+
 ### Makefile
 
 ```
-make test        # self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py
+make test        # self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py
 make verify      # symbolic (SymPy) curves vs the numeric spectre.py
 make check       # test + verify
 make figures     # rebuild every figure in figures/
@@ -146,6 +173,7 @@ make pdf         # build/symspectre.pdf (needs pdflatex)
 make show        # run the tests, then open the per-edge variations window
 make show-fields # run the tests, then open the distance-field window
 make show-fem    # run the tests, then open the finite-element window
+make show-curvature # run the tests, then open the curvature window
 make install-min # pip install numpy scipy matplotlib sympy (the bezier package is optional)
 make clean       # remove build/ and Python caches
 ```

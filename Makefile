@@ -1,7 +1,7 @@
 # ------------------------------------------------------ curved spectre monotile
 #
 #   make               list the targets (same as `make help`)
-#   make test          self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py
+#   make test          self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py
 #   make verify        check the symbolic (SymPy) curves against spectre.py
 #   make check         test + verify
 #   make figures       rebuild every figure in figures/
@@ -9,6 +9,7 @@
 #   make show          open the interactive per-edge variations window
 #   make show-fields   open the interactive distance-field window
 #   make show-fem      open the interactive finite-element window (torsion, modes, heat)
+#   make show-curvature open the interactive curvature window (comb, turning function)
 #   make all           check + figures + pdf
 #   make install       pip install -r requirements.txt
 #   make install-min   pip install only numpy, scipy, matplotlib and sympy
@@ -24,9 +25,10 @@ BUILD  := build
 VARIATIONS_PNG := $(FIGDIR)/spectre_operator_variations.png
 FIELDS_PNG     := $(FIGDIR)/spectre_distance_fields.png
 FEM_PNG        := $(FIGDIR)/spectre_fem_fields.png
+CURVATURE_PNG  := $(FIGDIR)/spectre_curvature.png
 
 .DEFAULT_GOAL := help
-.PHONY: help all check test verify figures pdf show show-fields show-fem install install-min clean
+.PHONY: help all check test verify figures pdf show show-fields show-fem show-curvature install install-min clean
 
 help:  ## list the targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) | \
@@ -36,11 +38,12 @@ all: check figures pdf  ## check + figures + pdf
 
 check: test verify  ## test + verify
 
-test:  ## run the self tests (bezierpy, spectre_operator, spectre_fields, spectre_fem)
+test:  ## run the self tests (bezierpy, spectre_operator, spectre_fields, spectre_fem, spectre_curvature)
 	$(PYTHON) bezierpy.py
 	$(PYTHON) spectre_operator.py --tests-only
 	$(PYTHON) spectre_fields.py --tests-only
 	$(PYTHON) spectre_fem.py --tests-only
+	$(PYTHON) spectre_curvature.py --tests-only
 
 verify:  ## symbolic (SymPy) curves vs the numeric spectre.py
 	$(PYTHON) symspectre.py --verify --no-pdf --outdir $(BUILD)
@@ -49,6 +52,7 @@ figures:  ## rebuild every figure in figures/
 	$(PYTHON) spectre_operator.py --skip-tests --no-show --save $(VARIATIONS_PNG)
 	$(PYTHON) spectre_fields.py --skip-tests --no-show --save $(FIELDS_PNG)
 	$(PYTHON) spectre_fem.py --skip-tests --no-show --save $(FEM_PNG)
+	$(PYTHON) spectre_curvature.py --skip-tests --no-show --save $(CURVATURE_PNG)
 
 pdf:  ## build/symspectre.pdf, the symbolic LaTeX document (needs pdflatex)
 	$(PYTHON) symspectre.py --outdir $(BUILD)
@@ -61,6 +65,9 @@ show-fields:  ## run the tests, then open the interactive distance-field window
 
 show-fem:  ## run the tests, then open the interactive finite-element window
 	$(PYTHON) spectre_fem.py
+
+show-curvature:  ## run the tests, then open the interactive curvature window
+	$(PYTHON) spectre_curvature.py
 
 install:  ## pip install -r requirements.txt
 	$(PYTHON) -m pip install -r requirements.txt
