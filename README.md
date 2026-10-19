@@ -162,10 +162,43 @@ What the self tests check:
   and scales like `1/s` when lengths are scaled by `s` (while the turning angles do not change at all);
 - the sharpest bend is on the shortest edge, and `k` and `-k` are exact mirror images (`kappa` changes sign, nothing else).
 
+### Sensitivity and optimisation over the 14 edges
+
+The area is the same for every choice of the 14 amounts `k_i`, so the lowest drum tone `lambda_1` and the torsional
+rigidity `J` of `spectre_fem.py` depend on the shape alone. `spectre_optimize.py` asks which edges matter and which pattern
+of amounts is best.
+
+```python
+from spectre_optimize import MorphingTile, shape_gradients, optimize_amounts, chirality_gap
+mt = MorphingTile(h=0.05)                         # one mesh, deformed (not re-meshed) for any amounts
+g = shape_gradients(mt, [0.3] * 14)               # g["dlambda1"], g["dJ"]: d/d k_i for each edge, from ONE solve
+best = optimize_amounts(mt, "lambda1", "min", bound=0.4)   # L-BFGS-B inside |k_i| <= 0.4
+best["k"], best["value"], best["simple"]
+chirality_gap(mt, best["k"])                      # lambda_1 and J for k and for -k
+```
+
+![optimisation](figures/spectre_optimize.png)
+
+The gradients are **Hadamard shape derivatives**: `d lambda_1 / d k_i = - integral over edge i of (du/dn)^2 V_n ds` (and the
+same with the opposite sign for `J`), where `V_n` is the normal speed of the edge. They need the boundary flux of a single
+solve instead of 28 finite-difference solves.
+
+What the self tests check:
+
+- the morphed mesh equals the reference at `k_ref`, keeps the area, puts its boundary nodes exactly on the Bezier edges and
+  agrees with a freshly built finer mesh;
+- the Hadamard gradients agree with central finite differences of the solver (per edge, in norm and in sum), with the
+  derivative along uniform curving, and across mesh sizes;
+- the optimiser reaches the **same optimum from every start**, satisfies the **KKT conditions** of the box problem,
+  agrees with an independent fine mesh (so it is not exploiting distorted triangles), and **random search never beats it**;
+- first-order theory predicts the optimal signs: at the straight tile `lambda_1 ~ lambda_1(0) + g . k`, so the best small
+  pattern is `k_i = -B sign(g_i)`;
+- the **chirality gap** `lambda_1(k) - lambda_1(-k)` is first order, `2 k . grad lambda_1(0)`.
+
 ### Makefile
 
 ```
-make test        # self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py
+make test        # self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py, spectre_optimize.py
 make verify      # symbolic (SymPy) curves vs the numeric spectre.py
 make check       # test + verify
 make figures     # rebuild every figure in figures/
@@ -174,6 +207,7 @@ make show        # run the tests, then open the per-edge variations window
 make show-fields # run the tests, then open the distance-field window
 make show-fem    # run the tests, then open the finite-element window
 make show-curvature # run the tests, then open the curvature window
+make show-optimize # run the tests, then open the optimisation window
 make install-min # pip install numpy scipy matplotlib sympy (the bezier package is optional)
 make clean       # remove build/ and Python caches
 ```
