@@ -79,16 +79,45 @@ outline cross itself (`is_simple` checks this).
 The figure shows the edge numbering (top left) and per-edge variations; edge colour is red for positive and blue for
 negative curve amounts. Rebuild it with `make figures`.
 
+### Distance fields: inner and outer space
+
+`spectre_fields.py` computes the signed distance to the tile boundary (negative inside, positive outside). Its level
+sets are the inner and outer offset curves, a one-parameter family sweeping through the original shape.
+
+```python
+from spectre_fields import DistanceField
+f = DistanceField.tile(a=1, b=1, curves=1.0, scale=0.5)   # same arguments as spectre_operator
+f.level_curves(-0.1)         # inner offset curve(s)
+f.region_area(0.2)           # area of the tile dilated by 0.2
+f.inradius, f.incenter       # largest inscribed circle
+segments, radius = f.medial_axis()
+```
+
+![distance fields](figures/spectre_distance_fields.png)
+
+What the self tests check:
+
+- the first-order growth of the offset areas is the **perimeter** (coarea formula), and the perimeter has the exact
+  closed form `spectre_operator.perimeter` = `sum |d_i| F(k_i)`;
+- the second-order term depends only on the **corner turns**: `A(+r) = A + P r + c_out r²`, `A(-r) = A - P r + c_in r²`
+  with `c_out + c_in = π + 2 + √3` for equal amounts on all edges (the area itself never changes with `k`);
+- the **medial axis** peaks at the inscribed circle, and the distance field agrees with the exact point-to-segment
+  distance of the straight tile.
+
+Very different amounts on neighbouring edges make sharp corners and shrink the range of `r` where the small-`r`
+formulas hold.
+
 ### Makefile
 
 ```
-make test        # self tests: bezierpy.py and spectre_operator.py
+make test        # self tests: bezierpy.py, spectre_operator.py, spectre_fields.py
 make verify      # symbolic (SymPy) curves vs the numeric spectre.py
 make check       # test + verify
-make figures     # rebuild figures/spectre_operator_variations.png
+make figures     # rebuild every figure in figures/
 make pdf         # build/symspectre.pdf (needs pdflatex)
-make show        # run the tests, then open the interactive matplotlib window
-make install-min # pip install numpy matplotlib sympy (the bezier package is optional)
+make show        # run the tests, then open the per-edge variations window
+make show-fields # run the tests, then open the distance-field window
+make install-min # pip install numpy scipy matplotlib sympy (the bezier package is optional)
 make clean       # remove build/ and Python caches
 ```
 

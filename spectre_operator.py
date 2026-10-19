@@ -53,6 +53,7 @@ __all__ = [
     "curved_spectre",
     "polygon_area",
     "spectre_area",
+    "perimeter",
     "is_simple",
     "run_tests",
     "show_variations",
@@ -195,6 +196,24 @@ def spectre_area(a=1.0, b=1.0):
     """Exact area of the tile, independent of all curve amounts."""
     r3 = math.sqrt(3.0)
     return 2 * r3 * a * a + 3 * a * b + r3 * b * b
+
+
+def perimeter(a=1.0, b=1.0, curves=1.0, scale=1.0):
+    """Exact perimeter of the curved tile.
+
+    The speed of edge i is |B'(t)| = |d_i| * sqrt(s'(t)^2 + k_i^2 w'(t)^2) (n_i is
+    perpendicular to d_i and has the same length), so
+        P = sum_i |d_i| * F(k_i),   F(k) = int_0^1 sqrt(s'^2 + k^2 w'^2) dt,
+    with s' = 3/2 - 3t + 3t^2 and w' = -18 t^2 + 18 t - 3.  F is evaluated by
+    Gauss-Legendre quadrature (the integrand is smooth, s' >= 3/4).
+    """
+    nodes, weights = np.polynomial.legendre.leggauss(48)
+    t, wt = 0.5 * (nodes + 1.0), 0.5 * weights
+    sp_ = 1.5 - 3.0 * t + 3.0 * t**2
+    wp_ = -18.0 * t**2 + 18.0 * t - 3.0
+    k = edge_strengths(curves, scale)
+    F = np.sqrt(sp_[None, :] ** 2 + (k[:, None] * wp_[None, :]) ** 2) @ wt
+    return float((np.hypot(*edge_vectors(a, b).T) * F).sum())
 
 
 def is_simple(x, y):
@@ -358,6 +377,18 @@ def test_curve_input_forms_and_validation():
         pass
     else:
         raise AssertionError("expected ValueError for infinite scale")
+
+
+def test_perimeter_closed_form_matches_polyline_length():
+    rng = np.random.default_rng(5)
+    cases = [(1.0, 1.0, 0.0, 1.0), (1.0, 1.0, 1.0, 0.5), (1.3, 0.8, 1.0, -0.7)]
+    cases.append((0.9, 1.6, rng.uniform(-1, 1, N_EDGES), 0.6))
+    for a, b, c, s in cases:
+        x, y = curved_spectre(a, b, c, s, samples=4000)
+        poly = float(np.hypot(np.diff(x), np.diff(y)).sum())
+        assert math.isclose(perimeter(a, b, c, s), poly, rel_tol=1e-6), (a, b, s)
+    assert math.isclose(perimeter(1.0, 1.0, 1.0, 0.0), 14.0, rel_tol=1e-14)  # 8a + 6b
+    assert perimeter(1, 1, 1.0, 0.5) > perimeter(1, 1, 1.0, 0.25) > perimeter(1, 1, 1.0, 0.0)
 
 
 def test_is_simple_detects_self_intersection():

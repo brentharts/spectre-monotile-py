@@ -1,15 +1,16 @@
 # ------------------------------------------------------ curved spectre monotile
 #
 #   make               list the targets (same as `make help`)
-#   make test          self tests: bezierpy.py and spectre_operator.py
+#   make test          self tests: bezierpy.py, spectre_operator.py, spectre_fields.py
 #   make verify        check the symbolic (SymPy) curves against spectre.py
 #   make check         test + verify
-#   make figures       rebuild figures/spectre_operator_variations.png
+#   make figures       rebuild every figure in figures/
 #   make pdf           build/symspectre.pdf (symbolic LaTeX document, needs pdflatex)
-#   make show          open the interactive matplotlib window
+#   make show          open the interactive per-edge variations window
+#   make show-fields   open the interactive distance-field window
 #   make all           check + figures + pdf
 #   make install       pip install -r requirements.txt
-#   make install-min   pip install only numpy, matplotlib and sympy
+#   make install-min   pip install only numpy, scipy, matplotlib and sympy
 #   make clean         remove build/ and Python caches
 #
 # The `bezier` package is optional: without it spectre.py falls back to the
@@ -20,9 +21,10 @@ PYTHON ?= python3
 FIGDIR := figures
 BUILD  := build
 VARIATIONS_PNG := $(FIGDIR)/spectre_operator_variations.png
+FIELDS_PNG     := $(FIGDIR)/spectre_distance_fields.png
 
 .DEFAULT_GOAL := help
-.PHONY: help all check test verify figures pdf show install install-min clean
+.PHONY: help all check test verify figures pdf show show-fields install install-min clean
 
 help:  ## list the targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) | \
@@ -32,27 +34,32 @@ all: check figures pdf  ## check + figures + pdf
 
 check: test verify  ## test + verify
 
-test:  ## run the self tests (bezierpy, spectre_operator)
+test:  ## run the self tests (bezierpy, spectre_operator, spectre_fields)
 	$(PYTHON) bezierpy.py
 	$(PYTHON) spectre_operator.py --tests-only
+	$(PYTHON) spectre_fields.py --tests-only
 
 verify:  ## symbolic (SymPy) curves vs the numeric spectre.py
 	$(PYTHON) symspectre.py --verify --no-pdf --outdir $(BUILD)
 
-figures:  ## rebuild figures/spectre_operator_variations.png
+figures:  ## rebuild every figure in figures/
 	$(PYTHON) spectre_operator.py --skip-tests --no-show --save $(VARIATIONS_PNG)
+	$(PYTHON) spectre_fields.py --skip-tests --no-show --save $(FIELDS_PNG)
 
 pdf:  ## build/symspectre.pdf, the symbolic LaTeX document (needs pdflatex)
 	$(PYTHON) symspectre.py --outdir $(BUILD)
 
-show:  ## run the tests, then open the interactive variations window
+show:  ## run the tests, then open the interactive per-edge variations window
 	$(PYTHON) spectre_operator.py
+
+show-fields:  ## run the tests, then open the interactive distance-field window
+	$(PYTHON) spectre_fields.py
 
 install:  ## pip install -r requirements.txt
 	$(PYTHON) -m pip install -r requirements.txt
 
-install-min:  ## pip install numpy matplotlib sympy (bezier not needed)
-	$(PYTHON) -m pip install numpy matplotlib sympy
+install-min:  ## pip install numpy scipy matplotlib sympy (bezier not needed)
+	$(PYTHON) -m pip install numpy scipy matplotlib sympy
 
 clean:  ## remove build/ and Python caches
 	rm -rf $(BUILD) __pycache__
