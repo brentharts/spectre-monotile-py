@@ -1,5 +1,9 @@
 import numpy as np
-import bezier
+
+try:
+    import bezier
+except ImportError:  # pure-Python fallback, works everywhere
+    import bezierpy as bezier
 
 
 def calculate_control_points(point, curve_strength):

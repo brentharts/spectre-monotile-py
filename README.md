@@ -8,6 +8,10 @@ The dependencies can usually be installed using `pip`:
 
 ```pip install numpy matplotlib opencv-python bezier```
 
+The `bezier` package is optional: if it is not installed (it needs a compiler on some platforms), `spectre.py`
+automatically falls back to `bezierpy.py`, a small pure-Python implementation with no dependencies.
+`python3 bezierpy.py` runs its self test.
+
 ## Usage
 
 To use the Spectre Monotile tool, navigate to the project directory and run:
@@ -41,3 +45,14 @@ To specify parameters for the Spectre Monotile:
 ```python fourier_drawing.py --a 1 --b 1 --curve_strength 0.5 --num_components 50```
 
 ![fourier_drawing](https://github.com/user-attachments/assets/849d0357-0caa-4a70-b838-bb69ca33907a)
+
+### Symbolic version (SymPy → LaTeX/PDF)
+
+`symspectre.py` computes the curved monotile exactly and symbolically in `a`, `b` and the curve strength `k`
+(vertices, Bézier control points, closed-form curves, area, tangent angles) and writes a LaTeX document, compiled
+to PDF if `pdflatex` is installed. The numeric values only affect the TikZ figure.
+
+```python3 symspectre.py --a 1 --b 1 --curve_strength 0.5 --outdir out```
+
+Use `--no-pdf` to only write the `.tex` file, and `--verify` to cross-check the symbolic curves against `spectre.py`
+(needs `numpy`).
