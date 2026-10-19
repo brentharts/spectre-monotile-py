@@ -198,7 +198,7 @@ What the self tests check:
 ### Patches of tiles and the tiling condition
 
 `spectre_patch.py` ports the supertile substitution of `spectre.py` in the `brentharts/spectre` fork (checked to reproduce its
-transforms exactly) and places the tile of this repository with it. A level-`n` patch has 1, 9, 71, 559, ... tiles, and the
+transforms exactly) of the chiral aperiodic monotile of Smith, Myers, Kaplan and Goodman-Strauss [[1]](#references)[[2]](#references) (chiral aperiodic tilings also arise in molecular self-assembly [[4]](#references)) and places the tile of this repository with it. A level-`n` patch has 1, 9, 71, 559, ... tiles, and the
 count grows by `4 + sqrt(15)` per level (the Perron eigenvalue of the substitution matrix).
 
 ```python
@@ -227,7 +227,7 @@ port; the lobe area against a polygon computation; and the predicted overlap `ha
 ### Form factor and diffraction
 
 `spectre_diffract.py` computes the Fourier transform of the tile, `F(k) = integral of exp(i k.x) over the tile`, by Green's theorem
-along the 14 Bezier edges, and the exact amplitude of a whole patch as a sum over its tiles.
+along the 14 Bezier edges, and the exact amplitude of a whole patch as a sum over its tiles. Diffraction from real structures built on the monotile is the subject of [[3]](#references), which reports sharp Bragg peaks and chiral, pinwheel-like patterns for a hat-based structure; the calculation here is of the ideal filled tiles.
 
 ```python
 from spectre_diffract import form_factor, patch_amplitude, diffraction_intensity, porod_constant
@@ -244,10 +244,53 @@ integral; **Porod's law**, `k^3 <|F|^2> -> 2 P`, returns the exact perimeter of 
 Fourier transform of the rasterised union. So the same perimeter shows up in the offset areas (`spectre_fields`), the heat content
 (`spectre_fem`) and the high-`k` tail of the diffraction.
 
+### What is fractal in the diffraction pattern?
+
+The folded, brain-like ridges in the first two panels of `spectre_diffract.png` are the dark valleys of |F(k)|^2 of **one
+tile**. They are not fractal. F is an entire function of k, and because it is complex, |F|^2 vanishes only at isolated
+phase vortices (charge +1 or -1, about 0.3 per unit area of k, net charge 0). The dark lines are valleys that run between
+the vortices, and they are smooth curves. Box counting of the valley set gives a local dimension of 2 at the width of a valley, a dip
+to about 1 (a curve) and 2 again above the spacing of the folds, so no range of scales with a fractional dimension exists.
+Curved and straight tiles behave the same way.
+
+The fractal object next to the picture is the **outline of a supertile**, which is what shapes the patch diffraction in panels 3 and 4.
+`spectre_fractal.py` counts its edges exactly. The number of outline edges B_n of the level-n patch is 14, 46, 182, 758, 3198,
+13534, 57318 (levels 0 to 6) and obeys the integer recurrence `B(n+3) = 5 B(n+2) - 3 B(n+1) - B(n)`, whose characteristic
+polynomial is `(x - 1)(x^2 - 4x - 1)`. The outline therefore grows by `r = 2 + sqrt(5)` per level while the linear size grows by
+`sqrt(4 + sqrt(15))`, so
+
+    D = ln(2 + sqrt 5) / ln sqrt(4 + sqrt 15) = 1.3993
+
+as the box dimension (equal to the Hausdorff dimension if the graph-directed open set condition holds, which is assumed, not proved;
+the recurrence is fitted to 7 terms with one check, not proved).
+
+![fractal](figures/spectre_fractal.png)
+
+```python
+from spectre_fractal import phase_vortices, valley_box_counts, boundary_counts, D_OUTLINE
+```
+
+Honest caveats, all visible in the figure: box counting of a finite outline approaches 1.399 slowly from below (fitted slopes of about
+1.19, 1.24 and 1.29 for levels 3, 4 and 5); the Porod-type decay of the orientation-averaged intensity,
+which should be `k^-(4-D) = k^-2.60` instead of the `k^-3` of a smooth boundary, is measured as -2.7 and -2.6 for levels 4 and 5 but
+the individual fit windows scatter by about 0.2 (log-periodic modulation), so this is a loose check only. `python3 spectre_fractal.py --peaks`
+tracks the strongest maxima of the diffraction through the levels: apart from the trivial peak at the origin (exponent 1 for
+I ~ N^alpha, a Bragg peak) none of the tracked maxima grows (alpha between -0.1 and -0.5). That is a hint that the strong features
+are not Bragg peaks, but it is a small search with local hill climbing, not a classification of the spectrum. It does not contradict the sharp
+Bragg peaks reported in [[3]](#references), which concern a different object (a fabricated hat-based structure). Deciding whether the
+diffraction measure of the substitution tiling is pure point is the question treated by the theory of model sets and of substitution
+systems [[5]](#references)[[6]](#references)[[7]](#references).
+
+What the self tests check: box counting reproduces the exact dimensions of a line, a filled square and the Sierpinski triangle; the vortex finder
+recovers synthetic zeros and charges, and every vortex of the real tile refines to a true zero at two grid resolutions; the outline
+edge counts and the recurrence (it predicts the stored level 6, which `--deep` recomputes in 80 s), the growth rate 2+sqrt(5), the outline being one simple closed
+loop of unit edges, the growth of the geometric box counts by about r per level, the plateau at dimension 1 of the valleys, and the peak exponent of
+control arrays (1 for a square lattice at a Bragg point, about 0 for the same squares at random positions).
+
 ### Makefile
 
 ```
-make test        # self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py, spectre_optimize.py, spectre_patch.py, spectre_diffract.py
+make test        # self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py, spectre_optimize.py, spectre_patch.py, spectre_diffract.py, spectre_fractal.py
 make verify      # symbolic (SymPy) curves vs the numeric spectre.py
 make check       # test + verify
 make figures     # rebuild every figure in figures/
@@ -259,8 +302,19 @@ make show-curvature # run the tests, then open the curvature window
 make show-optimize # run the tests, then open the optimisation window
 make show-patch  # run the tests, then open the patch window
 make show-diffract # run the tests, then open the diffraction window
+make show-fractal # run the tests, then open the fractal analysis window
 make install-min # pip install numpy scipy matplotlib sympy (the bezier package is optional)
 make clean       # remove build/ and Python caches
 ```
 
 `make` on its own lists all targets.
+
+## References
+
+1. D. Smith, J. S. Myers, C. S. Kaplan and C. Goodman-Strauss, *An aperiodic monotile*, Combinatorial Theory **4**(1) (2024).
+2. D. Smith, J. S. Myers, C. S. Kaplan and C. Goodman-Strauss, *A chiral aperiodic monotile*, Combinatorial Theory **4**(2) (2024).
+3. Y. Moritake, M. Takiguchi, T. Aihara and M. Notomi, *Chiral diffraction from aperiodic monotile structure*, Nature Communications **17**, 6085 (2026). <https://doi.org/10.1038/s41467-026-75023-7>
+4. J. Voigt, M. Baljozović, K. Martin et al., *An aperiodic chiral tiling by topological molecular self-assembly*, Nature Communications **16**, 83 (2025). <https://doi.org/10.1038/s41467-024-55405-5> ([article](https://www.nature.com/articles/s41467-024-55405-5); [press summary](https://www.sciencedaily.com/releases/2025/02/250213144446.htm)). Context: a chiral aperiodic tiling arising from molecular self-assembly on a surface.
+5. J.-Y. Lee and R. V. Moody, *Lattice substitution systems and model sets*, Discrete Comput. Geom. **25**, 173-201 (2001).
+6. M. Schlottmann, *Generalized model sets and dynamical systems*, in *Directions in Mathematical Quasicrystals*, CRM Monograph Series **13**, AMS, 143-159 (2000).
+7. J.-Y. Lee, R. V. Moody and B. Solomyak, *Consequences of pure point diffraction spectra for multiset substitution systems*, Discrete Comput. Geom. **29**, 525-560 (2003).
