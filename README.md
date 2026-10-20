@@ -310,10 +310,10 @@ says the power sits in sparse peaks; it does not prove that the diffraction is p
 ### Spectre against Chair44
 
 `chair44_compare.py` asks the same questions of both substitution tilings. Each tile becomes a point (the Spectre centroid; the centre of the chair's
-bounding cube) and an orientation (e^(i theta) for the Spectre, the notch direction for the chair). The linear inflation factor is sqrt(4+sqrt(15)) = 2.8062
+bounding cube) and an orientation (e^(i theta) for the Spectre, the notch direction for the chair). The linear inflation factor is sqrt(4+sqrt(15)) = 2.8059
 for the Spectre (d = 2) and exactly 2 for the chair (d = 3).
 
-- **Orientation sum.** For the chair S_n = 2^n exactly. For the Spectre |S_n| / 2.8062^n = 1.4413, 1.4480, 1.4488, 1.4489 at levels 2 to 5. In both
+- **Orientation sum.** For the chair S_n = 2^n exactly. For the Spectre |S_n| / 2.8059^n = 1.4413, 1.4480, 1.4488, 1.4489 at levels 2 to 5. In both
   the orientation sum grows by the linear inflation factor per level, so |S|^2/N is constant for the Spectre and falls as 2^-n for the chair: the
   difference is the dimension, not the details of the tiles.
 - **Twist, outline, orientations.** The Spectre supertile is turned by 11.565 degrees and mirrored at every level, with an outline of dimension 1.399 and 12

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """chair44_compare.py - the Spectre and the Chair44 hierarchy on the same footing.
 
-Both are substitution tilings with a linear inflation factor: the Spectre sqrt(4+sqrt(15)) = 2.8062
+Both are substitution tilings with a linear inflation factor: the Spectre sqrt(4+sqrt(15)) = 2.8059
 (area factor 4+sqrt(15) = 7.873 per level, d = 2), the Chair44 exactly 2 (volume factor 8, d = 3).
 Each tile is reduced to a point (its centroid; for the chair the centre of its bounding cube) and an
 orientation vector (e^{i theta} for the Spectre, the notch direction g(1,1,1) for the chair).  Then
@@ -9,7 +9,7 @@ the same three questions are asked of both:
 
   1. twist and mirror of the inflation (exact; Fact 11 and chair44_twist in the paper repo)
   2. how fast does the orientation sum S_n grow?  Both give |S_{n+1}|/|S_n| -> the linear inflation
-     factor: exactly 2 for the chair (S_n = 2^n (1,1,1)), 2.8062 for the Spectre (numerically, S_n = 1.4489 lambda^n to 4 digits).
+     factor: exactly 2 for the chair (S_n = 2^n (1,1,1)), 2.8059 for the Spectre (numerically, S_n = 1.4489 lambda^n to 4 digits).
      Hence I(0)/N = |S|^2/N ~ lambda^((2-d) n): constant (diffuse-like) for d = 2, 2^-n for d = 3.
   3. where does the power go?  Median of I(k)/N over fixed random wave vectors, with k scaled by the
      tile size l = (tile volume)^(1/d), against N.  A falling median means sparse peaks.
@@ -183,7 +183,7 @@ def show_compare(levels=(2, 3, 4, 5), save=None, show=True):
     fig, ax = plt.subplots(2, 3, figsize=(16, 10))
     rows = orientation_sums(levels)
     n = np.array(levels)
-    ax[0, 0].plot(n, [r[3] for r in rows["spectre"]], "o-", label="Spectre  |sum e^(i theta)| / 2.8062^n")
+    ax[0, 0].plot(n, [r[3] for r in rows["spectre"]], "o-", label="Spectre  |sum e^(i theta)| / 2.8059^n")
     ax[0, 0].plot(n, [r[3] for r in rows["chair"]], "s-", label="Chair44  |sum notch| / 2^n (= 1 exactly)")
     ax[0, 0].set_ylim(0, 2)
     ax[0, 0].set_xlabel("level n")
@@ -215,12 +215,12 @@ def show_compare(levels=(2, 3, 4, 5), save=None, show=True):
     ax[1, 2].axis("off")
     txt = ("                       Spectre              Chair44\n"
            "dimension d            2                    3\n"
-           "linear inflation       2.8062 (irr.)        2 (exact)\n"
+           "linear inflation       2.8059 (irr.)        2 (exact)\n"
            "tile-count factor      7.873                8\n"
            "twist of supertile     11.565 deg, mirror   0, no mirror\n"
            "orientations           12 (30 deg steps)    24 (rotations)\n"
            "supertile outline D    1.399                2 (flat)\n"
-           "orientation sum        1.4489 * 2.8062^n    2^n exactly\n"
+           "orientation sum        1.4489 * 2.8059^n    2^n exactly\n"
            "|S|^2/N                constant             2^-n\n"
            "pure point?            not decided          not decided")
     ax[1, 2].text(0, 0.95, txt, family="monospace", fontsize=9, va="top")
