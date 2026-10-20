@@ -3,7 +3,7 @@
 #   make               list the targets (same as `make help`)
 #   make test          self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py, spectre_optimize.py,
 #                      spectre_patch.py, spectre_diffract.py,
-#                      spectre_fractal.py
+#                      spectre_fractal.py, chair44_unfold.py, chair44_slice.py, chair44_compare.py
 #   make verify        check the symbolic (SymPy) curves against spectre.py
 #   make check         test + verify
 #   make figures       rebuild every figure in figures/
@@ -36,6 +36,9 @@ OPTIMIZE_PNG   := $(FIGDIR)/spectre_optimize.png
 PATCH_PNG      := $(FIGDIR)/spectre_patch.png
 DIFFRACT_PNG   := $(FIGDIR)/spectre_diffract.png
 FRACTAL_PNG    := $(FIGDIR)/spectre_fractal.png
+UNFOLD_PNG     := $(FIGDIR)/chair44_unfold.png
+SLICE_PNG      := $(FIGDIR)/chair44_slice.png
+COMPARE_PNG    := $(FIGDIR)/chair44_compare.png
 
 .DEFAULT_GOAL := help
 .PHONY: help all check test verify figures pdf show show-fields show-fem show-curvature show-optimize show-patch show-diffract show-fractal install install-min clean
@@ -48,7 +51,7 @@ all: check figures pdf  ## check + figures + pdf
 
 check: test verify  ## test + verify
 
-test:  ## run the self tests (bezierpy, spectre_operator, spectre_fields, spectre_fem, spectre_curvature, spectre_optimize, spectre_patch, spectre_diffract, spectre_fractal)
+test:  ## run the self tests (bezierpy, spectre_operator, spectre_fields, spectre_fem, spectre_curvature, spectre_optimize, spectre_patch, spectre_diffract, spectre_fractal, chair44_unfold, chair44_slice, chair44_compare)
 	$(PYTHON) bezierpy.py
 	$(PYTHON) spectre_operator.py --tests-only
 	$(PYTHON) spectre_fields.py --tests-only
@@ -58,6 +61,9 @@ test:  ## run the self tests (bezierpy, spectre_operator, spectre_fields, spectr
 	$(PYTHON) spectre_patch.py --tests-only
 	$(PYTHON) spectre_diffract.py --tests-only
 	$(PYTHON) spectre_fractal.py --tests-only
+	$(PYTHON) chair44_unfold.py --tests-only
+	$(PYTHON) chair44_slice.py --tests-only
+	$(PYTHON) chair44_compare.py --tests-only
 
 verify:  ## symbolic (SymPy) curves vs the numeric spectre.py
 	$(PYTHON) symspectre.py --verify --no-pdf --outdir $(BUILD)
@@ -71,6 +77,9 @@ figures:  ## rebuild every figure in figures/
 	$(PYTHON) spectre_patch.py --skip-tests --no-show --save $(PATCH_PNG)
 	$(PYTHON) spectre_diffract.py --skip-tests --no-show --save $(DIFFRACT_PNG)
 	$(PYTHON) spectre_fractal.py --skip-tests --no-show --save $(FRACTAL_PNG)
+	$(PYTHON) chair44_unfold.py --survey 3000 --png $(UNFOLD_PNG)
+	$(PYTHON) chair44_slice.py --png $(SLICE_PNG)
+	$(PYTHON) chair44_compare.py --png $(COMPARE_PNG)
 
 pdf:  ## build/symspectre.pdf, the symbolic LaTeX document (needs pdflatex)
 	$(PYTHON) symspectre.py --outdir $(BUILD)

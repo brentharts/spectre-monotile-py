@@ -287,10 +287,47 @@ edge counts and the recurrence (it predicts the stored level 6, which `--deep` r
 loop of unit edges, the growth of the geometric box counts by about r per level, the plateau at dimension 1 of the valleys, and the peak exponent of
 control arrays (1 for a square lattice at a Bragg point, about 0 for the same squares at random positions).
 
+### Chair44: unfolding, slices and projections
+
+`chair44_core.py` holds the exact geometry of Tsiokos' Chair44 3D einstein tile [[8]](#references): a seven-cube chair (2x2x2 minus one corner),
+the 48 cube frames, and the eight-chair substitution whose supertile is the chair scaled by 2. To compare a 3D tile with the Spectre we need 2D objects.
+
+`chair44_unfold.py` unfolds the surface of the chair, a sphere of 24 unit squares (48 edges, 26 vertices; 27 convex, 18 flat and 3 concave folds),
+along a spanning tree of the face adjacency graph (261,434,325,600 trees). Every net is a 24-omino. In 3,000 random trees 1,253 gave a valid net
+(the other 1,747 overlap themselves), the smallest perimeter found is 28, and 2 of the nets tile the plane by translation.
+Unfolding the same code on a cube gives exactly the 11 known cube nets. The supertile surface is the chair surface scaled by 2, so its net is the
+chair net with each square replaced by a 2x2 block: dimension 2, no fractal outline, unlike the Spectre supertile outline (1.399).
+
+`chair44_slice.py` takes planar slices and projections of the depth-n patch (8^n chairs, each a bounding-cube centre plus a notch direction).
+A slice cuts chairs into 2x2 squares and L-trominoes; the projection along z has the k_z = 0 plane of the 3D diffraction as its Fourier transform
+(checked against a 3D FFT). The 8^n centres are distinct integer points on two cosets of 2Z^3, the notch vectors sum to exactly 2^n (1,1,1)
+(the mean child matrix is I/4), so the notch-weighted intensity at the origin is 4^n per component against N = 8^n for random signs, and the interface
+length of the z = 0 layer is exactly 4^(n+1) - 4 * 2^n. At random wave vectors the median intensity falls by a factor of about 5 per level, which
+says the power sits in sparse peaks; it does not prove that the diffraction is pure point.
+
+![Chair44 slices and diffraction](figures/chair44_slice.png)
+
+### Spectre against Chair44
+
+`chair44_compare.py` asks the same questions of both substitution tilings. Each tile becomes a point (the Spectre centroid; the centre of the chair's
+bounding cube) and an orientation (e^(i theta) for the Spectre, the notch direction for the chair). The linear inflation factor is sqrt(4+sqrt(15)) = 2.8062
+for the Spectre (d = 2) and exactly 2 for the chair (d = 3).
+
+- **Orientation sum.** For the chair S_n = 2^n exactly. For the Spectre |S_n| / 2.8062^n = 1.4413, 1.4480, 1.4488, 1.4489 at levels 2 to 5. In both
+  the orientation sum grows by the linear inflation factor per level, so |S|^2/N is constant for the Spectre and falls as 2^-n for the chair: the
+  difference is the dimension, not the details of the tiles.
+- **Twist, outline, orientations.** The Spectre supertile is turned by 11.565 degrees and mirrored at every level, with an outline of dimension 1.399 and 12
+  orientations. The chair supertile is the chair scaled by 2, with no rotation, no mirror, a flat surface (dimension 2) and 24 orientations.
+- **Where the power goes.** The median of I(k)/N over 300 fixed random wave vectors (k scaled by the tile size) falls with the number of tiles in both:
+  log-log slope -0.34 for the Spectre centroids and -0.72 for the chair centres. This is a loose statistic from two different dimensions; it says the power sits in sparse
+  peaks, and it does not decide whether either diffraction measure is pure point.
+
+![Spectre against Chair44](figures/chair44_compare.png)
+
 ### Makefile
 
 ```
-make test        # self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py, spectre_optimize.py, spectre_patch.py, spectre_diffract.py, spectre_fractal.py
+make test        # self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py, spectre_optimize.py, spectre_patch.py, spectre_diffract.py, spectre_fractal.py, chair44_unfold.py, chair44_slice.py, chair44_compare.py
 make verify      # symbolic (SymPy) curves vs the numeric spectre.py
 make check       # test + verify
 make figures     # rebuild every figure in figures/
@@ -318,3 +355,4 @@ make clean       # remove build/ and Python caches
 5. J.-Y. Lee and R. V. Moody, *Lattice substitution systems and model sets*, Discrete Comput. Geom. **25**, 173-201 (2001).
 6. M. Schlottmann, *Generalized model sets and dynamical systems*, in *Directions in Mathematical Quasicrystals*, CRM Monograph Series **13**, AMS, 143-159 (2000).
 7. J.-Y. Lee, R. V. Moody and B. Solomyak, *Consequences of pure point diffraction spectra for multiset substitution systems*, Discrete Comput. Geom. **29**, 525-560 (2003).
+8. I. Tsiokos, *Chair44 (R44), a three-dimensional aperiodic monotile*, arXiv:2609.19214 and arXiv:2609.23783; shape, substitution children and contact atlas from <https://github.com/ioannist/six-birds-tiles> (CC BY 4.0). The geometry here is re-implemented independently.
