@@ -165,6 +165,25 @@ def exact_bounded_plane():
     return G[:, [0, 2, 1, 3]]                                                       # to (p, q, r, s)
 
 
+def window_boundary_exponents(levels=5, hs=(0.2, 0.1, 0.05, 0.025)):
+    """Boundary-cell growth of the internal image (through the exact plane, orthonormalised) per halving of the cell
+    size: log2(boundary cells(h/2) / boundary cells(h)).  Holes left by finite sampling are filled before counting.
+    A smooth curve gives 1; a fractal boundary more.  Returns (list of (h, cells, holes, boundary), exponents)."""
+    from scipy import ndimage as ndi
+    G = np.array([[float(sp.N(c)) for c in row] for row in exact_bounded_plane().tolist()])
+    V = np.array(list(L.lift_patch(levels)[1].values()), float)
+    X = V @ np.linalg.qr(G.T)[0]
+    rows = []
+    for h in hs:
+        ij = np.floor((X - X.min(0)) / h).astype(int)
+        g = np.zeros(ij.max(0) + 3, bool)
+        g[ij[:, 0] + 1, ij[:, 1] + 1] = True
+        filled = ndi.binary_fill_holes(g)
+        er = ndi.binary_erosion(filled, structure=ndi.generate_binary_structure(2, 1))
+        rows.append((h, int(g.sum()), int(filled.sum() - g.sum()), int((filled & ~er).sum())))
+    return rows, [math.log2(b[3] / a[3]) for a, b in zip(rows, rows[1:])]
+
+
 def subspace_cosines(F1, F2):
     """Principal cosines between the row spaces of two 2 x 4 real matrices."""
     q1 = np.linalg.qr(np.asarray(F1, float).T)[0]
@@ -242,6 +261,13 @@ def test_exact_plane_is_bounded_on_the_patch_and_grows_for_the_physical_plane():
         ext.append(np.abs(V @ Gn.T).max())
     assert ext[2] < 1.2 * ext[1] and ext[1] < 1.5 * ext[0]
     assert abs(L.window_stats(5)["phys"] / L.window_stats(4)["phys"] - 2.8059) < 0.1
+
+
+def test_window_boundary_is_fractal_not_a_smooth_curve():
+    rows, ex = window_boundary_exponents(5, (0.2, 0.1, 0.05))
+    assert all(r[2] <= 10 for r in rows) and all(1.1 < e < 1.4 for e in ex)
+    area_ex = math.log2(rows[2][1] / rows[1][1])
+    assert 1.8 < area_ex < 2.05
 
 
 def run_tests(verbose=True):
