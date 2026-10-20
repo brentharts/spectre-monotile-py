@@ -324,6 +324,18 @@ for the Spectre (d = 2) and exactly 2 for the chair (d = 3).
 
 ![Spectre against Chair44](figures/chair44_compare.png)
 
+### Exact comparisons: diffraction, orientation, hyperuniformity, contacts
+
+Five further modules, each with tests (`make test`). Results are computed or exact where stated; nothing here tests the thesis below.
+
+- `chair44_diffraction.py`: the Chair44 centre set obeys X_n = 2X_{n-1} + (odd box minus a corner octant); its structure factor has a closed form, the Bragg peaks sit at dyadic k = 2 pi m / 2^J, and the total Bragg mass equals the density (1/7), i.e. pure point (Parseval). Weighted diffraction is only numerically consistent with this.
+- `spectre_orient.py`: exact orientation recursion z_{n+1} = C conj(z_n) for the Spectre (the inflation reverses orientation, so two levels give C conj(C)); the sum grows as c lambda^n with lambda = 2.8059 and c^2 = (15 + 5 sqrt3 + 3 sqrt5 + 3 sqrt15)/20 (an identified closed form, not proved). The chair's sum is exactly 2^n.
+- `orientation_spectra.py`: the same sums split by irreducible representation; the chair's non-trivial channels all have eigenvalue 2, the Spectre's harmonics give exponents h = 2, 1, 0.
+- `hyperuniformity.py`: number-variance exponents of both centre sets (the chair slopes are noisy and unexplained).
+- `contact_operators.py`: which native faces meet. Spectre: 14 x 14 edge matrix, 62 nonzero entries, rank 14, bipartite, one component, symmetric spectrum. Chair44 (depth 3): 24 x 24 face matrix, 93 nonzero entries, rank 24, not bipartite, 2 components. Boundary recurrences: Spectre (x-1)(x^2-4x-1), chair (x-4).
+- `lift4d.py` (after Cheritat and Ma [[13]](#references)): the Spectre patch lifted to integer vectors (p, q, r, s) in Z^4 = Z[zeta_12] (even edge directions in the first pair, odd in the second), consistent over every shared vertex, with the deformation P_{a,b} = a u + b v as a linear projection. The lifted cloud has exactly two growing directions (growth by the inflation factor 2.8059 per level) and two bounded ones (extent about 2.7, stable from level 3 to 5), so the vertices form a 4:2 cut-and-project set. The bounded plane is not the Galois conjugate z -> z^5, which grows. The window's boundary count rises by about 2.3 per halving of the cell size (area by 4), so it is not a smooth curve, consistent with the fractal windows of [[11, 12]](#references); the exponent is not measured accurately here. The Chair44 centres by contrast sit in Z^3 with no internal space (rank 3, internal dimension 0), and [[15]](#references) reports that the obvious 4D analogues of the chair fail the closure test.
+- `lift4d_matrix.py`: the exact inflation matrix. In the lift every step of the supertile recursion (rotation by 60 degrees, mirror, translation from the key points) is an integer map, so one level acts on the four key points as a 16 x 16 integer matrix, which reproduces the floating-point recursion to 1e-9 for three levels. Its characteristic polynomial is (x-1)^4 (x+1)^4 (x^4 - 8x^2 + 1)^2, and the key-point vector has minimal polynomial (x^2-1)(x^4-8x^2+1). The quartic has roots +-lambda and +-1/lambda with lambda^2 = 4 + sqrt(15) = 7.873, the fundamental unit of Z[sqrt 15]; the negative roots are the orientation reversal. On the invariant block the matrix is the companion matrix of x^4 - 8x^2 + 1 (determinant 1, trace 0): two expanding and two contracting directions, contraction 1/lambda on the internal plane. The Chair44 inflation is 2 I on Z^3, determinant 8 and no contracting direction. The internal plane is now derived exactly (`exact_bounded_plane`): a functional is bounded on the supertile corners iff it kills the expanding part of every iterate of the key-point vector; since every level mirrors the frame, the odd iterates must be mirrored first, and then the expanding parts span only 2 dimensions. The annihilator is a 2 x 4 matrix with entries in Q(sqrt 15) (for example (5+3 sqrt15)/11, (16+3 sqrt15)/11, -(12+5 sqrt15)/11, 0 in the (p,q,r,s) coordinates of `lift4d.py`), and it agrees with the numerically fitted plane to principal cosines above 1 - 1e-6. Mirroring is why a fixed plane cannot be used on every level's frame: the bounded plane of one frame is the mirror image of the next.
+
 ### Makefile
 
 ```
@@ -346,6 +358,19 @@ make clean       # remove build/ and Python caches
 
 `make` on its own lists all targets.
 
+## Motivation and context
+
+The tools here are built around one working thesis of the author, which is a hypothesis and not a result of this repository: the Big Bang was not a
+point-like singularity but a flat two-dimensional one, the flat surface is connected to the Spectre monotile, and the emergence of three-dimensional space is
+connected to Chair44 [[8]](#references). Nothing computed here tests that thesis; the code only works out exactly what the two tilings do (twist, nets, slices,
+diffraction, orientation sums), so that any such connection can be stated against numbers.
+
+Two background points, kept separate from the thesis. First, the Newtonian field of an infinite uniform flat sheet of surface density sigma is constant,
+g = 2 pi G sigma, independent of distance, because the mass in view grows as r^2 exactly as the force per unit mass falls as 1/r^2; opposed sheets can cancel
+such fields. That is classical and exact for an infinite sheet. Second, ghost-free bimetric gravity [[9]](#references) gives dynamics to a second metric,
+and a pre-geometric origin for it has been proposed [[10]](#references); a dual-sheet picture of the initial state is the kind of reading that a bimetric
+setting invites, but the dual-sheet cosmologies themselves are not cited here, so no claim about them is made.
+
 ## References
 
 1. D. Smith, J. S. Myers, C. S. Kaplan and C. Goodman-Strauss, *An aperiodic monotile*, Combinatorial Theory **4**(1) (2024).
@@ -355,4 +380,11 @@ make clean       # remove build/ and Python caches
 5. J.-Y. Lee and R. V. Moody, *Lattice substitution systems and model sets*, Discrete Comput. Geom. **25**, 173-201 (2001).
 6. M. Schlottmann, *Generalized model sets and dynamical systems*, in *Directions in Mathematical Quasicrystals*, CRM Monograph Series **13**, AMS, 143-159 (2000).
 7. J.-Y. Lee, R. V. Moody and B. Solomyak, *Consequences of pure point diffraction spectra for multiset substitution systems*, Discrete Comput. Geom. **29**, 525-560 (2003).
-8. I. Tsiokos, *Chair44 (R44), a three-dimensional aperiodic monotile*, arXiv:2609.19214 and arXiv:2609.23783; shape, substitution children and contact atlas from <https://github.com/ioannist/six-birds-tiles> (CC BY 4.0). The geometry here is re-implemented independently.
+8. I. Tsiokos, *A Strongly Aperiodic Monotile in Three Dimensions*, arXiv:2609.19214, and *Matching Rules for a Three-Dimensional Strongly Aperiodic Monotile*, arXiv:2609.23783 (the Chair44, or R44, tile); shape, substitution children and contact atlas from <https://github.com/ioannist/six-birds-tiles> (CC BY 4.0). The geometry here is re-implemented independently.
+9. S. F. Hassan and R. A. Rosen, *Bimetric gravity from ghost-free massive gravity*, Journal of High Energy Physics **2012**, 126 (2012). <https://link.springer.com/article/10.1007/JHEP02(2012)126>. Context: a ghost-free theory with a massless and a massive spin-2 field, obtained by giving the reference metric of ghost-free massive gravity its own dynamics.
+10. *Pre-geometric origin of ghost-free massive bigravity*, Physics Letters B (ScienceDirect article S0370269326008397). <https://www.sciencedirect.com/science/article/pii/S0370269326008397>. Authors and details not verified: the publisher page could not be read from here, so check the entry before publishing.
+11. M. Baake, F. Gähler, J. Mazáč and A. Mitchell, *Diffraction of the Hat and Spectre tilings and some of their relatives*, arXiv:2502.03268. The diffraction of the Hat and the Spectre is pure point; the model-set windows have fractal boundaries.
+12. M. Baake, F. Gähler, J. Mazáč and L. Sadun, *On the long-range order of the Spectre tilings*, arXiv:2411.15503. Pure point diffraction and dynamical spectrum of the Spectre tilings, from a 4:2-dimensional cut-and-project scheme with windows of Rauzy fractal type.
+13. A. Chéritat and N. Ma (initial idea N. Ma; contributions P. Mostert), *4D lift of the tilings by the Smith et al. aperiodic monotile*, web page. <https://www.math.univ-toulouse.fr/~cheritat/2023-monotile/4D-lift/>. The deformable outlines Tile(a,b) are projections of one path in 4D whose unit segments lie in the first two coordinates (red) or the last two (green), projected by (u,v) -> au + bv; adjacent tiles share edge colours, so the whole tiling lifts consistently to 4D (for the Spectre, tiles turned by an odd multiple of 30 degrees swap colours). Relevant to the 4:2-dimensional cut-and-project picture of reference 12.
+14. C. S. Kaplan, *The Path to Aperiodic Monotiles*, arXiv:2509.12216. A retrospective on aperiodic monotiles, from Penrose's kite and dart and Gardner's question to the hat; also covers Heesch and isohedral numbers.
+15. D. Kamenetsky, *Towards Strongly Aperiodic Monotiles in Higher Dimensions*, arXiv:2610.00916. Extends the Chair44 mechanism (corner-deleted hypercube with corner and socket markings) to R^N; reproduces the 3D Chair44 counts and shows the marking is unique up to conjugation, while the tested 4D candidates fail the self-similarity test, leaving it an open finite search. The contribution statement says an AI agent did the derivations, software and writing, with the author verifying the manuscript, so treat it as not independently reviewed.

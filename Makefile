@@ -64,6 +64,13 @@ test:  ## run the self tests (bezierpy, spectre_operator, spectre_fields, spectr
 	$(PYTHON) chair44_unfold.py --tests-only
 	$(PYTHON) chair44_slice.py --tests-only
 	$(PYTHON) chair44_compare.py --tests-only
+	$(PYTHON) chair44_diffraction.py --tests-only
+	$(PYTHON) spectre_orient.py --tests-only
+	$(PYTHON) orientation_spectra.py --tests-only
+	$(PYTHON) hyperuniformity.py --tests-only
+	$(PYTHON) contact_operators.py --tests-only
+	$(PYTHON) lift4d.py --tests-only
+	$(PYTHON) lift4d_matrix.py --tests-only
 
 verify:  ## symbolic (SymPy) curves vs the numeric spectre.py
 	$(PYTHON) symspectre.py --verify --no-pdf --outdir $(BUILD)
@@ -80,6 +87,7 @@ figures:  ## rebuild every figure in figures/
 	$(PYTHON) chair44_unfold.py --survey 3000 --png $(UNFOLD_PNG)
 	$(PYTHON) chair44_slice.py --png $(SLICE_PNG)
 	$(PYTHON) chair44_compare.py --png $(COMPARE_PNG)
+	$(PYTHON) lift4d.py --png $(FIGDIR)/lift4d.png
 
 pdf:  ## build/symspectre.pdf, the symbolic LaTeX document (needs pdflatex)
 	$(PYTHON) symspectre.py --outdir $(BUILD)
