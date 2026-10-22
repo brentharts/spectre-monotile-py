@@ -336,10 +336,26 @@ Five further modules, each with tests (`make test`). Results are computed or exa
 - `lift4d.py` (after Cheritat and Ma [[13]](#references)): the Spectre patch lifted to integer vectors (p, q, r, s) in Z^4 = Z[zeta_12] (even edge directions in the first pair, odd in the second), consistent over every shared vertex, with the deformation P_{a,b} = a u + b v as a linear projection. The lifted cloud has exactly two growing directions (growth by the inflation factor 2.8059 per level) and two bounded ones (extent about 2.7, stable from level 3 to 5), so the vertices form a 4:2 cut-and-project set. The bounded plane is not the Galois conjugate z -> z^5, which grows. The window's boundary count rises by about 2.3 per halving of the cell size (area by 4), so it is not a smooth curve, consistent with the fractal windows of [[11, 12]](#references); the exponent is not measured accurately here. The Chair44 centres by contrast sit in Z^3 with no internal space (rank 3, internal dimension 0), and [[15]](#references) reports that the obvious 4D analogues of the chair fail the closure test.
 - `lift4d_matrix.py`: the exact inflation matrix. In the lift every step of the supertile recursion (rotation by 60 degrees, mirror, translation from the key points) is an integer map, so one level acts on the four key points as a 16 x 16 integer matrix, which reproduces the floating-point recursion to 1e-9 for three levels. Its characteristic polynomial is (x-1)^4 (x+1)^4 (x^4 - 8x^2 + 1)^2, and the key-point vector has minimal polynomial (x^2-1)(x^4-8x^2+1). The quartic has roots +-lambda and +-1/lambda with lambda^2 = 4 + sqrt(15) = 7.873, the fundamental unit of Z[sqrt 15]; the negative roots are the orientation reversal. On the invariant block the matrix is the companion matrix of x^4 - 8x^2 + 1 (determinant 1, trace 0): two expanding and two contracting directions, contraction 1/lambda on the internal plane. The Chair44 inflation is 2 I on Z^3, determinant 8 and no contracting direction. The internal plane is now derived exactly (`exact_bounded_plane`): a functional is bounded on the supertile corners iff it kills the expanding part of every iterate of the key-point vector; since every level mirrors the frame, the odd iterates must be mirrored first, and then the expanding parts span only 2 dimensions. The annihilator is a 2 x 4 matrix with entries in Q(sqrt 15) (for example (5+3 sqrt15)/11, (16+3 sqrt15)/11, -(12+5 sqrt15)/11, 0 in the (p,q,r,s) coordinates of `lift4d.py`), and it agrees with the numerically fitted plane to principal cosines above 1 - 1e-6. Mirroring is why a fixed plane cannot be used on every level's frame: the bounded plane of one frame is the mirror image of the next. With the exact plane, the window's boundary-cell count grows by a factor 2^1.22 (about 2.3) per halving of the cell size (range 1.18 to 1.27 over cell sizes 0.2 to 0.0125 for the 1.67 million vertices of a level-6 patch, with holes from finite sampling filled), against 2^1 for a smooth curve, so the boundary dimension is about 1.2 with an uncertainty of order 0.05; this is a box-counting estimate, not an exact value, and it is not the supertile outline dimension 1.3993 of the physical plane.
 
+### Growth rates against the pancake and BKL singularities
+
+`spectre_cosmology.py` (ported from the `spectre` repository, no tile geometry needed) asks whether the Spectre's
+growth rates are anything more than coincidence next to two cosmological singularities. Exact results: the BKL
+(Mixmaster) orbit of `u* = 3 + sqrt(15)` closes after seven epochs in eras of 6 and 1 with multiplier
+`(4 + sqrt15)^2 = lambda^4`; the orbit of `2 + sqrt5` is one era of 4 with multiplier `-nu^2`; so the outline
+dimension `D = ln nu / ln lambda = 1.3993` of `spectre_fractal.py` is a ratio of the log-multipliers of two closed
+Mixmaster orbits. That is a theorem about continued fractions and holds for every periodic one, so it is not a property
+of the Spectre. The pancake's fibre clock gives `2 pi a0 / ln lambda = 6.090` levels per fibre turn at `a0 = 1`: close to 6
+and not 6, labelled numerology and asserted as a miss. The six site classes of the cusp torus modulo the rotation
+`Z/6` give the orbifold `S^2(2,3,6)`; sharing the group `Z/6` with the pancake's fibre is all the overlap there is.
+
+```python3 spectre_cosmology.py --tests-only```
+
+![cosmology](figures/spectre_cosmology.png)
+
 ### Makefile
 
 ```
-make test        # self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py, spectre_optimize.py, spectre_patch.py, spectre_diffract.py, spectre_fractal.py, chair44_unfold.py, chair44_slice.py, chair44_compare.py
+make test        # self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py, spectre_optimize.py, spectre_patch.py, spectre_diffract.py, spectre_fractal.py, spectre_cosmology.py, chair44_unfold.py, chair44_slice.py, chair44_compare.py
 make verify      # symbolic (SymPy) curves vs the numeric spectre.py
 make check       # test + verify
 make figures     # rebuild every figure in figures/

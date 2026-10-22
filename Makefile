@@ -3,7 +3,7 @@
 #   make               list the targets (same as `make help`)
 #   make test          self tests: bezierpy.py, spectre_operator.py, spectre_fields.py, spectre_fem.py, spectre_curvature.py, spectre_optimize.py,
 #                      spectre_patch.py, spectre_diffract.py,
-#                      spectre_fractal.py, chair44_unfold.py, chair44_slice.py, chair44_compare.py
+#                      spectre_fractal.py, spectre_cosmology.py, chair44_unfold.py, chair44_slice.py, chair44_compare.py
 #   make verify        check the symbolic (SymPy) curves against spectre.py
 #   make check         test + verify
 #   make figures       rebuild every figure in figures/
@@ -36,6 +36,7 @@ OPTIMIZE_PNG   := $(FIGDIR)/spectre_optimize.png
 PATCH_PNG      := $(FIGDIR)/spectre_patch.png
 DIFFRACT_PNG   := $(FIGDIR)/spectre_diffract.png
 FRACTAL_PNG    := $(FIGDIR)/spectre_fractal.png
+COSMOLOGY_PNG  := $(FIGDIR)/spectre_cosmology.png
 UNFOLD_PNG     := $(FIGDIR)/chair44_unfold.png
 SLICE_PNG      := $(FIGDIR)/chair44_slice.png
 COMPARE_PNG    := $(FIGDIR)/chair44_compare.png
@@ -61,6 +62,7 @@ test:  ## run the self tests (bezierpy, spectre_operator, spectre_fields, spectr
 	$(PYTHON) spectre_patch.py --tests-only
 	$(PYTHON) spectre_diffract.py --tests-only
 	$(PYTHON) spectre_fractal.py --tests-only
+	$(PYTHON) spectre_cosmology.py --tests-only
 	$(PYTHON) chair44_unfold.py --tests-only
 	$(PYTHON) chair44_slice.py --tests-only
 	$(PYTHON) chair44_compare.py --tests-only
@@ -84,6 +86,7 @@ figures:  ## rebuild every figure in figures/
 	$(PYTHON) spectre_patch.py --skip-tests --no-show --save $(PATCH_PNG)
 	$(PYTHON) spectre_diffract.py --skip-tests --no-show --save $(DIFFRACT_PNG)
 	$(PYTHON) spectre_fractal.py --skip-tests --no-show --save $(FRACTAL_PNG)
+	$(PYTHON) spectre_cosmology.py --skip-tests --no-show --save $(COSMOLOGY_PNG)
 	$(PYTHON) chair44_unfold.py --survey 3000 --png $(UNFOLD_PNG)
 	$(PYTHON) chair44_slice.py --png $(SLICE_PNG)
 	$(PYTHON) chair44_compare.py --png $(COMPARE_PNG)
