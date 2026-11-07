@@ -3,7 +3,7 @@
 Extended models of the curved Spectre monotile, built on the editable object model in `../spectremodel.py`
 (`Tile`, `Vertex`, `BezHandle`). `spectre.py` stays as the untouched reference; nothing here modifies it.
 
-**Status:** one model is written, `chair_fibers.py` (section 6); the others are a plan. This page fixes the
+**Status:** one model is written, `chair_fibers.py` (section 6), with `_tb.py` (section 7), `twist_hopping.py` (section 8) `hopf_shells.py` (section 9), `icosian_e8.py` (section 10) and `e8_shells.py` (section 11); the others, including the `quantum-lattice` plan, are a plan. Sources and results of the quantum-lattice / Hopf thread: `../QUANTUM_GRAVITY.md`. This page fixes the
 conventions, records the facts the models rest on (each checked, see below), and orders the work.
 
 ## Conventions
@@ -14,7 +14,7 @@ Every model is one file, `models/<name>.py`, and has four parts:
 2. **A numeric bridge** (`lambdify`) that is cross-checked against `spectremodel.Tile`, so the symbolic model and
    the object model cannot drift apart.
 3. **Self tests** (`test_*` functions and `run_tests`, as in the top-level modules).
-4. **One or two matplotlib figures**, saved to `models/figures/`.
+4. **One or two matplotlib figures**, saved to `figures/`.
 
 Running `python3 models/<name>.py` runs the tests and then shows the figures; `--tests-only` and
 `--no-show --save PNG` work as in `spectre_operator.py`. Results are labelled *exact* (derived and tested),
@@ -132,7 +132,8 @@ By the gluing rule, the tiling condition is linear in the total twists: two hand
 *Identical copies* (every tile has the same twists): build the graph on the 28 handles from
 `SpectrePatch.edge_pairs()`. The number of connected components is the dimension of the compatible twist space,
 the twist counterpart of `compatible_classes()` (which gave the uniform line for the amounts `k_i`). The answer is
-not known yet.
+answered while writing model 8: for the levels 1 to 3 the 28 handles fall into exactly
+**two** components, which are the vertex twists alpha (even vertices) and beta (odd vertices); see section 8.
 
 *Free twists per tile on a finite patch:* the same equalities give a sparse integer matrix, and SymPy's exact
 nullspace gives the number of free parameters per level (1, 9, 71, 559 tiles).
@@ -157,8 +158,8 @@ as closed paths through the tiles.
 
 ### 6. `chair_fibers.py` (written): fibres to the Chair44 pyramid tips
 
-`python3 models/chair_fibers.py` runs the tests and shows two 3D figures; `--no-show --save-dir models/figures`
-writes them. The figures are `models/figures/chair_fibers_scene.png` (the tile as a sheet above Chair44 with one fibre
+`python3 models/chair_fibers.py` runs the tests and shows two 3D figures; `--no-show --save-dir figures`
+writes them. The figures are `figures/chair_fibers_scene.png` (the tile as a sheet above Chair44 with one fibre
 per vertex and handle) and `chair_fibers_twist.png` (what a vertex twist does to a fibre).
 
 **What the tips are.** The actual Chair44 solid carries 192 small square pyramids, 8 on each of its 24 exposed unit
@@ -198,6 +199,156 @@ is only an observation. Nothing here tests the thesis of the top-level README.
 *Not yet explored:* tips are drawn at their true positions, so their heights are invisible and only the sign and
 magnitude `j` show (colour and marker size); whether those relate to anything on the tile side (the 12 magnitudes
 against the 12 orientations of the Spectre, say) is open and untested.
+
+## Plan: what to take from `quantum-lattice`
+
+Read-only survey of `extras/` (`ql_tilings.py`, `ql_tiling_spectra.py`, `ql_chair44_chains.py`, `ql_common.py`, and the
+two docs `TILINGS.md`, `HOPF_INSULATOR.md`). Nothing was copied or run from that repo; the one check below was run here.
+
+### What is there
+
+| Piece | What it does | Needs |
+|---|---|---|
+| `ql_tilings.planar_patch` | vertex graph of a level-n Hat / Spectre / Turtle patch | the separate `spectre` repo (`spectre_energy.Patch`) |
+| `tight_binding`, `hopping_values`, `adjacency` | sparse H on the graph: `unit`, `inverse` (t0/length), `gauss` hopping, optional onsite | numpy, scipy |
+| `to_pyqula` | wraps a point set and a sparse matrix as a pyqula `Hamiltonian` | pyqula (vendored there) |
+| `ql_tiling_spectra` | dense spectrum, DOS, IPR, bipartite test, trace identity | numpy, matplotlib |
+| `chair44_cell_model`, `chair44_labels_at` | face-adjacent cells of a depth-n Chair44 supertile, labels by digit inflation, onsite `lam * pyramid / 36` | `symchair44.py`, `chair44_twoadic.py` of the `spectre` repo |
+| `ql_chair44_chains` | 1D chain with the pyramid height read along a line; Lyapunov exponent, N*IPR | the cell model above, scipy |
+| `ql_common.multihopping_from_hk` | exact real-space hoppings from any periodic Bloch H(k) by FFT | numpy |
+| `ql_berry_bundle`, `ql_hopf_insulator` | Chern number by Wilson loop / projector transport / FHS; Hopf invariant of a 3D two-band model | pyqula for the cross-check only |
+
+### Licence and weight (decide before copying)
+
+- `quantum-lattice` carries GPL-3.0 (`LICENSE.md`), and it vendors `pyqula`, which is Joaquin Lado's. The `extras/`
+  files are in one commit by you; the pyqula tree is not yours.
+- This repo has no `LICENSE` file in its working tree. Copying GPL code into it would need that settled first. I did
+  not check what the upstream `spectre-monotile-py` says.
+- The tight-binding pieces are about 30 lines each over numpy and scipy. **Recommendation: rewrite them here as
+  `models/_tb.py` (no pyqula, no numba, no jax, no PySide6), and keep `to_pyqula` as an optional export.** Rewriting
+  also removes the dependency on the separate `spectre` repo, see the check below.
+
+### Checked here: `spectre_patch.SpectrePatch` replaces the `spectre` dependency for the planar part
+
+Vertex graph built from `SpectrePatch(level, a, b).straight_polygon(i)` with vertices merged at 5 decimals:
+
+| level | V | E | F | V - E + F | largest eigenvalue (unit hopping) |
+|---|---|---|---|---|---|
+| 1 | 78 | 86 | 9 | 1 | 2.3942 |
+| 2 | 518 | 588 | 71 | 1 | 2.4288 |
+| 3 | 3734 | 4292 | 559 | 1 | 2.4340 |
+
+These match `TILINGS.md` (V=3734, E=4292, F=559 and E in [-2.434, 2.434] at level 3). Hat `(1, sqrt3)`, Spectre `(1, 1)`
+and Turtle `(sqrt3, 1)` give the same V, E, F at every level, and their unit-hopping spectra agree exactly (difference
+0.0, as the adjacency is the same). The merge tolerance is a choice; a different one was not tried.
+**Not available here:** the Chair44 cell model. `symchair44` and `chair44_twoadic` are not in this repo, and
+`chair44_core.py` is a different construction. Whether `chair44_core.py` can produce the same labels is untested.
+
+### 7. `_tb.py` (written): tight-binding helpers
+
+`patch_graph(level, a, b)` (one site per tiling vertex, one bond per tile edge, from `SpectrePatch`), `tight_binding`
+(`unit`, `inverse`, `gauss` hopping, per-bond `values`, `onsite`), `spectrum`, `ipr`, `dos`, `summary`, `to_pyqula` (optional,
+needs pyqula). Written from the definitions, no code taken from `quantum-lattice`. 22 self tests (`python3 models/_tb.py
+--tests-only`, about 20 s); five of them were mutation-tested (wrong hopping rule, asymmetric adjacency, wrong IPR power,
+no bipartite check) and each mutation fails a test. `python3 models/_tb.py --no-show --save-dir figures` writes
+`figures/tb_tilings.png` (DOS of the three tilings for both hoppings, and N * IPR of the Spectre states), and prints:
+
+| level 3, 3734 sites | hopping | E range | mean N * IPR |
+|---|---|---|---|
+| Hat, Spectre, Turtle | unit | [-2.434, 2.434] | 14.7 (all three) |
+| Hat | 1/length | [-2.133, 2.133] | 84.4 |
+| Turtle | 1/length | [-1.965, 1.965] | 58.7 |
+
+The unit-hopping row and the energy ranges equal `TILINGS.md`. For 1/length hopping `TILINGS.md` gives N * IPR 82.4
+(Hat) and 57.7 (Turtle) against 84.4 and 58.7 here. A mean over eigenvectors is not basis independent where eigenvalues are
+degenerate, and `eigh` may mix a degenerate space differently in two programs, so this small difference is not
+alarming, but I did not show that this is the cause. The merge tolerance for vertices (5 decimals) is a choice; the test
+checks that 4 and 7 give the same graph at level 2.
+
+### 8. `twist_hopping.py` (written): hopping that follows edge length
+
+An edge is a Bézier arc, so `t = t0 / arclength` depends on `k` and on the twists of its two handles. `arclength(k, t_out,
+t_in)`, `edge_lengths(tile)` (adaptive quadrature split at the slowest point; a fixed 40-point Gauss rule was 7e-8 off for
+an edge whose speed fell to 1e-3), `glued_tile(alpha, beta, k)`, `gluing_classes(patch)`, `meeting_mismatch(patch, tile)`,
+`patch_model(level, tile, hopping)`, `tile_ring(tile)`. 29 self tests (`python3 models/twist_hopping.py --tests-only`, 2 s); seven mutations of the code were
+tried and six are caught by the tests; the seventh (a shifted owner edge) was missed until the owner test was
+strengthened, and is caught now. `python3 models/twist_hopping.py --no-show --save-dir figures` writes
+`figures/twist_hopping_tile.png` and `figures/twist_hopping_patch.png`.
+
+Results (details and figures in `../QUANTUM_GRAVITY.md`):
+
+- **Exact (tested, levels 1 to 3):** the twists that tile are exactly vertex twists, alpha on even and beta on odd vertices
+  (two components of the 28 handles). Placed control points of all meeting pairs agree to 3e-14; a single extra handle twist
+  breaks it.
+- **Exact:** `length(k, t_out, t_in) = length(k, t_in, t_out)` (reversing an edge swaps the handles; checked on 120 random
+  cases to 1e-12). So on a patch that tiles all 14 edges have the same length `L(alpha, beta)`, and the spectrum with
+  `t = 1/length` is the unit-hopping spectrum divided by `L` (1e-12). With `L >= 1` the largest eigenvalue cannot exceed
+  the unit one (Perron-Frobenius). The hoped-for effect, twist changing the *shape* of the spectrum on a tiling, does
+  not happen through arc length.
+- **Numeric:** for `k = 0.5` the length ranges from 1.012 to 1.709 over (alpha, beta), 1.185 untwisted.
+- **Where shape can change:** a single tile that does not tile (`tile_ring`: only the edges whose handles are twisted change
+  hopping), or a hopping rule that sees more than an edge length, such as a corner angle. Under the glued family no corner
+  angle changes either, so a rule on the turning angle would need non-glued twists too. This is the next question.
+
+### 9. `hopf_shells.py` (written): 24-cells and Hopf fibres of the 600-cell and E8
+
+Quaternion code (arrays `(w, x, y, z)`), the 120 icosians, the 24 Hurwitz units, the 240 E8 roots as Hurwitz pairs, recognisers
+for a 24-cell and a 600-cell shell, Hopf circle fibres of 2I, the fibres of the E8 roots (right orbits of 2T), the Hopf map `S^7
+-> S^4`, the Coxeter H4 projection and the fibre-compatible projection `a + q b`. 30 self tests (`python3 models/hopf_shells.py
+--tests-only`, 1 s); seven mutations were tried and each is caught (some by a crash rather than a failed check). Figures:
+`figures/hopf_shells_600cell.png`, `figures/hopf_shells_e8.png`. Results are in `../QUANTUM_GRAVITY.md`; in short: 2I is 5
+24-cells; the 600-cell's Hopf circles are 12 decagons, 20 hexagons, 30 squares over an icosahedron, dodecahedron and
+icosidodecahedron; the E8 roots are 10 fibres of 24 (24-cells) whose Hopf base points on S^4 are the 5-cross-polytope; the Coxeter H4
+plane gives twin 600-cell shells that cut every fibre, while `f = a + q b` (`q` = phi^{+-1} times one of the 16 half-units) gives
+twin 600-cells that are 5 + 5 whole fibres. Not shown: that this is the Elser-Sloane construction, or any link to the tile.
+
+### 10. `icosian_e8.py` (written): E8 from the icosians, compared with the Hurwitz construction
+
+`sigma` (Galois conjugation on icosian coordinates), `icosian_roots()` (the 240 vectors `sqrt(2/5)(sqrt(3-phi) x, sqrt(2+phi) x^sigma)`
+for `x` in 2I and phi 2I), `is_e8_root_system`, `right_fibres`, `find_isometry` (backtracking over inner products and the
+same-fibre relation, vectorised, about 5 s) and `plane_cosines` / `matching_q`. 17 self tests (`python3 models/icosian_e8.py
+--tests-only`, 7 s); six mutations were run and are caught, and a seventh (an isometry search that ignores fibres) is not a clean
+failure, since it only makes the search run for many minutes. Result: the icosian and Hurwitz constructions are one fibred
+root system; the icosian parallel and perpendicular planes are the `a + q b` planes with `|q| = 1/phi` and `|q| = phi`.
+Figure `figures/icosian_e8.png`; details in `../QUANTUM_GRAVITY.md`. Not built: shells of E8 beyond the roots and the papers'
+selection of whole fibres.
+
+### 11. `e8_shells.py` (written): shells of E8, whole fibres, arithmetic counts
+
+Exact arithmetic in Z[phi] (`zmul`, `zconj`, `znorm`, `zdivide`), the ideal-divisor sum `ideal_sum`, `shell_classes(n)`, the E8
+lattice shells `e8_shell(n)` (Hurwitz pairs), `fibre_labels`, `alpha_of` (via the isometry of `icosian_e8`), `model_set_gaps`.
+45 checks (`python3 models/e8_shells.py --tests-only`, 6 s); seven mutations (wrong ideal norms, wrong shell sum, dropped lattice
+condition, one-sided fibre action, wrong cone, a single split prime) are all caught. Results are in `../QUANTUM_GRAVITY.md`: shells are
+`240 sigma_3(n)` vectors in `10 sigma_3(n)` fibres; the classes `alpha = n + b phi` are the integers in a cone; class sizes
+`120 S(alpha)`; radii constant on a fibre, so ball windows select whole fibres; a window `sigma(alpha) < phi` gives the
+Fibonacci gaps `{1, phi}`. Not built: the 4D point set with the papers' own (polytope) window.
+
+### Candidate models (hypotheses until a test says otherwise)
+
+| # | File | Idea | Status |
+|---|---|---|---|
+| 7 | `_tb.py` | graph, hopping, onsite, spectrum, IPR in numpy/scipy; plus pyqula export | **written**, see below |
+| 8 | `twist_hopping.py` | Hopping that follows the arc length of the curved, twisted edge | **written**, see below; the result is a rescaling, not new spectra |
+| 9 | `fiber_onsite.py` | Use model 6 as the onsite term: each base has an assigned tip (`data["fibers"]`), so take `V = fibre energy` or the tip's signed height `sign * j / 10000` as its onsite energy, on the 14-cycle of one tile and on a patch where the tile's vertices are shared | Hypothesis. A patch vertex is shared by several tiles, each with its own fibre; the rule for combining them (sum, mean, first) is a free choice. The normalisation `pyramid / 36` in `quantum-lattice` is a per-cell sum I have not re-derived, so heights are not comparable yet |
+| 10 | `twist_phase.py` | Read twist as a Peierls-like phase on a bond, `t * exp(i phi_e)`, with `phi_e` the total twist difference along the edge; then compute the flux through each tile and the spectrum | Hypothesis, and the weakest link: twist rotates a handle, it is not a gauge field on the graph. Test first whether the flux per tile is zero for every gluing-compatible pattern (model 4); if it always is, the phase is pure gauge and the spectrum cannot change |
+| 11 | `chair_chain_tiles.py` | Read pyramid heights along lines of the Chair44 and compare with the 192 tip heights of `r44_features.csv` | Blocked on the Chair44 labels (see above). The finding to reproduce is `TILINGS.md`: N*IPR about 4-13 on tiling lines against 300+ shuffled, Lyapunov exponents not separating |
+| 12 | `holonomy.py` | Treat the twist as a frame carried along the outline and compute its holonomy round the 14-cycle with the Wilson-loop code of `ql_berry_bundle` (a product of rotations, no pyqula needed) | Exact expectation to test: the holonomy of a pure-rotation frame is the sum of the twists mod 2 pi, so it ties directly to the "only totals matter" fact. This is the one place the bundle idea of open question 1 gets a concrete form |
+
+### Connections looked for and not found
+
+- **Hopf fibration and the "fibres" of model 6.** Hopf fibres are circles in S^3 over points of S^2 and come from a 3D
+  periodic two-band Hamiltonian `H(k)`. The tile has no `k`, and the Chair44 is aperiodic. I found no map between them;
+  the word "fibre" is shared, nothing more. Chern and Hopf numbers need a periodic lattice, so they apply to a Spectre
+  approximant only if one is defined, which this repo does not do.
+- **`multihopping_from_hk`.** Periodic input only. Skip.
+- **`ql_hopf_insulator`.** No tile data goes in. Skip unless a periodic tile model appears.
+
+### Questions for you
+
+1. Licence: should models stay free of GPL code (rewrite, as recommended), or do you want to relicense this repo?
+2. Is the `spectre` repo (`symchair44`, `chair44_twoadic`) one you want this repo to depend on, or should the Chair44
+   labels be brought in as data (like `r44_features.csv`)?
+3. Order: I would do 7 and 8 first (small, and 8 is new), then 12, then 9. 10 only after 4 has been written.
 
 ## Order of work
 
