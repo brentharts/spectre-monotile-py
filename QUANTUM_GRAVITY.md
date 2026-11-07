@@ -1,0 +1,225 @@
+# Quantum gravity thread: connections, results and sources
+
+The running record of the models that look for connections between the Spectre tile, the Chair44, tight-binding lattices
+(your `quantum-lattice` fork) and the Hopf-fibration / E8 literature. Figures are in `figures/`; the code is in `models/`
+(plan and status: `models/README.md`).
+
+Labels used throughout: **Exact** (an identity or count checked by a test), **Numeric** (computed on a finite patch or
+grid), **Hypothesis** (an idea with no test yet). For sources: **Fetched** (page opened for this file), **Notes** (your text,
+kept as given, not verified), **Not opened**.
+
+## Results so far
+
+### Tight-binding on the Spectre family (`models/_tb.py`)
+
+![Density of states of Hat, Spectre and Turtle, and N*IPR of the Spectre states](figures/tb_tilings.png)
+
+*Reproduce: `python3 models/_tb.py --no-show --save-dir figures`.* Finite level-3 patches (3734 sites, with boundary).
+
+- **Exact:** V, E, F = 3734, 4292, 559 and V - E + F = 1; Hat (1, sqrt3), Spectre (1, 1) and Turtle (sqrt3, 1) have the same
+  bond graph, so with unit hopping their spectra are identical (left panel: one curve); the spectrum is symmetric about 0
+  (bipartite); sum E^2 = sum H_ij^2.
+- **Numeric:** unit hopping E in [-2.434, 2.434], mean N * IPR 14.7. With hopping 1/length the three tilings differ (middle
+  panel): Hat E in [-2.133, 2.133], mean N * IPR 84.4; Turtle [-1.965, 1.965], 58.7. These agree with the numbers in your
+  `quantum-lattice` `TILINGS.md` (unit hopping exactly; 1/length N * IPR within about 2 of its 82.4 and 57.7, cause not
+  shown). Three finite patches give no scaling law.
+
+### Fibres from the tile to the Chair44 pyramid tips (`models/chair_fibers.py`)
+
+![The Spectre tile as a sheet above Chair44 with fibres to the pyramid tips](figures/chair_fibers_scene.png)
+
+![Fibre energy against the twist of one vertex](figures/chair_fibers_twist.png)
+
+*Reproduce: `python3 models/chair_fibers.py --no-show --save-dir figures`.*
+
+- **Exact (SymPy):** the fibre energy E = integral of |B''|^2 is a convex quadratic in the two end speeds; for a tip on an
+  up-facing panel E(phi) = 12 dd - 9 beta^2 - 9 max(0, alpha)^2 and E_min = 3 |D|^2, so a vertex twist moves the best
+  fibre exactly as the law says, with a plateau where the vertex points away from its tip.
+- **Numeric / a rule, not a fact:** the one-to-one pairing of the 42 bases (14 vertices, 28 handles) with tips is the minimum
+  total energy over the placement chosen (total 490.0 for a = b = 1, k = 0.5). It does not test the thesis of the top-level
+  README.
+
+### Hopping that follows a twisted edge (`models/twist_hopping.py`)
+
+![One tile: a twisted handle changes one edge length and the ring spectrum](figures/twist_hopping_tile.png)
+
+![Twists that tile: one edge length for all edges, the spectra collapse, reversal symmetry](figures/twist_hopping_patch.png)
+
+*Reproduce: `python3 models/twist_hopping.py --no-show --save-dir figures`.* The idea: with hopping `t = 1/length` on curved
+edges, twisting the handles changes the spectrum. What came out:
+
+- **Exact:** the twists that make copies of one tile fit together are two numbers, alpha and beta, the twists of the even
+  and odd vertices (tested on the real patches of levels 1 to 3). Reversing an edge shows that its length is unchanged when
+  its two handle twists are swapped, so every edge has the same length `L(alpha, beta)` and the spectrum is the
+  unit-hopping spectrum divided by `L` (left panel: `L`; middle panel: the three twisted spectra, multiplied by `L`, lie on
+  the unit one). So twisting a tiling in the only way it can be twisted only rescales it; with `L >= 1` the largest
+  eigenvalue can only go down from 2.4288 (level 2).
+- **Numeric:** `L` runs from 1.012 to 1.709 for `k = 0.5` (1.185 untwisted).
+- **One tile alone** (top figure) does change shape: a twisted handle changes one edge length and splits the 14-ring's
+  eigenvalues slightly; for unit hopping they stay at `2 cos(2 pi m / 14)`. This is a statement about a tile that does not
+  tile the plane.
+- **Hypothesis for next:** a hopping rule that depends on the corner turn, or on non-glued twists, is where shape could
+  change; not built.
+
+### 24-cells and Hopf fibres of the 600-cell and of E8 (`models/hopf_shells.py`)
+
+![Base points of the Hopf circle fibres of the 600-cell](figures/hopf_shells_600cell.png)
+
+![Fibres of the 240 E8 roots: base points on S4, and two projections to 4D](figures/hopf_shells_e8.png)
+
+*Reproduce: `python3 models/hopf_shells.py --no-show --save-dir figures`.* Objects: 2I (the 120 unit icosians = the
+600-cell), 2T (24 Hurwitz units = a 24-cell), and the 240 roots of E8 as pairs `(a, b)` of Hurwitz quaternions with
+`a - b` in `(1 + i)H`. A *fibre* of the roots is an orbit of `(a, b) -> (a l, b l)`, `l` in 2T.
+
+- **Exact:** 2I is 5 disjoint 24-cells (left cosets of 2T), and 5 others (right cosets); 2T is not normal, so they differ.
+- **Exact:** the Hopf circle fibrations of the 600-cell: 12 decagons over an icosahedron, 20 hexagons over a dodecahedron,
+  30 squares over an icosidodecahedron (base points compared by their inner-product multisets; top figure).
+- **Exact:** the 240 E8 roots form a root system (norm 2, closed under reflections) and split into **10 fibres of 24**,
+  each a 24-cell. The quaternionic Hopf map `S^7 -> S^4` is constant on a fibre, and the 10 base points are five orthogonal
+  axes and their negatives: the vertices of the 5-dimensional cross-polytope (left panel, bottom figure).
+- **Exact, one construction:** the orthogonal projection of E8 onto the H4 plane of its Coxeter element (angles
+  2 pi {1, 11, 19, 29} / 30) gives two shells of 120 points, radii in ratio phi, with the 600-cell's inner products. But
+  these shells do **not** follow the fibres: every fibre has points in both (second panel).
+- **Exact:** a projection that does respect the fibres exists: `f(a, b) = a + q b` with `q` = phi or 1/phi times one of the
+  16 units `(+-1 +- i +- j +- k)/2` (32 choices, found by a search over the unit icosians times powers of phi). It is right-linear,
+  so a fibre goes to a scaled 24-cell, and it is an orthogonal projection up to scale. The roots land on two shells of 120
+  (radii in ratio phi), each a rotated copy of 2I and each **a union of 5 whole fibres** (third panel). So 240 = 10 x 24 splits as
+  5 + 5 fibres over twin 600-cells.
+- **What this says about the notes in section 1:** the counts they quote (24-point fibres, 10 of them, twin 600-cells) are
+  reproduced for this Hurwitz construction, and the fibre-by-fibre structure is real. The icosian construction (next section)
+  turned out to be the same fibred root system in other coordinates. Nothing here selects sites, and nothing links to the
+  Spectre or the Chair44. The coincidence `192 = 8 x 24`
+  (section 3, item 2) is still only a coincidence.
+
+### E8 from the icosians, and the comparison (`models/icosian_e8.py`)
+
+![Icosian E8: radii in the two 4D spaces, fibres in shells, plane comparison](figures/icosian_e8.png)
+
+*Reproduce: `python3 models/icosian_e8.py --no-show --save-dir figures`.* This builds E8 the way Elser and Sloane (and Sadoc
+and Mosseri's Z[phi]-structure) describe it: the icosian ring mapped by `x -> (x, x^sigma)`, `sigma: phi -> -1/phi`, and asks
+whether it differs from the Hurwitz construction of `hopf_shells.py`.
+
+- **Exact (derived here, tested):** with the form `(3 - phi)|x|^2 + (2 + phi)|x^sigma|^2` the 120 unit icosians `u` and the 120
+  vectors `phi u` have the same norm, and `Phi(x) = sqrt(2/5) (sqrt(3 - phi) x, sqrt(2 + phi) x^sigma)` over them is an E8 root
+  system (norm 2, integral, reflection-closed, Cartan determinant 1). The tempting alternative `phi w^sigma` is not (negative
+  control).
+- **Exact:** the Hurwitz units are fixed by `sigma`, so right multiplication by 2T acts the same way on both factors: the 2T
+  orbits are Hopf fibres, again 10 of 24, each a 24-cell, with the 5-cross-polytope as base points.
+- **Exact:** projecting to the first factor ("parallel space") gives two shells of 120 (radii in ratio phi, each a rotated
+  copy of 2I), and **each shell is 5 whole fibres** (middle panel). The second factor ("perpendicular space") gives two shells
+  with the roles swapped (copies of the conjugate group, checked by inner products only). Parallel and perpendicular radii
+  lie on `r_par^2 + r_perp^2 = 2` in two clusters (left panel).
+- **Exact:** there is an isometry of R^8 that maps the Hurwitz roots onto the icosian roots and every Hurwitz fibre onto an
+  icosian fibre (found by backtracking, then checked on all 240 roots). Under it the icosian parallel plane is exactly one of the
+  32 fibre-compatible planes `a + q b` of `hopf_shells.py` (`|q| = 1/phi`), and the perpendicular plane is exactly one other
+  (`|q| = phi`); no other of the 32 coincides (right panel). Both planes are invariant under right multiplication by 2T.
+- **So:** for E8 the icosian projection and the Hurwitz fibre-respecting projection do not differ. They are one fibred root
+  system seen in two sets of coordinates; the "Hopf grouping into 24-point fibres" and the icosian "parallel/perpendicular"
+  split are compatible, with whole fibres on one side of the shell structure.
+- **Not shown:** the papers' selection of whole fibres shell by shell (the quasicrystal itself), the arithmetic shell-count
+  formula, and the 2D-1D reduction. Those need the shells of E8 beyond the roots, not built.
+
+### Shells of E8 beyond the roots (`models/e8_shells.py`)
+
+![E8 shell classes, fibres per shell, and the Fibonacci-type chain](figures/e8_shells.png)
+
+*Reproduce: `python3 models/e8_shells.py --no-show --save-dir figures`* (tests about 6 s). Tests each sentence of the
+Sadoc-Mosseri abstract (section 1) on the Hurwitz / icosian construction, going up to shell 6 (60480 vectors).
+
+- **Exact (counted, shells 1 to 6):** shell `n` has `240 sigma_3(n)` vectors (240, 2160, 6720, 17520, 30240, 60480) and splits into exactly
+  `10 sigma_3(n)` fibres of 24 (checked by orbit counting for n <= 4; no vector is fixed by a non-trivial unit).
+- **Exact (2D lattice):** in the icosian coordinates a vector has reduced norm `alpha = n + b phi` (integers `n`, `b`; both checked from
+  the coordinates, residual 1e-14): the shell index is the integer part, and `b` runs over the integers in `(-n/phi, n phi)`, about
+  `sqrt5 n` values (left panel). The position inside a shell is one integer in a window: this is the "2D-1D" structure.
+- **Arithmetic formula (exact on shells 1 to 6, as an identity of integers for n = 1 to 60):** the number of vectors in the class
+  `(n, b)` is `120 S(alpha)`, with `S(alpha)` the sum of the norms of the ideals of Z[phi] dividing `(alpha)`; the classes of a shell
+  add up to `240 sigma_3(n)`. Each class is `5 S(alpha)` fibres. This is the shell-by-shell count of the paper's abstract in the
+  form that this construction gives; I derived `S` from the structure of the icosian ring (a maximal order of class number one,
+  ramified at the infinite places only) and checked it, I did not prove it, and I did not compare it with the paper's formula, which I have
+  not read.
+- **Whole fibres selected or rejected (exact, with a condition):** both radii `(|a|, |b|)` are constant on a fibre, so any rule
+  depending on the radii (a ball `sigma(alpha) < w` in the perpendicular space) accepts or rejects a whole fibre (checked
+  on all fibres of shells 1 to 4). A rule on one coordinate does not (negative control: it splits every fibre). Elser and
+  Sloane's window is a polytope, not a ball; whether *their* window respects fibres is not tested.
+- **Fibonacci chain (exact on the range):** accepting `alpha` with `0 <= sigma(alpha) < w` gives a model set whose gaps are
+  `{1, phi}` for `w = phi` and `{phi, phi^2}` for `w = 1` (right panel). This is a general property of Z[phi] windows
+  and not special to E8; what is specific to E8 is that the window acts on whole fibres.
+
+### Not yet run
+
+Nothing connecting these structures to the tile, the Chair44 or a quasicrystal's point selection. The remaining questions
+are in section 3.
+
+## 1. Sources: the E8 lattice, the Hopf fibration and quasicrystals
+
+**Sadoc, J.F. and Mosseri, R. (1993). "The E8 lattice and quasicrystals."** *Journal of Non-Crystalline Solids* 153-154,
+247-252. doi:10.1016/0022-3093(93)90351-W.
+<https://www.sciencedirect.com/science/article/abs/pii/002230939390351W> (**Fetched**: bibliographic data and abstract
+only, not the paper.) The abstract: a modified cut-and-projection method for quasiperiodic structures from E8; the lattice
+is cut into shells round a vertex, the shells are embedded in 7-spheres; with the Hopf fibration the sites are grouped into
+3-sphere fibres of 24 sites (or multiples of 24), and a whole fibre is selected or rejected by simple arithmetic criteria;
+this gives a shell-by-shell analysis of a 4D quasicrystal with {3,3,5} symmetry, reducible to a 2D-1D construction like
+the Fibonacci chain; the number of points per shell has an arithmetic formula; the 4D quasicrystal can be sliced into
+lower-dimensional ones with icosahedral and tetrahedral symmetry.
+
+**Notes (as given).** The E8 shelling and the S7 Hopf fibration: the high-dimensional E8 lattice is layered into concentric
+shells that embed the sites in S7; the octonionic Hopf fibration S7 -> S4 with S3 fibres gathers families of shell sites
+into S3 fibre loops; each fibre holds 24 points arranged as a 24-cell and is accepted or rejected as a whole, which turns
+an 8D selection problem into a sequential 2D-1D one; the 240 roots of E8 (the Gosset polytope) projected this way give the
+Elser-Sloane quasicrystal (ESQC) and separate into 10 disjoint S3 fibres, each a 24-cell, together the twin 600-cells
+of the ESQC. The first half of this is in the Sadoc-Mosseri abstract above; the 240 = 10 x 24 split and the Elser-Sloane
+statement are **not** in the abstract and are not checked here.
+
+**Quantum Gravity Research, "A Deep Link Between 3D and 8D (VISUALIZATION)"** (page dated 2 January 2017, modified
+18 January 2021; no author named).
+<https://quantumgravityresearch.org/portfolio/a-deep-link-between-3d-and-8d/> (**Fetched**.) The page says the E8 lattice
+reaches 4D "by one of two processes: cut-and-project, or Hopf mapping", that both give the Elser-Sloane quasicrystal, and
+that a 3D "Compound Quasicrystal" is an exact subspace of their "QSN". It gives no derivation and calls the link
+"deeply related"; it is a visualisation page, not a proof. It says "Hopf mapping", not "Hopf fibration".
+
+**Gluck, H., Warner, F. and Ziller, W., "The geometry of the Hopf fibrations"** (as named by the file
+`GluckWarnerZiller-HopfFibrations.pdf`).
+<https://ncatlab.org/nlab/files/GluckWarnerZiller-HopfFibrations.pdf> (**Not opened**; the title is read from the file name,
+check it before citing.)
+
+**Elser, V. and Sloane, N.J.A., "A highly symmetric four-dimensional quasicrystal"**, *J. Phys. A* 20 (1987) 6161 (from
+memory, **Not opened**; check the details).
+
+**HAL record hal-04898979v1.** <https://hal.science/hal-04898979v1> (**Not opened**: the fetch was stopped by the site's
+bot protection, so title and authors are unknown to this file. Please paste the title.)
+
+**Video.** <https://www.youtube.com/watch?v=W9FUnww7Id8&t=567s> (**Not opened**; the time 567 s is from your link.)
+
+## 2. Sources used by the models
+
+- **Chair44 pyramid data**: Tsiokos, via `ioannist/six-birds-tiles` (CC BY 4.0); see `models/data/README.md`.
+- **Tight-binding on aperiodic tilings**: your `quantum-lattice` fork, `extras/` (`TILINGS.md`, `HOPF_INSULATOR.md`);
+  numbers it reports that were reproduced here: V, E, F = 3734, 4292, 559 and E in [-2.434, 2.434] (`models/_tb.py`).
+- **Hopf insulator, Berry bundle**: Moore, Ran and Wen, *PRL* 100, 186805 (2008) and Deng et al., *PRB* 88, 201105 (2013),
+  as quoted in `HOPF_INSULATOR.md` (**Not opened** here).
+
+## 3. Questions this gives us (none tested yet; results move up when they are)
+
+Exact things we could check with small code, independent of the papers' claims:
+
+1. **Counting (done, `models/hopf_shells.py`).** 240 = 10 x 24 and 120 = 5 x 24 are built and verified (see Results). The icosian construction was then built (`models/icosian_e8.py`) and is the same fibred root system as the Hurwitz one, up to an
+   isometry. The shells beyond the roots are in `models/e8_shells.py`; open: the papers' own window and shell formula, and the 4D point set.
+2. **A count that looks alike.** Chair44 has 192 pyramid tips = 24 panels x 8, and 192 = 8 x 24. This is a coincidence of
+   numbers until a map is shown; the 24 here counts panels, not points of a 24-cell. Recorded so that it is not mistaken
+   for a finding.
+3. **Selection rules.** The papers decide a whole fibre at once, and the construction ends as a Fibonacci-like sequence.
+   The Spectre has its own inflation (`spectre_patch.substitution_matrix`). A comparison of the two growth laws is
+   possible (eigenvalues of the matrix against the shell counts), but nothing says they should agree.
+
+Guesses, not claims:
+
+4. Is there any use for fibres in the sense of model 6 (curves joining a vertex to a tip) in a cut-and-project picture?
+   There the fibre is a set of points over a point of the base; ours is a curve. The shared word is the only link found so
+   far (see the survey in `models/README.md`).
+5. The tile has 14 vertices and the Chair44 is 3D and aperiodic; no known construction takes the Spectre to E8. If one
+   exists it would be the first thing to cite here.
+
+## How to add an entry
+
+Sources: name, venue, year, link, and one of Fetched / Notes / Not opened. Results: the figure (in `figures/`), the command that makes it, and Exact / Numeric / Hypothesis. Quote what a source says before saying what it means for
+us, and keep what a source claims apart from what a test here shows.
