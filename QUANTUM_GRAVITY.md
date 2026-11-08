@@ -241,6 +241,15 @@ Hurwitz-pair E8. All results are finite enumerations on the 240 roots, each with
   action of order 24 where the Chair has none. So `192 = 24 x 8` stays a coincidence of counts.
 - **Hypothesis, untested:** `sqrt 15 = sqrt 3 x sqrt 5` points to a lattice that combines the Eisenstein and icosian structures; see `TILE_E8_BRIDGE.md`, section 3, for tests that could fail.
 
+### Corner locality of the abelian Wilson loop (`models/wilson_corner_locality.py`; write-up in `TILE_E8_BRIDGE.md`, section 4)
+
+![Departure from perimeter-plus-corners for rectilinear, thin and Spectre loops](figures/wilson_corner_locality.png)
+
+- **Numeric:** using the abelian first-step operators of the fork `4D_Wilson_Loop_RG` (CC0), `E_f = alpha P + b c` with `alpha = 0.1709` per link and `b = -0.0444` per corner holds to 0.006 for seven loops whose features
+  are at least 2L wide (squares, rectangles, L-shape, skew loops); squares reproduce the fork's published values to 1e-3. It fails by 0.016 to 0.039 for features one block (L = 3) wide, and by 0.30 to 0.66 for the Spectre
+  outline lifted to Z^4 (dense zigzag corners).
+- **Not tested:** the 60 degree corners of the hexagonal lift (the hypercubic action sees every turn as 90 degrees); any non-abelian structure, bound or proof of the fork.
+
 ### Quantum_Gravity_Lab (CC0, J. Poplett) survey
 
 Cloned to read only. What it already holds: `qgl_e8.py` (E8 roots, Coxeter element of order 30, projection to two H4 planes,

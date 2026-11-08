@@ -77,10 +77,36 @@ Each of these is a test that could fail, and none has been run:
 3. A lattice (not E8 itself) with both an Eisenstein structure and a `Z[phi]` structure in which the Spectre inflation `lambda` is a unit or an automorphism: for example a rank-8 module over `Z[sqrt 3, sqrt 5]`-related rings. This is the construction the hypothesis in section 1 needs.
 4. The real-form or signature data (what picks the Lorentz plane) acting on the E6 + A2 choice of `models/e6_fibres.py`.
 
+## 4. Wilson loops: is the corner term local, and where does the lifted Spectre fall? (`models/wilson_corner_locality.py`)
+
+![Departure from perimeter-plus-corners for rectilinear, thin and Spectre loops](figures/wilson_corner_locality.png)
+
+**Context.** The fork `4D_Wilson_Loop_RG` (CC0; a Yang-Mills programme by M. Peev and A. S. Dogra, with the abelian numerics in `numerics/abelian_first_step/` added in the fork)
+extracts from a square Wilson loop a factor `exp(-(g^2/2) E_f)` and reads `E_f` as perimeter plus corners. Squares have one corner type and cannot show whether the corner term is *local*.
+The module imports that fork's operators (not copied; `$WILSON_RG_DIR`) and applies them to any closed loop on the 4-torus (K = 6, L = 3, `landau` gauge).
+
+- **Check (Exact agreement):** squares of side 3, 6, 9 give 1.85575, 3.92455, 5.96995 against the fork's published K = 10 values 1.855780, 3.924427, 5.970860 (differences up to 1e-3, as its README says for K = 6).
+  The energy is invariant to 1e-9 under permuting axes, reversing the loop and translating by L.
+- **Numeric, locality holds for isolated corners.** For seven loops with every feature at least 2L = 6 units wide (squares, rectangles, an L-shape, two skew loops in three directions),
+  `E_f = alpha P + b c` fits with `alpha = 0.1709` per link and `b = -0.0444` per corner (`4b = -0.178`; the fork's square fit is 0.1707 and -0.17 to -0.18). Each left-out loop is predicted to 0.006
+  or better, the size of the oscillation the fork reports in beta. So the corner coefficient is a per-corner constant, independent of the shape elsewhere, in this abelian analogue.
+- **Numeric, locality fails when a feature is one block wide.** Thin rectangles and L-shapes with a 3-unit feature sit 0.016 to 0.039 below that fit (`rec3x12` -0.037, `L9_3` -0.039).
+  The scale of the failure is L.
+- **Numeric, the lifted Spectre outline is not additive.** Written in Z^4 (diagonal hexagonal steps as two links), the outline has 13 to 29 corners and `E_f` sits 0.30 to 0.66 *above* the additive
+  prediction at every dilation tried (n = 1, 2, 3, both orderings). Two orderings of the same diagonal give different loops (13 vs 17 corners) with `E_f` 2.797 vs 2.649. The cause is that a
+  diagonal becomes a lattice-scale zigzag whose corners are one link apart, far inside the range L, so corner terms interact; this stays true under dilation.
+- **What this does not test.** The hypercubic action sees every turn between different axes as 90 degrees, so the 60/120 degree and 90 degree corner types of the hexagonal lift (section 1)
+  are **not distinguished here**. A test of 60 degree corners needs an action and an averaging map on the A2 + A2 lattice, which do not exist. The abelian theory has no non-abelian structure,
+  no large fields and no running coupling, and nothing here checks a bound or a proof of the fork. E_f also depends on where the loop sits against the L = 3 blocks (only translation by L is a symmetry).
+
+**For the programme (an observation, not a claim about its proofs):** the extraction of a perimeter term and one constant per corner is accurate in this analogue only when corners and edges are separated
+by a few blocks. Loops with features of size about L, or with dense corners, need the corner terms to be treated jointly.
+
 ## Reproduce
 
     python3 models/spectre_in_e8.py --tests-only        # 12 checks, a few seconds
     python3 models/chair_e8_192.py --tests-only         # 11 checks, under a second
+    WILSON_RG_DIR=/path/to/4D_Wilson_Loop_RG python3 models/wilson_corner_locality.py --tests-only   # 9 checks, about 40 s
     python3 models/spectre_in_e8.py --no-show --save-dir figures
     python3 models/chair_e8_192.py --no-show --save-dir figures
 
@@ -93,3 +119,4 @@ The first needs the repository root on the path (it imports `lift4d.py`) and sym
 - Cheritat-Ma lift: cited as in `lift4d.py`. **Not opened.**
 - E8 as a Z[omega]-lattice and the E6 + A2 splitting: standard facts, rebuilt from the Hurwitz-pair model; not taken from any text.
 - The chirality-standard-model fork is all rights reserved; nothing from it is used here.
+- `4D_Wilson_Loop_RG` (CC0): `README.md`, `STATUS_MAP.md`, `numerics/abelian_first_step/` (code and README, read and run). **Not opened:** the manuscripts and drafts; none of their mathematics is used or checked here.
