@@ -195,6 +195,52 @@ have their paper, so only the properties below are claimed, not the attribution.
 - **Still open:** the exact Elser-Sloane paper's window and normalisation (to confirm the hypothesis); a figure of the 4D point set itself
   (the third panel only shows the window's vertices in two coordinates); the Spectre / Chair44 link remains absent.
 
+### E6 and the fibres (`models/e6_fibres.py`)
+
+![E6, A2 and the 162 across the 10 fibres; each 27 meets 9 fibres in 3 roots; triality blocks 8 + 8 + 8](figures/e6_fibres.png)
+
+*Reproduce: `python3 models/e6_fibres.py --no-show --save-dir figures`.* The standard embeddings `E8 > E6 + SU(3)` (240 = 72 + 6 + 6 x 27) and
+`E8 > D4 + D4` (240 = 24 + 24 + 3 x 64), as used in the chirality-standard-model fork (section 4), located inside the Hopf fibres of the
+Hurwitz-pair E8. All results are finite enumerations on the 240 roots, each with a negative control in the tests.
+- **Exact:** `D4a = {(a, 0)}` and `D4b = {(0, b)}` are each one **whole fibre**: they are the two poles of the five-cross-polytope of base points. The other 192
+  roots are the 8 equatorial fibres.
+- **Exact:** the 192 split into three 64-blocks (the class of `a` modulo `(1 + i)H`; the 8v, 8s, 8c blocks of the D4 x D4 picture), and **every equatorial
+  fibre has exactly 8 roots in each block**. The fibres cut the triality blocks evenly, so triality cannot be a symmetry that keeps fibres whole.
+- **Exact:** the fibre rotation `R_w: (a, b) -> (a w, b w)`, `w = (-1 + i + j + k)/2`, has order 3 and no fixed vector, and **cycles the three blocks**. So the order-3
+  triality of D4 x D4 used for generations is realised by a fibre rotation, a lattice automorphism.
+- **Exact:** A2 = the `R_w` orbit of `(1 + i, 0)` with its negatives lies inside the pole D4a, is preserved by `R_w` (a 120 degree rotation on it), and its
+  orthogonal complement is an **E6** (72 roots, rank 6, closed under reflections). `R_w` preserves E6 and the remaining 162.
+- **Exact (fibre profile):** pole D4a holds the A2 (6) and 18 of the 162; pole D4b is entirely E6 (24); each equatorial fibre holds 6 of E6 and 18 of the 162.
+  So E6 = 24 + 3 x 16, and its 48 equatorial roots are 16 per block (the `E6 > D4` with three 16's).
+- **Exact:** the 162 give 6 A2 weights (27 roots each) and 54 E6 weights (3 roots each, norm^2 4/3). One 27 has inner products 1 x 4/3, 16 x 1/3, 10 x -2/3 from
+  any of its weights (the 1 + 16 + 10 of SO(10)), and the 54 are the 27 and its negative. **Each 27-class has exactly 3 roots in each of the 9 fibres other than
+  D4b: 27 = 9 x 3.**
+- **Exact:** E8 has 1120 A2 subsystems with exactly two fibre profiles. 160 lie inside one fibre (10 fibres x 16 A2 in a D4); 960 meet three fibres in 2 + 2 + 2 roots.
+  The fibre group has 40 orbits of size 4 (stabiliser Z6 = <-w>, the aligned kind, including ours) and 80 of size 12 on them.
+- **Reading:** the chirality theorem's family 3 (`SU(3)_M`) and the triality 3 are both order-3 elements here, and `R_w` is a single fibre rotation that is a 120 degree
+  rotation on A2 and a block-cycling triality on D4 x D4. The fork's own finding (`lisi/README.md`) is that the two 3's are *independent* commuting symmetries; `R_w` is
+  their product on the aligned A2 and is not either one alone. I did not check this against its `check_triality_su4.py` beyond the counts that match (D4 x D4 = 24 + 24 + 3 x 64;
+  E6 = 24 + 3 x 16; 27 = 1 + 16 + 10).
+- **Now tested (see the next section and `TILE_E8_BRIDGE.md`):** the Chair44 count 192 = 24 panels x 8 matches the equatorial part of E8 only in shape (3 x 8 x 8), not in structure; and the
+  hexagonal A2 + A2 of the Spectre's own 4D lift does embed in E8 through `R_w`, with every edge a root, though the Spectre inflation does not extend to E8.
+- **Not done:** the Lie-algebra level (the 27 is shown here by roots only); real forms and signature; the Spin(11,3) Clifford model; any use of the tile.
+
+### The tiles against E8 (`models/spectre_in_e8.py`, `models/chair_e8_192.py`; write-up in `TILE_E8_BRIDGE.md`)
+
+![A Spectre patch with edges coloured by pole fibre](figures/spectre_in_e8.png)
+
+![Chair44 panels by signed height beside the E8 fibre-by-block grid](figures/chair_e8_192.png)
+
+- **Exact:** the 4D lift lattice of the Spectre in `lift4d.py` (red hexagonal A2 plus green hexagonal A2, `Z[zeta_12]`) embeds isometrically in E8 as A2 + A2, using the Eisenstein
+  structure given by the fibre rotation `R_w` and the two pole fibres. Every Spectre edge becomes a root (red edges in pole D4a, green in D4b), each tile outline is a closed walk of
+  14 roots (8 red, 6 green), tested on 71 tiles and 518 vertices.
+- **Exact, negative:** the Spectre inflation (`x^4 - 8x^2 + 1`, `lambda = (sqrt 3 + sqrt 5)/sqrt 2`) has eigenvalues of modulus other than 1 and does not extend to E8; the field `Q(lambda)`
+  contains `sqrt 15` but not `sqrt 3`, `sqrt 5` or the golden ratio. The Spectre and the icosian E8 use different number fields.
+- **Exact:** the Chair44's 192 tips are 24 panels x 8 and also 24 signed heights x 8, in three classes of 8 panels, and the labelled solid has no symmetry. Against the 192 equatorial roots of E8
+  (8 fibres x 3 blocks x 8) the shape 3 x 8 x 8 matches but the structure does not: negation fixes every E8 block while the height flip exchanges two Chair classes, and E8's set has a free
+  action of order 24 where the Chair has none. So `192 = 24 x 8` stays a coincidence of counts.
+- **Hypothesis, untested:** `sqrt 15 = sqrt 3 x sqrt 5` points to a lattice that combines the Eisenstein and icosian structures; see `TILE_E8_BRIDGE.md`, section 3, for tests that could fail.
+
 ### Quantum_Gravity_Lab (CC0, J. Poplett) survey
 
 Cloned to read only. What it already holds: `qgl_e8.py` (E8 roots, Coxeter element of order 30, projection to two H4 planes,
@@ -210,7 +256,7 @@ compound of five cuboctahedra), `qgl_qsn.py` (tetragrids, 20G, Fibonacci icosagr
 
 ### Not yet run
 
-Nothing connecting these structures to the tile, the Chair44 or a quasicrystal's point selection. The remaining questions
+Nothing connecting these structures to the tile, the Chair44 or a quasicrystal's point selection (E6 placement above is root-level only). The remaining questions
 are in section 3.
 
 ## 1. Sources: the E8 lattice, the Hopf fibration and quasicrystals
@@ -267,9 +313,8 @@ Exact things we could check with small code, independent of the papers' claims:
 
 1. **Counting (done, `models/hopf_shells.py`).** 240 = 10 x 24 and 120 = 5 x 24 are built and verified (see Results). The icosian construction was then built (`models/icosian_e8.py`) and is the same fibred root system as the Hurwitz one, up to an
    isometry. The shells beyond the roots are in `models/e8_shells.py`; open: the papers' own window and shell formula, and the 4D point set.
-2. **A count that looks alike.** Chair44 has 192 pyramid tips = 24 panels x 8, and 192 = 8 x 24. This is a coincidence of
-   numbers until a map is shown; the 24 here counts panels, not points of a 24-cell. Recorded so that it is not mistaken
-   for a finding.
+2. **A count that looks alike.** Chair44 has 192 pyramid tips = 24 panels x 8, and 192 = 8 x 24. Tested in `models/chair_e8_192.py` (see Results and
+   `TILE_E8_BRIDGE.md`): the shapes match, the structures do not, so it is still a coincidence of counts.
 3. **Selection rules.** The papers decide a whole fibre at once, and the construction ends as a Fibonacci-like sequence.
    The Spectre has its own inflation (`spectre_patch.substitution_matrix`). A comparison of the two growth laws is
    possible (eigenvalues of the matrix against the shell counts), but nothing says they should agree.
@@ -281,6 +326,14 @@ Guesses, not claims:
    far (see the survey in `models/README.md`).
 5. The tile has 14 vertices and the Chair44 is 3D and aperiodic; no known construction takes the Spectre to E8. If one
    exists it would be the first thing to cite here.
+
+## 4. The chirality-standard-model fork (read only)
+
+Cloned for reading from `brentharts/chirality-standard-model` (a fork of E. Mostaque's repository). Its licence is *all rights reserved*, private review only,
+so **nothing was copied**; `models/e6_fibres.py` is written from the standard definitions of the root systems. What was read: `README.md`, `LICENSE.md`, and
+`lisi/README.md` (the Lisi bridge: E8 > E6 x SU(3) and E8 > D4 x D4, triality against SU(4), Spin(11,3), Z3 x Z3 grading). **Not opened:** the paper, the Lean code,
+the website, and the 14 scripts themselves; the counts they report were reproduced here only where stated in section "E6 and the fibres".
+Claimed there (theorem over a stated domain): `E8 > E6 + SU(3)_M` with `V = 27 x 3` is the unique pair with chirality and a non-zero cubic radical; not re-proved here.
 
 ## How to add an entry
 
