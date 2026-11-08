@@ -233,7 +233,7 @@ Hurwitz-pair E8. All results are finite enumerations on the 240 roots, each with
 
 - **Exact:** the 4D lift lattice of the Spectre in `lift4d.py` (red hexagonal A2 plus green hexagonal A2, `Z[zeta_12]`) embeds isometrically in E8 as A2 + A2, using the Eisenstein
   structure given by the fibre rotation `R_w` and the two pole fibres. Every Spectre edge becomes a root (red edges in pole D4a, green in D4b), each tile outline is a closed walk of
-  14 roots (8 red, 6 green), tested on 71 tiles and 518 vertices.
+  14 roots (8 red and 6 green for 63 tiles, 6 and 8 for the other 8), tested on 71 tiles and 518 vertices.
 - **Exact, negative:** the Spectre inflation (`x^4 - 8x^2 + 1`, `lambda = (sqrt 3 + sqrt 5)/sqrt 2`) has eigenvalues of modulus other than 1 and does not extend to E8; the field `Q(lambda)`
   contains `sqrt 15` but not `sqrt 3`, `sqrt 5` or the golden ratio. The Spectre and the icosian E8 use different number fields.
 - **Exact:** the Chair44's 192 tips are 24 panels x 8 and also 24 signed heights x 8, in three classes of 8 panels, and the labelled solid has no symmetry. Against the 192 equatorial roots of E8

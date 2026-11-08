@@ -28,7 +28,7 @@ a rank-4 module over Z[omega]. Take `r1 = (1 + i, 0)` in the pole fibre D4a and 
 - **Exact:** `embed` is an isometry (up to the factor 2) from the lift lattice, with the red-orthogonal-green form, into E8. So the lift lattice is **A2 + A2 inside E8**.
   Tested on all 518 vertices of the 71-tile level-2 patch, injective, 4000 random pairs.
 - **Exact:** every edge of every tile becomes a **root** of E8: red edges are roots of the pole D4a, green edges are roots of D4b. Each tile outline is a closed walk of 14 roots
-  (8 red, 6 green in the orientation of `lift4d`).
+  (8 red and 6 green for 63 of the 71 tiles, 6 red and 8 green for the other 8, which differ by an odd multiple of 30 degrees; the corner types are the same for all 71).
 - **Exact:** for consecutive edges of the same colour the E8 inner product is 2 cos(turn); for a red-green pair it is 0 (right panel of the figure).
 - **Negative control:** a second root that is orthogonal to `r1` but not Hermitian-orthogonal breaks the isometry (196 of 200 pairs off).
 
@@ -104,7 +104,7 @@ by a few blocks. Loops with features of size about L, or with dense corners, nee
 
 ## Reproduce
 
-    python3 models/spectre_in_e8.py --tests-only        # 12 checks, a few seconds
+    python3 models/spectre_in_e8.py --tests-only        # 13 checks, a few seconds
     python3 models/chair_e8_192.py --tests-only         # 11 checks, under a second
     WILSON_RG_DIR=/path/to/4D_Wilson_Loop_RG python3 models/wilson_corner_locality.py --tests-only   # 9 checks, about 40 s
     python3 models/spectre_in_e8.py --no-show --save-dir figures
