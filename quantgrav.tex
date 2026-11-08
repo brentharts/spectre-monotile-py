@@ -23,55 +23,102 @@
 \newcommand{\negres}{\textbf{\textsc{Negative}}}
 \newcommand{\snap}{\textsuperscript{$\dagger$}}      % number copied from a snapshot, not recomputed by paper_numbers.py
 \newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\setlength{\emergencystretch}{3em}
 \theoremstyle{definition}
 \newtheorem{result}{Result}
 
 \title{Hopf fibres of $E_8$, the Spectre monotile and the Chair44:\\
 exact structure, negative results, and an abelian Wilson-loop probe}
-\author{Working draft \\ \small Drafted with the help of Claude (Anthropic); not independently reviewed}
+\author{Brent Hartshorn and Tristan Romanov}
 \date{\today}
 
 \begin{document}
 \maketitle
 
 \begin{abstract}
-\todo{write last. Draft: We collect finite, machine-checked computations that connect the Spectre aperiodic monotile, the Chair44 solid, the $E_8$
-lattice with its Hopf fibres, and an abelian Wilson-loop analogue. The positive results are exact statements about root systems and lattices; the negative
-results record what does not carry over (the Spectre inflation does not extend to $E_8$; the count $192$ matches only in shape); the Wilson-loop probe
-shows how far one corner constant per corner reaches in a $U(1)$ analogue. We make no claim about quantum gravity.}
+We collect finite, machine-checked computations that connect the Spectre aperiodic monotile, the Chair44 solid, the $E_8$ lattice with its Hopf fibres, and an abelian Wilson-loop analogue.
+The positive results are exact statements about root systems and lattices: the \qgFibres\ fibres of \qgFibreSize\ roots of $E_8$ and the \qgInscribed\ inscribed $24$-cells of the $600$-cell, a window in the icosian
+perpendicular space that accepts or rejects whole fibres, a decomposition of the roots into $E_6$, $A_2$ and six copies of the $27$, and an isometric embedding of the Spectre lift lattice $A_2\oplus A_2$ into $E_8$ under which every tile edge is a root.
+The negative results record what does not carry over: the Spectre inflation does not extend to $E_8$ and its number field contains neither the golden ratio nor $\sqrt3$ or $\sqrt5$, and the count $192=24\times8$ of Chair44 tips matches the equatorial roots of $E_8$ in shape but not in structure.
+In a $U(1)$ analogue of the first renormalisation step of a Yang--Mills programme, a single constant per corner predicts the energy of loops whose features are at least two blocks wide, but the energy depends on the placement of the loop against the blocks by more than the corner term does,
+and the probe cannot tell the $60^\circ$ corners of the Spectre from right angles. The work is motivated by a search for combinatorial structures with an arrow of time; none of the computations exhibits one, and we make no claim about quantum gravity.
 \end{abstract}
 
 %------------------------------------------------------------------------------------------------------------------------------------
+\section{Introduction}\label{sec:intro}
+\textbf{What this paper is.} This paper reports finite, tested computations on tilings, on the root lattice $E_8$ and on an abelian Wilson-loop analogue. It makes no claim about quantum gravity,
+and none of its results shows that a theory of quantum gravity can be written on these structures. This section explains why we look at them, and what we mean by looking.
+
+\textbf{The search.} The computations belong to a search, and the search has a stated shape. We look for graphs and combinatorial structures that carry an arrow of time, meaning a built-in
+asymmetry under reversal of the order of events, and that fit together naturally and rigidly enough that a physical theory could later be mapped onto them. The idea is to find the geometry first
+and ask afterwards which theory it suits. We have not found an arrow of time: none of the computations reported here exhibits one, and we say so in each place where the question could be asked. Arrows of time that arise from structure are studied in the Janus-point programme of Barbour and collaborators, in which Newtonian N-body solutions are time-reversal invariant and a scale-invariant measure of clustering gives an emergent gravitational arrow of time \cite{barbourlobo2026,barbourlourenco2026}; we read only the abstracts of these papers and use none of their results.
+The approach differs in its starting point from AdS/CFT, string theory and loop quantum gravity, which we do not review here and do not evaluate. We do not start from a spacetime of three space dimensions plus one of time, and we do not add
+further dimensions. Our working suspicion, a \hypo\ and not a result, is that the aperiodic ``Einstein'' monotiles are the right kind of background; most of our models therefore start from the Spectre \cite{smith2023}.
+
+\textbf{Directions, not dimensions.} The word \emph{dimension} is ambiguous: it does not say how many, or of what kind. We prefer \emph{direction}. There are three axes, $X$, $Y$, $Z$. Moving
+positively or negatively along an axis gives six signed directions, $\pm X,\pm Y,\pm Z$. If each signed direction can also carry a twist of one of two senses, there are twelve. We use this as bookkeeping that tells us which
+parameters a model should carry (in the models of this repository the twist is a continuous angle, not a two-valued label), not as a statement about nature. The models avoid assuming that space is three-dimensional because it looks so to us.
+
+\textbf{An example of what we want to be free to try.} The usual picture gives one point $(X,Y,Z)$ and one time $T$ that is common to all three coordinates. One could instead give each axis its own time, or each particle its own
+space of some other dimension, or treat the tile as a static background through which energy flows, the flow encoding what we observe. This is a \hypo\ offered as an example of the freedom we want; none of the computations in this paper implements it.
+Ideas of this kind have probably been tried, for instance in work connecting causal sets with loop quantum gravity, and may have failed. We have not surveyed that literature, and we do not know which attempts failed or why. For orientation only, three nearby ideas from the literature, known to us from their abstracts alone: several times enter quantum mechanics in the multiple-time states and measurements of Aharonov, Popescu, Tollaksen and Vaidman \cite{aharonov2007}, which describe experiments with several stages of preparation and measurement; relational quantum mechanics \cite{rovelli1996} drops observer-independent states of a system; and in analogue gravity a flowing fluid makes sound waves behave as if in a curved spacetime \cite{braunstein2024}, which is a case of a flow in a medium encoding a geometry. We do not claim that our example is any of these.
+
+\textbf{What we did instead.} Two figures show the first model in this line (Appendix~\ref{app:tb}). Figure~\ref{fig:intro-scene} places a Spectre tile, a flat sheet of $14$ vertices and $28$ B\'ezier handles, above the Chair44 solid,
+and joins each of the $42$ base points to a pyramid tip by the smoothest cubic B\'ezier curve, a \emph{fibre}. The pairing of bases with tips is the one-to-one assignment of least total energy ($490.0$ for the tile parameters used here),
+which is a rule that we chose, and the height at which the sheet hangs is a free choice; neither is canonical. Figure~\ref{fig:intro-twist} shows what a twist of one vertex does: the energy of the best fibre is a function of the twist angle with a single
+minimum when the vertex points towards its tip and a plateau when it points away, as the closed form in the caption says. This is a model in which twist has an energetic meaning on a tile. It has no time direction: the fibre energy is unchanged
+if the curve is traversed backwards. We include it because it is the starting point of the search, not because it supports a conclusion.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{figures/chair_fibers_scene.png}
+\caption{A Spectre tile ($14$ vertices, $28$ handles) above the Chair44 solid, joined to its pyramid tips by $42$ smoothest fibres, perspective and plan view. Tips are coloured by sign (bump or dent) and sized by height. The pairing is one-to-one with least
+total energy ($490.0$); it is a rule, and the placement of the sheet is a free choice (\texttt{models/chair\_fibers.py}).}\label{fig:intro-scene}
+\end{figure}
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{figures/chair_fibers_twist.png}
+\caption{Left: the fibre from one vertex as its twist runs from $-150^\circ$ to $+150^\circ$; the best fibre (black) is at $-45^\circ$. Right: fibre energy against twist for three vertices. The energy of a fibre is a convex quadratic
+in its two end speeds (exact, derived with SymPy), and its minimum over the speeds is $E=12|D|^2-9D_z^2-9\max(0,|D_h|\cos(\text{twist}+\varphi_0-\text{bearing}))^2$, with a plateau where the vertex points away from its tip (\texttt{models/chair\_fibers.py}).}\label{fig:intro-twist}
+\end{figure}
+
+\textbf{Plan.} Section~\ref{sec:scope} fixes the conventions and labels. Section~\ref{sec:background} gives the background, Section~\ref{sec:e8} the exact structure of $E_8$ and its Hopf fibres, Sections~\ref{sec:tiles}
+and~\ref{sec:chair} the Spectre and the Chair44 against $E_8$, Section~\ref{sec:wilson} the Wilson-loop probe and Section~\ref{sec:open} the open problems and the tests that could fail.
+
 \section{Scope and conventions}\label{sec:scope}
-\todo{what the paper is: a collection of finite computations with tests; what it is not: no physical claim, no proof of anything in the Wilson-loop programme.}
+This paper is a collection of finite computations, each with a test that can fail. It makes no physical claim, and it proves nothing about the Wilson-loop programme it borrows operators from. Where a statement is a conjecture or a motivation, it is marked as such.
 Every result carries one of the labels \exact\ (an identity or a finite enumeration, checked by a test that can fail), \numeric\ (a computed number on a
 finite patch, with the tolerance stated), \negres\ (a natural expectation that the computation refutes) or \hypo\ (not shown). Numbers marked
 $\dagger$ are copied from the output of another repository (Section~\ref{sec:wilson}) and are not recomputed by the code of this repository.
-\todo{LLM-assistance disclosure in the wording the Wilson repository uses; reproduction: \texttt{make test}, \texttt{make quantgrav}.}
+\textbf{Disclosure.} The code, the tests and the text of this paper were produced with the assistance of a large language model (Claude, Anthropic), working with the author. They have not been independently reviewed. Every number in the text is computed by code in this repository
+or is marked $\dagger$; the numbers are written into the text by \texttt{models/paper\_numbers.py}, so the text cannot drift from the code. Appendix~\ref{app:repro} lists the tests and the commands. Sources that were not opened are said so where they are used, and the bibliography contains only
+entries whose data were checked against a source that was opened.
 
-\begin{table}[h]
+\begin{table}[t]
 \centering\footnotesize
-\begin{tabular}{@{}p{70mm}p{26mm}p{9mm}p{35mm}@{}}
+\begin{tabular}{@{}p{62mm}p{26mm}p{9mm}p{39mm}@{}}
 \toprule
-Result & Label & Section & Test module \\ \midrule
+Result & Label & Sec. & Test module \\ \midrule
 $\qgInscribed$ inscribed 24-cells and $\qgPartitions$ coset partitions of the 600-cell & \exact & \ref{sec:e8} & \texttt{hopf\_shells} \\
-Ball window never splits a fibre; Voronoi window keeps all fibres whole & \exact/\numeric & \ref{sec:e8} & \texttt{fibre\_window}, \texttt{voronoi\_window} \\
+Ball window never splits a fibre; Voronoi window keeps all fibres whole & \exact, \numeric & \ref{sec:e8} & \texttt{fibre\_window}, \texttt{voronoi\_window} \\
 $E_6$ and $A_2$ inside the fibres, $\qgRest=6\times27$ & \exact & \ref{sec:e8} & \texttt{e6\_fibres} \\
 Spectre lift lattice is $A_2\oplus A_2\subset E_8$; every edge is a root & \exact & \ref{sec:tiles} & \texttt{spectre\_in\_e8} \\
 The Spectre inflation does not extend to $E_8$ & \negres & \ref{sec:tiles} & \texttt{spectre\_in\_e8} \\
 $\qgChairTips=24\times8$ Chair44 tips against the equatorial roots & \negres & \ref{sec:chair} & \texttt{chair\_e8\_192} \\
-Corner locality, placement dependence, gauge, block size ($U(1)$) & \numeric$^\dagger$ & \ref{sec:wilson} & Wilson repository \\
+Corner locality, placement dependence, gauge, block size ($U(1)$) & \numeric$^\dagger$ & \ref{sec:wilson} & \texttt{wilson\_corner\_} \texttt{locality}, Wilson repository \\
+Tight-binding spectra, twist hopping and the Spectre--Chair44 fibres & \exact, \numeric & \ref{app:tb} & \texttt{\_tb}, \texttt{twist\_hopping}, \texttt{chair\_fibers} \\
 \bottomrule
 \end{tabular}
-\caption{Summary of results. \todo{complete once the sections are drafted.}}
+\caption{Summary of results, with the section and the test module that checks each. No row is a claim about physics.}
 \end{table}
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Background}\label{sec:background}
 \subsection{The Spectre and its lift}
-\todo{Spectre \cite{smith2023}; edges are unit vectors at multiples of $30^\circ$; red and green hexagonal lattices; the lift lattice $\mathbb{Z}[\zeta_{12}]=\mathbb{Z}^4$ (the lift of Ch\'eritat and Ma \cite{cheritat2023}; the identification with $\mathbb{Z}[\zeta_{12}]$ is made in this repository's \texttt{lift4d.py}).}
+The Spectre is the strictly chiral aperiodic monotile of Smith, Myers, Kaplan and Goodman-Strauss \cite{smith2023}. Its outline has $14$ edges of unit length at multiples of $30^\circ$. In the lift used here the edges at even multiples of $30^\circ$ are vectors of one hexagonal lattice (red) and those at odd multiples are vectors of a second one (green); Section~\ref{sec:embed} gives the coordinates and the identification with $\mathbb{Z}[\zeta_{12}]$, which is made in this repository's \texttt{lift4d.py} following the lift of Ch\'eritat and Ma \cite{cheritat2023}.
 \subsection{The Chair44}
-\todo{the solid, its \qgChairPanels\ panels and \qgChairTips\ pyramid tips; data source and licence (\texttt{models/data/README.md}).}
+The Chair44 is a solid built from \qgChairPanels\ square panels, each carrying eight pyramids, in all \qgChairTips\ pyramid tips. We use the tip data as
+distributed in this repository (\texttt{models/\allowbreak data/\allowbreak r44\_\allowbreak features.csv}, with its source and licence recorded in \texttt{models/\allowbreak data/\allowbreak README.md}); we did not re-derive
+the solid, and we use only the signed heights of the tips (a bump is positive, a dent negative) and the panel each tip belongs to.
 \subsection{\texorpdfstring{$E_8$}{E8}, the icosians and the Hopf fibres}\label{sec:bg-e8}
 Let $\mathbb{H}$ denote the Hurwitz order, the integer and half-integer quaternions, and $2T\subset\mathbb{H}$ its $24$ units. We use the standard
 model of $E_8$ as the set of pairs $(a,b)\in\mathbb{H}^2$ with $a-b\in(1+i)\mathbb{H}$, scaled so that the roots have norm $|a|^2+|b|^2=2$. There are
@@ -180,28 +227,211 @@ The $E_6\times A_2$ subsystem is a standard feature of $E_8$ (no source was chec
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{The Spectre in \texorpdfstring{$E_8$}{E8}}\label{sec:tiles}
-\todo{embedding of the lift lattice; every edge a root; patch of \qgTiles\ tiles and \qgVertices\ vertices; corner types $\qgCornersSixty\times60^\circ$, $\qgCornersNinety\times90^\circ$ and $\qgCornersStraight$ straight pass, the same for every tile; edge colours $8+6$ for $\qgTilesMajor$ tiles and $6+8$ for $\qgTilesMinor$ (a rotation by an odd multiple of $30^\circ$ swaps the colours).}
-\subsection{The inflation does not extend}\label{sec:inflation}
-\todo{\negres: $x^4-8x^2+1$, $\lambda^2=4+\sqrt{15}\approx\qgLambdaSquared$; the field contains $\sqrt{15}$ but not $\sqrt3$, $\sqrt5$ or the golden ratio.}
+\subsection{The lift lattice sits in \texorpdfstring{$E_8$}{E8}}\label{sec:embed}
+Every Spectre edge is a unit vector at a multiple of $30^\circ$. Following the lift implemented in this repository (\texttt{lift4d.py}; the attribution to
+Ch\'eritat and Ma is as recorded there \cite{cheritat2023}, and we did not open their construction independently), call the edges at even multiples of $30^\circ$
+\emph{red}: they are the hexagonal vectors $p+q\varpi$, $\varpi=e^{i\pi/3}$. The edges at odd multiples are \emph{green}: $\zeta(r+s\varpi)$ with $\zeta=e^{i\pi/6}$.
+A vertex then has integer coordinates $(p,q,r,s)$ and plane position $u+\zeta v$ with $u=p+q\varpi$, $v=r+s\varpi$. The lift lattice is therefore
+$\mathbb{Z}[\zeta_{12}]=\mathbb{Z}[\varpi]\oplus\zeta\,\mathbb{Z}[\varpi]$, a red $A_2$ plus a green $A_2$.
 
+In the Hurwitz-pair model the fibre rotation $R_\omega:(a,b)\mapsto(a\omega,b\omega)$, $\omega=e^{2\pi i/3}$, has order $3$ and no fixed vector, so it makes $E_8$ a
+rank-$4$ module over $\mathbb{Z}[\omega]$. Take $r_1=(1+i,0)$ in the pole fibre $D_4^a$ and $r_2=(0,1+i)$ in $D_4^b$; they are Hermitian-orthogonal. Define
+\[
+\mathrm{embed}(p,q,r,s)=\bigl(p+q(1+R_\omega)\bigr)r_1+\bigl(r+s(1+R_\omega)\bigr)r_2 .
+\]
+
+\begin{result}[\exact]\label{res:embed}
+On the level-$2$ patch of \qgTiles\ tiles and \qgVertices\ vertices, $\mathrm{embed}$ is injective and satisfies
+$\langle\mathrm{embed}(x),\mathrm{embed}(y)\rangle=2\,\mathrm{Re}(u_x\bar u_y+v_x\bar v_y)$, so it is an isometry up to the factor $2$ from the lift lattice with its red-orthogonal-green
+form into $E_8$. Every tile edge maps to a root of $E_8$: red edges to roots of $D_4^a$, green edges to roots of $D_4^b$. For two consecutive edges of one colour the inner
+product of their roots is $2\cos(\text{turning angle})$, and for a red edge followed by a green one it is $0$.
+\end{result}
+
+The identity was checked on all \qgVertices\ vertices and on $4000$ random pairs of lattice points. As a negative control, replacing $r_2$ by a root that is orthogonal to $r_1$ but not
+Hermitian-orthogonal to it breaks the isometry ($196$ of $200$ random pairs disagree).
+
+\begin{result}[\exact]\label{res:corners}
+Each tile outline is a closed walk of $14$ roots. Its corners are the same for all \qgTiles\ tiles: \qgCornersSixty\ turns of $60^\circ$ (inner product $1$), \qgCornersNinety\ turns of $90^\circ$
+(all red--green, inner product $0$) and \qgCornersStraight\ straight pass (inner product $2$). The outline has $8$ red and $6$ green edges for \qgTilesMajor\ tiles and $6$ red and $8$ green
+for the other \qgTilesMinor, which differ by an odd multiple of $30^\circ$ in orientation.
+\end{result}
+
+An earlier statement in this project, that every tile has $8$ red and $6$ green edges, was wrong; the count above is the checked one. The orientation of the embedding was fixed by
+choosing $R_\omega$ for $\omega$; the other choice should give the mirror image, as befits the two chiralities of the Spectre. We did not check this.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{figures/spectre_in_e8.png}
+\caption{Left: the level-$2$ Spectre patch with red edges mapped to roots of $D_4^a$ and green edges to roots of $D_4^b$. Right: one tile; each label is the $E_8$ inner product of an edge's root with the
+next (\texttt{models/spectre\_in\_e8.py}).}\label{fig:spectre-e8}
+\end{figure}
+
+What this does \emph{not} give is a cut-and-project construction of the Spectre from $E_8$: the window that selects the Spectre's sites lies in the contracting plane of the inflation and has a fractal boundary,
+so the ball and Voronoi windows of Section~\ref{sec:windows} do not transfer.
+
+\subsection{The inflation does not extend}\label{sec:inflation}
+\begin{result}[\negres]\label{res:inflation}
+The Spectre inflation, written on the lift lattice (\texttt{lift4d\_\allowbreak matrix.py}), has a $4\times4$ block with characteristic polynomial $x^4-8x^2+1$, whose roots are $\pm\lambda,\pm1/\lambda$ with
+$\lambda=(\sqrt3+\sqrt5)/\sqrt2\approx2.8059$ and $\lambda^2=4+\sqrt{15}\approx\qgLambdaSquared$. Since $\lambda$ is not a root of unity, no automorphism of $E_8$ (all of which have finite order) restricts to this block
+on the image of \textnormal{embed}: the inflation does not extend to the $E_8$ root system.
+\end{result}
+
+\begin{result}[\exact]\label{res:field}
+The field $\mathbb{Q}(\lambda)=\mathbb{Q}(\sqrt6,\sqrt{10})$ has degree $4$. It contains $\sqrt{15}=\sqrt6\sqrt{10}/2$ but contains neither $\sqrt3$, nor $\sqrt5$, nor the golden ratio $\varphi$.
+\end{result}
+
+The icosian $E_8$ and its shells live in $\mathbb{Z}[\varphi]$, so the two aperiodic structures use different number fields. The product $\sqrt{15}=\sqrt3\sqrt5$ (a hexagonal field times an
+icosahedral one) suggests a construction that combines the Eisenstein structure of $E_8$ with its icosian structure, so that one object would carry both the hexagonal vectors of the Spectre and the golden ratio.
+This is a \hypo: we found no such construction, and Result~\ref{res:inflation} says that if one exists, the Spectre inflation is not an isometry of it.
+
+%------------------------------------------------------------------------------------------------------------------------------------
 \section{The Chair44 count}\label{sec:chair}
-\todo{\negres: $192=24\times8$ matches the equatorial roots in shape only; which structures fail (negation, free action of order 24).}
+The Chair44 has $192=24\times8$ pyramid tips, and the equatorial part of $E_8$ (all roots outside the two pole fibres) has $192$ roots, which suggests a link. We tested it.
+
+\begin{result}[\exact]\label{res:chair}
+On the Chair44 side: the $24$ panels carry $8$ tips each, and the signed heights are the $24$ values $\pm1,\dots,\pm12$ (in units of $10^{-4}$), each occurring exactly $8$ times. The panels fall into three classes of $8$ by their
+set of heights: $P=\{1,\dots,8\}$ (sum $36$), $N=\{-8,\dots,-1\}$ (sum $-36$) and $Z=\{\pm9,\dots,\pm12\}$ (sum $0$). Of the $48$ symmetries of the cube about the centroid, only the identity preserves the labelled tip set.
+On the $E_8$ side: the $192$ equatorial roots form $8$ fibres, each cut into $3$ blocks of $8$ roots, so $24$ cells of $8$; every block and every fibre is closed under $r\mapsto-r$; and the fibre group
+$2T$ (of order $24$) acts freely on the $192$ roots, with $8$ orbits.
+\end{result}
+
+\begin{result}[\negres]\label{res:chair-neg}
+The shapes agree: both are $3\times8\times8$. The structures do not: (i) on $E_8$ negation fixes every block, while on the Chair44 the bump--dent flip $h\mapsto-h$ exchanges classes $P$ and $N$ and fixes only $Z$; so the three classes are not the same three things;
+(ii) the $E_8$ set carries a free action of a group of order $24$, and the labelled Chair44 has no non-trivial cube symmetry, so no identification that respects a symmetry of the solid can exist.
+\end{result}
+
+A non-geometric labelling, assigning heights to elements of $2T$ for instance, could still make the shapes correspond; nothing here supports that, and nothing rules it out (\hypo). The count $192=24\times8$ is therefore recorded as a coincidence
+of counts, with a stated reason: wherever the two sides have comparable structure, they disagree.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{figures/chair_e8_192.png}
+\caption{Left: the Chair44 as $24$ panels $\times$ $8$ signed heights, in three classes of $8$ panels. Right: the $E_8$ equatorial roots as $8$ fibres $\times$ $3$ blocks $\times$ $8$ roots; the shapes agree, the structures do not (\texttt{models/chair\_e8\_192.py}).}\label{fig:chair-e8}
+\end{figure}
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{An abelian Wilson-loop probe}\label{sec:wilson}
-\todo{the programme \cite{peevdogra} needs perimeter and corner extraction; the $U(1)$ Gaussian analogue and what was computed. Results with $\dagger$: aligned fit $\alpha=\qgWAlpha$, $b=\qgWB$ per corner, leave-one-out $\qgWLoo$; failure for a width-3 feature ($\qgWWidthDev$); placement spread $\qgWSpreadlo$ to $\qgWSpreadhi$ and averaged fit $\alpha=\qgWAvgalpha$, $b=\qgWAvgb$; gauge ($\qgWGaugemax$); $L=5$.}
-\subsection{What the probe cannot see}
-\todo{the hypercubic action treats every turn between different axes as $90^\circ$; the Spectre has $60^\circ$ corners; the Spectre outline written in $\mathbb{Z}^4$ gives $\qgWZfourcornersfirst$ and $\qgWZfourcornerssecond$ corners for the two orderings of its diagonals.}
+\subsection{Setting}
+The Wilson-loop repository of Peev and Dogra \cite{peevdogra} develops a renormalisation-group programme for Yang--Mills theory on a $4$-torus, in which the first step averages the field over blocks of side $L$.
+For a square Wilson loop that step extracts a factor $\exp(-\tfrac{g^2}{2}E_f)$, and $E_f$ is read as a perimeter term plus a term per corner. We did not read or check the proofs of that programme and make no statement about them.
+A square has four corners of one kind, so it cannot show whether a corner contributes a constant that depends on the corner alone. We tested that in the simplest setting we could compute, a $U(1)$ Gaussian
+analogue of the first step on a $4$-torus with $K=6$ blocks of side $L=3$ per direction, in Landau gauge and with $g=1$ (unless a value says otherwise), using the operators of the programme's abelian check
+and applying them to arbitrary closed loops. All numbers in this section were computed in the Wilson-loop repository (commit 52a3972) and are copied here, not recomputed by \texttt{paper\_numbers.py}; they carry $\dagger$.
+That code, like the rest of this work, was written with LLM assistance and has not been independently reviewed. The analogue has no non-abelian structure, no large fields and no running coupling, and nothing in it
+checks a bound or a proof of the programme.
 
+Write $P$ for the number of links of a loop and $c$ for its number of corners, that is, places where consecutive links change direction.
+
+\subsection{Results}
+\begin{result}[\numeric\snap]\label{res:wl-fit}
+At the placement used by the published square fits (a loop corner at a block centre), $E_f=\alpha P+b\,c$ fits seven loops (squares, rectangles, an L-shape, and loops spanning three directions, every feature at least $2L$ wide)
+with $\alpha=\qgWAlpha$ per link and $b=\qgWB$ per corner ($4b=\qgWFourb$). Each loop left out of the fit is predicted to $\qgWLoo$ or better. Under permutation of the axes, reversal of the loop and
+translation by $L$, $E_f$ is unchanged to $10^{-9}$ (exact symmetries). The tolerance $0.01$ in the test was chosen after seeing the data.
+\end{result}
+
+\begin{result}[\numeric\snap]\label{res:wl-thin}
+At that placement the corner term fails for a feature one block wide: a rectangle of length $12$ and width $3$ lies $\qgWWidthDev$ from the fit, and thin rectangles and L-shapes lie $\qgWThinlo$ to $\qgWThinhi$ below it, while
+widths $6$ and above deviate by about $\qgWWidthwithin$ or less.
+\end{result}
+
+\begin{result}[\numeric\snap]\label{res:wl-place}
+\emph{The placement of the loop against the blocks matters more than the corner term.} The coarse lattice has period $L$, so $E_f$ depends on the position of the loop modulo $L$ in each direction. Over all $81$ positions, the placement of Result~\ref{res:wl-fit}
+is the lowest-energy one for all eight loops tried, and the spread (maximum minus minimum) is $\qgWSpreadlo$ to $\qgWSpreadhi$ per loop, larger than the whole corner term $|4b|$. Averaged over the $81$ positions the fit becomes
+$\alpha=\qgWAvgalpha$, $b=\qgWAvgb$ ($4b=\qgWAvgfourb$), still roughly additive (leave-one-out $\qgWAvgloo$), and the one-block-wide loops now lie \emph{above} the fit.
+\end{result}
+
+So the thin-loop deficit of Result~\ref{res:wl-thin} is a statement about one placement, and an earlier reading of it in this project as a property of the loops was wrong. Which placement corresponds to the blocks of the programme itself is not known to us.
+
+\begin{result}[\numeric\snap]\label{res:wl-corner}
+Splitting $E_f$ over the links of a loop shows that the energy is carried by the links near a corner and recovers within one block. The corner excess is the same for convex and concave turns: in the L-shape the concave corner has
+$\qgWConcave$ against a convex mean of $\qgWConvexmean$. Moving the square of side $9$ by one step in two directions changes its edge value from $\qgWEdgealigned$ to $\qgWEdgeshifted$ and its per-corner excess
+from $\qgWCornaligned$ to $\qgWCornshifted$, so most of the placement effect on that loop is the edge value and about a tenth is the corner. The excess has to be measured against the loop's own edge value;
+against the fitted $\alpha$ it is not meaningful for a shifted loop.
+\end{result}
+
+\begin{result}[\numeric\snap]\label{res:wl-gauge}
+Landau gauge and $\xi=1$ gauge agree to at most $\qgWGaugemax$ in $E_f$ for every loop at the aligned placement, and to $\qgWGaugeshifted$ for the shifted square.
+\end{result}
+
+\begin{result}[\numeric\snap, weak]\label{res:wl-L}
+A single run at $L=5$ ($K=4$) gives squares of side $5$ and $10$ with $E_f=\qgWLfiveone$ and $\qgWLfivetwo$, so $\alpha=\qgWLfivealpha$ and $\beta=\qgWLfivebeta$ from that pair, against $\alpha=\qgWLthreealpha$ and
+$\beta=\qgWLthreebeta$ from the same pair at $L=3$. The pair is itself a poor estimate (about $1\%$ in $\alpha$ and $20\%$ in $\beta$ at $L=3$), so the data say that $\alpha$ grows by more than $15\%$ from $L=3$ to $5$ and say nothing about
+$L>11$, where the programme needs them. The finite-size error of the $K=4$ torus was not checked.
+\end{result}
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{figures/wilson_corner_locality.png}
+\caption{Departure of $E_f$ from perimeter plus corners at the aligned placement. Left: deviation from $\alpha P+bc$ for loops with isolated corners (blue), with a feature one block wide (orange) and for the lifted Spectre outline (red). Right: $E_f$ against the number of links, with the line for four corners (\texttt{models/wilson\_corner\_locality.py}, numbers from the Wilson-loop repository).}\label{fig:wilson}
+\end{figure}
+
+\subsection{What the probe cannot see}\label{sec:probe-limits}
+The hypercubic action treats every turn between different axes as a right angle. The Spectre outline has turns of $60^\circ$ and $90^\circ$ (Result~\ref{res:corners}), and the probe cannot tell them apart; a test of $60^\circ$ corners needs an action and a block-averaging map
+on the hexagonal lattice $A_2+A_2$, and neither exists (Section~\ref{sec:open}).
+
+We did write the lifted Spectre outline in $\mathbb{Z}^4$, replacing each diagonal hexagonal step by two links. Two orderings of the same diagonal give different loops, with $\qgWZfourcornersfirst$ and $\qgWZfourcornerssecond$ corners and
+$E_f=\qgWZfourfirst$ and $\qgWZfoursecond$. Over the dilations tried, the energy of these loops lies $\qgWZfourdevlo$ to $\qgWZfourdevhi$ above the prediction $\alpha P+bc$ of the aligned fit (red in Figure~\ref{fig:wilson}).
+This looks like corners one link apart interacting, since the range of the corner term is about one block, but \emph{we cannot separate that from the placement effect}: Result~\ref{res:wl-place} gives a spread of the same size ($\qgWSpreadlo$ to $\qgWSpreadhi$), and the Spectre loops were not averaged over placements.
+We therefore do not claim that the corner term fails for the lifted Spectre; we claim only that the prediction of the aligned fit is not reliable for it.
+
+%------------------------------------------------------------------------------------------------------------------------------------
 \section{Open problems and tests that could fail}\label{sec:open}
-\todo{from \texttt{TILE\_E8\_BRIDGE.md}, section 3: four tests, none run; the hexagonal action; the choice of placement; larger $L$.}
+Each item says what would count as an answer. None has been done.
+\begin{enumerate}[leftmargin=1.6em,itemsep=2pt]
+\item \textbf{A hexagonal action} (Wilson probe). A $U(1)$ action on $A_2+A_2$ with triangular plaquettes in each plane and rectangles between planes, and a block-averaging map on hexagonal blocks, so that $60^\circ$ and $120^\circ$ corners can be told from $90^\circ$ ones. Success: a corner constant for each type, with the loops of Section~\ref{sec:wilson} rerun.
+\item \textbf{Which placement.} Whether the blocks of the programme correspond to the aligned placement, to the average over placements, or to neither; and the whole of Section~\ref{sec:wilson} at a block size other than $L=3$ with the finite-size error of $L=5$ controlled.
+\item \textbf{Admissible contours.} Whether a contour whose edges are at multiples of $30^\circ$ is admissible for the corner extraction of the programme, and what the renormalisation of a corner should depend on. This is a question for its authors, not a computation.
+\item \textbf{Tip-to-root rule.} A rule, not a choice made to fit, that assigns each Chair44 tip to an $E_8$ root and preserves a stated invariant, for instance adjacency of tips on neighbouring panels against inner product $1$ of roots. Success or failure of the invariant would decide whether the shape match of Section~\ref{sec:chair} is more than a coincidence.
+\item \textbf{A Chair44 substitution.} A substitution of the Chair44 tile (inflation by $2$ on $\mathbb{Z}^3$, determinant $8$, no contracting direction) compatible with a map of $E_8$ sublattices. As $E_8$ has no contracting direction either, this needs a different lattice.
+\item \textbf{Both number fields.} A lattice, not $E_8$ itself, with both an Eisenstein structure and a $\mathbb{Z}[\varphi]$ structure in which the Spectre inflation $\lambda$ is a unit or an automorphism, for instance a rank-$8$ module over a ring related to $\mathbb{Z}[\sqrt3,\sqrt5]$. This is what the Hypothesis of Section~\ref{sec:inflation} needs.
+\item \textbf{The Lorentz plane.} What data pick a signature on $E_8$, and how they act on the $E_6+A_2$ choice of Section~\ref{sec:e6}.
+\item \textbf{Reading the sources.} The Elser--Sloane paper, to decide whether the window of Result~\ref{res:vor} is theirs; the Sadoc--Mosseri paper beyond its abstract; the construction of Ch\'eritat and Ma behind the lift; the five arXiv papers cited in the Introduction beyond their abstracts, and the literature on causal sets and loop quantum gravity mentioned there.
+\item \textbf{Proofs.} The invariance of the Voronoi window under the fibre group (a sketch only), the class-count formula for the shells ($n\le 60$ checked), and the shell law for all $n$.
+\item \textbf{The orientation.} Whether the other choice of $R_\omega$ in the embedding of Section~\ref{sec:embed} gives the mirror image.
+\item \textbf{An arrow of time.} The aim of the Introduction. A candidate structure would be a graph or combinatorial object on which reversal of the order of events is not a symmetry, which also has the exact structure found here. None of the computations in this paper provides one.
+\end{enumerate}
 
 \appendix
-\section{Reproduction}
-\todo{table of test modules and counts; the commands; provenance of the snapshot numbers.}
-\section{Tight-binding and twist-hopping on the Spectre family}
-\todo{short appendix: \texttt{\_tb}, \texttt{chair\_fibers}, \texttt{twist\_hopping}.}
+\section{Reproduction}\label{app:repro}
+All commands are run from the root of this repository, with \texttt{numpy}, \texttt{scipy}, \texttt{sympy} and \texttt{matplotlib}; \texttt{latexmk} and \texttt{pdflatex} are needed only for the paper. Each module has a self test:
+\begin{center}\footnotesize
+\begin{tabular}{@{}lrl@{}}
+\toprule
+Module & Checks & Section \\ \midrule
+\texttt{\_tb} & 22 & App.~\ref{app:tb} \\
+\texttt{twist\_hopping} & 29 & App.~\ref{app:tb} \\
+\texttt{chair\_fibers} & 10 & Sec.~\ref{sec:intro}, App.~\ref{app:tb} \\
+\texttt{hopf\_shells} & 33 & \ref{sec:cells}, \ref{sec:shells} \\
+\texttt{icosian\_e8} & 17 & \ref{sec:bg-e8} \\
+\texttt{e8\_shells} & 45 & \ref{sec:shells} \\
+\texttt{fibre\_window} & 11 & \ref{sec:windows} \\
+\texttt{voronoi\_window} & 10 & \ref{sec:windows} \\
+\texttt{e6\_fibres} & 25 & \ref{sec:e6} \\
+\texttt{spectre\_in\_e8} & 13 & \ref{sec:tiles} \\
+\texttt{chair\_e8\_192} & 11 & \ref{sec:chair} \\
+\texttt{wilson\_corner\_locality} & 9 & \ref{sec:probe-limits} \\
+\texttt{paper\_numbers} & 35 & all \\ \bottomrule
+\end{tabular}\end{center}
+The counts are those of the run that accompanied this draft, $270$ checks in all, with no failure. For a module \texttt{X}: \texttt{python3 models/X.py --tests-only}. The module \texttt{wilson\_corner\_locality} imports the operators of the Wilson-loop repository and needs
+\texttt{WILSON\_RG\_DIR} to point at it. The numbers of the paper are written by \texttt{make numbers} (about $30$ seconds), and \texttt{make quantgrav} builds this document.
+
+\textbf{Provenance of the numbers marked $\dagger$.} They were copied, as printed strings, into \texttt{models/data/wilson\_snapshot.json} from the output of \texttt{numerics/corner\_locality} and \texttt{numerics/bridge\_figs} of the Wilson-loop repository at commit 52a3972 (run on 7 and 8 November 2026).
+They are not recomputed here. Recomputing them is \texttt{make test} in that repository (about $10$ minutes); a mismatch with the snapshot is a reason to doubt this paper, not that repository.
+
+\section{Tight-binding and twist-hopping on the Spectre family}\label{app:tb}
+These three models are the earliest in this line, and they do not use $E_8$. They are included because the figures of the Introduction come from them.
+
+\textbf{Tight-binding (\texttt{\_tb}).} A level-$3$ Spectre patch has $3734$ sites and $4292$ bonds. The Hat, Spectre and Turtle tilings of the Spectre family have the same bond graph, so with unit hopping their spectra coincide (\exact); the spectrum is symmetric about $0$ because the
+graph is bipartite, and $\sum E^2=\sum H_{ij}^2$ (\exact). For unit hopping, $E\in[-2.434,2.434]$ and the mean of $N\cdot\mathrm{IPR}$ is $14.7$; with hopping $1/\text{length}$ the three tilings differ: Hat has $E\in[-2.133,2.133]$ and mean $N\cdot\mathrm{IPR}=84.4$, Turtle $[-1.965,1.965]$ and $58.7$ (\numeric). These describe
+three finite patches with a boundary; they give no scaling law.
+
+\textbf{Twist hopping (\texttt{twist\_hopping}).} Here a bond is a B\'ezier edge whose length depends on the curve strength and on the twist of its two handles. Twisting does not change the bond graph, so with unit hopping the spectrum does not depend on any twist (\exact).
+The twists under which copies of one tile still tile the plane are exactly two numbers, $\alpha$ at the even vertices and $\beta$ at the odd ones (\exact, levels $1$ to $3$). On such a patch all $14$ edges have one length $\ell(\alpha,\beta)\ge1$, and with hopping $t_0/\text{length}$ the spectrum is the unit-hopping
+spectrum divided by $\ell$ (tested to $10^{-13}$): twisting a tiling in the only way it can be twisted gives a rescaling and nothing else. The arc length of a B\'ezier edge does not change when the edge is reversed, so these models see no direction along an edge, in line with the remark in the Introduction.
+The rule $t=t_0/\text{length}$ is a choice and says nothing about any real material.
+
+\textbf{Fibres to the Chair44 (\texttt{chair\_fibers}).} The fibre of Figures~\ref{fig:intro-scene} and~\ref{fig:intro-twist} is the cubic B\'ezier with control points $X$, $X+s_0u$, $T+s_1n$, $T$, with $X$ a base point of the tile, $u$ the direction of its handle, $T$ a pyramid tip and $n$ the outward normal of its panel.
+With $D=T-X$, its energy $\int_0^1|B''|^2\,dt$ is a convex quadratic in the speeds $s_0,s_1\ge0$ (\exact, derived with SymPy and checked against quadrature). For a tip on an up-facing panel the energy of the best fibre is $12|D|^2-9D_z^2-9\max(0,\cdot)^2$ with a plateau where the vertex points away from the tip, and
+$E_{\min}=3|D|^2$ (\exact). The pairing of the $42$ bases with the tips by least total energy (total $490.0$ for $a=b=1$, $k=0.5$) is a rule and the height of the sheet is a free choice (\numeric); this model does not test any thesis about the Chair44.
 
 \bibliographystyle{plain}
 \bibliography{quantgrav}
+
 \end{document}
