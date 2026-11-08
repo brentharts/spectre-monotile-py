@@ -401,3 +401,8 @@ with both Eisenstein and icosian structure.
 ### 11f. `chair_e8_192.py` (written): 192 Chair44 tips against the 192 equatorial roots
 Records the structure of each side (24 panels x 8, 24 signed heights x 8, three classes P/N/Z, no symmetry; 8 fibres x 3 blocks x 8, free action of order 24) and compares: the shape 3 x 8 x 8
 matches, the structure does not. 11 self tests. Figure `figures/chair_e8_192.png`. Write-up: `../TILE_E8_BRIDGE.md`.
+
+### 11g. `wilson_corner_locality.py` (written): is the Wilson-loop corner term local?
+Uses the CC0 fork `4D_Wilson_Loop_RG` (import via `$WILSON_RG_DIR`, not copied) with a batched Bloch sum for any closed loop on the 4-torus (K = 6, L = 3). Finds `E_f = alpha P + b c` valid for
+isolated corners (features at least 2L), failing for L-wide features and for the lifted Spectre outline. 9 self tests (about 40 s; skipped if the fork is not found). Figure
+`figures/wilson_corner_locality.png`. Write-up: `../TILE_E8_BRIDGE.md`, section 4. Not done: 60 degree corners (needs an A2 + A2 action and averaging), anything non-abelian.
