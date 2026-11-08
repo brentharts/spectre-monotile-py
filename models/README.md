@@ -394,8 +394,8 @@ the chirality-standard-model fork is read-only (all rights reserved). Not done: 
 
 ### 11e. `spectre_in_e8.py` (written): the Spectre's 4D lift inside E8
 The red and green hexagonal A2's of the repository's own Cheritat-Ma lift (`lift4d.py`) are embedded isometrically in E8 as A2 + A2 through the Eisenstein structure `R_w`;
-every Spectre edge is a root, each tile outline a closed 14-walk (8 red, 6 green). The inflation (`x^4 - 8x^2 + 1`) does not extend to E8, and its field contains `sqrt 15` but not the
-golden ratio. 12 self tests, 4 mutations caught. Figure `figures/spectre_in_e8.png`. Write-up: `../TILE_E8_BRIDGE.md`. Not done: any cut-and-project window, the other chirality, a lattice
+every Spectre edge is a root, each tile outline a closed 14-walk (8 red and 6 green for 63 of the 71 tiles, 6 and 8 for the other 8). The inflation (`x^4 - 8x^2 + 1`) does not extend to E8, and its field contains `sqrt 15` but not the
+golden ratio. 13 self tests, 4 mutations caught (the 13th, the colour split, was added after the mutations were run). Figure `figures/spectre_in_e8.png`. Write-up: `../TILE_E8_BRIDGE.md`. Not done: any cut-and-project window, the other chirality, a lattice
 with both Eisenstein and icosian structure.
 
 ### 11f. `chair_e8_192.py` (written): 192 Chair44 tips against the 192 equatorial roots
