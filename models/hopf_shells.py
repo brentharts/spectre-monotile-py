@@ -220,6 +220,40 @@ def right_cosets(group, sub):
     return out
 
 
+def inscribed_24cells(group=None, sub=None):
+    """All 24-cells of the form g * sub * h (g, h in ``group``) that lie inside ``group``.
+
+    Returns a list of frozensets of indices into ``group``.  For 2I and 2T there are 25 = 5 * 5: the
+    cell g*2T*h depends only on the left coset class of g and the right coset class of h after conjugation."""
+    group = icosians() if group is None else group
+    sub = hurwitz_units() if sub is None else sub
+    idx = {_key(v): i for i, v in enumerate(group)}
+    out = set()
+    for g in group:
+        gs = np.array([qmul(g, s) for s in sub])
+        for h in group:
+            pts = [_key(qmul(x, h)) for x in gs]
+            if all(p in idx for p in pts):
+                out.add(frozenset(idx[p] for p in pts))
+    return sorted(out, key=sorted)
+
+
+def coset_partitions(group=None, sub=None):
+    """Partitions of ``group`` into cosets of every conjugate of ``sub`` (left and right).
+
+    Returns a set of frozensets of frozensets.  For 2I and 2T: 5 conjugates -> 5 left + 5 right = 10 partitions."""
+    group = icosians() if group is None else group
+    sub = hurwitz_units() if sub is None else sub
+    idx = {_key(v): i for i, v in enumerate(group)}
+    conj = {tuple(sorted(idx[_key(qmul(qmul(h, s), qconj(h)))] for s in sub)) for h in group}
+    parts = set()
+    for c in conj:
+        pts = [group[i] for i in c]
+        parts.add(frozenset(frozenset(idx[_key(qmul(g, x))] for x in pts) for g in group))
+        parts.add(frozenset(frozenset(idx[_key(qmul(x, g))] for x in pts) for g in group))
+    return parts
+
+
 def hopf_circle_fibres(order):
     """Hopf circle fibration of 2I: returns (cosets (list of index arrays), base points (n, 3), cyclic subgroup, axis u).
 
@@ -397,6 +431,16 @@ def run_tests(verbose=True):
     half = {_key(t) for t in T if abs(abs(t[0]) - 0.5) < 1e-9}
     check("... all with |q| = phi or 1/phi, q / |q| one of the 16 units (+/-1 +/- i +/- j +/- k) / 2, each used twice",
           norms == [round(1 / PHI, 5), round(PHI, 5)] and {_key(q / np.linalg.norm(q)) for q, _ in qs} == half, "(%s)" % norms)
+    cells = inscribed_24cells(I, T)
+    parts = coset_partitions(I, T)
+    done = [frozenset(frozenset(c) for c in p) for p in
+            (pp for pp in itertools.combinations(cells, 5) if len(set().union(*pp)) == 120)]
+    check("2I contains exactly 25 inscribed 24-cells g*2T*h, each a 24-cell",
+          len(cells) == 25 and all(len(c) == 24 and is_24cell(I[sorted(c)]) for c in cells))
+    check("exactly 10 ways to split 2I into five of them, and they are the left and right coset partitions of the 5 conjugates of 2T",
+          len(parts) == 10 and set(parts) == set(done))
+    bad = frozenset(sorted(cells[0])[:23] + [min(set(range(120)) - cells[0])])
+    check("negative control: a 24-cell with one vertex swapped for an outside one is not among the 25", bad not in set(cells) and not is_24cell(I[sorted(bad)]))
     q0, levels = qs[0]
     F = fibre_projection(R, q0)
     n2 = np.round((F ** 2).sum(1), 6)

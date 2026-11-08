@@ -3,7 +3,7 @@
 Extended models of the curved Spectre monotile, built on the editable object model in `../spectremodel.py`
 (`Tile`, `Vertex`, `BezHandle`). `spectre.py` stays as the untouched reference; nothing here modifies it.
 
-**Status:** one model is written, `chair_fibers.py` (section 6), with `_tb.py` (section 7), `twist_hopping.py` (section 8) `hopf_shells.py` (section 9), `icosian_e8.py` (section 10) and `e8_shells.py` (section 11); the others, including the `quantum-lattice` plan, are a plan. Sources and results of the quantum-lattice / Hopf thread: `../QUANTUM_GRAVITY.md`. This page fixes the
+**Status:** one model is written, `chair_fibers.py` (section 6), with `_tb.py` (section 7), `twist_hopping.py` (section 8) `hopf_shells.py` (section 9), `icosian_e8.py` (section 10) `e8_shells.py` (section 11) and `fibre_window.py` (section 11b below); the others, including the `quantum-lattice` plan, are a plan. Sources and results of the quantum-lattice / Hopf thread: `../QUANTUM_GRAVITY.md`. This page fixes the
 conventions, records the facts the models rest on (each checked, see below), and orders the work.
 
 ## Conventions
@@ -294,7 +294,7 @@ Results (details and figures in `../QUANTUM_GRAVITY.md`):
 
 Quaternion code (arrays `(w, x, y, z)`), the 120 icosians, the 24 Hurwitz units, the 240 E8 roots as Hurwitz pairs, recognisers
 for a 24-cell and a 600-cell shell, Hopf circle fibres of 2I, the fibres of the E8 roots (right orbits of 2T), the Hopf map `S^7
--> S^4`, the Coxeter H4 projection and the fibre-compatible projection `a + q b`. 30 self tests (`python3 models/hopf_shells.py
+-> S^4`, the Coxeter H4 projection and the fibre-compatible projection `a + q b`. 33 self tests (`python3 models/hopf_shells.py
 --tests-only`, 1 s); seven mutations were tried and each is caught (some by a crash rather than a failed check). Figures:
 `figures/hopf_shells_600cell.png`, `figures/hopf_shells_e8.png`. Results are in `../QUANTUM_GRAVITY.md`; in short: 2I is 5
 24-cells; the 600-cell's Hopf circles are 12 decagons, 20 hexagons, 30 squares over an icosahedron, dodecahedron and
@@ -372,3 +372,16 @@ because the twists cancel in the telescoping sum; this is an expectation, not ye
    schema in model 2 changes and the SymPy part becomes a connection and holonomy model instead.
 2. **Roll.** Is a display-only axial twist the pinched tube you had in mind, or should the pinch come from
    something that also changes the outline?
+
+
+### 11b. `fibre_window.py` (written): which E8 windows keep the Hopf fibres whole
+E8 cut-and-project sets in 4D with a ball window, for the icosian splitting and the Coxeter-plane splitting of Quantum_Gravity_Lab.
+Icosian ball windows never split a fibre, Coxeter ones do; the two splittings have the same radial statistics; density matches the volume
+prediction. 11 self tests (`python3 models/fibre_window.py --tests-only`, about 7 s). Figure `figures/fibre_window.png`.
+Results in `../QUANTUM_GRAVITY.md`. Not built: the Elser-Sloane polytope window.
+
+### 11c. `voronoi_window.py` (written): the Voronoi-cell (Elser-Sloane-style) window of E8
+Builds the 19440-vertex Voronoi cell of E8, projects it to the 4D perpendicular space (720-vertex, nearly spherical polytope) and tests which
+fibres it keeps whole: all, in the icosian splitting, because the window is invariant under the fibre group; not in the Coxeter splitting.
+10 self tests (`python3 models/voronoi_window.py --tests-only`, about 35 s). Figure `figures/voronoi_window.png`. Attribution to Elser and
+Sloane is a hypothesis; their paper was not read.
