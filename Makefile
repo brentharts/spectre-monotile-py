@@ -8,6 +8,8 @@
 #   make check         test + verify
 #   make figures       rebuild every figure in figures/
 #   make pdf           build/symspectre.pdf (symbolic LaTeX document, needs pdflatex)
+#   make numbers       compute the numbers quoted in quantgrav.tex -> build/quantgrav_numbers.tex (about 20 s)
+#   make quantgrav     numbers + build/quantgrav.pdf (needs latexmk and pdflatex)
 #   make show          open the interactive per-edge variations window
 #   make show-fields   open the interactive distance-field window
 #   make show-fem      open the interactive finite-element window (torsion, modes, heat)
@@ -42,7 +44,7 @@ SLICE_PNG      := $(FIGDIR)/chair44_slice.png
 COMPARE_PNG    := $(FIGDIR)/chair44_compare.png
 
 .DEFAULT_GOAL := help
-.PHONY: help all check test verify figures pdf show show-fields show-fem show-curvature show-optimize show-patch show-diffract show-fractal install install-min clean
+.PHONY: help all check test verify figures pdf numbers quantgrav show show-fields show-fem show-curvature show-optimize show-patch show-diffract show-fractal install install-min clean
 
 help:  ## list the targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) | \
@@ -94,6 +96,12 @@ figures:  ## rebuild every figure in figures/
 
 pdf:  ## build/symspectre.pdf, the symbolic LaTeX document (needs pdflatex)
 	$(PYTHON) symspectre.py --outdir $(BUILD)
+
+numbers:  ## compute the numbers quoted in quantgrav.tex into build/quantgrav_numbers.tex
+	$(PYTHON) models/paper_numbers.py
+
+quantgrav: numbers  ## build/quantgrav.pdf, the working draft of the paper (needs latexmk)
+	latexmk -pdf -f -interaction=nonstopmode -outdir=$(BUILD) quantgrav.tex
 
 show:  ## run the tests, then open the interactive per-edge variations window
 	$(PYTHON) spectre_operator.py
