@@ -404,5 +404,9 @@ matches, the structure does not. 11 self tests. Figure `figures/chair_e8_192.png
 
 ### 11g. `wilson_corner_locality.py` (written): is the Wilson-loop corner term local?
 Uses the CC0 fork `4D_Wilson_Loop_RG` (import via `$WILSON_RG_DIR`, not copied) with a batched Bloch sum for any closed loop on the 4-torus (K = 6, L = 3). Finds `E_f = alpha P + b c` valid for
-isolated corners (features at least 2L), failing for L-wide features and for the lifted Spectre outline. 9 self tests (about 40 s; skipped if the fork is not found). Figure
+isolated corners (features at least 2L) at the placement of the published fits, failing for L-wide features at that placement and for the lifted Spectre outline; the placement itself moves `E_f` by 0.28 to 0.91 (see `numerics/corner_locality` in `4D_Wilson_Loop_RG`). 9 self tests (about 40 s; skipped if the fork is not found). Figure
 `figures/wilson_corner_locality.png`. Write-up: `../TILE_E8_BRIDGE.md`, section 4. Not done: 60 degree corners (needs an A2 + A2 action and averaging), anything non-abelian.
+
+### 11h. `paper_numbers.py` (written): the numbers of `quantgrav.tex`, computed
+Computes every number the paper quotes from the models above (26 of them: counts of 24-cells and partitions, shell sizes, $E_6$ and $A_2$ counts, Chair44 counts, Spectre corner types and colour split, Voronoi window size) and checks each against its expected value; writes them as LaTeX macros to `build/quantgrav_numbers.tex` (`make numbers`, about 20 s).
+The numbers of the Wilson-loop probe are copied from `data/wilson_snapshot.json` (with the commit and date of their source) and are marked as a snapshot in the paper. Plan: `../QUANTGRAV_PLAN.md`.
