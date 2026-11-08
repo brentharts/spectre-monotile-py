@@ -85,6 +85,11 @@ edges, twisting the handles changes the spectrum. What came out:
   so a fibre goes to a scaled 24-cell, and it is an orthogonal projection up to scale. The roots land on two shells of 120
   (radii in ratio phi), each a rotated copy of 2I and each **a union of 5 whole fibres** (third panel). So 240 = 10 x 24 splits as
   5 + 5 fibres over twin 600-cells.
+- **Exact (new, checked against Quantum_Gravity_Lab):** 2I contains exactly **25** inscribed 24-cells of the form `g 2T h`, and
+  exactly **10** ways to split it into five of them. These 10 are the left and the right coset partitions of the **5 conjugates of 2T**
+  in 2I (5 + 5), so the "5 + 5 by chirality" seen numerically in QGL (`qgl_cqc.py`, `tests/test_cqc.py`) is the left/right split,
+  and 25 = 5 x 5. Found independently here by quaternion algebra (`inscribed_24cells`, `coset_partitions`); QGL found them as
+  24-cliques of a Gram graph. The two agree.
 - **What this says about the notes in section 1:** the counts they quote (24-point fibres, 10 of them, twin 600-cells) are
   reproduced for this Hurwitz construction, and the fibre-by-fibre structure is real. The icosian construction (next section)
   turned out to be the same fibred root system in other coordinates. Nothing here selects sites, and nothing links to the
@@ -144,6 +149,64 @@ Sadoc-Mosseri abstract (section 1) on the Hurwitz / icosian construction, going 
 - **Fibonacci chain (exact on the range):** accepting `alpha` with `0 <= sigma(alpha) < w` gives a model set whose gaps are
   `{1, phi}` for `w = phi` and `{phi, phi^2}` for `w = 1` (right panel). This is a general property of Z[phi] windows
   and not special to E8; what is specific to E8 is that the window acts on whole fibres.
+
+### Which windows keep fibres whole (`models/fibre_window.py`)
+
+![Split fibres vs window radius, density, and a slice of the point set](figures/fibre_window.png)
+
+*Reproduce: `python3 models/fibre_window.py --no-show --save-dir figures`.* Cut-and-project sets `L(R)` from E8 (shells 1..8,
+340 320 vectors, 14 180 fibres) with a ball of radius `R` in the perpendicular space, for two splittings of R^8 into 4D + 4D:
+the icosian one (`icosian_e8.py`) and the Coxeter-plane one used in Quantum_Gravity_Lab.
+- **Exact:** the icosian ball window never splits a fibre (R from 0.5 to 2.0 tested); the Coxeter ball window splits many
+  (about 1 in 3 fibres at R = 1.4, nearly all by R = 2). Left panel. So the fibre-by-fibre selection of the papers is realised by the
+  icosian splitting and not by QGL's, for a ball window.
+- **Caveat, stated plainly:** the cause is only that the icosian perpendicular radius is a function of `(|a|, |b|)`, which is constant on a fibre.
+  Any window depending on those two radii alone also keeps fibres whole, so this does not single out the icosian splitting as special beyond
+  that; it shows the property is easy to have and easy to lose.
+- **Exact (checked numerically on 340 320 vectors):** the two splittings give the same joint distribution of `(|par|^2, |perp|^2)`, so any radial window
+  has the same number of points in either. They differ only in which vectors are chosen. The parallel images are all distinct.
+- **Numeric:** the number of points with `|par| <= rho`, `|perp| <= R` matches `vol(B4)^2 rho^4 R^4` (E8 covolume 1) to 3.5 per cent over four
+  boxes with `rho, R` between 1.5 and 3.4; small boxes are off by up to 15 per cent (discreteness). Middle panel; the two curves coincide.
+- **Not done here:** the polytope window; see the next section. Nothing here touches the Spectre or the Chair44.
+
+### The Voronoi-cell window (`models/voronoi_window.py`)
+
+![Accepted vs rejected radii, split fibres per shell count, and the window polytope](figures/voronoi_window.png)
+
+*Reproduce: `python3 models/voronoi_window.py --no-show --save-dir figures`.* The window is `W = proj_perp(Vor(E8))`, the 4D shadow of the
+Voronoi cell of E8, and the point set keeps the lattice vectors whose perpendicular part is in `W` (equivalently: the vectors whose Voronoi
+cell the physical space cuts). **Hypothesis:** this is the window of Elser and Sloane. I read it that way from the notes in section 1 and did not
+have their paper, so only the properties below are claimed, not the attribution.
+- **Exact:** the Voronoi cell of E8 has 19440 vertices (2160 at norm^2 1, 17280 at norm^2 8/9; generated from the alcove vertices by the
+  Weyl group, each tight on 8 to 14 roots) and 240 facets.
+- **Exact (icosian splitting):** `W` is a 4D polytope with 720 vertices and 2640 facets, volume 3.530, and it is **nearly a ball**: inradius
+  0.9092, circumradius 0.9732. Lattice vectors below the inradius are always accepted, above the circumradius never.
+- **Exact:** the window is invariant under the 24 rotations that move along a fibre, and **no fibre of shells 1..8 is split** (6120 of 340 320
+  vectors accepted, 14 180 fibres). The reason is a group fact: `(a, b) -> (a l, b l)` is a lattice automorphism that commutes with the
+  icosian splitting, so it preserves the Voronoi cell and its shadow. This replaces the weaker radii-only reason given for balls above: it
+  holds for any window invariant under that group.
+- **Negative control:** the same construction with the Coxeter splitting of Quantum_Gravity_Lab splits 2540 of 14 180 fibres (fraction falling
+  from 1 at shell 1 to about 0.18 by shell 8, middle panel), and a window shifted by 0.15 splits 140 fibres of shells 1..6 (checked by hand, not a test).
+- **Numeric:** accepted points with `|par| <= rho` match `vol(W) vol(B4) rho^4` to 1.2 per cent at `rho` = 3.6 and 3.8. At small `rho` the
+  count jumps in steps (the parallel radii take discrete values), so the match there is poor.
+- **What this changes:** for the papers' fibre-by-fibre selection, the question is not the shape of the window but whether it is invariant
+  under the fibre group, which the Voronoi shadow is. Since `W` is within 7 per cent of a ball in radius, the earlier ball-window point sets
+  are a good approximation to this one.
+- **Still open:** the exact Elser-Sloane paper's window and normalisation (to confirm the hypothesis); a figure of the 4D point set itself
+  (the third panel only shows the window's vertices in two coordinates); the Spectre / Chair44 link remains absent.
+
+### Quantum_Gravity_Lab (CC0, J. Poplett) survey
+
+Cloned to read only. What it already holds: `qgl_e8.py` (E8 roots, Coxeter element of order 30, projection to two H4 planes,
+spherical-window model set), `qgl_cqc.py` (600-cell symmetries, 25 inscribed 24-cells, equators, isoclinic rotations to the
+compound of five cuboctahedra), `qgl_qsn.py` (tetragrids, 20G, Fibonacci icosagrid, 15.52 degree golden rotation),
+`qgl_tiling*.py` (Chair44 cells driving a Jaynes-Cummings sensor), plus BKL/Kasner/Hopf cosmology modules.
+- **Agrees with ours:** two 120-point golden shells (our Coxeter H4 plane), 600-cell neighbour structure, 25 and 10 above.
+- **Hypothesis / still open there, and where we can help:** its window is a ball, not the Elser-Sloane window; its list of things not built
+  includes an icosian table. `icosian_e8.py` and `e8_shells.py` give that table and exact shell/fibre counts with Z[phi] arithmetic.
+  The fibre-window comparison is now done (previous section); the Voronoi (polytope) window is in `voronoi_window.py` above. Its Sadoc-Mosseri DOI note (J. Phys. A 26 vs a J. Non-Cryst. Solids
+  entry) is unresolved and not settled here.
+- Nothing from QGL was copied; the check above was written from scratch.
 
 ### Not yet run
 
