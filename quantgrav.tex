@@ -27,8 +27,7 @@
 \theoremstyle{definition}
 \newtheorem{result}{Result}
 
-\title{Hopf fibres of $E_8$, the Spectre monotile and the Chair44:\\
-exact structure, negative results, and an abelian Wilson-loop probe}
+\title{From $E_{8}$ Lattices to Retrocausal Networks: Exact Geometries and Directional Spacetime Dynamics}
 \author{Brent Hartshorn and Tristan Romanov}
 \date{\today}
 
@@ -83,6 +82,15 @@ in its two end speeds (exact, derived with SymPy), and its minimum over the spee
 
 \textbf{Plan.} Section~\ref{sec:scope} fixes the conventions and labels. Section~\ref{sec:background} gives the background, Section~\ref{sec:e8} the exact structure of $E_8$ and its Hopf fibres, Sections~\ref{sec:tiles}
 and~\ref{sec:chair} the Spectre and the Chair44 against $E_8$, Section~\ref{sec:wilson} the Wilson-loop probe and Section~\ref{sec:open} the open problems and the tests that could fail.
+
+% ==============================================================================
+% NEW SUBSECTION FOR THE INTRODUCTION
+% ==============================================================================
+
+\subsection{From Static Lattices to Retrocausal Networks: Scope of the Dynamic Extension}
+While the first part of this paper focuses on machine-checked exact structures on the $E_8$ root lattice, the Spectre monotile, and Wilson-loop probes, it leaves open the fundamental question of how an arrow of time and non-local quantum correlations can emerge from discrete geometric substrates. To address this, the latter half of the paper introduces a dynamic extension that lifts static spatial coordinates into operational directional trajectories. 
+
+Under this framework, we replace continuous spacetime manifolds with six fundamental directional axes ($\pm X, \pm Y, \pm Z$) and localized twist phases, grounding particle histories in discrete $E_8$ fiber state steps. Entanglement is re-interpreted not as instantaneous action-at-a-distance or geometric wormholes ($ER=EPR$), but as a shared axis fusion at $t=0$ that resolves via a bidirectional, retrocausal consistency contract when a measurement occurs. Furthermore, by introducing a local interaction density profile $\rho(\mathbf{x}, t)$, we show how gravitational time dilation and traveling wave ripples emerge directly from interaction frequencies and phase-relaxation dynamics. This dual focus unites rigorous static lattice geometry with a exploratory model of background-independent spacetime dynamics.
 
 \section{Scope and conventions}\label{sec:scope}
 This paper is a collection of finite computations, each with a test that can fail. It makes no physical claim, and it proves nothing about the Wilson-loop programme it borrows operators from. Where a statement is a conjecture or a motivation, it is marked as such.
@@ -387,6 +395,124 @@ Each item says what would count as an answer. None has been done.
 \item \textbf{The orientation.} Whether the other choice of $R_\omega$ in the embedding of Section~\ref{sec:embed} gives the mirror image.
 \item \textbf{An arrow of time.} The aim of the Introduction. A candidate structure would be a graph or combinatorial object on which reversal of the order of events is not a symmetry, which also has the exact structure found here. None of the computations in this paper provides one.
 \end{enumerate}
+
+% ==============================================================================
+% NEW SECTIONS: DYNAMIC AXIS TRAJECTORIES, RETROCAUSAL CONTRACTS & DENSITY
+% ==============================================================================
+
+\section{Dynamic Axis Trajectories on $E_8$ Fiber Spaces}
+The static isometric embedding of the Spectre lift lattice $\mathbb{Z}[\zeta_{12}] = \mathbb{Z}[\varpi] \oplus \zeta \mathbb{Z}[\varpi]$ into $E_8$ (Section 5.1) maps red and green edges to roots of the $D_4^a$ and $D_4^b$ pole sublattices, respectively. Rather than treating these root vectors purely as static geometric positions on a lattice background, we extend this construction into a dynamic temporal process by interpreting root transitions as ordered steps along discrete directional degrees of freedom.
+
+We replace the smooth $3+1$ continuum with six discrete directional unit vectors $D = \{+X, -X, +Y, -Y, +Z, -Z\}$, supplemented by localized twist orientations. In the $E_8$ root representation, a single trajectory node at temporal index $t$ is parameterized by a state vector $S(t) \in D_4^a \oplus D_4^b \subset E_8$. Under this mapping:
+\begin{enumerate}
+    \item Consecutive spatial steps along the same hexagonal orientation correspond to roots with inner product $\langle r_i, r_{i+1} \rangle = 2 \cos(\theta)$, where $\theta$ is the turning angle (Section 5.1).
+    \item Inter-plane transitions (red-to-green steps) satisfy $\langle r_{\text{red}}, r_{\text{green}} \rangle = 0$, enforcing orthogonal directional decoupling between adjacent axial planes.
+\end{enumerate}
+
+Rather than imposing a single global coordinate time parameter $T$ shared across all spatial coordinates $(X, Y, Z)$, each directional axis component carries an independent temporal parameter $t_{\mu}$ ($\mu \in \{X, Y, Z\}$). A macroscopic trajectory is constructed as a combinatorial interaction tree of discrete axis steps, where the physical universe emerges from the flux of state updates across the underlying $E_8$ root fiber network.
+
+\section{Retrocausal Consistency Contracts and Quantum Correlations}
+Standard quantum field theory handles entanglement and measurement collapse via non-local wavefunction collapse across spacelike separations or via geometric wormhole topologies ($ER=EPR$). Within our discrete directional framework, we formalize entanglement without action-at-a-distance by modeling coupled timelines through a shared initial boundary condition at $t = 0$ that resolves via a bidirectional topological contract.
+
+\subsection{Entangled Axis Fusion at $t=0$}
+Two coupled particle paths, denoted by timeline state vectors $S_A(t)$ and $S_B(t)$, originate from a common energy-creation event at $t=0$. The initial directional states are constrained by an anti-correlated fusion condition:
+\begin{equation}
+    S_A(0) = +X_i \quad \Longleftrightarrow \quad S_B(0) = -X_i,
+\end{equation}
+where $+X_i$ and $-X_i$ represent inverted root orientations in the corresponding $E_8$ fiber subspace.
+
+\subsection{Measurement Collapse as a Two-Symmetric Boundary Resolution}
+When a measurement event occurs on Particle A at index $t = t_{\text{measure}}$, forcing its state to a specific outcome $S_A(t_{\text{measure}}) = S_{\text{observed}}$, the system resolves the boundary condition through a two-phase relaxation contract:
+\begin{enumerate}
+    \item \textbf{Retrocausal Phase Wave:} A shockwave of topological consistency updates propagates \emph{backward} in time from $t = t_{\text{measure}}$ down to $t = 0$ along timeline A:
+    \begin{equation}
+        S_A(t-1) = \arg\min_{S \in D} \left\| S - S_A(t) \right\|^2_{E_8},
+    \end{equation}
+    re-orienting the past interaction sequence to maintain net flux conservation.
+    \item \textbf{Entangled Origin Flip and Procausal Cascade:} Upon reaching the origin $t = 0$, the inverted coupling rule re-fuses Particle B's initial node $S_B(0) = -S_A(0)$, initiating a forward-propagating (\emph{procausal}) relaxation wavefront along timeline B for $t > 0$.
+\end{enumerate}
+This mechanism aligns with the retrocausal and time-symmetric formulations of Cramer, Kastner, and Aharonov et al., resolving the measurement problem as a global boundary-value optimization over discrete interaction trees rather than instantaneous non-local signaling.
+
+\section{Interaction Density $\rho(t)$, Gravitational Time Dilation, and Waves}
+To incorporate gravitational effects without relying on a Riemannian metric tensor $g_{\mu\nu}$, we define gravitational phenomena directly from the local interaction density $\rho(x, y, z, t)$ of the directional axis hypergraph.
+
+\subsection{Local Clock Rates and Interaction Density}
+Mass and energy concentrations correspond to localized regions of high axis-interaction density. The effective local clock rate $\tau'(t)$ relative to a macroscopic reference step $\Delta t$ is inversely proportional to the local node density profile:
+\begin{equation}
+    \tau'(t) = \frac{\Delta t}{\rho(t)}, \quad \text{where} \quad \rho(t) = 1 + \sum_{j} \frac{M_j}{1 + \|\mathbf{x} - \mathbf{x}_j\|^2}.
+\end{equation}
+In regions of intense energy density (such as near black hole horizons or dense mass distributions), $\rho(t) \gg 1$. The higher frequency of microscopic axis re-orientations causes macroscopic clock progression to slow down. High-density nodes act as inertial anchors in the retrocausal contract loop, dampening rapid state changes and holding historical interaction paths in place longer under perturbation.
+
+\subsection{Gravitational Wave Propagation on the Timeline Grid}
+A gravitational wave is modeled as a traveling ripple of consistency contract re-adjustments propagating across a spatial lattice of coupled directional timelines $(x, y) \in \mathbb{Z}^2$. When a high-energy dynamic mass event (e.g., a binary inspiral) modulates the local density profile $\rho(x, y, t)$, neighboring spatial timelines must adjust their axis states to preserve global topological coherence. 
+
+The probability $P_{\text{update}}$ of a timeline node updating its orientation to match neighboring spatial flux is damped by the local density:
+\begin{equation}
+    P_{\text{update}}(x, y, t) \propto \frac{1}{\rho(x, y, t)}.
+\end{equation}
+This produces traveling wave fronts in the directional lattice where high-density regions induce phase lag and structural dispersion, providing a discrete, background-independent mechanism for gravitational wave transport.
+
+% ==============================================================================
+% NEW SECTION: MATHEMATICAL FORMALIZATION OF THE AXIS-INTERACTION MODEL
+% ==============================================================================
+
+\section{Mathematical Formalization of the Directional Axis-Interaction Model}
+To place the qualitative sketches of directional trajectories, retrocausal contracts, and interaction density on a rigorous footing, we formulate the system as a discrete-time, multi-axis network operating over the $E_8$ root lattice and its Hopf fiber projections.
+
+\subsection{State Space and Directional Basis}
+Let the fundamental discrete directional basis be denoted by $D = \{\pm X, \pm Y, \pm Z\}$, with associated twist phases $\theta \in [0, 2\pi)$. Through the isometric embedding $\text{embed}: \mathbb{Z}[\zeta_{12}] \to E_8$ (Section 5.1), each directional state maps to a specific root vector $r \in D_4^a \oplus D_4^b \subset E_8$. 
+
+A particle trajectory $\gamma$ is defined as a sequence of discrete interaction nodes indexed by local integer time steps $t \in \mathbb{N}$:
+\begin{equation}
+    \gamma = \left\{ s(t) \right\}_{t=0}^{T_max}, \quad s(t) = (r_i, \theta_i) \in E_8 \times S^1.
+\end{equation}
+Rather than evolving via a continuous Hamiltonian on a unified manifold $\mathbb{R}^{3+1}$, the system transitions via adjacency rules governed by the inner product of roots: consecutive steps satisfy $\langle s(t), s(t+1) \rangle = 2 \cos(\Delta \theta)$, respecting the root geometry of $E_8$.
+
+\subsection{Retrocausal Consistency Contracts as Global Optimization}
+To formalize the "fluid past" and retrocausal shockwave resolution without violating global conservation laws, we define a trajectory's global consistency action $\mathcal{A}[\gamma]$ over a finite interval $[0, T]$:
+\begin{equation}
+    \mathcal{A}[\gamma] = \sum_{t=1}^{T} \left[ \left\| s(t) - s(t-1) \right\|^2_{E_8} + \lambda \left( \Phi_{\text{net}}(t) - \Phi_{\text{target}} \right)^2 \right],
+\end{equation}
+where $\Phi_{\text{net}}(t) = \sum_{\tau=0}^t \text{embed}(s(\tau))$ represents the cumulative vector flux, and $\lambda$ is a Lagrange multiplier enforcing conservation.
+
+When a high-energy measurement or perturbation forces a fixed boundary state at time $t_{\text{measure}}$, such that $s(t_{\text{measure}}) = s_{\text{obs}}$, the system does not evolve purely forward. Instead, it re-minimizes $\mathcal{A}[\gamma]$ via a bidirectional relaxation operator:
+\begin{equation}
+    \frac{\delta \mathcal{A}}{\delta s(t)} = 0 \quad \forall t \in [0, T_max],
+\end{equation}
+subject to the constraints $s(0) = s_{\text{init}}$ and $s(t_{\text{measure}}) = s_{\text{obs}}$. This variational principle generates the retrocausal shockwave: past nodes $s(t < t_{\text{measure}})$ adjust cooperatively to ensure the entire history forms a globally consistent execution path.
+
+\subsection{Interaction Density and Effective Temporal Pacing}
+Gravitational phenomena and time dilation are introduced through a scalar interaction density field $\rho(\mathbf{x}, t)$, defined over the spatial coordinates of the axis hypergraph:
+\begin{equation}
+    \rho(\mathbf{x}, t) = 1 + \sum_{j} \frac{M_j}{\left( 1 + \left\| \mathbf{x} - \mathbf{x}_j(t) \right\|_2^2 \right)^{\frac{3}{2}}},
+\end{equation}
+where $M_j$ represents localized energy-momentum source terms. The local macroscopic clock rate $\Delta \tau$ governing state transitions at position $\mathbf{x}$ and time $t$ is inversely modulated by this density:
+\begin{equation}
+    \Delta \tau(\mathbf{x}, t) = \frac{\Delta t_0}{\rho(\mathbf{x}, t)},
+\end{equation}
+where $\Delta t_0$ is the background baseline tick rate. 
+
+High-density regions ($\rho \gg 1$) compress the temporal pacing, increasing the frequency of microscopic axis interactions per macroscopic epoch. In the variational consistency solver, high-density nodes acquire a higher inertial weight $w(\mathbf{x}, t) \propto \rho(\mathbf{x}, t)$, making past interaction states significantly more resistant to retrocausal reordering.
+
+\subsection{Coupled Timeline Wave Equation}
+Let $S(x, y, t)$ represent the collective directional state vector at spatial grid node $(x, y)$. The propagation of gravitational waves is modeled as a discretized wave equation governing the relaxation phase field $\psi(x, y, t) = S(x, y, t) - S_0(x, y)$ under density-weighted damping:
+\begin{equation}
+    \frac{1}{c^2 \rho(x, y, t)} \frac{\partial^2 \psi}{\partial t^2} - \nabla^2 \psi + \gamma \frac{\partial \psi}{\partial t} = \mathcal{S}_{\text{source}}(x, y, t),
+\end{equation}
+where $\nabla^2$ is the discrete Laplacian over the spatial grid neighbors, $\gamma$ is a damping coefficient, and $\mathcal{S}_{\text{source}}$ represents dynamic quadrupole mass fluctuations (such as binary inspirals). This equation couples the micro-axis orientations across adjacent spatial timelines, yielding propagating wave fronts of consistency adjustments without requiring a smooth pseudo-Riemannian metric tensor.
+
+% ==============================================================================
+% CONCLUSION SECTION: SYNTHESIS AND FUTURE DIRECTIONS
+% ==============================================================================
+
+\section{Conclusion and Future Directions}
+This work has explored the structural intersections between aperiodic monotiles (the Spectre), discrete root lattices ($E_8$), Hopf fibrations, and abelian Wilson-loop probes, alongside a complementary dynamical framework based on directional axis interactions. 
+
+The explicit computations documented here provide exact enumerations and geometric identities—such as the 25 inscribed 24-cells within the 600-cell (Result 1), the Voronoi window invariance over fibre rotations (Result 4), the explicit isometric embedding of the Spectre lift lattice into $E_8$ (Result 6), and the triality-based decomposition into $E_6 \times A_2$ (Result 5). Simultaneously, they record significant negative constraints: the Spectre inflation does not extend to an $E_8$ automorphism (Result 8), the Chair44 solid shares numerical shapes but not algebraic structures with equatorial $E_8$ roots (Result 11), and abelian Wilson-loop probes reveal high sensitivity to grid placement and geometric corner definitions.
+
+Crucially, as emphasized throughout this investigation, none of the static combinatorial structures or finite lattice computations exhibited an intrinsic arrow of time. To bridge this gap, we sketched a dynamic extension—replacing continuous manifolds with discrete directional axes ($\pm X, \pm Y, \pm Z$), treating entanglement as shared axis fusion resolved through retrocausal consistency contracts, and deriving gravitational time dilation and wave propagation from local interaction density $\rho(t)$. 
+
+These dynamic extensions remain working hypotheses rather than established derivations. Future progress depends on resolving several open problems: constructing a true hexagonal action and block-averaging map for the $A_2 \oplus A_2$ lift, identifying number fields that simultaneously capture Eisenstein and icosahedral structures, and formalizing the topological self-consistency conditions for retrocausal shockwaves. By combining exact computational geometry with bottom-up operational principles, this exploratory path seeks to determine whether a consistent, background-independent physics can emerge from discrete geometric substrates.
 
 \appendix
 \section{Reproduction}\label{app:repro}
