@@ -87,17 +87,22 @@ The module imports that fork's operators (not copied; `$WILSON_RG_DIR`) and appl
 
 - **Check (Exact agreement):** squares of side 3, 6, 9 give 1.85575, 3.92455, 5.96995 against the fork's published K = 10 values 1.855780, 3.924427, 5.970860 (differences up to 1e-3, as its README says for K = 6).
   The energy is invariant to 1e-9 under permuting axes, reversing the loop and translating by L.
-- **Numeric, locality holds for isolated corners.** For seven loops with every feature at least 2L = 6 units wide (squares, rectangles, an L-shape, two skew loops in three directions),
+- **Numeric, locality holds for isolated corners, at the placement of the published fits (a loop corner at a block centre).** For seven loops with every feature at least 2L = 6 units wide (squares, rectangles, an L-shape, two skew loops in three directions),
   `E_f = alpha P + b c` fits with `alpha = 0.1709` per link and `b = -0.0444` per corner (`4b = -0.178`; the fork's square fit is 0.1707 and -0.17 to -0.18). Each left-out loop is predicted to 0.006
-  or better, the size of the oscillation the fork reports in beta. So the corner coefficient is a per-corner constant, independent of the shape elsewhere, in this abelian analogue.
-- **Numeric, locality fails when a feature is one block wide.** Thin rectangles and L-shapes with a 3-unit feature sit 0.016 to 0.039 below that fit (`rec3x12` -0.037, `L9_3` -0.039).
+  or better, the size of the oscillation the fork reports in beta. So at that placement the corner coefficient is a per-corner constant, independent of the shape elsewhere, in this abelian analogue.
+- **Numeric, locality fails when a feature is one block wide, at that placement.** Thin rectangles and L-shapes with a 3-unit feature sit 0.016 to 0.039 below that fit (`rec3x12` -0.037, `L9_3` -0.039).
   The scale of the failure is L.
 - **Numeric, the lifted Spectre outline is not additive.** Written in Z^4 (diagonal hexagonal steps as two links), the outline has 13 to 29 corners and `E_f` sits 0.30 to 0.66 *above* the additive
   prediction at every dilation tried (n = 1, 2, 3, both orderings). Two orderings of the same diagonal give different loops (13 vs 17 corners) with `E_f` 2.797 vs 2.649. The cause is that a
   diagonal becomes a lattice-scale zigzag whose corners are one link apart, far inside the range L, so corner terms interact; this stays true under dilation.
+- **Numeric, the placement matters more than the corner term (added 2026-11-08, computed in `4D_Wilson_Loop_RG`, `numerics/corner_locality`, not in this repository).** Over all 81 positions of a loop
+  modulo the block period, `E_f` varies by 0.28 to 0.91 per loop, and the placement used above is the lowest for every loop tried. Averaged over the 81 positions the fit is `alpha = 0.1906`,
+  `b = -0.0618`, still roughly additive (leave-one-out 0.023), and the one-block-wide loops lie 0.02 *above* it, so the thin-loop deficit above is a property of the aligned placement. For the square of
+  side 9 shifted by `(1,1,0,0)` most of the change is the edge value (0.1703 to 0.1805) and about a tenth is the corner constant (-0.040 to -0.031 per corner). Landau and xi = 1 agree to 0.0007 at
+  the aligned placement. Which placement corresponds to the programme's own blocks has not been checked.
 - **What this does not test.** The hypercubic action sees every turn between different axes as 90 degrees, so the 60/120 degree and 90 degree corner types of the hexagonal lift (section 1)
   are **not distinguished here**. A test of 60 degree corners needs an action and an averaging map on the A2 + A2 lattice, which do not exist. The abelian theory has no non-abelian structure,
-  no large fields and no running coupling, and nothing here checks a bound or a proof of the fork. E_f also depends on where the loop sits against the L = 3 blocks (only translation by L is a symmetry).
+  no large fields and no running coupling, and nothing here checks a bound or a proof of the fork. E_f also depends strongly on where the loop sits against the L = 3 blocks (only translation by L is a symmetry); see the next bullet.
 
 **For the programme (an observation, not a claim about its proofs):** the extraction of a perimeter term and one constant per corner is accurate in this analogue only when corners and edges are separated
 by a few blocks. Loops with features of size about L, or with dense corners, need the corner terms to be treated jointly.

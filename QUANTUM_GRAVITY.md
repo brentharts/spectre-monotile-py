@@ -158,7 +158,7 @@ Sadoc-Mosseri abstract (section 1) on the Hurwitz / icosian construction, going 
 340 320 vectors, 14 180 fibres) with a ball of radius `R` in the perpendicular space, for two splittings of R^8 into 4D + 4D:
 the icosian one (`icosian_e8.py`) and the Coxeter-plane one used in Quantum_Gravity_Lab.
 - **Exact:** the icosian ball window never splits a fibre (R from 0.5 to 2.0 tested); the Coxeter ball window splits many
-  (about 1 in 3 fibres at R = 1.4, nearly all by R = 2). Left panel. So the fibre-by-fibre selection of the papers is realised by the
+  (7376 of 14180 fibres (52%) at R = 1.4 and 13251 (93%) at R = 2.0, shells 1 to 8). Left panel. So the fibre-by-fibre selection of the papers is realised by the
   icosian splitting and not by QGL's, for a ball window.
 - **Caveat, stated plainly:** the cause is only that the icosian perpendicular radius is a function of `(|a|, |b|)`, which is constant on a fibre.
   Any window depending on those two radii alone also keeps fibres whole, so this does not single out the icosian splitting as special beyond
@@ -179,7 +179,7 @@ cell the physical space cuts). **Hypothesis:** this is the window of Elser and S
 have their paper, so only the properties below are claimed, not the attribution.
 - **Exact:** the Voronoi cell of E8 has 19440 vertices (2160 at norm^2 1, 17280 at norm^2 8/9; generated from the alcove vertices by the
   Weyl group, each tight on 8 to 14 roots) and 240 facets.
-- **Exact (icosian splitting):** `W` is a 4D polytope with 720 vertices and 2640 facets, volume 3.530, and it is **nearly a ball**: inradius
+- **Exact (icosian splitting):** `W` is a 4D polytope with 720 vertices and 1200 facets (each with 5 vertices; 2640 is the number of simplices in a triangulation), volume 3.530, and it is **nearly a ball**: inradius
   0.9092, circumradius 0.9732. Lattice vectors below the inradius are always accepted, above the circumradius never.
 - **Exact:** the window is invariant under the 24 rotations that move along a fibre, and **no fibre of shells 1..8 is split** (6120 of 340 320
   vectors accepted, 14 180 fibres). The reason is a group fact: `(a, b) -> (a l, b l)` is a lattice automorphism that commutes with the
@@ -247,7 +247,8 @@ Hurwitz-pair E8. All results are finite enumerations on the 240 roots, each with
 
 - **Numeric:** using the abelian first-step operators of the fork `4D_Wilson_Loop_RG` (CC0), `E_f = alpha P + b c` with `alpha = 0.1709` per link and `b = -0.0444` per corner holds to 0.006 for seven loops whose features
   are at least 2L wide (squares, rectangles, L-shape, skew loops); squares reproduce the fork's published values to 1e-3. It fails by 0.016 to 0.039 for features one block (L = 3) wide, and by 0.30 to 0.66 for the Spectre
-  outline lifted to Z^4 (dense zigzag corners).
+  outline lifted to Z^4 (dense zigzag corners). All of this is at the placement of the published square fits; see the next bullet.
+- **Numeric (added 2026-11-08, computed in `4D_Wilson_Loop_RG`, `numerics/corner_locality`):** the position of a loop against the blocks changes `E_f` by 0.28 to 0.91, and the placement above is the lowest for every loop; averaged over 81 placements `alpha = 0.1906`, `b = -0.0618` and the thin-loop deficit becomes a small excess. Landau and xi = 1 agree to 0.0007 at the aligned placement. One run at L = 5 gives larger `alpha` and `|beta|` than L = 3 (weak evidence, one size pair).
 - **Not tested:** the 60 degree corners of the hexagonal lift (the hypercubic action sees every turn as 90 degrees); any non-abelian structure, bound or proof of the fork.
 
 ### Quantum_Gravity_Lab (CC0, J. Poplett) survey
