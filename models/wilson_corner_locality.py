@@ -26,7 +26,7 @@ Checks (tests, 1 minute):
 Tolerances were chosen after seeing the numbers (the first guess of 0.005 for check 3 was too tight: the largest miss is 0.006); the numbers are in TILE_E8_BRIDGE.md.
 
 What this does not do.  The hypercubic action here sees every turn between two different axes as 90 degrees, so the 60/120 degree and 90 degree
-corner types of the hexagonal lift (spectre_in_e8.py) are not distinguished; and E_f depends on how the loop sits against the L = 3 blocks.  A
+corner types of the hexagonal lift (spectre_in_e8.py) are not distinguished; and E_f depends on how the loop sits against the L = 3 blocks (the placement used here, a loop corner at a block centre, is the lowest of the 81 positions modulo 3, and the spread over them is 0.28 to 0.91; see numerics/corner_locality in 4D_Wilson_Loop_RG).  A
 test of the 60 degree corners needs an action and an averaging map on the A2 + A2 lattice, which do not exist here.  Nothing tests a bound or a
 proof of the fork, and U(1) has no non-abelian structure.
 
