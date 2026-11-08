@@ -385,3 +385,19 @@ Builds the 19440-vertex Voronoi cell of E8, projects it to the 4D perpendicular 
 fibres it keeps whole: all, in the icosian splitting, because the window is invariant under the fibre group; not in the Coxeter splitting.
 10 self tests (`python3 models/voronoi_window.py --tests-only`, about 35 s). Figure `figures/voronoi_window.png`. Attribution to Elser and
 Sloane is a hypothesis; their paper was not read.
+
+### 11d. `e6_fibres.py` (written): E8 > E6 + A2 and the triality blocks inside the fibres
+Locates D4 x D4 (the two pole fibres, with the 192 others as 8 fibres cut 8 + 8 + 8 by the triality blocks), the fibre rotation `R_w` that cycles those blocks,
+an A2 inside a pole fibre with its orthogonal E6 (72), the 162 = 6 x 27 and each 27 meeting 9 fibres in 3 roots, and the 1120 A2 subsystems by fibre profile
+(160 inside a fibre, 960 spread). 25 self tests (`python3 models/e6_fibres.py --tests-only`, under 2 s). Figure `figures/e6_fibres.png`. Written from scratch;
+the chirality-standard-model fork is read-only (all rights reserved). Not done: Lie-algebra level, real forms, any link to the tile.
+
+### 11e. `spectre_in_e8.py` (written): the Spectre's 4D lift inside E8
+The red and green hexagonal A2's of the repository's own Cheritat-Ma lift (`lift4d.py`) are embedded isometrically in E8 as A2 + A2 through the Eisenstein structure `R_w`;
+every Spectre edge is a root, each tile outline a closed 14-walk (8 red, 6 green). The inflation (`x^4 - 8x^2 + 1`) does not extend to E8, and its field contains `sqrt 15` but not the
+golden ratio. 12 self tests, 4 mutations caught. Figure `figures/spectre_in_e8.png`. Write-up: `../TILE_E8_BRIDGE.md`. Not done: any cut-and-project window, the other chirality, a lattice
+with both Eisenstein and icosian structure.
+
+### 11f. `chair_e8_192.py` (written): 192 Chair44 tips against the 192 equatorial roots
+Records the structure of each side (24 panels x 8, 24 signed heights x 8, three classes P/N/Z, no symmetry; 8 fibres x 3 blocks x 8, free action of order 24) and compares: the shape 3 x 8 x 8
+matches, the structure does not. 11 self tests. Figure `figures/chair_e8_192.png`. Write-up: `../TILE_E8_BRIDGE.md`.
