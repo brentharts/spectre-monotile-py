@@ -16,7 +16,8 @@ Exact results (tested on the 71 tiles / 518 vertices of a level-2 patch):
   1. The embedding is an isometry (up to the factor 2) from the lift lattice with the red-orthogonal-green form, so the lift lattice is A2 + A2
      inside E8, and it is injective on the vertices of the patch.
   2. Every Spectre edge becomes a root of E8, each red edge a root of the pole fibre D4a and each green edge a root of D4b.  Each tile's
-     14-edge outline is a closed 14-step walk on those roots (8 red + 6 green in the orientation of lift4d).
+     14-edge outline is a closed 14-step walk on those roots (8 red + 6 green for 63 of the 71 tiles, 6 red + 8 green for the other 8, whose
+     orientation differs by an odd multiple of 30 degrees; the corner types are the same for all 71).
   3. For consecutive edges of the same colour the E8 inner product is 2 cos(turning angle); for a red-green pair it is 0.
   4. Negative control: a root orthogonal to r1 but not Hermitian-orthogonal breaks the isometry.
   5. The inflation does NOT extend to E8.  Its 4D block has characteristic polynomial x^4 - 8x^2 + 1 with roots +-lambda, +-1/lambda,
@@ -31,6 +32,7 @@ lift4d.py), the Chair44, or any selection of sites by fibres.
     python3 models/spectre_in_e8.py --tests-only
     python3 models/spectre_in_e8.py --no-show --save-dir figures
 """
+import collections
 import math
 import os
 import sys
@@ -169,6 +171,12 @@ def run_tests(verbose=True):
     t0 = tiles[0]
     steps0 = [np.array(t0[(i + 1) % 14]) - np.array(t0[i]) for i in range(14)]
     check("a tile outline has 8 red and 6 green edges", sum(is_red(s) for s in steps0) == 8)
+    split = collections.Counter()
+    for t in tiles:
+        n = len(t)
+        split[sum(is_red(np.array(t[(i + 1) % n]) - np.array(t[i])) for i in range(n))] += 1
+    check("across the 71 tiles the red-green split is 8+6 for 63 tiles and 6+8 for 8 (a tile rotated by an odd multiple of 30 degrees swaps the colours)",
+          dict(split) == {8: 63, 6: 8}, "(%s)" % {int(k): v for k, v in split.items()})
     ok3 = True
     for t in tiles:
         n = len(t)
