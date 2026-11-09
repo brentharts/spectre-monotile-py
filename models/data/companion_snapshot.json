@@ -1,5 +1,5 @@
 {
-  "_provenance": "Numbers from the companion repositories, copied as printed strings from their ledgers and self tests: (S) https://github.com/brentharts/spectre (chair44_polarisation.py, spectre_line_sums.py, spectre_density_clock.py, spectre_outline_arrow.py, spectre_wilson.py, spectre_e8.py and the research/ NEXT_STEPS; commit c2151ee contains all of them, including spectre_wilson.py and WILSON.md), (Q) https://github.com/brentharts/Quantum-Gravity-Dynamics (directional/hex_directions.py, hex_e8.py, hex_contract.py and directional/LEDGER.md; commit e6a3ec1, which does NOT contain directional/retro_rule.py: FILL IN THE COMMIT THAT ADDS IT). They are NOT recomputed by paper_numbers.py. Recompute with `make check` in (S) and `python3 -m pytest tests/test_directional*.py` in (Q), and compare. Each value is a string.",
+  "_provenance": "Numbers from the companion repositories, copied as printed strings from their ledgers and self tests: (S) https://github.com/brentharts/spectre (chair44_polarisation.py, spectre_line_sums.py, spectre_density_clock.py, spectre_outline_arrow.py, spectre_wilson.py, spectre_mystic_xbond.py, chair44_notch_axis.py, spectre_e8.py and the research/ NEXT_STEPS; commit 099435b contains all of them, including spectre_wilson.py, WILSON.md, CICY.md); (C) https://github.com/brentharts/CICY (clone at commit f74b258, used for the Chair44 cross-check of chair44_notch_axis.py with CICY_DIR set), (Q) https://github.com/brentharts/Quantum-Gravity-Dynamics (directional/hex_directions.py, hex_e8.py, hex_contract.py and directional/LEDGER.md; commit ae33edf, which includes directional/retro_rule.py). They are NOT recomputed by paper_numbers.py. Recompute with `make check` in (S) and `python3 -m pytest tests/test_directional*.py` in (Q), and compare. Each value is a string.",
   "chairfraction": "13/24",
   "chairstates": "18",
   "handedk": "900",
@@ -28,5 +28,12 @@
   "wilsontiles": "71",
   "rulekappa": "0.362",
   "rulekone": "3.62",
-  "rulekfirst": "2.26"
+  "rulekfirst": "2.26",
+  "mysticcycles": "14",
+  "mysticcyclesfour": "496",
+  "xbondtile": "1.578",
+  "sevenx": "7",
+  "aitken": "0.511",
+  "sixteen": "16",
+  "coincidencemax": "260"
 }
