@@ -1,5 +1,5 @@
 {
-  "_provenance": "Numbers from the companion repositories, copied as printed strings from their ledgers and self tests: (S) https://github.com/brentharts/spectre (chair44_polarisation.py, spectre_line_sums.py, spectre_density_clock.py, spectre_outline_arrow.py, spectre_wilson.py, spectre_e8.py and the research/ NEXT_STEPS; commit 61bbb07 contains all of them except spectre_wilson.py and WILSON.md: FILL IN THE COMMIT THAT ADDS THOSE), (Q) https://github.com/brentharts/Quantum-Gravity-Dynamics (directional/hex_directions.py, hex_e8.py, hex_contract.py and directional/LEDGER.md; commit e6a3ec1). They are NOT recomputed by paper_numbers.py. Recompute with `make check` in (S) and `python3 -m pytest tests/test_directional*.py` in (Q), and compare. Each value is a string.",
+  "_provenance": "Numbers from the companion repositories, copied as printed strings from their ledgers and self tests: (S) https://github.com/brentharts/spectre (chair44_polarisation.py, spectre_line_sums.py, spectre_density_clock.py, spectre_outline_arrow.py, spectre_wilson.py, spectre_e8.py and the research/ NEXT_STEPS; commit c2151ee contains all of them, including spectre_wilson.py and WILSON.md), (Q) https://github.com/brentharts/Quantum-Gravity-Dynamics (directional/hex_directions.py, hex_e8.py, hex_contract.py and directional/LEDGER.md; commit e6a3ec1, which does NOT contain directional/retro_rule.py: FILL IN THE COMMIT THAT ADDS IT). They are NOT recomputed by paper_numbers.py. Recompute with `make check` in (S) and `python3 -m pytest tests/test_directional*.py` in (Q), and compare. Each value is a string.",
   "chairfraction": "13/24",
   "chairstates": "18",
   "handedk": "900",
@@ -25,5 +25,8 @@
   "wilsonoutline": "3.183",
   "wilsonpredicted": "2.884",
   "wilsongap": "0.19",
-  "wilsontiles": "71"
+  "wilsontiles": "71",
+  "rulekappa": "0.362",
+  "rulekone": "3.62",
+  "rulekfirst": "2.26"
 }
