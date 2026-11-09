@@ -35,7 +35,7 @@
 \maketitle
 
 \begin{abstract}
-We bridge rigorous finite computations on aperiodic monotiles and root lattices with an exploratory directional framework for emergent spacetime dynamics. The computational core collects machine-checked results connecting the Spectre aperiodic monotile, the Chair44 solid, the $E_{8}$ root lattice with its Hopf fibres, and an abelian Wilson-loop analogue. Positive results include the exact enumeration of 25 inscribed 24-cells within the 600-cell, fibre-preserving Voronoi windows, a decomposition of $E_{8}$ roots into $E_{6} \times A_2$ and six copies of the 27, and an isometric embedding of the Spectre lift lattice into $E_{8}$ where every edge is a root. Negative results demonstrate that the Spectre inflation does not extend to $E_{8}$, number fields differ, and Chair44 structural symmetries diverge from equatorial $E_8$ roots. To address the fundamental search for an arrow of time and non-local correlations absent in static geometries, we introduce a dynamic extension: replacing continuous manifolds with discrete directional axes ($\pm X, \pm Y, \pm Z$), formulating quantum entanglement and measurement via bidirectional retrocausal consistency contracts, and deriving gravitational time dilation and traveling wave propagation from local interaction density $\rho(\mathbf{x}, t)$. This dual framework unites exact algebraic geometry with background-independent operational dynamics.
+We bridge rigorous finite computations on aperiodic monotiles and root lattices with an exploratory directional framework for emergent spacetime dynamics. The computational core collects machine-checked results connecting the Spectre aperiodic monotile, the Chair44 solid, the $E_{8}$ root lattice with its Hopf fibres, and an abelian Wilson-loop analogue. Positive results include the exact enumeration of 25 inscribed 24-cells within the 600-cell, fibre-preserving Voronoi windows, a decomposition of $E_{8}$ roots into $E_{6} \times A_2$ and six copies of the 27, and an isometric embedding of the Spectre lift lattice into $E_{8}$ where every edge is a root. Negative results demonstrate that the Spectre inflation does not extend to $E_{8}$, number fields differ, and Chair44 structural symmetries diverge from equatorial $E_8$ roots. To address the fundamental search for an arrow of time and non-local correlations absent in static geometries, we introduce a dynamic extension: replacing continuous manifolds with discrete directional axes ($\pm X, \pm Y, \pm Z$), formulating quantum entanglement and measurement via bidirectional retrocausal consistency contracts, and defining a clock rate from a local interaction density $\rho(\mathbf{x}, t)$, on which time dilation and wave propagation are modelled rather than derived. We test this toy against the lattice results. The copy contract signals (it reveals the measured axis, $\qgBitsCopy$ bits); the six directions that do lie in $E_8$ are the hexagonal roots of the $A_2$ plane, not $\pm X,\pm Y,\pm Z$; on them the largest CHSH value under no signalling is $\min(4,2+12\delta)$, where $\delta$ prices the dependence of the shared past on the settings, so any $\delta>0$ violates the local bound $2$; the Spectre supplies an exact baseline density $\rho_0=(5-\sqrt{15})/5$ and a chirality, but no arrow of time and no gravitational potential. The pairing of exact algebraic geometry with an operational toy model is exploratory, and no part of it is a derivation of physics.
 \end{abstract}
 
 %------------------------------------------------------------------------------------------------------------------------------------
@@ -85,7 +85,7 @@ and~\ref{sec:chair} the Spectre and the Chair44 against $E_8$, Section~\ref{sec:
 \subsection{From Static Lattices to Retrocausal Networks: Scope of the Dynamic Extension}
 While the first part of this paper focuses on machine-checked exact structures on the $E_8$ root lattice, the Spectre monotile, and Wilson-loop probes, it leaves open the fundamental question of how an arrow of time and non-local quantum correlations can emerge from discrete geometric substrates. To address this, the latter half of the paper introduces a dynamic extension that lifts static spatial coordinates into operational directional trajectories. 
 
-Under this framework, we replace continuous spacetime manifolds with six fundamental directional axes ($\pm X, \pm Y, \pm Z$) and localized twist phases, grounding particle histories in discrete $E_8$ fiber state steps. Entanglement is re-interpreted not as instantaneous action-at-a-distance or geometric wormholes ($ER=EPR$), but as a shared axis fusion at $t=0$ that resolves via a bidirectional, retrocausal consistency contract when a measurement occurs. Furthermore, by introducing a local interaction density profile $\rho(\mathbf{x}, t)$, we show how gravitational time dilation and traveling wave ripples emerge directly from interaction frequencies and phase-relaxation dynamics. This dual focus unites rigorous static lattice geometry with a exploratory model of background-independent spacetime dynamics.
+Under this framework, we replace continuous spacetime manifolds with six fundamental directional axes ($\pm X, \pm Y, \pm Z$) and localized twist phases, grounding particle histories in discrete $E_8$ fiber state steps. Entanglement is modelled as a shared axis fusion at $t=0$ that resolves via a bidirectional, retrocausal consistency contract when a measurement occurs; Section~\ref{sec:retro} tests whether this removes action at a distance, and finds that the contract as written still signals. Furthermore, by introducing a local interaction density profile $\rho(\mathbf{x}, t)$ we define a clock rate and a damped wave on a grid, and Section~\ref{sec:density} states what that does and does not reproduce of gravitational time dilation. This dual focus pairs rigorous static lattice geometry with an exploratory toy model of background-independent dynamics, with the checked results of the toy kept apart from its interpretation.
 
 \section{Scope and conventions}\label{sec:scope}
 This paper is a collection of finite computations, each with a test that can fail. It makes no physical claim, and it proves nothing about the Wilson-loop programme it borrows operators from. Where a statement is a conjecture or a motivation, it is marked as such.
@@ -108,6 +108,10 @@ Spectre lift lattice is $A_2\oplus A_2\subset E_8$; every edge is a root & \exac
 The Spectre inflation does not extend to $E_8$ & \negres & \ref{sec:tiles} & \texttt{spectre\_in\_e8} \\
 $\qgChairTips=24\times8$ Chair44 tips against the equatorial roots & \negres & \ref{sec:chair} & \texttt{chair\_e8\_192} \\
 Corner locality, placement dependence, gauge, block size ($U(1)$) & \numeric$^\dagger$ & \ref{sec:wilson} & \texttt{wilson\_corner\_} \texttt{locality}, Wilson repository \\
+Chair44 transverse notch sums: fraction $\to\qgCChairfraction$ of lines (automaton) & \exact$^\dagger$ & \ref{sec:companion} & \texttt{chair44\_polarisation} \\
+Spectre line sums: no ballistic drift; baseline $\rho_0=\qgRhoZero$; chiral outline & \negres, \exact$^\dagger$ & \ref{sec:companion}, \ref{sec:density-limits} & \texttt{spectre\_line\_sums}, \texttt{spectre\_density\_clock}, \texttt{spectre\_outline\_arrow} \\
+Hexagonal six directions in $E_8$ ($\qgCHexorth$ orthogonal roots) & \exact$^\dagger$ & \ref{sec:hexdirs} & \texttt{hex\_directions}, \texttt{hex\_e8} \\
+Copy contract signals ($\qgBitsCopy$ bits); price of retro-dependence $\min(4,2+12\delta)$ & \exact, \numeric$^\dagger$ & \ref{sec:retro-tests} & \texttt{hex\_directions}, \texttt{hex\_contract} \\
 Tight-binding spectra, twist hopping and the Spectre--Chair44 fibres & \exact, \numeric & \ref{app:tb} & \texttt{\_tb}, \texttt{twist\_hopping}, \texttt{chair\_fibers} \\
 \bottomrule
 \end{tabular}
@@ -375,6 +379,20 @@ This looks like corners one link apart interacting, since the range of the corne
 We therefore do not claim that the corner term fails for the lifted Spectre; we claim only that the prediction of the aligned fit is not reliable for it.
 
 %------------------------------------------------------------------------------------------------------------------------------------
+\section{Results from the companion repositories}\label{sec:companion}
+These results were obtained in the Hat and Spectre repository (\url{https://github.com/brentharts/spectre}) and are copied as a snapshot (\snap, Appendix~\ref{app:repro}); they bear on the search for an arrow of time of Section~\ref{sec:intro}.
+\begin{result}[\exact\snap]\label{res:chair-pol}
+Along the axis lines of the Chair44 the notch sum is bounded longitudinally. Transversally it equals $(\pm M,\pm M)$ on a fraction $13/24+1/(3\cdot 4^{n-1})$ of the lines at level $n$, which tends to $\qgCChairfraction$; proved with an $\qgCChairstates$-state subset automaton on the address digits, and the same fraction for all $168$ roots. Shuffled labels give none. The drift is the same traversed backwards, so it does not give an arrow.
+\end{result}
+\begin{result}[\negres\snap]\label{res:spectre-lines}
+The orientation sums of the Spectre along lines have no ballistic component (exponents $0.26$ to $0.62$ against $0.39$ to $0.55$ for a shuffled control; up to $1.6\times$ the control at $k=140$). Sampled, not proved.
+\end{result}
+\begin{result}[\exact\snap]\label{res:chirality}
+Every Spectre outline of levels $1$ and $2$ is the same cyclic turning word of $\qgCOutlinelen$ unit steps (total turn $-360^\circ$), a minimal closed walk. The mirror word is its reversal, which is not a rotation of it, so the tile is chiral; the colour word is achiral. This is chirality, not time order: the flux closure of an outline is symmetric under reversal. The research code also has a handedness theorem ($\mathrm{Im}\,Z_k<0$ exactly for $k\le\qgCHandedk$) and a holonomy group $\mathrm{Dic}_{12}$ of order $\qgCHolonomy$, with no twist-sign arrow (the sign is a gauge choice).
+\end{result}
+Together with Result~\ref{res:price} these say where an arrow is \emph{not}: not in the line sums, not in the closure of a flux, not in the density. A handedness exists; whether it can be turned into an order of events is open (item~\ref{item:arrow} below).
+
+%------------------------------------------------------------------------------------------------------------------------------------
 \section{Open problems and tests that could fail}\label{sec:open}
 Each item says what would count as an answer. None has been done.
 \begin{enumerate}[leftmargin=1.6em,itemsep=2pt]
@@ -388,26 +406,35 @@ Each item says what would count as an answer. None has been done.
 \item \textbf{Reading the sources.} The Elser--Sloane paper, to decide whether the window of Result~\ref{res:vor} is theirs; the Sadoc--Mosseri paper beyond its abstract; the construction of Ch\'eritat and Ma behind the lift; the five arXiv papers cited in the Introduction beyond their abstracts, and the literature on causal sets and loop quantum gravity mentioned there.
 \item \textbf{Proofs.} The invariance of the Voronoi window under the fibre group (a sketch only), the class-count formula for the shells ($n\le 60$ checked), and the shell law for all $n$.
 \item \textbf{The orientation.} Whether the other choice of $R_\omega$ in the embedding of Section~\ref{sec:embed} gives the mirror image.
-\item \textbf{An arrow of time.} The aim of the Introduction. A candidate structure would be a graph or combinatorial object on which reversal of the order of events is not a symmetry, which also has the exact structure found here. None of the computations in this paper provides one.
+\item\label{item:arrow} \textbf{An arrow of time.} The aim of the Introduction. A candidate structure would be a graph or combinatorial object on which reversal of the order of events is not a symmetry, which also has the exact structure found here. None of the computations in this paper provides one; Result~\ref{res:chirality} gives a handedness, not an order.
+\item \textbf{A rule that pays the price.} A consistency rule for the retrocausal contract, not a free choice of the joint probabilities, under which the settings-dependent ensemble stays free of signalling and lands on a Bell violation (Result~\ref{res:price} gives the price but no rule). Candidate: weights from a path action with boundary terms at both ends and a normalisation over the whole history. Success: no signalling and the CHSH value, both exact. The copy contract of Result~\ref{res:copy} would have to be replaced.
+\item \textbf{The Wilson action on the real Spectre plaquettes.} The hexagonal action of item~1 on the plaquettes of the actual tiling, with its $\mathrm{Dic}_{12}$ holonomy, rather than on a square grid. Success: the corner constants of item~1 and a check of the placement dependence of Section~\ref{sec:wilson}.
+\item \textbf{A density with the right fall-off.} A rule for $\rho$ (or for the clock) from the tiling and its sources that gives $1/r$ and a horizon, using the exact baseline of Section~\ref{sec:density-limits}. The toy of Section~\ref{sec:density} fails this test.
 \end{enumerate}
 
 % ==============================================================================
 % NEW SECTIONS: DYNAMIC AXIS TRAJECTORIES, RETROCAUSAL CONTRACTS & DENSITY
 % ==============================================================================
 
-\section{Dynamic Axis Trajectories on $E_8$ Fiber Spaces}
-The static isometric embedding of the Spectre lift lattice $\mathbb{Z}[\zeta_{12}] = \mathbb{Z}[\varpi] \oplus \zeta \mathbb{Z}[\varpi]$ into $E_8$ (Section 5.1) maps red and green edges to roots of the $D_4^a$ and $D_4^b$ pole sublattices, respectively. Rather than treating these root vectors purely as static geometric positions on a lattice background, we extend this construction into a dynamic temporal process by interpreting root transitions as ordered steps along discrete directional degrees of freedom.
+\section{Dynamic Axis Trajectories on $E_8$ Fiber Spaces}\label{sec:axes}
+The static isometric embedding of the Spectre lift lattice $\mathbb{Z}[\zeta_{12}] = \mathbb{Z}[\varpi] \oplus \zeta \mathbb{Z}[\varpi]$ into $E_8$ (Section~\ref{sec:embed}) maps red and green edges to roots of the $D_4^a$ and $D_4^b$ pole sublattices, respectively. Rather than treating these root vectors purely as static geometric positions on a lattice background, we extend this construction into a dynamic temporal process by interpreting root transitions as ordered steps along discrete directional degrees of freedom.
 
 We replace the smooth $3+1$ continuum with six discrete directional unit vectors $D = \{+X, -X, +Y, -Y, +Z, -Z\}$, supplemented by localized twist orientations. In the $E_8$ root representation, a single trajectory node at temporal index $t$ is parameterized by a state vector $S(t) \in D_4^a \oplus D_4^b \subset E_8$. Under this mapping:
 \begin{enumerate}
-    \item Consecutive spatial steps along the same hexagonal orientation correspond to roots with inner product $\langle r_i, r_{i+1} \rangle = 2 \cos(\theta)$, where $\theta$ is the turning angle (Section 5.1).
+    \item Consecutive spatial steps along the same hexagonal orientation correspond to roots with inner product $\langle r_i, r_{i+1} \rangle = 2 \cos(\theta)$, where $\theta$ is the turning angle (Section~\ref{sec:embed}).
     \item Inter-plane transitions (red-to-green steps) satisfy $\langle r_{\text{red}}, r_{\text{green}} \rangle = 0$, enforcing orthogonal directional decoupling between adjacent axial planes.
 \end{enumerate}
 
+\subsection{Which six directions lie in $E_8$}\label{sec:hexdirs}
+The map from $\{\pm X,\pm Y,\pm Z\}$ to roots is not defined above, and the embedding of Section~\ref{sec:embed} has no cubic structure: its red edges are six roots in one plane, $60^\circ$ apart, with $e_0-e_1+e_2=0$ (the red $A_2$). The six directions that are actually in $E_8$ are therefore these hexagonal ones. The companion code (\texttt{directional/hex\_directions.py}, \texttt{hex\_e8.py} in the Quantum-Gravity-Dynamics fork) reruns the toy with them. The statements below are checks of that code, copied as a snapshot (\snap), and none is a statement about physics.
+\begin{result}[\exact\snap]\label{res:hexdirs}
+The six hexagonal directions map to six roots of $E_8$ whose inner products are $2\times$ the planar ones; $\qgCHexorth$ roots of $E_8$ are orthogonal to the whole $A_2$; the $240$ roots give $\qgCHexpatterns$ distinct sign patterns on the six, $\qgCHexzeros$ of them with a zero. A green root is orthogonal to every red one (Result~\ref{res:embed}), so the planar ``$12$ directions'' read-out is not an $E_8$ read-out. The numbers of closed timelines of $n=0,\dots,7$ steps are $\qgCHexclosed$ against $\qgCCubicclosed$ for the cubic set: the cubic set is bipartite and has no closed timeline of odd length, the hexagonal set has $12$ closed ones of length~$3$.
+\end{result}
+
 Rather than imposing a single global coordinate time parameter $T$ shared across all spatial coordinates $(X, Y, Z)$, each directional axis component carries an independent temporal parameter $t_{\mu}$ ($\mu \in \{X, Y, Z\}$). A macroscopic trajectory is constructed as a combinatorial interaction tree of discrete axis steps, where the physical universe emerges from the flux of state updates across the underlying $E_8$ root fiber network.
 
-\section{Retrocausal Consistency Contracts and Quantum Correlations}
-Standard quantum field theory handles entanglement and measurement collapse via non-local wavefunction collapse across spacelike separations or via geometric wormhole topologies ($ER=EPR$). Within our discrete directional framework, we formalize entanglement without action-at-a-distance by modeling coupled timelines through a shared initial boundary condition at $t = 0$ that resolves via a bidirectional topological contract.
+\section{Retrocausal Consistency Contracts and Quantum Correlations}\label{sec:retro}
+Standard quantum field theory handles entanglement and measurement collapse via non-local wavefunction collapse across spacelike separations or via geometric wormhole topologies ($ER=EPR$). Within our discrete directional framework we model coupled timelines through a shared initial boundary condition at $t = 0$ that resolves via a bidirectional topological contract. Whether this removes action at a distance is tested in Section~\ref{sec:retro-tests}; for the contract as written it does not.
 
 \subsection{Entangled Axis Fusion at $t=0$}
 Two coupled particle paths, denoted by timeline state vectors $S_A(t)$ and $S_B(t)$, originate from a common energy-creation event at $t=0$. The initial directional states are constrained by an anti-correlated fusion condition:
@@ -426,9 +453,24 @@ When a measurement event occurs on Particle A at index $t = t_{\text{measure}}$,
     re-orienting the past interaction sequence to maintain net flux conservation.
     \item \textbf{Entangled Origin Flip and Procausal Cascade:} Upon reaching the origin $t = 0$, the inverted coupling rule re-fuses Particle B's initial node $S_B(0) = -S_A(0)$, initiating a forward-propagating (\emph{procausal}) relaxation wavefront along timeline B for $t > 0$.
 \end{enumerate}
-This mechanism aligns with the retrocausal and time-symmetric formulations of Cramer, Kastner, and Aharonov et al., resolving the measurement problem as a global boundary-value optimization over discrete interaction trees rather than instantaneous non-local signaling.
+This mechanism aligns with the retrocausal and time-symmetric formulations of Cramer, Kastner, and Aharonov et al., and treats measurement as a global boundary-value optimization over discrete interaction trees. It does not by itself resolve the measurement problem, and it is not free of signalling (Section~\ref{sec:retro-tests}).
 
-\section{Interaction Density $\rho(t)$, Gravitational Time Dilation, and Waves}
+\subsection{What the toy does and does not do}\label{sec:retro-tests}
+The checks below come from the Quantum-Gravity-Dynamics fork (\texttt{directional/}, $\qgCQgdtests$ hexagonal tests passing), copied as a snapshot (\snap); the settings-as-boundary-conditions bound is a linear program over a hidden state equal to the origin direction, with outcomes read from it by the sign of the inner product with the setting.
+\begin{result}[\exact\snap]\label{res:copy}
+The copy contract signals. After A is measured along any of the directions, the last step of B reveals which of the three axes was measured: $\qgBitsCopy$ bits ($\log_2 3$), for the cubic set and for the hexagonal set alike. The phrase ``without action-at-a-distance'' therefore does not hold for the contract as written.
+\end{result}
+\begin{result}[\exact\snap]\label{res:chsh}
+With the sign read-out $E(a,b)=-\mathrm{sgn}(a\cdot b)$ and all four settings among the six hexagonal directions, $|\mathrm{CHSH}|=4$, while the singlet correlation $-\cos$ gives at most $5/2$ on the same six; on the six cubic directions the toy and the singlet both give $2$. A value of $4$ is not a quantum value: the toy is a signalling-free correlation table, not a model of the singlet.
+\end{result}
+\begin{result}[\numeric\snap]\label{res:price}
+Let $\delta$ bound how far each hidden-state probability may move from the uniform $1/6$ when it depends on both settings, with no signalling. The linear-programming optimum is $S_{\max}(\delta)=\min(4,\,2+12\delta)$ for the hexagonal set (the same for $6$, $12$ or $E_8$ read-outs), so the local value is $2$ and any $\delta>0$ violates it; $2\sqrt2=\qgTsirelson$ is reached at $\delta=\qgDeltaHexTsirelson$ and $4$ at $\delta=\qgDeltaHexFull$. For the cubic set it is $\min(4,\,4/3+8\delta)$, threshold $\delta>\qgDeltaCubic$, and $2\sqrt2$ at $\delta=\qgDeltaCubicTsirelson$. The cubic threshold comes from the zero outcomes of the cubic read-out (local value $4/3$), not from ``six directions''. This prices the retro-dependence; it supplies no rule that pays it.
+\end{result}
+\begin{result}[\numeric\snap]\label{res:repair}
+After one forced step (a shock) in a closed timeline, the minimum number of further edits that restore closure is $1$ for every one of the $55800$ cubic shocks at $n=6$; for the hexagonal set at $n=5$ it is $1$ in $\qgCRepairone$ of $\qgCRepairtotal$ cases and $2$ in $\qgCRepairtwo$. A greedy solver with a reward $\mu$ for locally closed $3$-cycles builds them, at the cost of more edits and a wider reach, and a strong reward gives up global closure (closure rate $\qgCGreedyzero$ at $\mu=0$ against $\qgCGreedystrong$ at $\mu=1.5$, $n=6$). The reward is a choice, not derived.
+\end{result}
+
+\section{Interaction Density $\rho(t)$, Gravitational Time Dilation, and Waves}\label{sec:density}
 To incorporate gravitational effects without relying on a Riemannian metric tensor $g_{\mu\nu}$, we define gravitational phenomena directly from the local interaction density $\rho(x, y, z, t)$ of the directional axis hypergraph.
 
 \subsection{Local Clock Rates and Interaction Density}
@@ -437,6 +479,11 @@ Mass and energy concentrations correspond to localized regions of high axis-inte
     \tau'(t) = \frac{\Delta t}{\rho(t)}, \quad \text{where} \quad \rho(t) = 1 + \sum_{j} \frac{M_j}{1 + \|\mathbf{x} - \mathbf{x}_j\|^2}.
 \end{equation}
 In regions of intense energy density (such as near black hole horizons or dense mass distributions), $\rho(t) \gg 1$. The higher frequency of microscopic axis re-orientations causes macroscopic clock progression to slow down. High-density nodes act as inertial anchors in the retrocausal contract loop, dampening rapid state changes and holding historical interaction paths in place longer under perturbation.
+
+\subsection{What the density does and does not reproduce}\label{sec:density-limits}
+The clock rate is \emph{defined} as $1/\rho$, so a slower clock where $\rho$ is large is an input, not a result. To match the static-observer clock $\sqrt{1-r_s/r}$ the density would have to be $\rho=(1-r_s/r)^{-1/2}$. The density above falls as $d^{-2}$ at large distance $d$ (and as $d^{-3}$ for the exponent $3/2$ of Section~\ref{sec:formal}), where $1/r$ is needed, and it is finite everywhere, so it has no horizon. The two formulas for $\rho$ in this paper are different toy choices. Nothing here has been fitted to or checked against a weak-field test.
+
+The tilings supply one exact ingredient, a baseline. In the Spectre patch the density of vertices of valence $4$ per tile is $\rho_0=(5-\sqrt{15})/5=\qgRhoZero$, in $\mathbb{Z}+\mathbb{Z}(5+\sqrt{15})/10$, and the weighted count of a supertile deviates from $\rho_0\cdot\mathrm{area}$ by a constant times $(4-\sqrt{15})^j=\qgPisotRatio{}^j$ at level $j$ (Pisot decay; \exact\snap, \texttt{spectre\_density\_clock.py} in the Hat and Spectre repository). So the aperiodic substrate has a definite uniform background whose fluctuations die away geometrically, and no potential of its own: a $1/r$ profile would have to come from sources. The Chair44 notch sum instead grows ($7\cdot 2^n$), which makes it a worse baseline.
 
 \subsection{Gravitational Wave Propagation on the Timeline Grid}
 A gravitational wave is modeled as a traveling ripple of consistency contract re-adjustments propagating across a spatial lattice of coupled directional timelines $(x, y) \in \mathbb{Z}^2$. When a high-energy dynamic mass event (e.g., a binary inspiral) modulates the local density profile $\rho(x, y, t)$, neighboring spatial timelines must adjust their axis states to preserve global topological coherence. 
@@ -451,11 +498,11 @@ This produces traveling wave fronts in the directional lattice where high-densit
 % NEW SECTION: MATHEMATICAL FORMALIZATION OF THE AXIS-INTERACTION MODEL
 % ==============================================================================
 
-\section{Mathematical Formalization of the Directional Axis-Interaction Model}
+\section{Mathematical Formalization of the Directional Axis-Interaction Model}\label{sec:formal}
 To place the qualitative sketches of directional trajectories, retrocausal contracts, and interaction density on a rigorous footing, we formulate the system as a discrete-time, multi-axis network operating over the $E_8$ root lattice and its Hopf fiber projections.
 
 \subsection{State Space and Directional Basis}
-Let the fundamental discrete directional basis be denoted by $D = \{\pm X, \pm Y, \pm Z\}$, with associated twist phases $\theta \in [0, 2\pi)$. Through the isometric embedding $\text{embed}: \mathbb{Z}[\zeta_{12}] \to E_8$ (Section 5.1), each directional state maps to a specific root vector $r \in D_4^a \oplus D_4^b \subset E_8$. 
+Let the fundamental discrete directional basis be denoted by $D = \{\pm X, \pm Y, \pm Z\}$, with associated twist phases $\theta \in [0, 2\pi)$. Through the isometric embedding $\text{embed}: \mathbb{Z}[\zeta_{12}] \to E_8$ (Section~\ref{sec:embed}), each directional state maps to a specific root vector $r \in D_4^a \oplus D_4^b \subset E_8$. 
 
 A particle trajectory $\gamma$ is defined as a sequence of discrete interaction nodes indexed by local integer time steps $t \in \mathbb{N}$:
 \begin{equation}
@@ -505,7 +552,7 @@ This work has explored the structural intersections between aperiodic monotiles 
 
 The explicit computations documented here provide exact enumerations and geometric identities—such as the 25 inscribed 24-cells within the 600-cell (Result 1), the Voronoi window invariance over fibre rotations (Result 4), the explicit isometric embedding of the Spectre lift lattice into $E_8$ (Result 6), and the triality-based decomposition into $E_6 \times A_2$ (Result 5). Simultaneously, they record significant negative constraints: the Spectre inflation does not extend to an $E_8$ automorphism (Result 8), the Chair44 solid shares numerical shapes but not algebraic structures with equatorial $E_8$ roots (Result 11), and abelian Wilson-loop probes reveal high sensitivity to grid placement and geometric corner definitions.
 
-Crucially, as emphasized throughout this investigation, none of the static combinatorial structures or finite lattice computations exhibited an intrinsic arrow of time. To bridge this gap, we sketched a dynamic extension—replacing continuous manifolds with discrete directional axes ($\pm X, \pm Y, \pm Z$), treating entanglement as shared axis fusion resolved through retrocausal consistency contracts, and deriving gravitational time dilation and wave propagation from local interaction density $\rho(t)$. 
+Crucially, as emphasized throughout this investigation, none of the static combinatorial structures or finite lattice computations exhibited an intrinsic arrow of time. The companion computations make this more precise: the Spectre outline is chiral and has a handedness theorem, but chirality is not order, since flux closure is symmetric under reversal; the line sums and the Chair44 drift are the same traversed backwards. To bridge this gap we sketched a dynamic extension—discrete directional axes, entanglement as shared axis fusion resolved through retrocausal consistency contracts, and a clock rate defined from a local interaction density $\rho(t)$. Testing the sketch against the lattice results gave four statements. The six directions in $E_8$ are hexagonal, not cubic. The copy contract signals, so it does not remove action at a distance. The retro-dependence needed for a Bell violation can be priced ($\min(4,2+12\delta)$ for the hexagonal set, threshold $\delta>1/12$ for the cubic one, the latter set by the read-out's zero outcomes) but no rule pays it. The density gives a clock by definition, with the wrong fall-off and no horizon, on top of an exact tiling baseline $\rho_0$.
 
 These dynamic extensions remain working hypotheses rather than established derivations. Future progress depends on resolving several open problems: constructing a true hexagonal action and block-averaging map for the $A_2 \oplus A_2$ lift, identifying number fields that simultaneously capture Eisenstein and icosahedral structures, and formalizing the topological self-consistency conditions for retrocausal shockwaves. By combining exact computational geometry with bottom-up operational principles, this exploratory path seeks to determine whether a consistent, background-independent physics can emerge from discrete geometric substrates.
 
@@ -541,8 +588,22 @@ Module & Checks & Section \\ \midrule
 The counts are those of the run that accompanied this draft, $270$ checks in all, with no failure. For a module \texttt{X}: \texttt{python3 models/X.py --tests-only}. The module \texttt{wilson\_corner\_locality} imports the operators of the Wilson-loop repository and needs
 \texttt{WILSON\_RG\_DIR} to point at it. The numbers of the paper are written by \texttt{make numbers} (about $30$ seconds), and \texttt{make quantgrav} builds this document.
 
+\textbf{Companion repositories.} The checks of Sections~\ref{sec:hexdirs}, \ref{sec:retro-tests}, \ref{sec:density-limits} and~\ref{sec:companion} are run in the repositories named there, not here:
+\begin{center}\footnotesize
+\begin{tabular}{@{}llr@{}}
+\toprule
+Module & Repository & Checks \\ \midrule
+\texttt{chair44\_polarisation} & Hat and Spectre & 14 \\
+\texttt{spectre\_outline\_arrow} & Hat and Spectre & 9 \\
+\texttt{spectre\_density\_clock} & Hat and Spectre & 6 \\
+\texttt{spectre\_line\_sums} (about $47$ s) & Hat and Spectre & --- \\
+\texttt{hex\_directions}, \texttt{hex\_e8}, \texttt{hex\_contract} & Quantum-Gravity-Dynamics & $17+6+9$ \\ \bottomrule
+\end{tabular}\end{center}
+Each is run with \texttt{--tests} (Hat and Spectre) or \texttt{python3 -m pytest tests/test\_directional\_hex*.py} (Quantum-Gravity-Dynamics); they are not counted in the $270$ above.
+
 \textbf{Provenance of the numbers marked $\dagger$.} They were copied, as printed strings, into \texttt{models/data/wilson\_snapshot.json} from the output of \texttt{numerics/corner\_locality} and \texttt{numerics/bridge\_figs} of the Wilson-loop repository at commit 52a3972 (run on 7 and 8 November 2026).
 They are not recomputed here. Recomputing them is \texttt{make test} in that repository (about $10$ minutes); a mismatch with the snapshot is a reason to doubt this paper, not that repository.
+The numbers of Sections~\ref{sec:hexdirs} to~\ref{sec:density-limits} and~\ref{sec:companion} are in \texttt{models/data/companion\_snapshot.json}, copied as printed strings from the ledgers and self tests of the Hat and Spectre and Quantum-Gravity-Dynamics repositories; the commit of each is recorded in that file. The closed forms ($\log_2 3$, $2\sqrt2$, the $\delta$ thresholds, $\rho_0$, $4-\sqrt{15}$) are computed by \texttt{paper\_numbers.py}.
 
 \section{Tight-binding and twist-hopping on the Spectre family}\label{app:tb}
 These three models are the earliest in this line, and they do not use $E_8$. They are included because the figures of the Introduction come from them.
