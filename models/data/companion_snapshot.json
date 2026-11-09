@@ -1,5 +1,5 @@
 {
-  "_provenance": "Numbers from the companion repositories, copied as printed strings from their ledgers and self tests: (S) https://github.com/brentharts/spectre (chair44_polarisation.py, spectre_line_sums.py, spectre_density_clock.py, spectre_outline_arrow.py, spectre_e8.py and the research/ NEXT_STEPS; pushed commit 9830236 or later, fill in at push), (Q) https://github.com/brentharts/Quantum-Gravity-Dynamics (directional/hex_directions.py, hex_e8.py, hex_contract.py and directional/LEDGER.md; the hexagonal files were NOT yet pushed when this file was written: FILL IN THE COMMIT HASH AT PUSH). They are NOT recomputed by paper_numbers.py. Recompute with `make check` in (S) and `python3 -m pytest tests/test_directional*.py` in (Q), and compare. Each value is a string.",
+  "_provenance": "Numbers from the companion repositories, copied as printed strings from their ledgers and self tests: (S) https://github.com/brentharts/spectre (chair44_polarisation.py, spectre_line_sums.py, spectre_density_clock.py, spectre_outline_arrow.py, spectre_wilson.py, spectre_e8.py and the research/ NEXT_STEPS; commit 61bbb07 contains all of them except spectre_wilson.py and WILSON.md: FILL IN THE COMMIT THAT ADDS THOSE), (Q) https://github.com/brentharts/Quantum-Gravity-Dynamics (directional/hex_directions.py, hex_e8.py, hex_contract.py and directional/LEDGER.md; commit e6a3ec1). They are NOT recomputed by paper_numbers.py. Recompute with `make check` in (S) and `python3 -m pytest tests/test_directional*.py` in (Q), and compare. Each value is a string.",
   "chairfraction": "13/24",
   "chairstates": "18",
   "handedk": "900",
@@ -16,5 +16,14 @@
   "repairtwo": "1440",
   "greedyzero": "0.92",
   "greedystrong": "0.73",
-  "qgdtests": "32"
+  "qgdtests": "32",
+  "wilsonalpha": "0.300",
+  "wilsonblunt": "-0.070",
+  "wilsonsharp": "-0.315",
+  "wilsonright": "-0.139",
+  "wilsonresidual": "0.068",
+  "wilsonoutline": "3.183",
+  "wilsonpredicted": "2.884",
+  "wilsongap": "0.19",
+  "wilsontiles": "71"
 }
