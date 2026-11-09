@@ -24,6 +24,7 @@ for p in (_HERE, _ROOT):
         sys.path.insert(0, p)
 
 SNAPSHOT = os.path.join(_HERE, "data", "wilson_snapshot.json")
+COMPANION = os.path.join(_HERE, "data", "companion_snapshot.json")
 OUT = os.path.join(_ROOT, "build", "quantgrav_numbers.tex")
 
 
@@ -113,6 +114,20 @@ def compute():
     for k, v in snap.items():
         if not k.startswith("_"):
             put("W" + "".join(c for c in k.title() if c.isalpha()), v, "snapshot data/wilson_snapshot.json (not recomputed here)")
+    # computed here from closed forms quoted by the dynamic sections (the companion LPs give the same values at the delta checked there)
+    put("BitsCopy", "%.3f" % math.log2(3), "log2 3: bits about the measured axis that the copy contract signals")
+    put("Tsirelson", "%.3f" % (2 * math.sqrt(2)), "2 sqrt 2")
+    put("DeltaCubic", "1/12", "cubic threshold of min(4, 4/3 + 8 delta) = 2 (companion LP); 1/12 exactly")
+    assert abs(4 / 3 + 8 / 12 - 2) < 1e-12
+    put("DeltaCubicTsirelson", "%.3f" % ((2 * math.sqrt(2) - 4 / 3) / 8), "(2 sqrt 2 - 4/3)/8")
+    put("DeltaHexTsirelson", "%.3f" % ((2 * math.sqrt(2) - 2) / 12), "(2 sqrt 2 - 2)/12")
+    put("DeltaHexFull", "1/6", "min(4, 2 + 12 delta) = 4 at delta = 1/6")
+    put("RhoZero", "%.4f" % ((5 - math.sqrt(15)) / 5), "(5 - sqrt 15)/5, baseline density per spectre (Exact in the spectre repository)")
+    put("PisotRatio", "%.3f" % (4 - math.sqrt(15)), "4 - sqrt 15, the Pisot conjugate 1/lambda^2")
+    comp = json.load(open(COMPANION))
+    for k, v in comp.items():
+        if not k.startswith("_"):
+            put("C" + "".join(c for c in k.title() if c.isalpha()), v, "snapshot data/companion_snapshot.json (not recomputed here)")
     return N
 
 
@@ -122,6 +137,8 @@ EXPECTED = {"Inscribed": "25", "Partitions": "10", "Roots": "240", "Fibres": "10
             "TilesMajor": "63", "TilesMinor": "8", "LambdaSquared": "7.8730", "VoronoiVertices": "720", "VoronoiVolume": "3.530",
             "VoronoiIn": "0.9092", "VoronoiCirc": "0.9732",
             "VoronoiFacets": "1200", "VoronoiCellVertices": "19440", "VecEight": "340320", "FibreEight": "14180", "SplitIcosian": "0",
+            "BitsCopy": "1.585", "Tsirelson": "2.828", "DeltaCubic": "1/12", "DeltaCubicTsirelson": "0.187", "DeltaHexTsirelson": "0.069",
+            "DeltaHexFull": "1/6", "RhoZero": "0.2254", "PisotRatio": "0.127", "CChairfraction": "13/24",
             "SplitCoxOne": "7376", "SplitCoxTwo": "13251", "VorAccepted": "6120", "VorCoxSplit": "2540"}
 
 
