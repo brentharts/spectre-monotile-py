@@ -119,6 +119,8 @@ $\qgChairTips=24\times8$ Chair44 tips against the equatorial roots & \negres & \
 Corner locality, placement dependence, gauge, block size ($U(1)$) & \numeric$^\dagger$ & \ref{sec:wilson} & \texttt{wilson\_corner\_} \texttt{locality}, Wilson repository \\
 Chair44 transverse notch sums: fraction $\to\qgCChairfraction$ of lines (automaton) & \exact$^\dagger$ & \ref{sec:companion} & \texttt{chair44\_polarisation} \\
 Spectre line sums: no ballistic drift; baseline $\rho_0=\qgRhoZero$; chiral outline & \negres, \exact$^\dagger$ & \ref{sec:companion}, \ref{sec:density-limits} & \texttt{spectre\_line\_sums}, \texttt{spectre\_density\_clock}, \texttt{spectre\_outline\_arrow} \\
+X-bonds are Mystic cycles; $\Pr(\Phi^2)=1/2$; $\rho_0=2\times$ Mystic frequency & \exact$^\dagger$ & \ref{sec:companion} & \texttt{spectre\_mystic\_xbond} \\
+Chair44 notch axis undetermined at exactly $\qgCSixteen$ addresses (two implementations agree) & \exact$^\dagger$ & \ref{sec:companion} & \texttt{chair44\_notch\_axis} \\
 Wilson action on $A_2\oplus A_2$: tiles give an area law; sharp corner resolved; outline gap & \exact, \numeric$^\dagger$ & \ref{sec:companion} & \texttt{spectre\_wilson} \\
 Hexagonal six directions in $E_8$ ($\qgCHexorth$ orthogonal roots) & \exact$^\dagger$ & \ref{sec:hexdirs} & \texttt{hex\_directions}, \texttt{hex\_e8} \\
 Copy contract signals ($\qgBitsCopy$ bits); price of retro-dependence $\min(4,2+12\delta)$ & \exact, \numeric$^\dagger$ & \ref{sec:retro-tests} & \texttt{hex\_directions}, \texttt{hex\_contract} \\
@@ -133,7 +135,7 @@ Tight-binding spectra, twist hopping and the Spectre--Chair44 fibres & \exact, \
 \subsection{The Spectre and its lift}
 The Spectre is the strictly chiral aperiodic monotile of Smith, Myers, Kaplan and Goodman-Strauss \cite{smith2023}. Its outline has $14$ edges of unit length at multiples of $30^\circ$. In the lift used here the edges at even multiples of $30^\circ$ are vectors of one hexagonal lattice (red) and those at odd multiples are vectors of a second one (green); Section~\ref{sec:embed} gives the coordinates and the identification with $\mathbb{Z}[\zeta_{12}]$, which is made in this repository's \texttt{lift4d.py} following the lift of Ch\'eritat and Ma \cite{cheritat2023}.
 \subsection{The Chair44}
-The Chair44 is a solid built from \qgChairPanels\ square panels, each carrying eight pyramids, in all \qgChairTips\ pyramid tips. We use the tip data as
+The Chair44 is the three-dimensional strongly aperiodic monotile of Tsiokos \cite{tsiokos2026}, with matching rules given by Flicker \cite{flicker2026}; here it is a solid built from \qgChairPanels\ square panels, each carrying eight pyramids, in all \qgChairTips\ pyramid tips. We use the tip data as
 distributed in this repository (\texttt{models/\allowbreak data/\allowbreak r44\_\allowbreak features.csv}, with its source and licence recorded in \texttt{models/\allowbreak data/\allowbreak README.md}); we did not re-derive
 the solid, and we use only the signed heights of the tips (a bump is positive, a dent negative) and the panel each tip belongs to.
 \subsection{\texorpdfstring{$E_8$}{E8}, the icosians and the Hopf fibres}\label{sec:bg-e8}
@@ -163,7 +165,7 @@ $2I$ contains exactly \qgInscribed\ inscribed $24$-cells of the form $g\cdot 2T\
 five disjoint $24$-cells: five partitions by left cosets and five by right cosets of the five conjugates of $2T$.
 \end{result}
 
-The counts agree with those found independently, as Gram-graph $24$-cliques, in the Quantum\_Gravity\_Lab repository of Poplett \cite{qgl}. They were
+The counts agree with those found independently, as Gram-graph $24$-cliques, in the Quantum\_Gravity\_Lab repository of Poplett (\url{https://github.com/brentharts/Quantum_Gravity_Lab}, not in the bibliography). They were
 obtained here by group multiplication, not by clique search. Figure~\ref{fig:cells} shows a related structure from the same module: the Hopf \emph{circle} fibres of the $600$-cell, whose base points on $S^2$ form an icosahedron, a dodecahedron and an icosidodecahedron.
 
 \begin{figure}[t]\centering
@@ -327,7 +329,7 @@ of counts, with a stated reason: wherever the two sides have comparable structur
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{An abelian Wilson-loop probe}\label{sec:wilson}
 \subsection{Setting}
-The Wilson-loop repository of Peev and Dogra \cite{peevdogra} develops a renormalisation-group programme for Yang--Mills theory on a $4$-torus, in which the first step averages the field over blocks of side $L$.
+The Wilson-loop repository of Peev and Dogra (\url{https://github.com/brentharts/4D_Wilson_Loop_RG}, not in the bibliography) develops a renormalisation-group programme for Yang--Mills theory on a $4$-torus, in which the first step averages the field over blocks of side $L$.
 For a square Wilson loop that step extracts a factor $\exp(-\tfrac{g^2}{2}E_f)$, and $E_f$ is read as a perimeter term plus a term per corner. We did not read or check the proofs of that programme and make no statement about them.
 A square has four corners of one kind, so it cannot show whether a corner contributes a constant that depends on the corner alone. We tested that in the simplest setting we could compute, a $U(1)$ Gaussian
 analogue of the first step on a $4$-torus with $K=6$ blocks of side $L=3$ per direction, in Landau gauge and with $g=1$ (unless a value says otherwise), using the operators of the programme's abelian check
@@ -390,7 +392,7 @@ We therefore do not claim that the corner term fails for the lifted Spectre; we 
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Results from the companion repositories}\label{sec:companion}
-These results were obtained in the Hat and Spectre repository (\url{https://github.com/brentharts/spectre}) and are copied as a snapshot (\snap, Appendix~\ref{app:repro}); they bear on the search for an arrow of time of Section~\ref{sec:intro}.
+These results were obtained in the Hat and Spectre repository (\url{https://github.com/brentharts/spectre}), two of them cross-checked against the CICY repository \cite{hartshorn2026cicy}, and are copied as a snapshot (\snap, Appendix~\ref{app:repro}); they bear on the search for an arrow of time of Section~\ref{sec:intro}.
 \begin{result}[\exact\snap]\label{res:chair-pol}
 Along the axis lines of the Chair44 the notch sum is bounded longitudinally. Transversally it equals $(\pm M,\pm M)$ on a fraction $13/24+1/(3\cdot 4^{n-1})$ of the lines at level $n$, which tends to $\qgCChairfraction$; proved with an $\qgCChairstates$-state subset automaton on the address digits, and the same fraction for all $168$ roots. Shuffled labels give none. The drift is the same traversed backwards, so it does not give an arrow.
 \end{result}
@@ -404,6 +406,14 @@ Every Spectre outline of levels $1$ and $2$ is the same cyclic turning word of $
 Wilson action on the Spectre lattice (\texttt{spectre\_wilson.py}; abelian Gaussian action in the conventions of Section~\ref{sec:wilson}, unconstrained loop self-energy $E$). (i) With the $\qgCWilsontiles$ tiles of the level-2 patch as the only plaquettes, $E$ of the boundary of any union of $m$ tiles is exactly $m$: an area law with no perimeter and no corner term. (ii) On the lift lattice $A_2\oplus A_2$, with the triangles of each plane and the red--green parallelograms as plaquettes (weights $2$ and $1/3$, fixed by an isotropic Maxwell limit), $E=\alpha P+\sum b\,c$ fits $12$ loops of sides $3$ and $4$ with $\alpha=\qgCWilsonalpha$ and corner constants $\qgCWilsonblunt$ (turn $60^\circ$), $\qgCWilsonsharp$ (turn $120^\circ$), $\qgCWilsonright$ ($90^\circ$), residual $\qgCWilsonresidual$. The sharp corner is resolved from the other two; the blunt and the right-angle corners are not. (iii) The lifted Spectre outline has one energy for all $71$ tiles ($\qgCWilsonoutline$), its mirror outline has exactly the same energy, and perimeter plus corners predicts $\qgCWilsonpredicted$, a gap of about $\qgCWilsongap$ that does not shrink when the outline is enlarged.
 \end{result}
 The action is parity symmetric, so like the line sums it cannot see the chirality of Result~\ref{res:chirality}. It is the unconstrained energy, not the constrained first-step energy of the programme, so its constants are not $\delta m$ and $\log z_c$.
+
+\begin{result}[\exact\snap]\label{res:mystic}
+Every X-bond of the Spectre tiling belongs to a Mystic tile (the one tile of the substitution that carries the role-swapped edge sequence $a\leftrightarrow b$, called Mystic in the Hat and Spectre repository). A shared edge is an X-bond, an edge on which the two tiles disagree about its type, exactly when one of its two tiles is a Mystic; no two Mystics share an edge; the X-bonds form disjoint cycles of $\qgCMysticcycles$ edges, one per Mystic ($\qgCMysticcyclesfour$ at depth~$4$), each through exactly two interior vertices of valence~$4$. Hence X-bonds $=\qgCMysticcycles M$, valence-$4$ vertices $=2M$, and X-bonds $=\qgCSevenx\times$ valence-$4$ vertices in the whole patch for all nine seeds (counted, depths $2$ to $4$). The Mystic is a fraction $\qgMysticFreq$ of all tiles, so the baseline density $\rho_0$ of Section~\ref{sec:density-limits} is twice the Mystic frequency. With the exact Perron frequencies and the measured X-charges per species ($4,4,4,2,\{0,2\}$ and $0$ for the others), conservation of X-charge ($12g+2g^2+4pg(1-g)=14g$, $g=4-\sqrt{15}$) gives $p=\Pr(\Phi^2)=1/2$ exactly, which fixes the X-density to $1-\sqrt{15}/5$. This closes the one unknown of the closed-form X-density; what remains an assumption is the charge atlas. The measured $p$ ($0.683$, $0.579$, $0.538$ at depths $3$, $4$, $5$) is consistent (Aitken extrapolation $\qgCAitken$).
+\end{result}
+\begin{result}[\exact\snap]\label{res:chair-axis}
+The label of the Chair44 at an address of the $2^M$ cube is undetermined by the $M$ binary digits at $28\cdot2^M-48$ addresses (label excess $140\cdot2^M+48$); the CICY repository and the Hat and Spectre repository compute this from independently written substitutions and agree (a $209$-set subset automaton, $41$ with more than one label). The notch axis, that is the notch vector up to sign, is nevertheless determined everywhere except at exactly $\qgCSixteen$ addresses for every $M\ge2$, the $8$ corner cells and the $8$ central cells (a finite certificate, checked to $M=\qgCCoincidencemax$); at the other undetermined addresses the notch vector is fixed up to its sign. Only the sign is left open, and nothing here connects it to the PC statement of the Chair44 lines.
+\end{result}
+Two further contacts with CICY are recorded in the companion repository and not used here: a parity-odd observable has to be signed like the handedness theorem and not an energy (all energies computed here are blind to the chirality of the tile), and the index $12$ of the six-sphere holonomy and the twelve edge directions of the Spectre are a numerological match until a map is exhibited.
 
 Together with Result~\ref{res:price} these say where an arrow is \emph{not}: not in the line sums, not in the closure of a flux, not in the density. A handedness exists; whether it can be turned into an order of events is open (item~\ref{item:arrow} below).
 
@@ -501,7 +511,7 @@ In regions of intense energy density (such as near black hole horizons or dense 
 \subsection{What the density does and does not reproduce}\label{sec:density-limits}
 The clock rate is \emph{defined} as $1/\rho$, so a slower clock where $\rho$ is large is an input, not a result. To match the static-observer clock $\sqrt{1-r_s/r}$ the density would have to be $\rho=(1-r_s/r)^{-1/2}$. The density above falls as $d^{-2}$ at large distance $d$ (and as $d^{-3}$ for the exponent $3/2$ of Section~\ref{sec:formal}), where $1/r$ is needed, and it is finite everywhere, so it has no horizon. The two formulas for $\rho$ in this paper are different toy choices. Nothing here has been fitted to or checked against a weak-field test.
 
-The tilings supply one exact ingredient, a baseline. In the Spectre patch the density of vertices of valence $4$ per tile is $\rho_0=(5-\sqrt{15})/5=\qgRhoZero$, in $\mathbb{Z}+\mathbb{Z}(5+\sqrt{15})/10$, and the weighted count of a supertile deviates from $\rho_0\cdot\mathrm{area}$ by a constant times $(4-\sqrt{15})^j=\qgPisotRatio{}^j$ at level $j$ (Pisot decay; \exact\snap, \texttt{spectre\_density\_clock.py} in the Hat and Spectre repository). So the aperiodic substrate has a definite uniform background whose fluctuations die away geometrically, and no potential of its own: a $1/r$ profile would have to come from sources. The Chair44 notch sum instead grows ($7\cdot 2^n$), which makes it a worse baseline.
+The tilings supply one exact ingredient, a baseline. In the Spectre patch the density of vertices of valence $4$ per tile is $\rho_0=(5-\sqrt{15})/5=\qgRhoZero$, in $\mathbb{Z}+\mathbb{Z}(5+\sqrt{15})/10$, and the weighted count of a supertile deviates from $\rho_0\cdot\mathrm{area}$ by a constant times $(4-\sqrt{15})^j=\qgPisotRatio{}^j$ at level $j$ (Pisot decay; \exact\snap, \texttt{spectre\_density\_clock.py} in the Hat and Spectre repository). So the aperiodic substrate has a definite uniform background whose fluctuations die away geometrically, and no potential of its own: a $1/r$ profile would have to come from sources. The valence-$4$ vertices are exactly the vertices that the X-bond cycle of a Mystic passes through, two per Mystic, so $\rho_0$ is twice the Mystic frequency (Result~\ref{res:mystic}). The Chair44 notch sum instead grows ($7\cdot 2^n$), which makes it a worse baseline.
 
 \subsection{Gravitational Wave Propagation on the Timeline Grid}
 A gravitational wave is modeled as a traveling ripple of consistency contract re-adjustments propagating across a spatial lattice of coupled directional timelines $(x, y) \in \mathbb{Z}^2$. When a high-energy dynamic mass event (e.g., a binary inspiral) modulates the local density profile $\rho(x, y, t)$, neighboring spatial timelines must adjust their axis states to preserve global topological coherence. 
@@ -570,7 +580,7 @@ This work has explored the structural intersections between aperiodic monotiles 
 
 The explicit computations documented here provide exact enumerations and geometric identities—such as the 25 inscribed 24-cells within the 600-cell (Result 1), the Voronoi window invariance over fibre rotations (Result 4), the explicit isometric embedding of the Spectre lift lattice into $E_8$ (Result 6), and the triality-based decomposition into $E_6 \times A_2$ (Result 5). Simultaneously, they record significant negative constraints: the Spectre inflation does not extend to an $E_8$ automorphism (Result 8), the Chair44 solid shares numerical shapes but not algebraic structures with equatorial $E_8$ roots (Result 11), and abelian Wilson-loop probes reveal high sensitivity to grid placement and geometric corner definitions.
 
-Crucially, as emphasized throughout this investigation, none of the static combinatorial structures or finite lattice computations exhibited an intrinsic arrow of time. The companion computations make this more precise: the Spectre outline is chiral and has a handedness theorem, but chirality is not order, since flux closure is symmetric under reversal; the line sums and the Chair44 drift are the same traversed backwards. To bridge this gap we sketched a dynamic extension—discrete directional axes, entanglement as shared axis fusion resolved through retrocausal consistency contracts, and a clock rate defined from a local interaction density $\rho(t)$. Testing the sketch against the lattice results gave four statements. The six directions in $E_8$ are hexagonal, not cubic. The copy contract signals, so it does not remove action at a distance. The retro-dependence needed for a Bell violation can be priced ($\min(4,2+12\delta)$ for the hexagonal set, threshold $\delta>1/12$ for the cubic one, the latter set by the read-out's zero outcomes) a chosen one-parameter rule pays it on zero-free read-outs, but none is derived. The density gives a clock by definition, with the wrong fall-off and no horizon, on top of an exact tiling baseline $\rho_0$.
+Crucially, as emphasized throughout this investigation, none of the static combinatorial structures or finite lattice computations exhibited an intrinsic arrow of time. The companion computations make this more precise: the Spectre outline is chiral and has a handedness theorem, but chirality is not order, since flux closure is symmetric under reversal; the line sums and the Chair44 drift are the same traversed backwards. To bridge this gap we sketched a dynamic extension—discrete directional axes, entanglement as shared axis fusion resolved through retrocausal consistency contracts, and a clock rate defined from a local interaction density $\rho(t)$. Testing the sketch against the lattice results gave four statements. The six directions in $E_8$ are hexagonal, not cubic. The copy contract signals, so it does not remove action at a distance. The retro-dependence needed for a Bell violation can be priced ($\min(4,2+12\delta)$ for the hexagonal set, threshold $\delta>1/12$ for the cubic one, the latter set by the read-out's zero outcomes) a chosen one-parameter rule pays it on zero-free read-outs, but none is derived. The density gives a clock by definition, with the wrong fall-off and no horizon, on top of an exact tiling baseline $\rho_0$, which is twice the frequency of the Mystic tile (Result~\ref{res:mystic}).
 
 These dynamic extensions remain working hypotheses rather than established derivations. Future progress depends on resolving several open problems: constructing a true hexagonal action and block-averaging map for the $A_2 \oplus A_2$ lift, identifying number fields that simultaneously capture Eisenstein and icosahedral structures, and formalizing the topological self-consistency conditions for retrocausal shockwaves. By combining exact computational geometry with bottom-up operational principles, this exploratory path seeks to determine whether a consistent, background-independent physics can emerge from discrete geometric substrates.
 
@@ -579,9 +589,11 @@ These dynamic extensions remain working hypotheses rather than established deriv
 
 Main repository \url{https://github.com/brentharts/spectre-monotile-py}
 \newline
-Fork of Romeo Matshabba (2026) \url{https://github.com/brentharts/Quantum-Gravity-Dynamics}
+Fork of the repository of Romeo Matshaba \cite{matshaba2026}: \url{https://github.com/brentharts/Quantum-Gravity-Dynamics}
 \newline
 The Hat and Spectre Monotile \url{https://github.com/brentharts/spectre}
+\newline
+Exact methods for string theory and QFT (CICY) \url{https://github.com/brentharts/CICY}
 
 
 All commands are run from the root of the main repository, with \texttt{numpy}, \texttt{scipy}, \texttt{sympy} and \texttt{matplotlib}; \texttt{latexmk} and \texttt{pdflatex} are needed only for the paper. Each module has a self test:
@@ -615,6 +627,8 @@ Module & Repository & Checks \\ \midrule
 \texttt{spectre\_outline\_arrow} & Hat and Spectre & 9 \\
 \texttt{spectre\_density\_clock} & Hat and Spectre & 6 \\
 \texttt{spectre\_wilson} (about $16$ s) & Hat and Spectre & 21 \\
+\texttt{spectre\_mystic\_xbond} (about $18$ s) & Hat and Spectre & 15 \\
+\texttt{chair44\_notch\_axis} & Hat and Spectre & 11 \\
 \texttt{spectre\_line\_sums} (about $47$ s) & Hat and Spectre & --- \\
 \texttt{hex\_directions}, \texttt{hex\_e8}, \texttt{hex\_contract} & Quantum-Gravity-Dynamics & $17+6+9$ \\
 \texttt{retro\_rule} & Quantum-Gravity-Dynamics & $7$ \\ \bottomrule
