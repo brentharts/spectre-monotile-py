@@ -1,5 +1,5 @@
 {
-  "_provenance": "Numbers from the companion repositories, copied as printed strings from their ledgers and self tests: (S) https://github.com/brentharts/spectre (chair44_polarisation.py, spectre_line_sums.py, spectre_density_clock.py, spectre_outline_arrow.py, spectre_wilson.py, spectre_mystic_xbond.py, chair44_notch_axis.py, spectre_e8.py and the research/ NEXT_STEPS; commit 099435b contains all of them, including spectre_wilson.py, WILSON.md, CICY.md); (C) https://github.com/brentharts/CICY (clone at commit f74b258, used for the Chair44 cross-check of chair44_notch_axis.py with CICY_DIR set), (Q) https://github.com/brentharts/Quantum-Gravity-Dynamics (directional/hex_directions.py, hex_e8.py, hex_contract.py and directional/LEDGER.md; commit ae33edf, which includes directional/retro_rule.py). They are NOT recomputed by paper_numbers.py. Recompute with `make check` in (S) and `python3 -m pytest tests/test_directional*.py` in (Q), and compare. Each value is a string.",
+  "_provenance": "Numbers from the companion repositories, copied as printed strings from their ledgers and self tests: (S) https://github.com/brentharts/spectre (chair44_polarisation.py, spectre_line_sums.py, spectre_density_clock.py, spectre_outline_arrow.py, spectre_wilson.py, spectre_mystic_xbond.py, chair44_notch_axis.py, spectre_e8.py and the research/ NEXT_STEPS; commit 099435b contains all of them, including spectre_wilson.py, WILSON.md, CICY.md); (S2) spectre pull request 17, merged at commit 9938874: research/ollivier_ricci_v2.json, regge_v1.json, chair44_curvature_v2.json, diffraction_v2_k5.json, internal_check_v1.json, deform_fit_v1.json, quad_fit_v1.json, refine_seeded_v1.json and NEXT_STEPS.md (recorded cluster runs; the diffraction heights h are the repository's own binned normalisation and are used here only as ratios between levels); (C) https://github.com/brentharts/CICY (clone at commit f74b258, used for the Chair44 cross-check of chair44_notch_axis.py with CICY_DIR set), (Q) https://github.com/brentharts/Quantum-Gravity-Dynamics (directional/hex_directions.py, hex_e8.py, hex_contract.py and directional/LEDGER.md; commit ae33edf, which includes directional/retro_rule.py). They are NOT recomputed by paper_numbers.py. Recompute with `make check` in (S) and `python3 -m pytest tests/test_directional*.py` in (Q), and compare. Each value is a string.",
   "chairfraction": "13/24",
   "chairstates": "18",
   "handedk": "900",
@@ -35,5 +35,20 @@
   "sevenx": "7",
   "aitken": "0.511",
   "sixteen": "16",
-  "coincidencemax": "260"
+  "coincidencemax": "260",
+  "ollivierfour": "-0.59",
+  "ollivierfoureight": "-0.72",
+  "ollivierkappa": "-1/3",
+  "reggepi": "-0.74",
+  "reggevortex": "-0.62",
+  "tromkappa": "-0.040",
+  "vortexchange": "3",
+  "windowradius": "3.8",
+  "internalgrowth": "2.8",
+  "windowchange": "0.5",
+  "peakfour": "0.49",
+  "peakfive": "0.32",
+  "mirrortol": "0.0011",
+  "unindexed": "7.7295",
+  "quadshare": "0.1"
 }
