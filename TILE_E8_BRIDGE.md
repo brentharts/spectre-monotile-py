@@ -107,6 +107,29 @@ The module imports that fork's operators (not copied; `$WILSON_RG_DIR`) and appl
 **For the programme (an observation, not a claim about its proofs):** the extraction of a perimeter term and one constant per corner is accurate in this analogue only when corners and edges are separated
 by a few blocks. Loops with features of size about L, or with dense corners, need the corner terms to be treated jointly.
 
+## 5. The whole Spectre to Hat family in the lift, and a reading (added 2026-11-10)
+
+Tests: `research/toymodel_v2/tm2_lattice.py` (9 checks), `core.py`, `tm2_rule.py`; notes in `research/toymodel_v2/STAGE0.md` and `STAGE4.md`.
+
+- **Exact:** section 1 embeds the Spectre. The same holds for every tile `Tile(1, b)`, `b` from 1 to √3, the Hat included: they are one and the same walk in Z⁴ = A2 + A2, every edge an E8 root (norm² 2), with the same bond graph (406 seams at level 2). The deformation only rescales the green plane against the red one in the projection.
+- **Exact:** at the Hat the projected positions lie on one hexagonal lattice: the map Z⁴ → Z[w] has a kernel of rank 2. Read through that lattice, the Hat's long edges have E8 norm² 6 and are not roots. So there are two exact readings of "the Hat in E8", and they differ; section 1 uses the lift.
+- **Exact:** the six red roots are the alphabet of the history models. For two of them k x 60° apart the planar norm² of the difference is 0, 1, 3, 4, which is half the E8 norm² (0, 2, 6, 8), i.e. 2 minus their E8 inner product. The stiffness weight `exp(−β N)` of the action is therefore a weight on E8 inner products of consecutive roots, and the correlation rule of `STAGE4.md` is a function of the eigenvalues of that 6 x 6 matrix.
+- **Not found:** anything that uses more of E8 than this A2. The history models would run unchanged on a bare hexagonal lattice. The bridge of section 1 is used; it is not tested by them.
+
+**A reading (Hypothesis).** Your idea: *the past is still right here and the future is far away; past against potential; less space is more past checking, more space more potential checking; "now" is enclosed by 3D space, the potential falling into the past.* The nearest exact facts on this side:
+
+| statement | nearest exact fact | gap |
+|---|---|---|
+| the past is still here | the integer walk in the lift is the same for every member of the family; what changes along the flow is only how it is projected | calling the integer data "past" and the projection scale "potential" is a naming, nothing tests it |
+| potential, never fully defined | at the Hat two integer directions drop out of the projection (kernel of rank 2): distinct lattice data, one position | the lifted vertices stay distinct, so nothing is lost in the lattice; the loss is in the plane only |
+| checking | the pair rule: a bit can open only as a bump and dent on two tiles that share their flat vertex (64 of 4096 sign patterns pass at level 2) | a rule on finite patches; no weights, no dynamics |
+| 3D space encloses "now" | none. The lift is 2 + 2 dimensional and the kernel has rank 2; the 3D object here is the Chair44, and section 2 found its match with E8 to be one of counts only | open |
+
+Added to the list of section 3, as tests that could fail and have not been run:
+
+5. A check rule on the Chair44 (3D) with the same shape as the Spectre's pair rule, and a count of what passes. Without it "3D space" has no counterpart in the models.
+6. A history model whose result changes when the hexagonal alphabet is replaced by a larger set of E8 roots. If nothing changes, E8 is not doing any work in the dynamic half.
+
 ## Reproduce
 
     python3 models/spectre_in_e8.py --tests-only        # 13 checks, a few seconds
@@ -114,6 +137,8 @@ by a few blocks. Loops with features of size about L, or with dense corners, nee
     WILSON_RG_DIR=/path/to/4D_Wilson_Loop_RG python3 models/wilson_corner_locality.py --tests-only   # 9 checks, about 40 s
     python3 models/spectre_in_e8.py --no-show --save-dir figures
     python3 models/chair_e8_192.py --no-show --save-dir figures
+    python3 research/toymodel_v2/tm2_lattice.py --tests-only   # section 5, 9 checks, about 14 s
+    python3 research/toymodel_v2/tm2_rule.py --tests-only      # section 5, 11 checks
 
 The first needs the repository root on the path (it imports `lift4d.py`) and sympy.
 

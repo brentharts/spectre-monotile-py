@@ -97,7 +97,75 @@ Each item below is something the toy could be extended to test; none is done.
 
 Related ideas in the literature, by name only (sources not opened here, so not cited): time-symmetric and two-boundary formulations of quantum mechanics, the Feynman–Stückelberg reading of antiparticles, consistent histories, retrocausal interpretations, the "past hypothesis" for the thermodynamic arrow. Entries enter `quantgrav.bib` only after the source is checked.
 
-## 7. Reproduce
+## 7. The vacuum, the past and the future (added 2026-11-10)
+
+Your picture, as given:
+
+> The Vacuum connects the "Past" to the "Future". The Past: increasing order, solidifying, greater interconnections, becoming finite, determined, measured, eventually compressed to bit-level that is "future" compatible. The Future: decreasing order, fluid, any connections, infinite potential, unknown, un-measured, massless, never fully defined. Therefore each "particle" is surrounded by this compatible set, of past and future, with the "past" nearest the "particle" and the "future" far away.
+
+Everything in this section is a **Hypothesis** about how to read the toy, except the rows marked Exact, which are statements about the toy that hold whatever the reading. The tests are in `research/toymodel_v2/tm2_arrow.py` (Stage 3) unless another file is named.
+
+### 7.1 Where each word sits in the toy
+
+| your word | in the toy | what is Exact |
+|---|---|---|
+| Past: solid, determined, measured | the frozen regime, overlap `c → 0` (Spectre end) | a reading there gives 1 bit (`W = 1.0000` up to tick 4); a flip there has relative weight down to 10⁻²³ (section 3.1) |
+| Past: compressed to bit-level, future compatible | a history reduced to one bit that passes the compatibility rules (same final bit; ledger within δ) | the compatible sets and their counts (`spectre_hat_backward_snap_model.py`, `tm2_directed.py`); the rules themselves are **Definition** |
+| Past: greater interconnections | not modelled by the one-bit chain. Nearest thing: on the tiling a bit can only open as one of a bump-and-dent pair (`STAGE0.md`) | the pair rule is Exact on finite patches; reading it as "solid means paired" is Hypothesis |
+| Future: fluid, unknown, un-measured, never fully defined | the Hat end, `c → 1` | readable bits fall 0.91, 0.73, 0.43, 0.13 at ticks 8 to 11 and are exactly 0 at the Hat; the register has rank 1 there, so every state reads (½, ½) |
+| Future: any connections, infinite potential | all bit histories end in the same Hat; 54% of the weight of a single flip is in the last tick, 30% in the one before | Exact (time model E4, section 3.1) |
+| Future: massless | nothing | **Not explained**; the toy has no mass |
+| The Vacuum connects them | structure 1, the smooth flow between the two ends, shared by every history | that it is shared is Exact (time model E4); calling it the vacuum is Hypothesis |
+| the compatible set around a particle | the set of histories compatible with the present, arranged by how deep they reach | Exact as a set; "around" needs a map from `τ` to distance, see 7.3 |
+
+So the picture fits the chain as it is drawn: time runs from the solid end to the fluid end, events get harder to rewrite as they recede (section 3.1), and the future end is never fully defined in an exact sense (0 readable bits).
+
+### 7.2 What the audit adds, and one thing that cuts against the picture
+
+Stage 3 of `toymodel_v2` listed every place an orientation enters and switched each off and on (`research/toymodel_v2/STAGE3.md`).
+
+* **Exact:** three inputs carry an arrow and all three are put in by hand: boundary data of a history (a fixed node, or the point the flux is counted from), the sign of the damping in the wave equation, and the orientation of `τ`. The tile's handedness and the scale ordering carry no arrow in any model here. Section 4, item 1 stands: the direction is an input.
+* **Exact:** the paper's action does not tell a closed timeline from its reverse, although most closed timelines of 5 or more steps are different from their reverse (240 of 360 at 5 steps, 43488 of 54810 at 8). Oriented objects are common; a weight that prefers one orientation is what is missing.
+* **Exact, and against a single arrow:** records sit at the solid end. A reading at tick j recovers the bit of tick i with probability `(1 + √(1−c_j²) cos Θ_ij)/2`, so of any two ticks the more solid one holds the better record of the other. The solid end holds 10.67 bits about the other 12 ticks; tick 11 holds 1.24; the Hat holds 0.
+
+That last result agrees with "the past is measured" and has a price. If the past is the solid end, the present, which is further toward the fluid end, holds almost no record of it in the register (0.11 to 0.13 bit about each earlier tick at tick 11). In your picture the record of the past therefore cannot be something the present carries; it has to be the solid past itself, still there and still connected. That is consistent with "the vacuum connects the past to the future", and it is a commitment: the past exists as structure, not as memory. The other convention, in which "later" means "holds records", would run time from the Hat to the Spectre and would make the future the solid end, which contradicts your second sentence. The toy cannot choose between the two; your text chooses the first.
+
+### 7.3 "Past nearest the particle, future far away"
+
+This needs a map from the overlap `c` to a distance `r`, and none is derived. Two readings were written down, using `σ_t² = r_s/r` and the clock factor `√(1 − σ_t²)` (verified in the companion ledger as a property of that model, not of nature):
+
+| | reading A (`PLAN.md` C7) | reading B (added in Stage 3) |
+|---|---|---|
+| identification | `c = σ_t` | `c = √(1 − σ_t²)`, the clock factor |
+| solid end (`c = 0`) | at infinity | at the horizon, `r = r_s` |
+| fluid end (`c = 1`, the Hat) | at the horizon | at infinity |
+| the bit's jump | `d² = 4σ² ln(r/r_s)` | `d² = −4σ² ln(1 − r_s/r)`, which tends to `4σ² r_s/r` |
+
+The two are exchanged by swapping the overlap with the readable fraction `√(1−c²)` (Exact algebra). **Your sentence is reading B**, and so was v1's "dense regions are frozen"; the plan's C7 was reading A and says the opposite. Under reading B the chain's ticks sit at:
+
+| tick | overlap c | r / r_s | readable bits | share of a single flip |
+|---|---|---|---|---|
+| 0 to 6 | 0.03 or less | 1.000 to 1.001 | 1.00 | below 0.001 |
+| 8 | 0.22 | 1.05 | 0.91 | 0.03 |
+| 9 | 0.42 | 1.22 | 0.73 | 0.12 |
+| 10 | 0.68 | 1.87 | 0.43 | 0.30 |
+| 11 | 0.91 | 5.77 | 0.13 | 0.54 |
+| 12 (Hat) | 1 | infinite | 0 | (not defined) |
+
+So under B the determined shells hug the particle, the rewritable ones are far, and the jump of the bit falls off like a 1/r potential. Cautions: (1) this is algebra on an identification, and reading A is the same algebra with the opposite conclusion; (2) under B the jump diverges at `r = r_s`, which no tile can do; (3) the scale ladder of Stage 2 (small scales fluid, large scales solid, under its own assumption) is about scale, not distance, and would disagree with B if "near the particle" meant "small scale". Stage 5 of the plan has to derive `τ(r)` from dynamics before either reading is more than a choice.
+
+*Update after Stage 5* (`research/toymodel_v2/STAGE5.md`). The choice was reduced, not made. If the squared jump of the bit follows the static field of a source on the sheet, reading A comes out exactly on a two-dimensional sheet (logarithmic field, the readable fraction equals the clock factor, the Hat at `r_s`), and reading B comes out to first order on a three-dimensional one (`c² = exp(−r_s/r)`, a 1/r profile, 10% off the clock at `2r_s`, no horizon, so caution (2) above goes away: the jump diverges only at `r = 0`). So "the past nearest the particle" needs the sheet to be three-dimensional, which is the one place where your "3D space" does work in the models; the tile itself is two-dimensional and would give reading A.
+
+Where a two-ended check lands, on the shared past or only on the ends, is worked out in `PAST_AND_POTENTIAL.md`.
+
+### 7.4 What would test the picture
+
+1. Derive `τ(r)` for a static source and see which reading, if either, comes out (plan Stage 5).
+2. Give the past somewhere to be: an environment or record store coupled to the register, so that "the solid past is still there" is a statement with a number (section 6, item 3).
+3. Put more than one bit in: "greater interconnections" needs the flat-pair rule of the tiling with weights (plan Stage 4 and Stage 6).
+4. Section 6, items 1 and 2 were run in Stage 3 in a first form: the time-symmetric law exists (the extension beyond the Hat, with two mirror branches), and the record test gives the answer in 7.2.
+
+## 8. Reproduce
 
 ```
 python3 spectre_hat_collinearity_flow_model.py --tests-only      # 14 tests
@@ -106,6 +174,8 @@ python3 spectre_hat_quantum_bit_model.py --tests-only            # 10 tests
 python3 spectre_hat_backward_snap_model.py --tests-only          # 10 tests
 python3 spectre_hat_backward_snap_model.py --story               # the numbers of section 3.1
 python3 spectre_hat_backward_snap_model.py --no-show --save figures/spectre_hat_backward_snap.png
+python3 research/toymodel_v2/tm2_arrow.py --tests-only              # 11 tests (section 7)
+python3 research/toymodel_v2/tm2_arrow.py --story                   # the numbers of section 7
 ```
 
 The symbolic version of the flow is `symspectre_hat_flow.py`; it agrees with the numeric flow to about 10⁻¹⁴ (`--verify`).

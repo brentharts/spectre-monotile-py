@@ -137,3 +137,37 @@ python3 spectre_hat_collinearity_flow_model.py --tau 0.5 --report --no-show --sa
 * The arrow angle is not tied to the geometry yet. A measurable version (for example the tangent
   direction at the two ends of the collapsing edge pair) would turn the notes' singularity picture
   into something the tests can check.
+
+## What later models established about the flow (added 2026-11-10)
+
+Labels as in `QUANTUM_GRAVITY.md`. Tests are in `research/toymodel_v2/` (`STAGE0.md` to `STAGE4.md`).
+
+* **Exact:** the tiles `Tile(1, b)` for `b` from 1 to √3 (Spectre to Hat) are one integer walk in the 4D lift; the bond graph of a patch (406 seams at level 2) does not change along the way, only the relative scale of the two planes of the lift. At the Hat the positions fall onto one hexagonal lattice (rank 4 to rank 2). `tm2_lattice.py`.
+* **Exact:** the opening of the 14th vertex by `h(tau)` used in this note is *not* a member of that family: on a tiling, opening every tile alike breaks 88 of 406 seams. It closes every seam only when two tiles that share their flat vertex open as a bump and a dent. So the first open question below has a partial answer: the opened vertex is consistent on a tiling only pairwise.
+* **Exact:** the laws continue past the Hat: `h` is odd and the overlap of the two bit states is even about `tau = 1`. The turn at P₈ changes sign under a mirror image while the jump and every cost of the chain do not. This is the measurable version of the arrow angle asked for in the second open question: the signed turn at P₈, `−ω(τ)` for bit +1. `tm2_arrow.py`.
+
+## A reading of the flow: past, potential and checking (added 2026-11-10)
+
+Your idea, as given:
+
+> The Past is still right here next to you and far away is the future: past vs potential, greater space as greater potential checking, less space as more past checking. What if just checking if the past is consistent with "now" is itself a process, part of the forward flow of time? "Now" is enclosed by "3D space", the potential falling into past.
+
+Everything below is a **Hypothesis** about how to read the models unless a row says Exact. The companion note is `ARROW_OF_TIME.md`, section 7.
+
+| your statement | nearest thing in the models | what is Exact |
+|---|---|---|
+| the past is right here, the future far away | the frozen end of the flow (Spectre side, bit readable) placed at the particle, the Hat end at infinity; this is "reading B" of the overlap | only the algebra of reading B; the opposite placement (reading A) is the same algebra (`tm2_arrow.py`, E3.10) |
+| less space, more past checking | two wings of n letters from a shared origin, with a condition at each end. Short wings: the two-ended check changes the distribution of the shared origin by δ = 0.315 (n = 1), 0.264 (2), 0.141 (4) | Exact (`tm2_rule.py`, E4.8, β = 2) |
+| greater space, greater potential checking | long wings: δ = 0.030 at n = 8 and falling; the check passes at the chance rate and constrains only the ends, not the origin. The correlation between the ends goes to zero with it | Exact (same test) |
+| checking the past is a process in the forward flow | (i) the bit histories behind one present carry 0.216 bit in all, 95% of it in the last three ticks; the frozen ticks cost nothing to check. (ii) the weight of histories that pass a two-ended check depends on both end settings | Exact (`tm2_rule.py`, E4.11, E4.7) |
+| "now" enclosed by 3D space | the flow is one tile in the plane and the alphabet is six directions in a plane. Stage 5 adds one fact: the static field of a source falls like 1/r only on a three-dimensional sheet, and only then does the frozen end sit at the particle (reading B, to first order) | the dimension dependence is Exact (`tm2_waves.py`, E5.7, E5.8); that the sheet is 3D is **Not explained** |
+
+Two consequences if "checking is the flow of time" is taken at face value, both computable and neither derived:
+
+1. *A clock.* If a tick lasts as long as its check costs, the rate is the check entropy per tick: 0.0003, 0.002, 0.009, 0.030, 0.067, 0.107 bit at ticks 6 to 11, zero before. It rises with the overlap `c` (0.03 to 0.91 over the same ticks). Under reading B the overlap is the clock factor, so this clock also stops at the particle and runs far away: the same direction, not the same function (the ratio to `c` goes from 0.01 to 0.12). This is the one place where your two sentences support each other in the toy.
+2. *A cost.* If the time a two-ended check takes is the inverse of its pass rate, that time depends on the settings at both ends (contrast 1.21 where the correlation first beats a shared-past model). The outcomes carry no signal, but a locally visible duration would. So the idea needs the duration of a check to be invisible at either end alone, or it allows signalling. That is a constraint to state, not a refutation.
+
+A closer look at "less space, more past checking", with the closed form of the past shift and the three rates at which things fade, is in `PAST_AND_POTENTIAL.md`.
+
+What would test it: a derived map from `tau` to distance (plan Stage 5); a model in which a tick's duration is computed, not assigned; a 3D version (the Chair44 side of the repository) before anything is said about "3D space".
+
