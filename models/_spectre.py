@@ -16,5 +16,8 @@ def load():
             if base in sys.path:
                 sys.path.remove(base)
             sys.path.insert(0, base)
+            res = os.path.join(base, "research")           # some modules do sys.path.insert(0, "research"), relative to the working directory
+            if os.path.isdir(res) and res not in sys.path:
+                sys.path.append(res)
             return base
     return None
