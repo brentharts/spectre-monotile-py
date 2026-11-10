@@ -125,6 +125,7 @@ def compute():
     put("RhoZero", "%.4f" % ((5 - math.sqrt(15)) / 5), "(5 - sqrt 15)/5, baseline density per spectre (Exact in the spectre repository)")
     put("PisotRatio", "%.3f" % (4 - math.sqrt(15)), "4 - sqrt 15, the Pisot conjugate 1/lambda^2")
     put("MysticFreq", "%.4f" % ((5 - math.sqrt(15)) / 10), "(5 - sqrt 15)/10, frequency of the Mystic tile = rho_0/2 (Exact in the spectre repository)")
+    put("ShearSV", "%.4f" % math.sqrt(2 - math.sqrt(3)), "sqrt(2 - sqrt 3) = |1 - zeta_12|, both singular values of the fitted shear (spectre repository deform_fit_v1: 0.5176)")
     comp = json.load(open(COMPANION))
     for k, v in comp.items():
         if not k.startswith("_"):
@@ -139,7 +140,7 @@ EXPECTED = {"Inscribed": "25", "Partitions": "10", "Roots": "240", "Fibres": "10
             "VoronoiIn": "0.9092", "VoronoiCirc": "0.9732",
             "VoronoiFacets": "1200", "VoronoiCellVertices": "19440", "VecEight": "340320", "FibreEight": "14180", "SplitIcosian": "0",
             "BitsCopy": "1.585", "Tsirelson": "2.828", "DeltaCubic": "1/12", "DeltaCubicTsirelson": "0.187", "DeltaHexTsirelson": "0.069",
-            "DeltaHexFull": "1/6", "RhoZero": "0.2254", "MysticFreq": "0.1127", "PisotRatio": "0.127", "CChairfraction": "13/24",
+            "DeltaHexFull": "1/6", "RhoZero": "0.2254", "MysticFreq": "0.1127", "ShearSV": "0.5176", "PisotRatio": "0.127", "CChairfraction": "13/24",
             "SplitCoxOne": "7376", "SplitCoxTwo": "13251", "VorAccepted": "6120", "VorCoxSplit": "2540"}
 
 
