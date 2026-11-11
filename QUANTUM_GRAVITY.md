@@ -316,6 +316,8 @@ compound of five cuboctahedra), `qgl_qsn.py` (tetragrids, 20G, Fibonacci icosagr
 - **Exact:** an external record store makes rewriting the frozen end expensive even with symmetric amplitudes and agrees with them; the conflict of v2 Stage 3 disappears.
 - **Exact, Negative for "retrocausal" as a property of the data:** a constant pass rate keeps the post-selected violation (3.92), and the Clauser-Horne combination never exceeds 0: the two-ended tables are those of a local model with the detection loophole.
 - **Exact:** with spin read-outs and nothing discarded, an origin odd under inversion gives the singlet for any common wing (E = -cos); a uniform origin gives a product state.
+- **Exact / Numeric (v3 Stage 6b):** in the bulk of the Chair44 tile graph the relaxed walk tensor is isotropic to 2e-4, so the clock of rule (C) and long waves are isotropic; the hop count is cubic (0.55 / 0.71 / 0.66 per unit length along axes / face / body diagonals). If light moved one tile per tick there would be a preferred frame; as a long wave it sees the isotropic tensor.
+- **Negative:** a flux (complex area phase) cannot make the origin odd: any rotation-invariant two-wing amplitude gives a product state. A half-angle (spinor) read-out of scalar amplitudes depends on an arbitrary sign per letter. The sign would need spinor-valued amplitudes (a spin structure, such as the Dic12 holonomy of the Spectre); not built.
 - **Numeric:** with closure a pin's influence reaches the far end on one global relaxation time (about n^2), not by a front; without closure there is a front.
 
 ### Not yet run
