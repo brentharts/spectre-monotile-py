@@ -1,4 +1,4 @@
-% quantgrav.tex - working draft (skeleton).  Build:  make quantgrav   (writes build/quantgrav.pdf)
+% quantgrav.tex - working draft.  Build:  make quantgrav   (writes build/quantgrav.pdf)
 % Every number quoted in the text is a macro \qg... from build/quantgrav_numbers.tex, which models/paper_numbers.py writes from the models.
 % Write negative numbers inside math mode ($...$) so that the minus sign is typeset as a minus.
 \documentclass[11pt]{article}
@@ -35,754 +35,352 @@
 \maketitle
 
 \begin{abstract}
-We bridge rigorous finite computations on aperiodic monotiles and root lattices with an exploratory directional framework for emergent spacetime dynamics. The computational core collects machine-checked results connecting the Spectre aperiodic monotile, the Chair44 solid, the $E_{8}$ root lattice with its Hopf fibres, and an abelian Wilson-loop analogue. Positive results include the exact enumeration of 25 inscribed 24-cells within the 600-cell, fibre-preserving Voronoi windows, a decomposition of $E_{8}$ roots into $E_{6} \times A_2$ and six copies of the 27, and an isometric embedding of the Spectre lift lattice into $E_{8}$ where every edge is a root. Negative results demonstrate that the Spectre inflation does not extend to $E_{8}$, number fields differ, and Chair44 structural symmetries diverge from equatorial $E_8$ roots. To address the fundamental search for an arrow of time and non-local correlations absent in static geometries, we introduce a dynamic extension: replacing continuous manifolds with discrete directional axes ($\pm X, \pm Y, \pm Z$), formulating quantum entanglement and measurement via bidirectional retrocausal consistency contracts, and defining a clock rate from a local interaction density $\rho(\mathbf{x}, t)$, on which time dilation and wave propagation are modelled rather than derived. We test this toy against the lattice results. The copy contract signals (it reveals the measured axis, $\qgBitsCopy$ bits); the six directions that do lie in $E_8$ are the hexagonal roots of the $A_2$ plane, not $\pm X,\pm Y,\pm Z$; on them the largest CHSH value under no signalling (the CHSH value measures how strongly two distant measurements correlate: at most $2$ for any local model, $\qgTsirelson$ for quantum mechanics, $4$ for any no-signalling table; Section~\ref{sec:chsh}) is $\min(4,2+12\delta)$, where $\delta$ prices the dependence of the shared past on the settings, so any $\delta>0$ violates the local bound $2$; the Spectre supplies an exact baseline density $\rho_0=(5-\sqrt{15})/5$ and a chirality, but no arrow of time and no gravitational potential. The pairing of exact algebraic geometry with an operational toy model is exploratory, and no part of it is a derivation of physics.
+We report finite, machine-checked computations on the Spectre aperiodic monotile, the Chair44 solid, the $E_8$ root lattice with its Hopf fibres and an abelian Wilson-loop analogue, and we test against them an exploratory dynamic model of discrete directions, retrocausal consistency contracts and an interaction density. On the geometric side: $2I$ contains $25$ inscribed $24$-cells, the Voronoi window keeps every fibre whole, $E_8$ splits as $E_6\times A_2$ plus six copies of the $27$, and the Spectre lift lattice embeds isometrically in $E_8$ with every edge a root, for the whole Spectre--Hat family; the Spectre inflation does not extend to $E_8$, and the Chair44 count $192$ matches the equatorial roots in shape only. On the dynamic side: the six directions that lie in $E_8$ are hexagonal, not $\pm X,\pm Y,\pm Z$; the copy contract signals; a Bell violation costs a settings-dependence $\delta$ of the shared past, $\mathrm{CHSH}\le\min(4,2+12\delta)$; a correlation rule with no free parameter follows from a history conditioned on both ends, but no quantum bound does; the action is symmetric under reversal on closed histories, and every orientation in the model is put in by hand; and the model's wave equation makes waves faster, not slower, in dense regions. No part of this is a derivation of physics.
 \end{abstract}
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Introduction}\label{sec:intro}
-\textbf{What this paper is.} This paper reports finite, tested computations on tilings, on the root lattice $E_8$ and on an abelian Wilson-loop analogue. It makes no claim about quantum gravity,
-and none of its results shows that a theory of quantum gravity can be written on these structures. This section explains why we look at them, and what we mean by looking.
+\textbf{What this paper is.} This paper reports finite, tested computations. It makes no claim about quantum gravity, and none of its results shows that a theory of quantum gravity can be written on these structures.
 
-\textbf{The search.} The computations belong to a search, and the search has a stated shape. We look for graphs and combinatorial structures that carry an arrow of time, meaning a built-in
-asymmetry under reversal of the order of events, and that fit together naturally and rigidly enough that a physical theory could later be mapped onto them. The idea is to find the geometry first
-and ask afterwards which theory it suits. We have not found an arrow of time: none of the computations reported here exhibits one, and we say so in each place where the question could be asked. Arrows of time that arise from structure are studied in the Janus-point programme of Barbour and collaborators, in which Newtonian N-body solutions are time-reversal invariant and a scale-invariant measure of clustering gives an emergent gravitational arrow of time \cite{barbourlobo2026,barbourlourenco2026}; we read only the abstracts of these papers and use none of their results.
-The approach differs in its starting point from AdS/CFT, string theory and loop quantum gravity, which we do not review here and do not evaluate. We do not start from a spacetime of three space dimensions plus one of time, and we do not add
-further dimensions. Our working suspicion, a \hypo\ and not a result, is that the aperiodic ``Einstein'' monotiles are the right kind of background; most of our models therefore start from the Spectre \cite{smith2023}.
+\textbf{The search.} We look for graphs and combinatorial structures that carry an arrow of time, meaning a built-in asymmetry under reversal of the order of events, and that fit together rigidly enough that a physical theory could later be mapped onto them: the geometry first, the theory afterwards. We have not found one, and we say so wherever the question can be asked. Arrows of time that arise from structure are studied in the Janus-point programme of Barbour and collaborators \cite{barbourlobo2026,barbourlourenco2026} (abstracts only were read; none of their results is used). Our working suspicion, a \hypo, is that the aperiodic ``Einstein'' monotiles are the right kind of background, so most models start from the Spectre \cite{smith2023}.
 
-\textbf{Directions, not dimensions.} The word \emph{dimension} is ambiguous: it does not say how many, or of what kind. We prefer \emph{direction}. There are three axes, $X$, $Y$, $Z$. Moving
-positively or negatively along an axis gives six signed directions, $\pm X,\pm Y,\pm Z$. If each signed direction can also carry a twist of one of two senses, there are twelve. We use this as bookkeeping that tells us which
-parameters a model should carry (in the models of this repository the twist is a continuous angle, not a two-valued label), not as a statement about nature. The models avoid assuming that space is three-dimensional because it looks so to us.
+\textbf{Directions, not dimensions.} Three axes and two signs give six directions $\pm X,\pm Y,\pm Z$; a twist of two senses would give twelve. We use this as bookkeeping for which parameters a model should carry, not as a statement about nature, and we do not assume that space is three-dimensional. One could, for instance, give each axis its own time; that is an example of the freedom we want (\hypo), and no computation here implements it. Nearby ideas, known to us from their abstracts only, are the multiple-time states of Aharonov, Popescu, Tollaksen and Vaidman \cite{aharonov2007}, relational quantum mechanics \cite{rovelli1996} and analogue gravity in flowing fluids \cite{braunstein2024}.
 
-\textbf{An example of what we want to be free to try.} The usual picture gives one point $(X,Y,Z)$ and one time $T$ that is common to all three coordinates. One could instead give each axis its own time, or each particle its own
-space of some other dimension, or treat the tile as a static background through which energy flows, the flow encoding what we observe. This is a \hypo\ offered as an example of the freedom we want; none of the computations in this paper implements it.
-Ideas of this kind have probably been tried, for instance in work connecting causal sets with loop quantum gravity, and may have failed. We have not surveyed that literature, and we do not know which attempts failed or why. For orientation only, three nearby ideas from the literature, known to us from their abstracts alone: several times enter quantum mechanics in the multiple-time states and measurements of Aharonov, Popescu, Tollaksen and Vaidman \cite{aharonov2007}, which describe experiments with several stages of preparation and measurement; relational quantum mechanics \cite{rovelli1996} drops observer-independent states of a system; and in analogue gravity a flowing fluid makes sound waves behave as if in a curved spacetime \cite{braunstein2024}, which is a case of a flow in a medium encoding a geometry. We do not claim that our example is any of these.
-
-\textbf{What we did instead.} Two figures show the first model in this line (Appendix~\ref{app:tb}). Figure~\ref{fig:intro-scene} places a Spectre tile, a flat sheet of $14$ vertices and $28$ B\'ezier handles, above the Chair44 solid,
-and joins each of the $42$ base points to a pyramid tip by the smoothest cubic B\'ezier curve, a \emph{fibre}. The pairing of bases with tips is the one-to-one assignment of least total energy ($490.0$ for the tile parameters used here),
-which is a rule that we chose, and the height at which the sheet hangs is a free choice; neither is canonical. Figure~\ref{fig:intro-twist} shows what a twist of one vertex does: the energy of the best fibre is a function of the twist angle with a single
-minimum when the vertex points towards its tip and a plateau when it points away, as the closed form in the caption says. This is a model in which twist has an energetic meaning on a tile. It has no time direction: the fibre energy is unchanged
-if the curve is traversed backwards. We include it because it is the starting point of the search, not because it supports a conclusion.
-
-\begin{figure}[t]\centering
-\includegraphics[width=\linewidth]{figures/chair_fibers_scene.png}
-\caption{A Spectre tile ($14$ vertices, $28$ handles) above the Chair44 solid, joined to its pyramid tips by $42$ smoothest fibres, perspective and plan view. Tips are coloured by sign (bump or dent) and sized by height. The pairing is one-to-one with least
-total energy ($490.0$); it is a rule, and the placement of the sheet is a free choice (\texttt{models/chair\_fibers.py}).}\label{fig:intro-scene}
-\end{figure}
-
-\begin{figure}[t]\centering
-\includegraphics[width=\linewidth]{figures/chair_fibers_twist.png}
-\caption{Left: the fibre from one vertex as its twist runs from $-150^\circ$ to $+150^\circ$; the best fibre (black) is at $-45^\circ$. Right: fibre energy against twist for three vertices. The energy of a fibre is a convex quadratic
-in its two end speeds (exact, derived with SymPy), and its minimum over the speeds is $E=12|D|^2-9D_z^2-9\max(0,|D_h|\cos(\text{twist}+\varphi_0-\text{bearing}))^2$, with a plateau where the vertex points away from its tip (\texttt{models/chair\_fibers.py}).}\label{fig:intro-twist}
-\end{figure}
-
-\textbf{Plan.} Section~\ref{sec:scope} fixes the conventions and labels. Section~\ref{sec:background} gives the background, Section~\ref{sec:e8} the exact structure of $E_8$ and its Hopf fibres, Sections~\ref{sec:tiles}
-and~\ref{sec:chair} the Spectre and the Chair44 against $E_8$, Section~\ref{sec:wilson} the Wilson-loop probe and Section~\ref{sec:open} the open problems and the tests that could fail.
-
-% ==============================================================================
-% NEW SUBSECTION FOR THE INTRODUCTION
-% ==============================================================================
-
-\subsection{From Static Lattices to Retrocausal Networks: Scope of the Dynamic Extension}
-While the first part of this paper focuses on machine-checked exact structures on the $E_8$ root lattice, the Spectre monotile, and Wilson-loop probes, it leaves open the fundamental question of how an arrow of time and non-local quantum correlations can emerge from discrete geometric substrates. To address this, the latter half of the paper introduces a dynamic extension that lifts static spatial coordinates into operational directional trajectories. 
-
-Under this framework, we replace continuous spacetime manifolds with six fundamental directional axes ($\pm X, \pm Y, \pm Z$) and localized twist phases, grounding particle histories in discrete $E_8$ fiber state steps. Entanglement is modelled as a shared axis fusion at $t=0$ that resolves via a bidirectional, retrocausal consistency contract when a measurement occurs; Section~\ref{sec:retro} tests whether this removes action at a distance, and finds that the contract as written still signals. Furthermore, by introducing a local interaction density profile $\rho(\mathbf{x}, t)$ we define a clock rate and a damped wave on a grid, and Section~\ref{sec:density} states what that does and does not reproduce of gravitational time dilation. This dual focus pairs rigorous static lattice geometry with an exploratory toy model of background-independent dynamics, with the checked results of the toy kept apart from its interpretation.
+\textbf{Plan.} Sections~\ref{sec:background} to~\ref{sec:companion} are the static half: $E_8$ and its fibres, the Spectre and the Chair44 against $E_8$, the Wilson-loop probe and results from companion repositories. Section~\ref{sec:dynamic} states the dynamic proposal and its first tests, Section~\ref{sec:staged} tests it again in stages with code in this repository, Section~\ref{sec:open} lists open problems.
 
 \subsection{A ruler for correlations: the CHSH value}\label{sec:chsh}
-The dynamic half of the paper keeps meeting one number, the CHSH value, so it is explained here. Two distant parties, Alice and Bob, share a source. Each chooses one of two measurement settings ($a$ or $a'$ for Alice, $b$ or $b'$ for Bob) and records an outcome $+1$ or $-1$. Let $E(a,b)$ be the average of the product of the two outcomes when the settings are $a$ and $b$. The value of Clauser, Horne, Shimony and Holt is
+Two distant parties, Alice and Bob, each choose one of two settings ($a$ or $a'$, $b$ or $b'$) and record an outcome $\pm1$. With $E(a,b)$ the mean product of the outcomes,
 \begin{equation}\label{eq:chsh}
 S=E(a,b)+E(a,b')+E(a',b)-E(a',b').
 \end{equation}
-Three numbers frame it. (i) If the outcomes are fixed in advance by a shared past, whatever settings are chosen later (a local hidden-variable model), then $|S|\le 2$. (ii) Quantum mechanics reaches $2\sqrt2=\qgTsirelson$ (Tsirelson's bound, attained by the singlet state) and no more. (iii) A table of correlations in which neither party's own statistics depend on the other's setting (\emph{no signalling}) can reach $4$. Experiments on entangled particles find values above $2$, as quantum mechanics predicts; a retrocausal account of entanglement therefore has to produce $|S|>2$ without signalling.
-
-\emph{How it fits here.} The dynamic sections model entanglement as a shared past (the axis fusion at $t=0$) that is revised when a measurement fixes a boundary condition (Section~\ref{sec:retro}). A shared past alone is a local hidden-variable model, so $|S|\le2$: the revision can exceed $2$ only if the past depends on the settings. Sections~\ref{sec:hexdirs} and~\ref{sec:retro-tests} therefore use $S$ as a ruler for two questions: how much dependence of the past on the settings is needed ($\delta$ in Result~\ref{res:price}), and whether the toy stays inside the quantum range. It does not: $|S|=4$ is a no-signalling value, not a quantum one, so the toy is not a model of the singlet state. A value of $S$ says nothing about gravity, and no measured value is used.
+If the outcomes are fixed in advance by a shared past (a local hidden-variable model), $|S|\le2$; quantum mechanics reaches $2\sqrt2=\qgTsirelson$ (Tsirelson's bound) and no more; a table in which neither party's statistics depend on the other's setting (\emph{no signalling}) can reach $4$. The dynamic sections model entanglement as a shared past revised when a measurement fixes a boundary condition. A shared past alone gives $|S|\le2$, so a violation needs the past to depend on the settings; $S$ is used as a ruler for how much, and for whether the toy stays in the quantum range. It does not. A value of $S$ says nothing about gravity.
 
 \section{Scope and conventions}\label{sec:scope}
-This paper is a collection of finite computations, each with a test that can fail. It makes no physical claim, and it proves nothing about the Wilson-loop programme it borrows operators from. Where a statement is a conjecture or a motivation, it is marked as such.
-Every result carries one of the labels \exact\ (an identity or a finite enumeration, checked by a test that can fail), \numeric\ (a computed number on a
-finite patch, with the tolerance stated), \negres\ (a natural expectation that the computation refutes) or \hypo\ (not shown). Numbers marked
-$\dagger$ are copied from the output of another repository (Section~\ref{sec:wilson}) and are not recomputed by the code of this repository.
-\textbf{Disclosure.} The code, the tests and the text of this paper were produced with the assistance of a large language model (Claude, Anthropic), working with the author. They have not been independently reviewed. Every number in the text is computed by code in this repository
-or is marked $\dagger$; the numbers are written into the text by \texttt{models/paper\_numbers.py}, so the text cannot drift from the code. Appendix~\ref{app:repro} lists the tests and the commands. Sources that were not opened are said so where they are used, and the bibliography contains only
-entries whose data were checked against a source that was opened.
+Every result carries one of the labels \exact\ (an identity or a finite enumeration, checked by a test that can fail), \numeric\ (a computed number on a finite patch, with the tolerance stated), \negres\ (a natural expectation that the computation refutes) or \hypo\ (not shown). Numbers marked $\dagger$ are copied from the output of another repository and are not recomputed here; all others are written into the text by \texttt{models/paper\_numbers.py}, which checks $\qgTNumbersChecked$ of them on every build, so the text cannot drift from the code. Table~\ref{tab:summary} lists the results with their test modules and numbers of checks; Appendix~\ref{app:repro} gives the commands. Sources that were not opened are said so where they are used, and the bibliography contains only entries checked against a source that was opened.
+\textbf{Disclosure.} The code, the tests and the text were produced with the assistance of a large language model (Claude, Anthropic), working with the authors, and have not been independently reviewed.
 
 \begin{table}[t]
 \centering\footnotesize
-\begin{tabular}{@{}p{62mm}p{26mm}p{9mm}p{39mm}@{}}
+\begin{tabular}{@{}p{66mm}p{23mm}p{9mm}p{40mm}@{}}
 \toprule
-Result & Label & Sec. & Test module \\ \midrule
-$\qgInscribed$ inscribed 24-cells and $\qgPartitions$ coset partitions of the 600-cell & \exact & \ref{sec:e8} & \texttt{hopf\_shells} \\
-Ball window never splits a fibre; Voronoi window keeps all fibres whole & \exact, \numeric & \ref{sec:e8} & \texttt{fibre\_window}, \texttt{voronoi\_window} \\
-$E_6$ and $A_2$ inside the fibres, $\qgRest=6\times27$ & \exact & \ref{sec:e8} & \texttt{e6\_fibres} \\
-Spectre lift lattice is $A_2\oplus A_2\subset E_8$; every edge is a root & \exact & \ref{sec:tiles} & \texttt{spectre\_in\_e8} \\
-The Spectre inflation does not extend to $E_8$ & \negres & \ref{sec:tiles} & \texttt{spectre\_in\_e8} \\
-$\qgChairTips=24\times8$ Chair44 tips against the equatorial roots & \negres & \ref{sec:chair} & \texttt{chair\_e8\_192} \\
-Corner locality, placement dependence, gauge, block size ($U(1)$) & \numeric$^\dagger$ & \ref{sec:wilson} & \texttt{wilson\_corner\_} \texttt{locality}, Wilson repository \\
-Chair44 transverse notch sums: fraction $\to\qgCChairfraction$ of lines (automaton) & \exact$^\dagger$ & \ref{sec:companion} & \texttt{chair44\_polarisation} \\
-Spectre line sums: no ballistic drift; baseline $\rho_0=\qgRhoZero$; chiral outline & \negres, \exact$^\dagger$ & \ref{sec:companion}, \ref{sec:density-limits} & \texttt{spectre\_line\_sums}, \texttt{spectre\_density\_clock}, \texttt{spectre\_outline\_arrow} \\
-X-bonds are Mystic cycles; $\Pr(\Phi^2)=1/2$; $\rho_0=2\times$ Mystic frequency & \exact$^\dagger$ & \ref{sec:companion} & \texttt{spectre\_mystic\_xbond} \\
-Chair44 notch axis undetermined at exactly $\qgCSixteen$ addresses (two implementations agree) & \exact$^\dagger$ & \ref{sec:companion} & \texttt{chair44\_notch\_axis} \\
-Spectre graph curvature follows local motifs, not vortices (no Regge point masses) & \negres$^\dagger$ & \ref{sec:companion} & recorded runs \\
-Spectre vertices: sheared $\mathbb{Z}[\zeta_{12}]$ model set, window radius $\approx\qgCWindowradius$; diffraction mirrors at each level; one peak unindexed & \numeric$^\dagger$ & \ref{sec:companion} & recorded runs \\
-Wilson action on $A_2\oplus A_2$: tiles give an area law; sharp corner resolved; outline gap & \exact, \numeric$^\dagger$ & \ref{sec:companion} & \texttt{spectre\_wilson} \\
-Hexagonal six directions in $E_8$ ($\qgCHexorth$ orthogonal roots) & \exact$^\dagger$ & \ref{sec:hexdirs} & \texttt{hex\_directions}, \texttt{hex\_e8} \\
-Copy contract signals ($\qgBitsCopy$ bits); price of retro-dependence $\min(4,2+12\delta)$ & \exact, \numeric$^\dagger$ & \ref{sec:retro-tests} & \texttt{hex\_directions}, \texttt{hex\_contract} \\
-One lift for the Spectre--Hat family; the bit opens only in bump-and-dent pairs & \exact & \ref{sec:staged-lattice} & \texttt{tm2\_lattice} \\
-A pin acts globally under the flux constraint; no ripple & \negres & \ref{sec:staged-history} & \texttt{tm2\_history\_sum} \\
-Orientation audit; oriented timelines are generic; records sit at the frozen end & \exact, \negres & \ref{sec:staged-arrow} & \texttt{tm2\_arrow}, \texttt{tm2\_directed} \\
-A correlation rule from a two-ended history; no free $\kappa$; no quantum bound & \exact, \negres & \ref{sec:staged-rule} & \texttt{tm2\_rule} \\
-Where a two-ended check lands: three decay rates with the length of the history & \exact & \ref{sec:staged-check} & \texttt{tm2\_checking} \\
-Wave speed $c\sqrt\rho$; a snap radiates; the clock on a 2D and on a 3D sheet & \exact, \numeric, \negres & \ref{sec:staged-waves} & \texttt{tm2\_waves} \\
-Tight-binding spectra, twist hopping and the Spectre--Chair44 fibres & \exact, \numeric & \ref{app:tb} & \texttt{\_tb}, \texttt{twist\_hopping}, \texttt{chair\_fibers} \\
+Result & Label & Sec. & Test module (checks) \\ \midrule
+$\qgInscribed$ inscribed 24-cells and $\qgPartitions$ coset partitions of the 600-cell; shells and fibres & \exact & \ref{sec:e8} & \texttt{hopf\_shells} (33), \texttt{icosian\_e8} (17), \texttt{e8\_shells} (45) \\
+Ball window never splits a fibre; Voronoi window keeps all fibres whole & \exact, \numeric & \ref{sec:windows} & \texttt{fibre\_window} (11), \texttt{voronoi\_window} (10) \\
+$E_6$ and $A_2$ inside the fibres, $\qgRest=6\times27$ & \exact & \ref{sec:e6} & \texttt{e6\_fibres} (25) \\
+Spectre lift lattice is $A_2\oplus A_2\subset E_8$; every edge is a root; the inflation does not extend & \exact, \negres & \ref{sec:tiles} & \texttt{spectre\_in\_e8} (13) \\
+$\qgChairTips=24\times8$ Chair44 tips against the equatorial roots & \negres & \ref{sec:chair} & \texttt{chair\_e8\_192} (11) \\
+Corner locality, placement dependence, gauge, block size ($U(1)$) & \numeric$^\dagger$ & \ref{sec:wilson} & \texttt{wilson\_corner\_locality} (9) \\
+Chair44 notch sums and notch axis; Spectre line sums, chirality, X-bonds, curvature, diffraction, hexagonal Wilson action & \exact, \numeric, \negres$^\dagger$ & \ref{sec:companion} & Hat and Spectre repository \\
+Hexagonal directions in $E_8$; copy contract signals; price $\min(4,2+12\delta)$; a chosen rule & \exact, \numeric$^\dagger$ & \ref{sec:dynamic-tests} & Quantum-Gravity-Dynamics fork \\
+One lift for the Spectre--Hat family; the bit opens only in bump-and-dent pairs & \exact & \ref{sec:staged-lattice} & \texttt{tm2\_lattice} (9) \\
+A pin acts globally under the flux constraint; no ripple & \exact, \negres & \ref{sec:staged-history} & \texttt{tm2\_history\_sum} (8), \texttt{core} (7) \\
+Orientation audit; oriented timelines are generic; records sit at the frozen end & \exact, \negres & \ref{sec:staged-arrow} & \texttt{tm2\_arrow} (11), \texttt{tm2\_directed} (9) \\
+A correlation rule from a two-ended history; no free $\kappa$; no quantum bound; where the check lands & \exact, \negres & \ref{sec:staged-rule} & \texttt{tm2\_rule} (11), \texttt{tm2\_checking} (6) \\
+Wave speed $c\sqrt\rho$; a snap radiates; the clock on a 2D and on a 3D sheet & \exact, \numeric, \negres & \ref{sec:staged-waves} & \texttt{tm2\_waves} (9) \\
+Tight-binding spectra, twist hopping and the Spectre--Chair44 fibres & \exact, \numeric & \ref{app:tb} & \texttt{\_tb} (22), \texttt{twist\_hopping} (29), \texttt{chair\_fibers} (10) \\
 \bottomrule
 \end{tabular}
-\caption{Summary of results, with the section and the test module that checks each. No row is a claim about physics.}
+\caption{Results, with the section and the test modules that check them. No row is a claim about physics.}\label{tab:summary}
 \end{table}
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Background}\label{sec:background}
-\subsection{The Spectre and its lift}
-The Spectre is the strictly chiral aperiodic monotile of Smith, Myers, Kaplan and Goodman-Strauss \cite{smith2023}. Its outline has $14$ edges of unit length at multiples of $30^\circ$. In the lift used here the edges at even multiples of $30^\circ$ are vectors of one hexagonal lattice (red) and those at odd multiples are vectors of a second one (green); Section~\ref{sec:embed} gives the coordinates and the identification with $\mathbb{Z}[\zeta_{12}]$, which is made in this repository's \texttt{lift4d.py} following the lift of Ch\'eritat and Ma \cite{cheritat2023}.
-\subsection{The Chair44}
-The Chair44 is the three-dimensional strongly aperiodic monotile of Tsiokos \cite{tsiokos2026}, with matching rules given by Flicker \cite{flicker2026}; here it is a solid built from \qgChairPanels\ square panels, each carrying eight pyramids, in all \qgChairTips\ pyramid tips. We use the tip data as
-distributed in this repository (\texttt{models/\allowbreak data/\allowbreak r44\_\allowbreak features.csv}, with its source and licence recorded in \texttt{models/\allowbreak data/\allowbreak README.md}); we did not re-derive
-the solid, and we use only the signed heights of the tips (a bump is positive, a dent negative) and the panel each tip belongs to.
-\subsection{\texorpdfstring{$E_8$}{E8}, the icosians and the Hopf fibres}\label{sec:bg-e8}
-Let $\mathbb{H}$ denote the Hurwitz order, the integer and half-integer quaternions, and $2T\subset\mathbb{H}$ its $24$ units. We use the standard
-model of $E_8$ as the set of pairs $(a,b)\in\mathbb{H}^2$ with $a-b\in(1+i)\mathbb{H}$, scaled so that the roots have norm $|a|^2+|b|^2=2$. There are
-\qgRoots\ roots: $192$ with $|a|=|b|=1$ (the \emph{equatorial} roots) and $48$ with one coordinate zero (the \emph{poles}, $24$ in each coordinate).
-Right multiplication $(a,b)\mapsto(a\ell,b\ell)$ by $\ell\in 2T$ is an automorphism of the lattice. Its orbits are the \emph{fibres}: the roots fall
-into \qgFibres\ fibres of \qgFibreSize\ roots, and each fibre is the vertex set of a $24$-cell. The Hopf map
-$(a,b)\mapsto(|a|^2-|b|^2,\,2a\bar b)\in\mathbb{R}\times\mathbb{H}$ is constant on a fibre, because $(a\ell)\overline{(b\ell)}=a\bar b$, and sends the
-\qgFibres\ fibres to the ten vertices of the $5$-cross-polytope on $S^4$. This is the sense of ``Hopf fibre'' in this paper.
+\textbf{The Spectre and its lift.} The Spectre is the strictly chiral aperiodic monotile of Smith, Myers, Kaplan and Goodman-Strauss \cite{smith2023}. Its outline has $14$ edges of unit length at multiples of $30^\circ$. In the lift used here, following Ch\'eritat and Ma \cite{cheritat2023} as implemented in \texttt{lift4d.py}, edges at even multiples of $30^\circ$ are vectors of one hexagonal lattice (red) and those at odd multiples of a second one (green); Section~\ref{sec:embed} gives the coordinates.
 
-A second model uses the icosians, the $120$ unit elements of the golden-ratio order of the binary icosahedral group $2I$. Writing
-$x\mapsto x^\sigma$ for the Galois conjugation $\sqrt5\mapsto-\sqrt5$, the map $\Phi(x)=\sqrt{2/5}\,(\sqrt{3-\varphi}\,x,\ \sqrt{2+\varphi}\,x^\sigma)$
-embeds the icosian ring isometrically in $\mathbb{R}^8$ as a copy of $E_8$; it carries the same fibred root system, and splits $\mathbb{R}^8$ into a
-parallel and a perpendicular $\mathbb{R}^4$. This is the splitting used by the quasicrystal constructions of Elser and Sloane \cite{elsersloane1987}
-and, for shells, by Sadoc and Mosseri \cite{sadocmosseri1993}. \emph{Of those two papers only the Sadoc--Mosseri abstract was read for this work, and
-the Elser--Sloane paper was not read;} statements attributed to them below are labelled \hypo.
+\textbf{The Chair44.} The Chair44 is the three-dimensional strongly aperiodic monotile of Tsiokos \cite{tsiokos2026}, with matching rules given by Flicker \cite{flicker2026}: a solid of \qgChairPanels\ square panels with eight pyramids each, \qgChairTips\ tips in all. We use only the signed heights of the tips and the panel of each, as distributed in \texttt{models/\allowbreak data/\allowbreak r44\_\allowbreak features.csv}.
+
+\textbf{$E_8$, the icosians and the Hopf fibres.}\label{sec:bg-e8} Let $\mathbb{H}$ be the Hurwitz order and $2T\subset\mathbb{H}$ its $24$ units. $E_8$ is the set of pairs $(a,b)\in\mathbb{H}^2$ with $a-b\in(1+i)\mathbb{H}$, scaled so that roots have norm $|a|^2+|b|^2=2$. Of its \qgRoots\ roots, $192$ have $|a|=|b|=1$ (the \emph{equatorial} roots) and $48$ have one coordinate zero (the \emph{poles}). Right multiplication by $\ell\in2T$ is a lattice automorphism; its orbits on the roots are \qgFibres\ \emph{fibres} of \qgFibreSize, each the vertex set of a $24$-cell, and the Hopf map $(a,b)\mapsto(|a|^2-|b|^2,\,2a\bar b)$ is constant on each. A second model uses the icosians, the $120$ units of the golden-ratio order of $2I$: with $x^\sigma$ the conjugation $\sqrt5\mapsto-\sqrt5$, $\Phi(x)=\sqrt{2/5}\,(\sqrt{3-\varphi}\,x,\ \sqrt{2+\varphi}\,x^\sigma)$ embeds them isometrically as a copy of $E_8$ and splits $\mathbb{R}^8$ into a parallel and a perpendicular $\mathbb{R}^4$, the splitting of the quasicrystal constructions of Elser and Sloane \cite{elsersloane1987} and Sadoc and Mosseri \cite{sadocmosseri1993}. Only the Sadoc--Mosseri abstract was read; statements attributed to these papers are labelled \hypo.
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{\texorpdfstring{$E_8$}{E8} and its Hopf fibres}\label{sec:e8}
 \subsection{24-cells inside the 600-cell}\label{sec:cells}
-The binary icosahedral group $2I$ (the $120$ vertices of the $600$-cell) contains the binary tetrahedral group $2T$, and so does every conjugate
-$g\,2T\,g^{-1}$. We enumerated the sets $g\cdot 2T\cdot h$ with $g,h\in 2I$ that lie in $2I$.
-
 \begin{result}[\exact]\label{res:cells}
-$2I$ contains exactly \qgInscribed\ inscribed $24$-cells of the form $g\cdot 2T\cdot h$. They fall into \qgPartitions\ partitions of the $120$ vertices into
-five disjoint $24$-cells: five partitions by left cosets and five by right cosets of the five conjugates of $2T$.
+$2I$ contains exactly \qgInscribed\ inscribed $24$-cells of the form $g\cdot 2T\cdot h$, $g,h\in2I$. They fall into \qgPartitions\ partitions of the $120$ vertices into five disjoint $24$-cells: five by left cosets and five by right cosets of the five conjugates of $2T$.
 \end{result}
-
-The counts agree with those found independently, as Gram-graph $24$-cliques, in the Quantum\_Gravity\_Lab repository of Poplett (\url{https://github.com/brentharts/Quantum_Gravity_Lab}, not in the bibliography). They were
-obtained here by group multiplication, not by clique search. Figure~\ref{fig:cells} shows a related structure from the same module: the Hopf \emph{circle} fibres of the $600$-cell, whose base points on $S^2$ form an icosahedron, a dodecahedron and an icosidodecahedron.
-
-\begin{figure}[t]\centering
-\includegraphics[width=\linewidth]{figures/hopf_shells_600cell.png}
-\caption{Hopf circle fibres of the $600$-cell: $12$ decagons, $20$ hexagons and $30$ squares, with base points on $S^2$ (\texttt{models/hopf\_shells.py}).}\label{fig:cells}
-\end{figure}
+The counts agree with those found independently, as Gram-graph cliques, in the Quantum\_Gravity\_Lab repository of Poplett (\url{https://github.com/brentharts/Quantum_Gravity_Lab}); here they come from group multiplication.
 
 \subsection{Shells and fibres}\label{sec:shells}
-The $n$th shell of $E_8$ has $240\,\sigma_3(n)$ vectors, with $\sigma_3(n)=\sum_{d\mid n}d^3$: \qgShellOne, \qgShellTwo\ and \qgShellThree\ vectors for
-$n=1,2,3$. Right multiplication by $2T$ acts on each shell.
-
+The $n$th shell of $E_8$ has $240\,\sigma_3(n)$ vectors (\qgShellOne, \qgShellTwo, \qgShellThree\ for $n=1,2,3$), and $2T$ acts on each.
 \begin{result}[\exact\ for $n\le 8$]\label{res:shells}
 In shells $1$ to $8$ there are \qgVecEight\ vectors in \qgFibreEight\ fibres, every fibre containing $24$ vectors: shell $n$ has $10\,\sigma_3(n)$ fibres.
 \end{result}
-
-This is a finite check, not a proof for all $n$. A formula for the number of classes in terms of ideal norms in $\mathbb{Z}[\varphi]$, which we
-write $120\,S(\alpha)$, was checked on shells $1$ to $6$ and as an integer identity for $n\le 60$; it is stated in the repository, and we do not use it
-here. Figure~\ref{fig:shells} shows the shell structure.
-
-\begin{figure}[t]\centering
-\includegraphics[width=\linewidth]{figures/hopf_shells_e8.png}\\[2pt]
-\includegraphics[width=\linewidth]{figures/e8_shells.png}
-\caption{Top (\texttt{hopf\_shells.py}): inner products of the base points of the ten fibres; the number of points of each fibre in the two shells of the Coxeter-plane projection and of a fibre-compatible plane; the radii of the two projected shells, in ratio $\varphi$. Bottom (\texttt{e8\_shells.py}): classes $(n,b)$ of the shells; fibres per shell, counted from the lattice (blue, $n\le6$) and from the formula (grey); the accepted classes form a Fibonacci-type chain.}\label{fig:shells}
-\end{figure}
+This is a finite check, not a proof. A class-count formula in terms of ideal norms in $\mathbb{Z}[\varphi]$ was checked on shells $1$ to $6$ and as an integer identity for $n\le60$; it is not used here.
 
 \subsection{Windows that keep fibres whole}\label{sec:windows}
-A cut-and-project set from $E_8$ keeps the lattice vectors whose perpendicular component lies in a window $W\subset\mathbb{R}^4$. If the construction is
-to be organised by fibres, one wants a window that accepts or rejects a fibre as a whole. Whether a window does so depends on the splitting
-$\mathbb{R}^8=\mathbb{R}^4_\parallel\oplus\mathbb{R}^4_\perp$ and on the window.
-
+A cut-and-project set keeps the lattice vectors whose perpendicular component lies in a window $W\subset\mathbb{R}^4$. A construction organised by fibres needs a window that accepts or rejects a fibre as a whole.
 \begin{result}[\exact, shells $1$ to $8$]\label{res:ball}
-(i) With the icosian splitting, a ball window $|{\rm perp}|\le R$ splits no fibre, for $R\in\{0.5,0.8,1.0,1.2,1.5,1.8,2.0\}$ (we report
-\qgSplitIcosian\ split fibres of \qgFibreEight\ at $R=1.4$). (ii) With the Coxeter-plane splitting, a ball window splits many: \qgSplitCoxOne\ of
-\qgFibreEight\ fibres at $R=1.4$ and \qgSplitCoxTwo\ at $R=2.0$.
+(i) With the icosian splitting, a ball window $|{\rm perp}|\le R$ splits no fibre, for $R\in\{0.5,0.8,1.0,1.2,1.5,1.8,2.0\}$ (\qgSplitIcosian\ split fibres of \qgFibreEight\ at $R=1.4$). (ii) With the Coxeter-plane splitting it splits \qgSplitCoxOne\ of \qgFibreEight\ fibres at $R=1.4$ and \qgSplitCoxTwo\ at $R=2.0$.
 \end{result}
-
-The reason for (i) is that the fibre rotations act on $\mathbb{R}^4_\perp$ as rotations, so they preserve $|{\rm perp}|$. In the Coxeter-plane splitting
-they do not. Both splittings give the same joint distribution of $(|{\rm par}|^2,|{\rm perp}|^2)$ over the vectors, so the distribution does not distinguish them (middle panel of Figure~\ref{fig:windows}, where the two curves coincide).
-
-A natural non-spherical window is the shadow of the Voronoi cell: $W=\mathrm{proj}_\perp(\mathrm{Vor}(E_8))$.
-
+The fibre rotations act on $\mathbb{R}^4_\perp$ as rotations in the first splitting and not in the second, although both give the same joint distribution of $(|{\rm par}|^2,|{\rm perp}|^2)$.
 \begin{result}[\exact\ and \numeric]\label{res:vor}
-The Voronoi cell of $E_8$ has \qgVoronoiCellVertices\ vertices. In the icosian splitting its perpendicular shadow $W$ is a $4$-polytope with
-\qgVoronoiVertices\ vertices and \qgVoronoiFacets\ facets (each with five vertices; the hull routine reports more simplices, because it triangulates),
-volume \qgVoronoiVolume, inradius \qgVoronoiIn\ and circumradius \qgVoronoiCirc: it is close to a ball but not a ball. $W$ is invariant under the $24$ fibre rotations, so no fibre
-is split: in shells $1$ to $8$, \qgVorAccepted\ of \qgVecEight\ vectors are accepted, in whole fibres. With the Coxeter-plane splitting the same construction splits
-\qgVorCoxSplit\ of \qgFibreEight\ fibres. The vertex and facet counts and the radii are computed by a convex-hull routine in floating point (\numeric); the vertex count of the Voronoi cell and
-the accept/reject counts are exact integers.
+The Voronoi cell of $E_8$ has \qgVoronoiCellVertices\ vertices. In the icosian splitting its perpendicular shadow $W$ is a $4$-polytope with \qgVoronoiVertices\ vertices and \qgVoronoiFacets\ facets, volume \qgVoronoiVolume, inradius \qgVoronoiIn\ and circumradius \qgVoronoiCirc: close to a ball but not one. $W$ is invariant under the $24$ fibre rotations, so no fibre is split: in shells $1$ to $8$, \qgVorAccepted\ of \qgVecEight\ vectors are accepted, in whole fibres. With the Coxeter-plane splitting the same construction splits \qgVorCoxSplit\ of \qgFibreEight\ fibres. Counts of the cell and of accepted vectors are exact; the polytope's counts and radii come from a floating-point hull.
 \end{result}
-
-\emph{Proof sketch of the invariance.} Right multiplication by $\ell\in2T$ is a lattice automorphism that commutes with the icosian splitting. It therefore maps $\mathrm{Vor}(E_8)$
-to itself, and maps its shadow to itself. The accept/reject rule is ``perp $\in W$'', so it is constant on orbits of $2T$, which are the fibres.
-We have not formalised this beyond the sketch; the tests check its consequence on shells $1$ to $8$.
-
-\emph{Attribution.} We believe that this window is the one used by Elser and Sloane, but we have not read their paper, so this is a \hypo, and the result above stands without it.
-
-\begin{figure}[t]\centering
-\includegraphics[width=\linewidth]{figures/fibre_window.png}\\[2pt]
-\includegraphics[width=\linewidth]{figures/voronoi_window.png}
-\caption{Top (\texttt{fibre\_window.py}): fraction of fibres split by a ball window against $R$ for the two splittings; point density against $R$; the points kept by the icosian window at $R=1$. Bottom (\texttt{voronoi\_window.py}): perpendicular radius of accepted and rejected vectors, with the in- and circumradius of $W$ dashed and dotted; fraction of fibres split against the number of shells included; the vertices of $W$ projected to two coordinates.}\label{fig:windows}
-\end{figure}
+\emph{Proof sketch.} Right multiplication by $2T$ commutes with the icosian splitting, so it maps the Voronoi cell and its shadow to themselves, and ``perp $\in W$'' is constant on fibres. That this is the window of Elser and Sloane is a \hypo.
 
 \subsection{\texorpdfstring{$E_6$}{E6} and the 27}\label{sec:e6}
-Inside the fibred root system the two pole fibres, $D_4^a$ and $D_4^b$, are the two $24$-cells with one coordinate zero. The \qgRoots\ roots contain
-\qgASubsystems\ subsystems of type $A_2$. Of these, $160$ lie inside one fibre, and $960$ are spread over several fibres.
-
 \begin{result}[\exact]\label{res:e6}
-The fibre rotation $R_\omega$ of order $3$ has no fixed vector and permutes the three $64$-root blocks of the $192$ equatorial roots cyclically. The orbit of
-$(1+i,0)$ under $R_\omega$ is an $A_2$, and its orthogonal complement in the root system is an $E_6$ with \qgESixRoots\ roots, made of $24+3\times16$ roots. The
-\qgRest\ remaining roots form six sets of $27$; each set meets each of the nine fibres other than $D_4^b$ in three roots.
+The \qgRoots\ roots contain \qgASubsystems\ subsystems of type $A_2$, $160$ inside one fibre. The fibre rotation $R_\omega$ of order $3$ has no fixed vector and permutes the three $64$-root blocks of the equatorial roots cyclically. The orbit of $(1+i,0)$ under $R_\omega$ is an $A_2$, and its orthogonal complement in the root system is an $E_6$ with \qgESixRoots\ roots ($24+3\times16$). The \qgRest\ remaining roots form six sets of $27$; each meets each of the nine fibres other than $D_4^b$ in three roots.
 \end{result}
-
-The $E_6\times A_2$ subsystem is a standard feature of $E_8$ (no source was checked for this paper, so none is cited); the content here is only its description in terms of fibres. Figure~\ref{fig:e6} shows it.
-\begin{figure}[t]\centering
-\includegraphics[width=\linewidth]{figures/e6_fibres.png}
-\caption{\texttt{e6\_fibres.py}: $A_2$, $E_6$ and the $162=6\times27$ roots in each of the ten fibres; roots of one $27$ in each fibre; the three $8+8+8$ blocks of each equatorial fibre.}\label{fig:e6}
-\end{figure}
+The $E_6\times A_2$ subsystem is standard (no source was checked, so none is cited); the content here is its description by fibres.
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{The Spectre in \texorpdfstring{$E_8$}{E8}}\label{sec:tiles}
 \subsection{The lift lattice sits in \texorpdfstring{$E_8$}{E8}}\label{sec:embed}
-Every Spectre edge is a unit vector at a multiple of $30^\circ$. Following the lift implemented in this repository (\texttt{lift4d.py}; the attribution to
-Ch\'eritat and Ma is as recorded there \cite{cheritat2023}, and we did not open their construction independently), call the edges at even multiples of $30^\circ$
-\emph{red}: they are the hexagonal vectors $p+q\varpi$, $\varpi=e^{i\pi/3}$. The edges at odd multiples are \emph{green}: $\zeta(r+s\varpi)$ with $\zeta=e^{i\pi/6}$.
-A vertex then has integer coordinates $(p,q,r,s)$ and plane position $u+\zeta v$ with $u=p+q\varpi$, $v=r+s\varpi$. The lift lattice is therefore
-$\mathbb{Z}[\zeta_{12}]=\mathbb{Z}[\varpi]\oplus\zeta\,\mathbb{Z}[\varpi]$, a red $A_2$ plus a green $A_2$.
-
-In the Hurwitz-pair model the fibre rotation $R_\omega:(a,b)\mapsto(a\omega,b\omega)$, $\omega=e^{2\pi i/3}$, has order $3$ and no fixed vector, so it makes $E_8$ a
-rank-$4$ module over $\mathbb{Z}[\omega]$. Take $r_1=(1+i,0)$ in the pole fibre $D_4^a$ and $r_2=(0,1+i)$ in $D_4^b$; they are Hermitian-orthogonal. Define
+Call the edges at even multiples of $30^\circ$ \emph{red}, the hexagonal vectors $p+q\varpi$ with $\varpi=e^{i\pi/3}$, and those at odd multiples \emph{green}, $\zeta(r+s\varpi)$ with $\zeta=e^{i\pi/6}$. A vertex has integer coordinates $(p,q,r,s)$ and plane position $u+\zeta v$ with $u=p+q\varpi$, $v=r+s\varpi$, so the lift lattice is $\mathbb{Z}[\zeta_{12}]=\mathbb{Z}[\varpi]\oplus\zeta\,\mathbb{Z}[\varpi]$, a red $A_2$ plus a green $A_2$. The fibre rotation $R_\omega:(a,b)\mapsto(a\omega,b\omega)$, $\omega=e^{2\pi i/3}$, makes $E_8$ a rank-$4$ module over $\mathbb{Z}[\omega]$. With $r_1=(1+i,0)\in D_4^a$ and $r_2=(0,1+i)\in D_4^b$, which are Hermitian-orthogonal, define
 \[
 \mathrm{embed}(p,q,r,s)=\bigl(p+q(1+R_\omega)\bigr)r_1+\bigl(r+s(1+R_\omega)\bigr)r_2 .
 \]
-
 \begin{result}[\exact]\label{res:embed}
-On the level-$2$ patch of \qgTiles\ tiles and \qgVertices\ vertices, $\mathrm{embed}$ is injective and satisfies
-$\langle\mathrm{embed}(x),\mathrm{embed}(y)\rangle=2\,\mathrm{Re}(u_x\bar u_y+v_x\bar v_y)$, so it is an isometry up to the factor $2$ from the lift lattice with its red-orthogonal-green
-form into $E_8$. Every tile edge maps to a root of $E_8$: red edges to roots of $D_4^a$, green edges to roots of $D_4^b$. For two consecutive edges of one colour the inner
-product of their roots is $2\cos(\text{turning angle})$, and for a red edge followed by a green one it is $0$.
+On the level-$2$ patch of \qgTiles\ tiles and \qgVertices\ vertices, $\mathrm{embed}$ is injective and $\langle\mathrm{embed}(x),\mathrm{embed}(y)\rangle=2\,\mathrm{Re}(u_x\bar u_y+v_x\bar v_y)$: an isometry up to the factor $2$ into $E_8$. Every tile edge maps to a root, red edges to roots of $D_4^a$ and green ones to roots of $D_4^b$. For two consecutive edges of one colour the inner product of their roots is $2\cos(\text{turning angle})$; for a red edge followed by a green one it is $0$.
 \end{result}
-
-The identity was checked on all \qgVertices\ vertices and on $4000$ random pairs of lattice points. As a negative control, replacing $r_2$ by a root that is orthogonal to $r_1$ but not
-Hermitian-orthogonal to it breaks the isometry ($196$ of $200$ random pairs disagree).
-
+The identity was also checked on $4000$ random pairs of lattice points; replacing $r_2$ by a root orthogonal but not Hermitian-orthogonal to $r_1$ breaks it ($196$ of $200$ pairs).
 \begin{result}[\exact]\label{res:corners}
-Each tile outline is a closed walk of $14$ roots. Its corners are the same for all \qgTiles\ tiles: \qgCornersSixty\ turns of $60^\circ$ (inner product $1$), \qgCornersNinety\ turns of $90^\circ$
-(all red--green, inner product $0$) and \qgCornersStraight\ straight pass (inner product $2$). The outline has $8$ red and $6$ green edges for \qgTilesMajor\ tiles and $6$ red and $8$ green
-for the other \qgTilesMinor, which differ by an odd multiple of $30^\circ$ in orientation.
+Each tile outline is a closed walk of $14$ roots with the same corners for all \qgTiles\ tiles: \qgCornersSixty\ turns of $60^\circ$ (inner product $1$), \qgCornersNinety\ turns of $90^\circ$ (red--green, inner product $0$) and \qgCornersStraight\ straight pass (inner product $2$). The outline has $8$ red and $6$ green edges for \qgTilesMajor\ tiles and $6$ red and $8$ green for the other \qgTilesMinor.
 \end{result}
-
-An earlier statement in this project, that every tile has $8$ red and $6$ green edges, was wrong; the count above is the checked one. The orientation of the embedding was fixed by
-choosing $R_\omega$ for $\omega$; the other choice should give the mirror image, as befits the two chiralities of the Spectre. We did not check this.
-
 \begin{figure}[t]\centering
 \includegraphics[width=\linewidth]{figures/spectre_in_e8.png}
-\caption{Left: the level-$2$ Spectre patch with red edges mapped to roots of $D_4^a$ and green edges to roots of $D_4^b$. Right: one tile; each label is the $E_8$ inner product of an edge's root with the
-next (\texttt{models/spectre\_in\_e8.py}).}\label{fig:spectre-e8}
+\caption{Left: the level-$2$ Spectre patch with red edges mapped to roots of $D_4^a$ and green edges to roots of $D_4^b$. Right: one tile; each label is the $E_8$ inner product of an edge's root with the next (\texttt{models/spectre\_in\_e8.py}).}\label{fig:spectre-e8}
 \end{figure}
-
-What this does \emph{not} give is a cut-and-project construction of the Spectre from $E_8$: the window that selects the Spectre's sites lies in the contracting plane of the inflation and has a fractal boundary,
-so the ball and Voronoi windows of Section~\ref{sec:windows} do not transfer.
+This is not a cut-and-project construction of the Spectre from $E_8$: the window that selects the Spectre's sites lies in the contracting plane of the inflation and has a fractal boundary, so the windows of Section~\ref{sec:windows} do not transfer. Section~\ref{sec:staged-lattice} extends Result~\ref{res:embed} to the whole Spectre--Hat family.
 
 \subsection{The inflation does not extend}\label{sec:inflation}
 \begin{result}[\negres]\label{res:inflation}
-The Spectre inflation, written on the lift lattice (\texttt{lift4d\_\allowbreak matrix.py}), has a $4\times4$ block with characteristic polynomial $x^4-8x^2+1$, whose roots are $\pm\lambda,\pm1/\lambda$ with
-$\lambda=(\sqrt3+\sqrt5)/\sqrt2\approx2.8059$ and $\lambda^2=4+\sqrt{15}\approx\qgLambdaSquared$. Since $\lambda$ is not a root of unity, no automorphism of $E_8$ (all of which have finite order) restricts to this block
-on the image of \textnormal{embed}: the inflation does not extend to the $E_8$ root system.
+The Spectre inflation on the lift lattice (\texttt{lift4d\_\allowbreak matrix.py}) has a $4\times4$ block with characteristic polynomial $x^4-8x^2+1$, roots $\pm\lambda,\pm1/\lambda$, $\lambda=(\sqrt3+\sqrt5)/\sqrt2\approx2.8059$, $\lambda^2=4+\sqrt{15}\approx\qgLambdaSquared$. Since every automorphism of $E_8$ has finite order and $\lambda$ is not a root of unity, the inflation does not extend to the $E_8$ root system.
 \end{result}
-
 \begin{result}[\exact]\label{res:field}
-The field $\mathbb{Q}(\lambda)=\mathbb{Q}(\sqrt6,\sqrt{10})$ has degree $4$. It contains $\sqrt{15}=\sqrt6\sqrt{10}/2$ but contains neither $\sqrt3$, nor $\sqrt5$, nor the golden ratio $\varphi$.
+$\mathbb{Q}(\lambda)=\mathbb{Q}(\sqrt6,\sqrt{10})$ has degree $4$ and contains $\sqrt{15}$ but neither $\sqrt3$, nor $\sqrt5$, nor $\varphi$.
 \end{result}
-
-The icosian $E_8$ and its shells live in $\mathbb{Z}[\varphi]$, so the two aperiodic structures use different number fields. The product $\sqrt{15}=\sqrt3\sqrt5$ (a hexagonal field times an
-icosahedral one) suggests a construction that combines the Eisenstein structure of $E_8$ with its icosian structure, so that one object would carry both the hexagonal vectors of the Spectre and the golden ratio.
-This is a \hypo: we found no such construction, and Result~\ref{res:inflation} says that if one exists, the Spectre inflation is not an isometry of it.
+The icosian $E_8$ lives in $\mathbb{Z}[\varphi]$, so the two aperiodic structures use different number fields. That a construction combining the Eisenstein and icosian structures of $E_8$ could carry both is a \hypo; by Result~\ref{res:inflation} the inflation would not be an isometry of it.
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{The Chair44 count}\label{sec:chair}
-The Chair44 has $192=24\times8$ pyramid tips, and the equatorial part of $E_8$ (all roots outside the two pole fibres) has $192$ roots, which suggests a link. We tested it.
-
+The Chair44 has $192=24\times8$ tips and the equatorial part of $E_8$ has $192$ roots.
 \begin{result}[\exact]\label{res:chair}
-On the Chair44 side: the $24$ panels carry $8$ tips each, and the signed heights are the $24$ values $\pm1,\dots,\pm12$ (in units of $10^{-4}$), each occurring exactly $8$ times. The panels fall into three classes of $8$ by their
-set of heights: $P=\{1,\dots,8\}$ (sum $36$), $N=\{-8,\dots,-1\}$ (sum $-36$) and $Z=\{\pm9,\dots,\pm12\}$ (sum $0$). Of the $48$ symmetries of the cube about the centroid, only the identity preserves the labelled tip set.
-On the $E_8$ side: the $192$ equatorial roots form $8$ fibres, each cut into $3$ blocks of $8$ roots, so $24$ cells of $8$; every block and every fibre is closed under $r\mapsto-r$; and the fibre group
-$2T$ (of order $24$) acts freely on the $192$ roots, with $8$ orbits.
+The $24$ panels carry $8$ tips each, with signed heights $\pm1,\dots,\pm12$ (units of $10^{-4}$), each occurring $8$ times. The panels fall into three classes of $8$: $P=\{1,\dots,8\}$, $N=\{-8,\dots,-1\}$ and $Z=\{\pm9,\dots,\pm12\}$. Only the identity among the $48$ cube symmetries preserves the labelled tips. On the $E_8$ side the equatorial roots form $8$ fibres, each cut into $3$ blocks of $8$; every block is closed under $r\mapsto-r$; and $2T$ acts freely with $8$ orbits.
 \end{result}
-
 \begin{result}[\negres]\label{res:chair-neg}
-The shapes agree: both are $3\times8\times8$. The structures do not: (i) on $E_8$ negation fixes every block, while on the Chair44 the bump--dent flip $h\mapsto-h$ exchanges classes $P$ and $N$ and fixes only $Z$; so the three classes are not the same three things;
-(ii) the $E_8$ set carries a free action of a group of order $24$, and the labelled Chair44 has no non-trivial cube symmetry, so no identification that respects a symmetry of the solid can exist.
+The shapes agree ($3\times8\times8$), the structures do not: on $E_8$ negation fixes every block, while on the Chair44 $h\mapsto-h$ exchanges $P$ and $N$; and the $E_8$ set has a free action of a group of order $24$ while the labelled Chair44 has no non-trivial symmetry.
 \end{result}
-
-A non-geometric labelling, assigning heights to elements of $2T$ for instance, could still make the shapes correspond; nothing here supports that, and nothing rules it out (\hypo). The count $192=24\times8$ is therefore recorded as a coincidence
-of counts, with a stated reason: wherever the two sides have comparable structure, they disagree.
-
-\begin{figure}[t]\centering
-\includegraphics[width=\linewidth]{figures/chair_e8_192.png}
-\caption{Left: the Chair44 as $24$ panels $\times$ $8$ signed heights, in three classes of $8$ panels. Right: the $E_8$ equatorial roots as $8$ fibres $\times$ $3$ blocks $\times$ $8$ roots; the shapes agree, the structures do not (\texttt{models/chair\_e8\_192.py}).}\label{fig:chair-e8}
-\end{figure}
+A non-geometric labelling could still make the shapes correspond (\hypo). The count is recorded as a coincidence, with the reason that wherever the two sides have comparable structure they disagree.
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{An abelian Wilson-loop probe}\label{sec:wilson}
-\subsection{Setting}
-The Wilson-loop repository of Peev and Dogra (\url{https://github.com/brentharts/4D_Wilson_Loop_RG}, not in the bibliography) develops a renormalisation-group programme for Yang--Mills theory on a $4$-torus, in which the first step averages the field over blocks of side $L$.
-For a square Wilson loop that step extracts a factor $\exp(-\tfrac{g^2}{2}E_f)$, and $E_f$ is read as a perimeter term plus a term per corner. We did not read or check the proofs of that programme and make no statement about them.
-A square has four corners of one kind, so it cannot show whether a corner contributes a constant that depends on the corner alone. We tested that in the simplest setting we could compute, a $U(1)$ Gaussian
-analogue of the first step on a $4$-torus with $K=6$ blocks of side $L=3$ per direction, in Landau gauge and with $g=1$ (unless a value says otherwise), using the operators of the programme's abelian check
-and applying them to arbitrary closed loops. All numbers in this section were computed in the Wilson-loop repository (commit 52a3972) and are copied here, not recomputed by \texttt{paper\_numbers.py}; they carry $\dagger$.
-That code, like the rest of this work, was written with LLM assistance and has not been independently reviewed. The analogue has no non-abelian structure, no large fields and no running coupling, and nothing in it
-checks a bound or a proof of the programme.
-
-Write $P$ for the number of links of a loop and $c$ for its number of corners, that is, places where consecutive links change direction.
-
-\subsection{Results}
+The Wilson-loop repository of Peev and Dogra (\url{https://github.com/brentharts/4D_Wilson_Loop_RG}) develops a renormalisation-group programme for Yang--Mills theory on a $4$-torus in which the first step averages over blocks of side $L$ and extracts a factor $\exp(-\tfrac{g^2}{2}E_f)$ from a square loop, with $E_f$ read as perimeter plus corners. We did not check the proofs of that programme. Since a square has only one kind of corner, we tested whether a corner contributes a constant of its own in a $U(1)$ Gaussian analogue of the first step ($K=6$ blocks of side $L=3$, Landau gauge, $g=1$), using the programme's abelian operators on arbitrary closed loops. All numbers in this section were computed in that repository (commit 52a3972) and carry $\dagger$. The analogue has no non-abelian structure, no large fields and no running coupling. $P$ is the number of links of a loop and $c$ its number of corners.
 \begin{result}[\numeric\snap]\label{res:wl-fit}
-At the placement used by the published square fits (a loop corner at a block centre), $E_f=\alpha P+b\,c$ fits seven loops (squares, rectangles, an L-shape, and loops spanning three directions, every feature at least $2L$ wide)
-with $\alpha=\qgWAlpha$ per link and $b=\qgWB$ per corner ($4b=\qgWFourb$). Each loop left out of the fit is predicted to $\qgWLoo$ or better. Under permutation of the axes, reversal of the loop and
-translation by $L$, $E_f$ is unchanged to $10^{-9}$ (exact symmetries). The tolerance $0.01$ in the test was chosen after seeing the data.
+At the placement of the published square fits (a corner at a block centre), $E_f=\alpha P+b\,c$ fits seven loops with every feature at least $2L$ wide, with $\alpha=\qgWAlpha$ per link and $b=\qgWB$ per corner ($4b=\qgWFourb$); each loop left out is predicted to $\qgWLoo$ or better. $E_f$ is unchanged to $10^{-9}$ under axis permutation, reversal and translation by $L$. The test tolerance $0.01$ was chosen after seeing the data.
 \end{result}
-
 \begin{result}[\numeric\snap]\label{res:wl-thin}
-At that placement the corner term fails for a feature one block wide: a rectangle of length $12$ and width $3$ lies $\qgWWidthDev$ from the fit, and thin rectangles and L-shapes lie $\qgWThinlo$ to $\qgWThinhi$ below it, while
-widths $6$ and above deviate by about $\qgWWidthwithin$ or less.
+At that placement the fit fails for a feature one block wide: a $12\times3$ rectangle lies $\qgWWidthDev$ from it, thin rectangles and L-shapes $\qgWThinlo$ to $\qgWThinhi$ below it; widths $6$ and above deviate by about $\qgWWidthwithin$ or less.
 \end{result}
-
 \begin{result}[\numeric\snap]\label{res:wl-place}
-\emph{The placement of the loop against the blocks matters more than the corner term.} The coarse lattice has period $L$, so $E_f$ depends on the position of the loop modulo $L$ in each direction. Over all $81$ positions, the placement of Result~\ref{res:wl-fit}
-is the lowest-energy one for all eight loops tried, and the spread (maximum minus minimum) is $\qgWSpreadlo$ to $\qgWSpreadhi$ per loop, larger than the whole corner term $|4b|$. Averaged over the $81$ positions the fit becomes
-$\alpha=\qgWAvgalpha$, $b=\qgWAvgb$ ($4b=\qgWAvgfourb$), still roughly additive (leave-one-out $\qgWAvgloo$), and the one-block-wide loops now lie \emph{above} the fit.
+\emph{The placement of the loop against the blocks matters more than the corner term.} Over all $81$ positions modulo $L$, the placement of Result~\ref{res:wl-fit} is the lowest-energy one for all eight loops tried, and the spread is $\qgWSpreadlo$ to $\qgWSpreadhi$ per loop, more than $|4b|$. Averaged over positions the fit becomes $\alpha=\qgWAvgalpha$, $b=\qgWAvgb$ ($4b=\qgWAvgfourb$, leave-one-out $\qgWAvgloo$), and the one-block-wide loops lie \emph{above} it.
 \end{result}
-
-So the thin-loop deficit of Result~\ref{res:wl-thin} is a statement about one placement, and an earlier reading of it in this project as a property of the loops was wrong. Which placement corresponds to the blocks of the programme itself is not known to us.
-
+So the thin-loop deficit is a property of one placement; which placement corresponds to the blocks of the programme is not known to us.
 \begin{result}[\numeric\snap]\label{res:wl-corner}
-Splitting $E_f$ over the links of a loop shows that the energy is carried by the links near a corner and recovers within one block. The corner excess is the same for convex and concave turns: in the L-shape the concave corner has
-$\qgWConcave$ against a convex mean of $\qgWConvexmean$. Moving the square of side $9$ by one step in two directions changes its edge value from $\qgWEdgealigned$ to $\qgWEdgeshifted$ and its per-corner excess
-from $\qgWCornaligned$ to $\qgWCornshifted$, so most of the placement effect on that loop is the edge value and about a tenth is the corner. The excess has to be measured against the loop's own edge value;
-against the fitted $\alpha$ it is not meaningful for a shifted loop.
+The energy is carried by the links near a corner and recovers within one block. Convex and concave corners have the same excess ($\qgWConcave$ against a convex mean of $\qgWConvexmean$ in the L-shape). Shifting the square of side $9$ by one step in two directions changes its edge value from $\qgWEdgealigned$ to $\qgWEdgeshifted$ and its per-corner excess from $\qgWCornaligned$ to $\qgWCornshifted$: most of the placement effect is in the edge value.
 \end{result}
-
 \begin{result}[\numeric\snap]\label{res:wl-gauge}
-Landau gauge and $\xi=1$ gauge agree to at most $\qgWGaugemax$ in $E_f$ for every loop at the aligned placement, and to $\qgWGaugeshifted$ for the shifted square.
+Landau and $\xi=1$ gauges agree to $\qgWGaugemax$ in $E_f$ at the aligned placement and to $\qgWGaugeshifted$ for the shifted square.
 \end{result}
-
 \begin{result}[\numeric\snap, weak]\label{res:wl-L}
-A single run at $L=5$ ($K=4$) gives squares of side $5$ and $10$ with $E_f=\qgWLfiveone$ and $\qgWLfivetwo$, so $\alpha=\qgWLfivealpha$ and $\beta=\qgWLfivebeta$ from that pair, against $\alpha=\qgWLthreealpha$ and
-$\beta=\qgWLthreebeta$ from the same pair at $L=3$. The pair is itself a poor estimate (about $1\%$ in $\alpha$ and $20\%$ in $\beta$ at $L=3$), so the data say that $\alpha$ grows by more than $15\%$ from $L=3$ to $5$ and say nothing about
-$L>11$, where the programme needs them. The finite-size error of the $K=4$ torus was not checked.
+At $L=5$ ($K=4$) squares of side $5$ and $10$ give $E_f=\qgWLfiveone$ and $\qgWLfivetwo$, so $\alpha=\qgWLfivealpha$, $\beta=\qgWLfivebeta$, against $\alpha=\qgWLthreealpha$, $\beta=\qgWLthreebeta$ from the same pair at $L=3$. The pair is a poor estimate (about $1\%$ in $\alpha$, $20\%$ in $\beta$): $\alpha$ grows by more than $15\%$ from $L=3$ to $5$, and nothing is said about $L>11$. The finite-size error of $K=4$ was not checked.
 \end{result}
-
-\begin{figure}[t]\centering
-\includegraphics[width=\linewidth]{figures/wilson_corner_locality.png}
-\caption{Departure of $E_f$ from perimeter plus corners at the aligned placement. Left: deviation from $\alpha P+bc$ for loops with isolated corners (blue), with a feature one block wide (orange) and for the lifted Spectre outline (red). Right: $E_f$ against the number of links, with the line for four corners (\texttt{models/wilson\_corner\_locality.py}, numbers from the Wilson-loop repository).}\label{fig:wilson}
-\end{figure}
-
-\subsection{What the probe cannot see}\label{sec:probe-limits}
-The hypercubic action treats every turn between different axes as a right angle. The Spectre outline has turns of $60^\circ$ and $90^\circ$ (Result~\ref{res:corners}), and the probe cannot tell them apart; a test of $60^\circ$ corners needs an action and a block-averaging map
-on the hexagonal lattice $A_2+A_2$, and neither exists (Section~\ref{sec:open}).
-
-We did write the lifted Spectre outline in $\mathbb{Z}^4$, replacing each diagonal hexagonal step by two links. Two orderings of the same diagonal give different loops, with $\qgWZfourcornersfirst$ and $\qgWZfourcornerssecond$ corners and
-$E_f=\qgWZfourfirst$ and $\qgWZfoursecond$. Over the dilations tried, the energy of these loops lies $\qgWZfourdevlo$ to $\qgWZfourdevhi$ above the prediction $\alpha P+bc$ of the aligned fit (red in Figure~\ref{fig:wilson}).
-This looks like corners one link apart interacting, since the range of the corner term is about one block, but \emph{we cannot separate that from the placement effect}: Result~\ref{res:wl-place} gives a spread of the same size ($\qgWSpreadlo$ to $\qgWSpreadhi$), and the Spectre loops were not averaged over placements.
-We therefore do not claim that the corner term fails for the lifted Spectre; we claim only that the prediction of the aligned fit is not reliable for it.
+\textbf{What the probe cannot see.}\label{sec:probe-limits} The hypercubic action sees every turn as a right angle, so it cannot tell the Spectre's $60^\circ$ and $90^\circ$ corners apart (Result~\ref{res:corners}). The lifted Spectre outline written in $\mathbb{Z}^4$ (two orderings of each diagonal step, with $\qgWZfourcornersfirst$ and $\qgWZfourcornerssecond$ corners and $E_f=\qgWZfourfirst$, $\qgWZfoursecond$) lies $\qgWZfourdevlo$ to $\qgWZfourdevhi$ above the aligned fit, but this cannot be separated from the placement spread of Result~\ref{res:wl-place}; we claim only that the aligned fit is not reliable for it.
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Results from the companion repositories}\label{sec:companion}
-These results were obtained in the Hat and Spectre repository (\url{https://github.com/brentharts/spectre}), two of them cross-checked against the CICY repository \cite{hartshorn2026cicy}, and are copied as a snapshot (\snap, Appendix~\ref{app:repro}); they bear on the search for an arrow of time of Section~\ref{sec:intro}.
+These were obtained in the Hat and Spectre repository (\url{https://github.com/brentharts/spectre}), two cross-checked against the CICY repository \cite{hartshorn2026cicy}, and are copied as a snapshot (\snap).
 \begin{result}[\exact\snap]\label{res:chair-pol}
-Along the axis lines of the Chair44 the notch sum is bounded longitudinally. Transversally it equals $(\pm M,\pm M)$ on a fraction $13/24+1/(3\cdot 4^{n-1})$ of the lines at level $n$, which tends to $\qgCChairfraction$; proved with an $\qgCChairstates$-state subset automaton on the address digits, and the same fraction for all $168$ roots. Shuffled labels give none. The drift is the same traversed backwards, so it does not give an arrow.
+Along the axis lines of the Chair44 the notch sum is bounded longitudinally; transversally it equals $(\pm M,\pm M)$ on a fraction $13/24+1/(3\cdot 4^{n-1})$ of the lines at level $n$, which tends to $\qgCChairfraction$ (a $\qgCChairstates$-state automaton on the address digits; the same for all $168$ roots; none for shuffled labels). The drift is the same traversed backwards: no arrow.
 \end{result}
 \begin{result}[\negres\snap]\label{res:spectre-lines}
-The orientation sums of the Spectre along lines have no ballistic component (exponents $0.26$ to $0.62$ against $0.39$ to $0.55$ for a shuffled control; up to $1.6\times$ the control at $k=140$). Sampled, not proved.
+The orientation sums of the Spectre along lines have no ballistic component (exponents $0.26$ to $0.62$ against $0.39$ to $0.55$ for a shuffled control). Sampled, not proved.
 \end{result}
 \begin{result}[\exact\snap]\label{res:chirality}
-Every Spectre outline of levels $1$ and $2$ is the same cyclic turning word of $\qgCOutlinelen$ unit steps (total turn $-360^\circ$), a minimal closed walk. The mirror word is its reversal, which is not a rotation of it, so the tile is chiral; the colour word is achiral. This is chirality, not time order: the flux closure of an outline is symmetric under reversal. The research code also has a handedness theorem ($\mathrm{Im}\,Z_k<0$ exactly for $k\le\qgCHandedk$) and a holonomy group $\mathrm{Dic}_{12}$ of order $\qgCHolonomy$, with no twist-sign arrow (the sign is a gauge choice).
+Every Spectre outline of levels $1$ and $2$ is the same cyclic turning word of $\qgCOutlinelen$ unit steps (total turn $-360^\circ$). The mirror word is its reversal, which is not a rotation of it, so the tile is chiral; the colour word is achiral. This is chirality, not time order: the flux closure of an outline is symmetric under reversal. The research code also has a handedness theorem ($\mathrm{Im}\,Z_k<0$ exactly for $k\le\qgCHandedk$) and a holonomy group $\mathrm{Dic}_{12}$ of order $\qgCHolonomy$, with no twist-sign arrow.
 \end{result}
 \begin{result}[\exact, \numeric\snap]\label{res:wilson-hex}
-Wilson action on the Spectre lattice (\texttt{spectre\_wilson.py}; abelian Gaussian action in the conventions of Section~\ref{sec:wilson}, unconstrained loop self-energy $E$). (i) With the $\qgCWilsontiles$ tiles of the level-2 patch as the only plaquettes, $E$ of the boundary of any union of $m$ tiles is exactly $m$: an area law with no perimeter and no corner term. (ii) On the lift lattice $A_2\oplus A_2$, with the triangles of each plane and the red--green parallelograms as plaquettes (weights $2$ and $1/3$, fixed by an isotropic Maxwell limit), $E=\alpha P+\sum b\,c$ fits $12$ loops of sides $3$ and $4$ with $\alpha=\qgCWilsonalpha$ and corner constants $\qgCWilsonblunt$ (turn $60^\circ$), $\qgCWilsonsharp$ (turn $120^\circ$), $\qgCWilsonright$ ($90^\circ$), residual $\qgCWilsonresidual$. The sharp corner is resolved from the other two; the blunt and the right-angle corners are not. (iii) The lifted Spectre outline has one energy for all $71$ tiles ($\qgCWilsonoutline$), its mirror outline has exactly the same energy, and perimeter plus corners predicts $\qgCWilsonpredicted$, a gap of about $\qgCWilsongap$ that does not shrink when the outline is enlarged.
+Abelian Gaussian Wilson action on the Spectre lattice, unconstrained self-energy $E$. (i) With the $\qgCWilsontiles$ tiles of the level-2 patch as the only plaquettes, $E$ of the boundary of any union of $m$ tiles is exactly $m$: an area law, no perimeter or corner term. (ii) On $A_2\oplus A_2$ with triangles in each plane and red--green parallelograms (weights $2$ and $1/3$, from an isotropic Maxwell limit), $E=\alpha P+\sum b\,c$ fits $12$ loops with $\alpha=\qgCWilsonalpha$ and corner constants $\qgCWilsonblunt$ ($60^\circ$), $\qgCWilsonsharp$ ($120^\circ$), $\qgCWilsonright$ ($90^\circ$), residual $\qgCWilsonresidual$; only the sharp corner is resolved. (iii) The lifted Spectre outline has one energy for all $71$ tiles ($\qgCWilsonoutline$), the same as its mirror, against a prediction of $\qgCWilsonpredicted$, a gap of about $\qgCWilsongap$ that does not shrink with size.
 \end{result}
-The action is parity symmetric, so like the line sums it cannot see the chirality of Result~\ref{res:chirality}. It is the unconstrained energy, not the constrained first-step energy of the programme, so its constants are not $\delta m$ and $\log z_c$.
-
 \begin{result}[\exact\snap]\label{res:mystic}
-Every X-bond of the Spectre tiling belongs to a Mystic tile (the one tile of the substitution that carries the role-swapped edge sequence $a\leftrightarrow b$, called Mystic in the Hat and Spectre repository). A shared edge is an X-bond, an edge on which the two tiles disagree about its type, exactly when one of its two tiles is a Mystic; no two Mystics share an edge; the X-bonds form disjoint cycles of $\qgCMysticcycles$ edges, one per Mystic ($\qgCMysticcyclesfour$ at depth~$4$), each through exactly two interior vertices of valence~$4$. Hence X-bonds $=\qgCMysticcycles M$, valence-$4$ vertices $=2M$, and X-bonds $=\qgCSevenx\times$ valence-$4$ vertices in the whole patch for all nine seeds (counted, depths $2$ to $4$). The Mystic is a fraction $\qgMysticFreq$ of all tiles, so the baseline density $\rho_0$ of Section~\ref{sec:density-limits} is twice the Mystic frequency. With the exact Perron frequencies and the measured X-charges per species ($4,4,4,2,\{0,2\}$ and $0$ for the others), conservation of X-charge ($12g+2g^2+4pg(1-g)=14g$, $g=4-\sqrt{15}$) gives $p=\Pr(\Phi^2)=1/2$ exactly, which fixes the X-density to $1-\sqrt{15}/5$. This closes the one unknown of the closed-form X-density; what remains an assumption is the charge atlas. The measured $p$ ($0.683$, $0.579$, $0.538$ at depths $3$, $4$, $5$) is consistent (Aitken extrapolation $\qgCAitken$).
+A shared edge is an X-bond (the two tiles disagree about its type) exactly when one of its tiles is a Mystic; no two Mystics share an edge; the X-bonds form disjoint cycles of $\qgCMysticcycles$ edges, one per Mystic ($\qgCMysticcyclesfour$ at depth~$4$), each through two interior vertices of valence~$4$, so X-bonds $=\qgCSevenx\times$ valence-$4$ vertices (nine seeds, depths $2$ to $4$). The Mystic is a fraction $\qgMysticFreq$ of the tiles, so the baseline density $\rho_0$ of Section~\ref{sec:density} is twice the Mystic frequency. Conservation of X-charge ($12g+2g^2+4pg(1-g)=14g$, $g=4-\sqrt{15}$) gives $p=\Pr(\Phi^2)=1/2$ exactly and an X-density $1-\sqrt{15}/5$; the charge atlas remains an assumption (measured $p$: $0.683$, $0.579$, $0.538$ at depths $3$ to $5$; Aitken $\qgCAitken$).
 \end{result}
 \begin{result}[\exact\snap]\label{res:chair-axis}
-The label of the Chair44 at an address of the $2^M$ cube is undetermined by the $M$ binary digits at $28\cdot2^M-48$ addresses (label excess $140\cdot2^M+48$); the CICY repository and the Hat and Spectre repository compute this from independently written substitutions and agree (a $209$-set subset automaton, $41$ with more than one label). The notch axis, that is the notch vector up to sign, is nevertheless determined everywhere except at exactly $\qgCSixteen$ addresses for every $M\ge2$, the $8$ corner cells and the $8$ central cells (a finite certificate, checked to $M=\qgCCoincidencemax$); at the other undetermined addresses the notch vector is fixed up to its sign. Only the sign is left open, and nothing here connects it to the PC statement of the Chair44 lines.
+The Chair44 label at an address of the $2^M$ cube is undetermined by the $M$ digits at $28\cdot2^M-48$ addresses (two independent implementations agree). The notch axis is nevertheless determined everywhere except at exactly $\qgCSixteen$ addresses for every $M\ge2$ (checked to $M=\qgCCoincidencemax$); elsewhere only its sign is open.
 \end{result}
 \begin{result}[\negres\snap]\label{res:curv}
-The Ollivier--Ricci curvature of the Spectre vertex graph does not make the holonomy vortices point masses. An edge has one of four curvatures, $-2/3,-1/2,-1/3,0$, with mean $-0.27$ at level $4$, between the square lattice ($0$) and the honeycomb ($-0.66$). Summed over discs, the curvature correlates negatively with the number of vortices in the disc after the vertex-degree counts are regressed out (partial correlation $\qgCOllivierfour$ at level $4$, radius $4$, and $\qgCOllivierfoureight$ at radius $8$, on disjoint discs, with $95\%$ intervals that exclude $0$). But the curvature is fixed by the local motif, the degree and the pattern of $\pi$-steps of the holonomy: every degree-$2$ vortex has $\kappa=\qgCOllivierkappa$, as do about a fifth of the non-vortex degree-$2$ vertices; the disc sum of $\pi$-steps tracks $\kappa$ better ($\qgCReggepi$) than the vortex count ($\qgCReggevortex$); and the integer winding adds nothing beyond its parity (a Regge test that fails). On a layer of the Chair44 the test is ill posed: every L-shaped cell has the same curvature $\qgCTromkappa$ and the controls are collinear. The tilings supply no gravitational potential from graph curvature.
+The Ollivier--Ricci curvature of the Spectre vertex graph does not make the holonomy vortices point masses. Edge curvatures take four values ($-2/3,-1/2,-1/3,0$, mean $-0.27$ at level $4$). Disc sums of curvature correlate negatively with vortex counts after degree is regressed out (partial correlation $\qgCOllivierfour$ at radius $4$, $\qgCOllivierfoureight$ at radius $8$), but the curvature is fixed by the local motif: every degree-$2$ vortex has $\kappa=\qgCOllivierkappa$, the $\pi$-steps track $\kappa$ better ($\qgCReggepi$) than the vortex count ($\qgCReggevortex$), and the winding adds nothing beyond its parity. On the Chair44 the test is ill posed (every L-shaped cell has $\kappa=\qgCTromkappa$).
 \end{result}
 \begin{result}[\numeric\snap]\label{res:bragg}
-The Spectre vertices are a linearly sheared $\mathbb{Z}[\zeta_{12}]$ model set, consistent with the pure point spectrum and the cut-and-project description proved by Baake, G\"ahler, Maz\'a\v{c} and Sadun \cite{bgms}. In lattice coordinates the Galois-conjugate image $x^*=\sum n_j\zeta^{5j}$ grows with the patch (internal radius $32.8,\,90.5,\,252.3$ at levels $3,4,5$, a factor $\qgCInternalgrowth$ per level), so the plain conjugate is not a window; but $x^*=Mx+b+r$ with $M$ an anti-conformal similarity (both singular values $\qgShearSV=\sqrt{2-\sqrt3}$) leaves a bounded residual of radius about $\qgCWindowradius$ (changing by $\qgCWindowchange\%$ from level $4$ to $5$), with no quadratic term (at most $\qgCQuadshare\%$ of the residual variance). The vortex set has Bragg peaks: its top peak height changes by $\qgCVortexchange\%$ between levels $4$ and $5$ while the number of vortices grows thirteenfold. The diffraction of level $5$ is the mirror image of that of level $4$: its peaks sit at the conjugate positions of the level-$4$ peaks to $\qgCMirrortol$ in $|k|$, with the weaker families at $\qgCPeakfive$ against $\qgCPeakfour$, so the handedness of the diffraction reverses at each level, in line with the alternating chirality of the Delta supertile in the handedness run. Open: the strongest vortex peak, at $|k|=\qgCUnindexed$, is indexed by no test made (no point of the sheared module, with or without a quadratic term, no Galois map, no supertile superlattice). These are recorded cluster runs in the Hat and Spectre repository, not self-tests, and the heights are used as ratios between levels only.
+The Spectre vertices are a linearly sheared $\mathbb{Z}[\zeta_{12}]$ model set, consistent with the cut-and-project description of Baake, G\"ahler, Maz\'a\v{c} and Sadun \cite{bgms}: the Galois image $x^*=\sum n_j\zeta^{5j}$ grows by a factor $\qgCInternalgrowth$ per level, but $x^*=Mx+b+r$ with $M$ an anti-conformal similarity (singular values $\qgShearSV=\sqrt{2-\sqrt3}$) leaves a bounded residual of radius about $\qgCWindowradius$ (changing by $\qgCWindowchange\%$ from level $4$ to $5$). The vortex set has Bragg peaks (top peak height changes by $\qgCVortexchange\%$ while the vortices grow thirteenfold), and the diffraction of level $5$ mirrors that of level $4$ to $\qgCMirrortol$ in $|k|$ ($\qgCPeakfive$ against $\qgCPeakfour$). The strongest vortex peak, at $|k|=\qgCUnindexed$, is not indexed. Recorded runs, not self-tests.
 \end{result}
-Two further contacts with CICY are recorded in the companion repository and not used here: a parity-odd observable has to be signed like the handedness theorem and not an energy (all energies computed here are blind to the chirality of the tile), and the index $12$ of the six-sphere holonomy and the twelve edge directions of the Spectre are a numerological match until a map is exhibited.
-
-Together with Result~\ref{res:price} these say where an arrow is \emph{not}: not in the line sums, not in the closure of a flux, not in the density, not in the curvature of the tile graph. A handedness exists; whether it can be turned into an order of events is open (item~\ref{item:arrow} below).
+Together with Result~\ref{res:price} these say where an arrow is \emph{not}: not in the line sums, the closure of a flux, the density or the curvature of the tile graph. A handedness exists; whether it can become an order of events is open.
 
 %------------------------------------------------------------------------------------------------------------------------------------
-\section{Open problems and tests that could fail}\label{sec:open}
-Each item says what would count as an answer. None has been done.
-\begin{enumerate}[leftmargin=1.6em,itemsep=2pt]
-\item \textbf{A hexagonal action} (Wilson probe). A $U(1)$ action on $A_2+A_2$ with triangular plaquettes in each plane and rectangles between planes, and a block-averaging map on hexagonal blocks, so that $60^\circ$ and $120^\circ$ corners can be told from $90^\circ$ ones. Success: a corner constant for each type, with the loops of Section~\ref{sec:wilson} rerun. Partly done: the action exists and resolves the sharp corner in the unconstrained energy (Result~\ref{res:wilson-hex}); the hexagonal block-averaging map and the constrained energy are still missing.
-\item \textbf{Which placement.} Whether the blocks of the programme correspond to the aligned placement, to the average over placements, or to neither; and the whole of Section~\ref{sec:wilson} at a block size other than $L=3$ with the finite-size error of $L=5$ controlled.
-\item \textbf{Admissible contours.} Whether a contour whose edges are at multiples of $30^\circ$ is admissible for the corner extraction of the programme, and what the renormalisation of a corner should depend on. This is a question for its authors, not a computation.
-\item \textbf{Tip-to-root rule.} A rule, not a choice made to fit, that assigns each Chair44 tip to an $E_8$ root and preserves a stated invariant, for instance adjacency of tips on neighbouring panels against inner product $1$ of roots. Success or failure of the invariant would decide whether the shape match of Section~\ref{sec:chair} is more than a coincidence.
-\item \textbf{A Chair44 substitution.} A substitution of the Chair44 tile (inflation by $2$ on $\mathbb{Z}^3$, determinant $8$, no contracting direction) compatible with a map of $E_8$ sublattices. As $E_8$ has no contracting direction either, this needs a different lattice.
-\item \textbf{Both number fields.} A lattice, not $E_8$ itself, with both an Eisenstein structure and a $\mathbb{Z}[\varphi]$ structure in which the Spectre inflation $\lambda$ is a unit or an automorphism, for instance a rank-$8$ module over a ring related to $\mathbb{Z}[\sqrt3,\sqrt5]$. This is what the Hypothesis of Section~\ref{sec:inflation} needs.
-\item \textbf{The Lorentz plane.} What data pick a signature on $E_8$, and how they act on the $E_6+A_2$ choice of Section~\ref{sec:e6}.
-\item \textbf{Reading the sources.} The Elser--Sloane paper, to decide whether the window of Result~\ref{res:vor} is theirs; the Sadoc--Mosseri paper beyond its abstract; the construction of Ch\'eritat and Ma behind the lift; the five arXiv papers cited in the Introduction beyond their abstracts, and the literature on causal sets and loop quantum gravity mentioned there.
-\item \textbf{Proofs.} The invariance of the Voronoi window under the fibre group (a sketch only), the class-count formula for the shells ($n\le 60$ checked), and the shell law for all $n$.
-\item \textbf{The orientation.} Whether the other choice of $R_\omega$ in the embedding of Section~\ref{sec:embed} gives the mirror image.
-\item\label{item:arrow} \textbf{An arrow of time.} The aim of the Introduction. A candidate structure would be a graph or combinatorial object on which reversal of the order of events is not a symmetry, which also has the exact structure found here. None of the computations in this paper provides one; Result~\ref{res:chirality} gives a handedness, not an order. Section~\ref{sec:staged-arrow} lists where an orientation enters the dynamic half and finds each one put in by hand.
-\item\label{item:rule} \textbf{A rule that pays the price.} A consistency rule for the retrocausal contract, not a free choice of the joint probabilities, under which the settings-dependent ensemble stays free of signalling and lands on a Bell violation (Result~\ref{res:price} gives the price). Partly done: Result~\ref{res:rule} pays it with a chosen weight on zero-free read-outs. Open: derive the weight from a path action with boundary terms at both ends and a normalisation over the whole history, fix $\kappa$, and keep no signalling when zero outcomes are allowed. The copy contract of Result~\ref{res:copy}, which signals, would have to be replaced. Addressed in part in Section~\ref{sec:staged-rule}: a rule is derived from such a weight, it is not the rule of Result~\ref{res:rule}, and it rests on conditioning on both ends.
-\item \textbf{The Wilson action on the real Spectre plaquettes.} Done in part (Result~\ref{res:wilson-hex}): with the tiles as the only plaquettes the energy is an area law, so corners need the transverse plaquettes of the lift lattice. Open: the constrained energy of item~1 on the lift lattice, the $\mathrm{Dic}_{12}$ holonomy, and the placement dependence of Section~\ref{sec:wilson}; and why the outline is not described by one constant per corner (gap in Result~\ref{res:wilson-hex}).
-\item\label{item:density} \textbf{A density with the right fall-off.} A rule for $\rho$ (or for the clock) from the tiling and its sources that gives $1/r$ and a horizon, using the exact baseline of Section~\ref{sec:density-limits}. The toy of Section~\ref{sec:density} fails this test.
-\end{enumerate}
-
-% ==============================================================================
-% NEW SECTIONS: DYNAMIC AXIS TRAJECTORIES, RETROCAUSAL CONTRACTS & DENSITY
-% ==============================================================================
-
-\section{Dynamic Axis Trajectories on $E_8$ Fiber Spaces}\label{sec:axes}
-The static isometric embedding of the Spectre lift lattice $\mathbb{Z}[\zeta_{12}] = \mathbb{Z}[\varpi] \oplus \zeta \mathbb{Z}[\varpi]$ into $E_8$ (Section~\ref{sec:embed}) maps red and green edges to roots of the $D_4^a$ and $D_4^b$ pole sublattices, respectively. Rather than treating these root vectors purely as static geometric positions on a lattice background, we extend this construction into a dynamic temporal process by interpreting root transitions as ordered steps along discrete directional degrees of freedom.
-
-We replace the smooth $3+1$ continuum with six discrete directional unit vectors $D = \{+X, -X, +Y, -Y, +Z, -Z\}$, supplemented by localized twist orientations. In the $E_8$ root representation, a single trajectory node at temporal index $t$ is parameterized by a state vector $S(t) \in D_4^a \oplus D_4^b \subset E_8$. Under this mapping:
-\begin{enumerate}
-    \item Consecutive spatial steps along the same hexagonal orientation correspond to roots with inner product $\langle r_i, r_{i+1} \rangle = 2 \cos(\theta)$, where $\theta$ is the turning angle (Section~\ref{sec:embed}).
-    \item Inter-plane transitions (red-to-green steps) satisfy $\langle r_{\text{red}}, r_{\text{green}} \rangle = 0$, enforcing orthogonal directional decoupling between adjacent axial planes.
-\end{enumerate}
-
-\subsection{Which six directions lie in $E_8$}\label{sec:hexdirs}
-The map from $\{\pm X,\pm Y,\pm Z\}$ to roots is not defined above, and the embedding of Section~\ref{sec:embed} has no cubic structure: its red edges are six roots in one plane, $60^\circ$ apart, with $e_0-e_1+e_2=0$ (the red $A_2$). The six directions that are actually in $E_8$ are therefore these hexagonal ones. The companion code (\texttt{directional/hex\_directions.py}, \texttt{hex\_e8.py} in the Quantum-Gravity-Dynamics fork) reruns the toy with them. The statements below are checks of that code, copied as a snapshot (\snap), and none is a statement about physics.
-\begin{result}[\exact\snap]\label{res:hexdirs}
-The six hexagonal directions map to six roots of $E_8$ whose inner products are $2\times$ the planar ones; $\qgCHexorth$ roots of $E_8$ are orthogonal to the whole $A_2$; the $240$ roots give $\qgCHexpatterns$ distinct sign patterns on the six, $\qgCHexzeros$ of them with a zero. A green root is orthogonal to every red one (Result~\ref{res:embed}), so the planar ``$12$ directions'' read-out is not an $E_8$ read-out. The numbers of closed timelines of $n=0,\dots,7$ steps are $\qgCHexclosed$ against $\qgCCubicclosed$ for the cubic set: the cubic set is bipartite and has no closed timeline of odd length, the hexagonal set has $12$ closed ones of length~$3$.
-\end{result}
-
-Rather than imposing a single global coordinate time parameter $T$ shared across all spatial coordinates $(X, Y, Z)$, each directional axis component carries an independent temporal parameter $t_{\mu}$ ($\mu \in \{X, Y, Z\}$). A macroscopic trajectory is constructed as a combinatorial interaction tree of discrete axis steps, where the physical universe emerges from the flux of state updates across the underlying $E_8$ root fiber network.
-
-\section{Retrocausal Consistency Contracts and Quantum Correlations}\label{sec:retro}
-Standard quantum field theory handles entanglement and measurement collapse via non-local wavefunction collapse across spacelike separations or via geometric wormhole topologies ($ER=EPR$). Within our discrete directional framework we model coupled timelines through a shared initial boundary condition at $t = 0$ that resolves via a bidirectional topological contract. Whether this removes action at a distance is tested in Section~\ref{sec:retro-tests}; for the contract as written it does not.
-
-\subsection{Entangled Axis Fusion at $t=0$}
-Two coupled particle paths, denoted by timeline state vectors $S_A(t)$ and $S_B(t)$, originate from a common energy-creation event at $t=0$. The initial directional states are constrained by an anti-correlated fusion condition:
-\begin{equation}
-    S_A(0) = +X_i \quad \Longleftrightarrow \quad S_B(0) = -X_i,
+\section{The dynamic proposal}\label{sec:dynamic}
+\subsection{States, contracts, density and waves}\label{sec:formal}
+\label{sec:axes}\label{sec:retro}
+The proposal reads the root steps of Section~\ref{sec:embed} as ordered steps of a history. A trajectory is $\gamma=\{s(t)\}_{t=0}^{T}$ with $s(t)$ a root of $D_4^a\oplus D_4^b\subset E_8$ (with a twist phase), stated originally for six directions $\pm X,\pm Y,\pm Z$; each axis may carry its own time. Its consistency action is
+\begin{equation}\label{eq:action}
+\mathcal{A}[\gamma]=\sum_{t=1}^{T}\Bigl[\|s(t)-s(t-1)\|^2_{E_8}+\lambda\,\bigl(\Phi_{\mathrm{net}}(t)-\Phi_{\mathrm{target}}\bigr)^2\Bigr],\qquad \Phi_{\mathrm{net}}(t)=\sum_{\tau=0}^{t}\mathrm{embed}(s(\tau)).
 \end{equation}
-where $+X_i$ and $-X_i$ represent inverted root orientations in the corresponding $E_8$ fiber subspace.
+\emph{Entanglement} is a shared origin, $S_A(0)=-S_B(0)$. A \emph{measurement} fixes $s(t_{\mathrm{measure}})=s_{\mathrm{obs}}$, and the history re-minimises $\mathcal{A}$ under that constraint and $s(0)=s_{\mathrm{init}}$: in the original sketch a consistency update runs back along $A$ to $t=0$ and forward along $B$, in the spirit of the time-symmetric formulations of Cramer, Kastner and Aharonov et al. (\emph{copy contract}: $B$'s origin is re-fused to $-S_A(0)$). \emph{Gravity} enters through an interaction density and a clock,
+\begin{equation}\label{eq:density}
+\rho(\mathbf{x},t)=1+\sum_j\frac{M_j}{\bigl(1+\|\mathbf{x}-\mathbf{x}_j(t)\|^2\bigr)^{3/2}},\qquad \Delta\tau=\frac{\Delta t_0}{\rho},
+\end{equation}
+with dense nodes more resistant to reordering, and \emph{waves} through
+\begin{equation}\label{eq:wave}
+\frac{1}{c^2\rho}\,\frac{\partial^2\psi}{\partial t^2}-\nabla^2\psi+\gamma\,\frac{\partial\psi}{\partial t}=\mathcal{S}_{\mathrm{source}}
+\end{equation}
+on a grid of coupled timelines, with nodes updating with probability $\propto1/\rho$. The proposal is that dense regions slow clocks and lag waves, and that a measurement sends a fading ripple of adjustments through the history. These are proposals; the rest of the paper tests them.
 
-\subsection{Measurement Collapse as a Two-Symmetric Boundary Resolution}
-When a measurement event occurs on Particle A at index $t = t_{\text{measure}}$, forcing its state to a specific outcome $S_A(t_{\text{measure}}) = S_{\text{observed}}$, the system resolves the boundary condition through a two-phase relaxation contract:
-\begin{enumerate}
-    \item \textbf{Retrocausal Phase Wave:} A shockwave of topological consistency updates propagates \emph{backward} in time from $t = t_{\text{measure}}$ down to $t = 0$ along timeline A:
-    \begin{equation}
-        S_A(t-1) = \arg\min_{S \in D} \left\| S - S_A(t) \right\|^2_{E_8},
-    \end{equation}
-    re-orienting the past interaction sequence to maintain net flux conservation.
-    \item \textbf{Entangled Origin Flip and Procausal Cascade:} Upon reaching the origin $t = 0$, the inverted coupling rule re-fuses Particle B's initial node $S_B(0) = -S_A(0)$, initiating a forward-propagating (\emph{procausal}) relaxation wavefront along timeline B for $t > 0$.
-\end{enumerate}
-This mechanism aligns with the retrocausal and time-symmetric formulations of Cramer, Kastner, and Aharonov et al., and treats measurement as a global boundary-value optimization over discrete interaction trees. It does not by itself resolve the measurement problem, and it is not free of signalling (Section~\ref{sec:retro-tests}).
-
-\subsection{What the toy does and does not do}\label{sec:retro-tests}
-The checks below come from the Quantum-Gravity-Dynamics fork (\texttt{directional/}, $\qgCQgdtests$ hexagonal tests passing), copied as a snapshot (\snap); $S$ is the CHSH value of Section~\ref{sec:chsh}; the settings-as-boundary-conditions bound is a linear program over a hidden state equal to the origin direction, with outcomes read from it by the sign of the inner product with the setting.
+\subsection{First tests: directions, contracts and density}\label{sec:dynamic-tests}
+\label{sec:hexdirs}\label{sec:retro-tests}
+The checks of this subsection come from the Quantum-Gravity-Dynamics fork (\texttt{directional/}, $\qgCQgdtests$ tests) and the Hat and Spectre repository, copied as a snapshot (\snap). The map from $\pm X,\pm Y,\pm Z$ to roots is not defined, and the embedding of Section~\ref{sec:embed} has no cubic structure: its red edges are six roots in one plane. The tests therefore use these hexagonal directions.
+\begin{result}[\exact\snap]\label{res:hexdirs}
+The six hexagonal directions map to six roots whose inner products are $2\times$ the planar ones; $\qgCHexorth$ roots of $E_8$ are orthogonal to the whole $A_2$; the $240$ roots give $\qgCHexpatterns$ sign patterns on the six, $\qgCHexzeros$ with a zero. A green root is orthogonal to every red one, so the planar ``$12$ directions'' read-out is not an $E_8$ read-out. Closed timelines of $n=0,\dots,7$ steps number $\qgCHexclosed$ against $\qgCCubicclosed$ for the cubic set, which is bipartite.
+\end{result}
 \begin{result}[\exact\snap]\label{res:copy}
-The copy contract signals. After A is measured along any of the directions, the last step of B reveals which of the three axes was measured: $\qgBitsCopy$ bits ($\log_2 3$), for the cubic set and for the hexagonal set alike. The phrase ``without action-at-a-distance'' therefore does not hold for the contract as written.
+The copy contract signals: after $A$ is measured, the last step of $B$ reveals which of the three axes was measured, $\qgBitsCopy$ bits ($\log_23$), for the cubic and the hexagonal sets alike.
 \end{result}
 \begin{result}[\exact\snap]\label{res:chsh}
-With the sign read-out $E(a,b)=-\mathrm{sgn}(a\cdot b)$ and all four settings among the six hexagonal directions, $|\mathrm{CHSH}|=4$, while the singlet correlation $-\cos$ gives at most $5/2$ on the same six; on the six cubic directions the toy and the singlet both give $2$. A value of $4$ is not a quantum value: the toy is a signalling-free correlation table, not a model of the singlet.
+With the sign read-out $E(a,b)=-\mathrm{sgn}(a\cdot b)$ and settings among the six hexagonal directions, $|\mathrm{CHSH}|=4$, while the singlet correlation $-\cos$ gives at most $5/2$ on the same six; on the cubic directions both give $2$. $4$ is a no-signalling value, not a quantum one.
 \end{result}
 \begin{result}[\numeric\snap]\label{res:price}
-Let $\delta$ bound how far each hidden-state probability may move from the uniform $1/6$ when it depends on both settings, with no signalling. The linear-programming optimum is $S_{\max}(\delta)=\min(4,\,2+12\delta)$ for the hexagonal set (the same for $6$, $12$ or $E_8$ read-outs), so the local value is $2$ and any $\delta>0$ violates it; $2\sqrt2=\qgTsirelson$ is reached at $\delta=\qgDeltaHexTsirelson$ and $4$ at $\delta=\qgDeltaHexFull$. For the cubic set it is $\min(4,\,4/3+8\delta)$, threshold $\delta>\qgDeltaCubic$, and $2\sqrt2$ at $\delta=\qgDeltaCubicTsirelson$. The cubic threshold comes from the zero outcomes of the cubic read-out (local value $4/3$), not from ``six directions''. This prices the retro-dependence; it supplies no rule that pays it (Result~\ref{res:rule} gives a chosen one).
+Let $\delta$ bound how far each probability of the hidden origin may move from $1/6$ when it depends on both settings, with no signalling. The linear-programming optimum is $S_{\max}(\delta)=\min(4,\,2+12\delta)$ for the hexagonal set (also for $12$ or $E_8$ read-outs): any $\delta>0$ violates the local bound; $\qgTsirelson$ is reached at $\delta=\qgDeltaHexTsirelson$ and $4$ at $\delta=\qgDeltaHexFull$. For the cubic set it is $\min(4,\,4/3+8\delta)$, threshold $\delta>\qgDeltaCubic$, set by the zero outcomes of the cubic read-out, and $\qgTsirelson$ at $\delta=\qgDeltaCubicTsirelson$.
 \end{result}
 \begin{result}[\exact\snap]\label{res:rule}
-A one-parameter rule pays the price. Weight each origin direction $v$ by $\exp(\kappa AB)$, where $A,B\in\{\pm1,0\}$ are the sign read-outs of the two settings at $v$, normalised for each pair of settings (a Boltzmann weight on the agreement of the two ends of the history). For read-outs among the six hexagonal directions the best CHSH value is $2$ at $\kappa=0$, $\qgCRulekfirst$ at $\kappa=0.1$, $\qgCRulekone$ at $\kappa=1$, passes $\qgTsirelson$ at $\kappa=\qgCRulekappa$, and always lies below $\min(4,2+12\delta)$ with $\delta$ the largest probability shift the rule uses. Signalling is exactly zero, but only because the weights are even under $v\to-v$, which leaves each party's marginal uniform: a control that breaks the symmetry signals, and with the twelve read-outs (zero outcomes possible) the rule signals too. The value of $\kappa$ also depends on how the second outcome is named (Result~\ref{res:rule-label}). The weight is chosen, not derived from the path action, and above $\qgTsirelson$ the table is a no-signalling box, not a quantum model.
+A chosen rule pays the price: weight each origin direction $v$ by $\exp(\kappa AB)$, with $A,B\in\{\pm1,0\}$ the sign read-outs of the two settings at $v$, normalised for each pair of settings. On the six hexagonal directions the best CHSH value is $2$ at $\kappa=0$, $\qgCRulekfirst$ at $\kappa=0.1$, $\qgCRulekone$ at $\kappa=1$, passes $\qgTsirelson$ at $\kappa=\qgCRulekappa$, and stays below $\min(4,2+12\delta)$. Signalling is zero only because the weights are even under $v\to-v$; a control that breaks this signals, and so does the rule with the twelve read-outs. $\kappa$ also depends on how the second outcome is named (Result~\ref{res:rule-label}).
 \end{result}
 \begin{result}[\numeric\snap]\label{res:repair}
-After one forced step (a shock) in a closed timeline, the minimum number of further edits that restore closure is $1$ for every one of the $55800$ cubic shocks at $n=6$; for the hexagonal set at $n=5$ it is $1$ in $\qgCRepairone$ of $\qgCRepairtotal$ cases and $2$ in $\qgCRepairtwo$. A greedy solver with a reward $\mu$ for locally closed $3$-cycles builds them, at the cost of more edits and a wider reach, and a strong reward gives up global closure (closure rate $\qgCGreedyzero$ at $\mu=0$ against $\qgCGreedystrong$ at $\mu=1.5$, $n=6$). The reward is a choice, not derived.
+After one forced step in a closed timeline, one further edit restores closure for all $55800$ cubic shocks at $n=6$; for the hexagonal set at $n=5$ one edit suffices in $\qgCRepairone$ of $\qgCRepairtotal$ cases and two in $\qgCRepairtwo$. A greedy solver rewarded by $\mu$ for local $3$-cycles gives up global closure for a strong reward (closure rate $\qgCGreedyzero$ at $\mu=0$, $\qgCGreedystrong$ at $\mu=1.5$, $n=6$).
 \end{result}
+\textbf{The density.}\label{sec:density}\label{sec:density-limits} The clock is \emph{defined} as $1/\rho$, so a slow clock where $\rho$ is large is an input. To match the static-observer clock $\sqrt{1-r_s/r}$ one would need $\rho=(1-r_s/r)^{-1/2}$; the density of \eqref{eq:density} falls as $d^{-3}$ (as $d^{-2}$ in an earlier variant) where $1/r$ is needed, and has no horizon. The tilings supply one exact ingredient, a baseline: the density of valence-$4$ vertices per Spectre is $\rho_0=(5-\sqrt{15})/5=\qgRhoZero$, and a supertile's count deviates from $\rho_0\cdot\mathrm{area}$ by a constant times $(4-\sqrt{15})^j=\qgPisotRatio{}^j$ at level $j$ (\exact\snap). The substrate has a uniform background whose fluctuations die away geometrically, and no potential of its own.
 
-\section{Interaction Density $\rho(t)$, Gravitational Time Dilation, and Waves}\label{sec:density}
-To incorporate gravitational effects without relying on a Riemannian metric tensor $g_{\mu\nu}$, we define gravitational phenomena directly from the local interaction density $\rho(x, y, z, t)$ of the directional axis hypergraph.
-
-\subsection{Local Clock Rates and Interaction Density}
-Mass and energy concentrations correspond to localized regions of high axis-interaction density. The effective local clock rate $\tau'(t)$ relative to a macroscopic reference step $\Delta t$ is inversely proportional to the local node density profile:
-\begin{equation}
-    \tau'(t) = \frac{\Delta t}{\rho(t)}, \quad \text{where} \quad \rho(t) = 1 + \sum_{j} \frac{M_j}{1 + \|\mathbf{x} - \mathbf{x}_j\|^2}.
-\end{equation}
-In regions of intense energy density (such as near black hole horizons or dense mass distributions), $\rho(t) \gg 1$. The higher frequency of microscopic axis re-orientations causes macroscopic clock progression to slow down. High-density nodes act as inertial anchors in the retrocausal contract loop, dampening rapid state changes and holding historical interaction paths in place longer under perturbation.
-
-\subsection{What the density does and does not reproduce}\label{sec:density-limits}
-The clock rate is \emph{defined} as $1/\rho$, so a slower clock where $\rho$ is large is an input, not a result. To match the static-observer clock $\sqrt{1-r_s/r}$ the density would have to be $\rho=(1-r_s/r)^{-1/2}$. The density above falls as $d^{-2}$ at large distance $d$ (and as $d^{-3}$ for the exponent $3/2$ of Section~\ref{sec:formal}), where $1/r$ is needed, and it is finite everywhere, so it has no horizon. The two formulas for $\rho$ in this paper are different toy choices. Nothing here has been fitted to or checked against a weak-field test.
-
-The tilings supply one exact ingredient, a baseline. In the Spectre patch the density of vertices of valence $4$ per tile is $\rho_0=(5-\sqrt{15})/5=\qgRhoZero$, in $\mathbb{Z}+\mathbb{Z}(5+\sqrt{15})/10$, and the weighted count of a supertile deviates from $\rho_0\cdot\mathrm{area}$ by a constant times $(4-\sqrt{15})^j=\qgPisotRatio{}^j$ at level $j$ (Pisot decay; \exact\snap, \texttt{spectre\_density\_clock.py} in the Hat and Spectre repository). So the aperiodic substrate has a definite uniform background whose fluctuations die away geometrically, and no potential of its own: a $1/r$ profile would have to come from sources. The valence-$4$ vertices are exactly the vertices that the X-bond cycle of a Mystic passes through, two per Mystic, so $\rho_0$ is twice the Mystic frequency (Result~\ref{res:mystic}). The Chair44 notch sum instead grows ($7\cdot 2^n$), which makes it a worse baseline.
-
-\subsection{Gravitational Wave Propagation on the Timeline Grid}
-A gravitational wave is modeled as a wave of consistency contract re-adjustments, here taken as a proposal (Section~\ref{sec:staged-waves} tests it), propagating across a spatial lattice of coupled directional timelines $(x, y) \in \mathbb{Z}^2$. When a high-energy dynamic mass event (e.g., a binary inspiral) modulates the local density profile $\rho(x, y, t)$, neighboring spatial timelines must adjust their axis states to preserve global topological coherence. 
-
-The probability $P_{\text{update}}$ of a timeline node updating its orientation to match neighboring spatial flux is damped by the local density:
-\begin{equation}
-    P_{\text{update}}(x, y, t) \propto \frac{1}{\rho(x, y, t)}.
-\end{equation}
-This is meant to produce wave fronts in the directional lattice. The staged tests of Section~\ref{sec:staged} do not support the first sketch of this paragraph: with the equation of Section~\ref{sec:formal} as written waves are faster, not slower, in dense regions (Result~\ref{res:waves}), and a measurement does not send a fading ripple through a history under the flux constraint (Result~\ref{res:influence}). The aim is a discrete, background-independent mechanism for gravitational wave transport; it is not shown here.
-
-% ==============================================================================
-% NEW SECTION: MATHEMATICAL FORMALIZATION OF THE AXIS-INTERACTION MODEL
-% ==============================================================================
-
-\section{Mathematical Formalization of the Directional Axis-Interaction Model}\label{sec:formal}
-To place the qualitative sketches of directional trajectories, retrocausal contracts, and interaction density on a rigorous footing, we formulate the system as a discrete-time, multi-axis network operating over the $E_8$ root lattice and its Hopf fiber projections.
-
-\subsection{State Space and Directional Basis}
-Let the fundamental discrete directional basis be denoted by $D = \{\pm X, \pm Y, \pm Z\}$, with associated twist phases $\theta \in [0, 2\pi)$. Through the isometric embedding $\text{embed}: \mathbb{Z}[\zeta_{12}] \to E_8$ (Section~\ref{sec:embed}), each directional state maps to a specific root vector $r \in D_4^a \oplus D_4^b \subset E_8$. 
-
-A particle trajectory $\gamma$ is defined as a sequence of discrete interaction nodes indexed by local integer time steps $t \in \mathbb{N}$:
-\begin{equation}
-    \gamma = \left\{ s(t) \right\}_{t=0}^{T_max}, \quad s(t) = (r_i, \theta_i) \in E_8 \times S^1.
-\end{equation}
-Rather than evolving via a continuous Hamiltonian on a unified manifold $\mathbb{R}^{3+1}$, the system transitions via adjacency rules governed by the inner product of roots: consecutive steps satisfy $\langle s(t), s(t+1) \rangle = 2 \cos(\Delta \theta)$, respecting the root geometry of $E_8$.
-
-\subsection{Retrocausal Consistency Contracts as Global Optimization}
-To formalize the "fluid past" and retrocausal shockwave resolution without violating global conservation laws, we define a trajectory's global consistency action $\mathcal{A}[\gamma]$ over a finite interval $[0, T]$:
-\begin{equation}
-    \mathcal{A}[\gamma] = \sum_{t=1}^{T} \left[ \left\| s(t) - s(t-1) \right\|^2_{E_8} + \lambda \left( \Phi_{\text{net}}(t) - \Phi_{\text{target}} \right)^2 \right],
-\end{equation}
-where $\Phi_{\text{net}}(t) = \sum_{\tau=0}^t \text{embed}(s(\tau))$ represents the cumulative vector flux, and $\lambda$ is a Lagrange multiplier enforcing conservation.
-
-When a high-energy measurement or perturbation forces a fixed boundary state at time $t_{\text{measure}}$, such that $s(t_{\text{measure}}) = s_{\text{obs}}$, the system does not evolve purely forward. Instead, it re-minimizes $\mathcal{A}[\gamma]$ via a bidirectional relaxation operator:
-\begin{equation}
-    \frac{\delta \mathcal{A}}{\delta s(t)} = 0 \quad \forall t \in [0, T_max],
-\end{equation}
-subject to the constraints $s(0) = s_{\text{init}}$ and $s(t_{\text{measure}}) = s_{\text{obs}}$. This variational principle generates the retrocausal shockwave: past nodes $s(t < t_{\text{measure}})$ adjust cooperatively to ensure the entire history forms a globally consistent execution path.
-
-\subsection{Interaction Density and Effective Temporal Pacing}
-Gravitational phenomena and time dilation are introduced through a scalar interaction density field $\rho(\mathbf{x}, t)$, defined over the spatial coordinates of the axis hypergraph:
-\begin{equation}
-    \rho(\mathbf{x}, t) = 1 + \sum_{j} \frac{M_j}{\left( 1 + \left\| \mathbf{x} - \mathbf{x}_j(t) \right\|_2^2 \right)^{\frac{3}{2}}},
-\end{equation}
-where $M_j$ represents localized energy-momentum source terms. The local macroscopic clock rate $\Delta \tau$ governing state transitions at position $\mathbf{x}$ and time $t$ is inversely modulated by this density:
-\begin{equation}
-    \Delta \tau(\mathbf{x}, t) = \frac{\Delta t_0}{\rho(\mathbf{x}, t)},
-\end{equation}
-where $\Delta t_0$ is the background baseline tick rate. 
-
-High-density regions ($\rho \gg 1$) compress the temporal pacing, increasing the frequency of microscopic axis interactions per macroscopic epoch. In the variational consistency solver, high-density nodes acquire a higher inertial weight $w(\mathbf{x}, t) \propto \rho(\mathbf{x}, t)$, making past interaction states significantly more resistant to retrocausal reordering.
-
-\subsection{Coupled Timeline Wave Equation}
-Let $S(x, y, t)$ represent the collective directional state vector at spatial grid node $(x, y)$. The propagation of gravitational waves is modeled as a discretized wave equation governing the relaxation phase field $\psi(x, y, t) = S(x, y, t) - S_0(x, y)$ under density-weighted damping:
-\begin{equation}
-    \frac{1}{c^2 \rho(x, y, t)} \frac{\partial^2 \psi}{\partial t^2} - \nabla^2 \psi + \gamma \frac{\partial \psi}{\partial t} = \mathcal{S}_{\text{source}}(x, y, t),
-\end{equation}
-where $\nabla^2$ is the discrete Laplacian over the spatial grid neighbors, $\gamma$ is a damping coefficient, and $\mathcal{S}_{\text{source}}$ represents dynamic quadrupole mass fluctuations (such as binary inspirals). This equation couples the micro-axis orientations across adjacent spatial timelines, yielding propagating wave fronts of consistency adjustments without requiring a smooth pseudo-Riemannian metric tensor.
-
-% ==============================================================================
-% STAGED TEST OF THE DYNAMIC HALF (research/toymodel_v2)
-% ==============================================================================
+%------------------------------------------------------------------------------------------------------------------------------------
 \section{A staged test of the dynamic half}\label{sec:staged}
-Sections~\ref{sec:axes} to~\ref{sec:formal} state the dynamic picture and test parts of it with numbers copied from a companion repository. This section tests it again, in six stages, with code in this repository (\texttt{research/toymodel\_v2}; plan and one note per stage are in that folder). Every number below is recomputed by \texttt{models/paper\_numbers.py}; none is a snapshot. Several results correct statements made in the earlier sections, and those are named. As everywhere in this paper, no result is a claim about physics.
+This section tests the proposal again, in stages, with code in this repository (\texttt{research/toymodel\_v2}, one note per stage). Every number is recomputed by \texttt{paper\_numbers.py}; none is a snapshot.
 
-Two models are used. The \emph{history sum} is the action $\mathcal{A}[\gamma]$ of Section~\ref{sec:formal} taken literally on the six hexagonal directions of Result~\ref{res:hexdirs}: a timeline of $n$ letters has weight $e^{-\beta\mathcal{A}}$, a closed timeline has zero total flux, and a measurement is a fixed letter (a \emph{pin}). Its marginals are computed exactly by a transfer matrix over the last letter and the running flux, and agree with enumeration to $10^{-12}$. The \emph{chain} is a single two-valued degree of freedom, a bit, placed at the vertex of the Spectre that becomes flat in the Hat (the tile has exactly one such vertex): along a deformation parameter $\tau\in[0,1]$ from Spectre to Hat the two values of the bit are two positions of that vertex a distance $d(\tau)$ apart, with $d(1)=0$. Given a width $\sigma$, the two positions are Gaussian packets with overlap $c(\tau)=e^{-d^2/8\sigma^2}$, and at each of $\qgTTicks$ ticks the bit tunnels with an angle proportional to $c$. Both models are definitions. What is tested is what follows from them.
+Two models are used. The \emph{history sum} is the action \eqref{eq:action} taken literally on the six hexagonal directions: a timeline of $n$ letters has weight $e^{-\beta\mathcal{A}}$, a closed timeline has zero total flux, and a measurement is a fixed letter (a \emph{pin}). Its marginals are computed exactly by a transfer matrix (agreeing with enumeration to $10^{-12}$). The \emph{chain} is a bit at the one vertex of the Spectre that becomes flat in the Hat: along a deformation $\tau\in[0,1]$ from Spectre to Hat the two values of the bit are two positions of that vertex a distance $d(\tau)$ apart, $d(1)=0$; as Gaussian packets of width $\sigma$ they overlap by $c(\tau)=e^{-d^2/8\sigma^2}$, and at each of $\qgTTicks$ ticks the bit tunnels by an angle proportional to $c$. Both models are definitions.
 
-\subsection{The lift along the Spectre--Hat family, and a pairing rule}\label{sec:staged-lattice}
+\subsection{The Spectre--Hat family, and a pairing rule}\label{sec:staged-lattice}
 \begin{result}[\exact]\label{res:family}
-The tiles $\mathrm{Tile}(1,b)$ for $1\le b\le2$, which include the Spectre ($b=1$) and the Hat ($b=\sqrt3$), are one and the same walk in the lift lattice $A_2\oplus A_2$ of Result~\ref{res:embed}: every edge is an $E_8$ root for every $b$, and the tile-adjacency graph of a patch ($\qgTSeams$ shared edges at level $2$) does not depend on $b$. The deformation only rescales one $A_2$ plane against the other in the projection. At the Hat the projected vertices lie on a single hexagonal lattice, so the projection has a kernel of rank $2$; read through that lattice the long edges of the Hat have $E_8$ norm$^2$ $\qgTHatNormSq$ and are not roots. The statement of Appendix~\ref{app:tb} that the Hat, the Spectre and the Turtle share a bond graph holds for the whole family.
+The tiles $\mathrm{Tile}(1,b)$, $1\le b\le2$, including the Spectre ($b=1$) and the Hat ($b=\sqrt3$), are one and the same walk in the lift lattice: every edge is an $E_8$ root for every $b$, and the tile-adjacency graph ($\qgTSeams$ shared edges at level $2$) does not depend on $b$; the deformation only rescales one $A_2$ plane against the other. At the Hat the projected vertices lie on a single hexagonal lattice (a kernel of rank $2$), and read through that lattice its long edges have $E_8$ norm$^2$ $\qgTHatNormSq$.
 \end{result}
 \begin{result}[\exact, finite patches]\label{res:pairs}
-Let the flat vertex of a tile be pushed out of its side by $\pm h$ (the bit). If every tile of the level-$2$ patch is opened alike, $\qgTBroken$ of the $\qgTSeams$ shared edges no longer match. The flat vertex of a tile coincides either with the flat vertex of exactly one other tile, or with corners of other tiles, or with nothing. In the first case the two tiles can open as a bump and a dent: every shared edge still matches and the total area is unchanged; two bumps break two shared edges, and a tile that is not in such a pair cannot open at all. The fraction of interior tiles that are in a pair is $\qgTPairFracTwo$, $\qgTPairFracThree$ and $\qgTPairFracFour$ per cent at levels $2$, $3$ and $4$; its limit is not known. On the six pairs of the level-$2$ patch, $\qgTSeamClosed$ of the $\qgTSeamAll$ sign patterns keep every edge matched, a strict subset of the $\qgTSeamLedger$ with zero total area change.
+Push the flat vertex of a tile out of its side by $\pm h$ (the bit). Opening every tile of the level-$2$ patch alike breaks $\qgTBroken$ of the $\qgTSeams$ shared edges. A flat vertex meets the flat vertex of exactly one other tile, or corners of other tiles, or nothing. In the first case the two tiles can open as a bump and a dent, every edge still matching and the area unchanged; two bumps break two edges, and a tile not in such a pair cannot open. The fraction of interior tiles in a pair is $\qgTPairFracTwo$, $\qgTPairFracThree$, $\qgTPairFracFour$ per cent at levels $2$ to $4$. On the level-$2$ patch $\qgTSeamClosed$ of $\qgTSeamAll$ sign patterns keep every edge matched, a strict subset of the $\qgTSeamLedger$ with zero total area change.
 \end{result}
-This is a compatibility rule that the tiling supplies, in contrast to the flux constraint of $\mathcal{A}$, which cannot see the bit: an opened outline is still closed. Reading the pairing as a rule of nature is a \hypo.
+This is a compatibility rule supplied by the tiling; the flux constraint of $\mathcal{A}$ cannot see the bit, since an opened outline is still closed. Reading the pairing as a rule of nature is a \hypo.
 
 \subsection{What a fixed measurement does to a history}\label{sec:staged-history}
-\begin{result}[\exact; \negres\ for the ``shockwave'']\label{res:influence}
-Let the influence of a pin on another node be the total-variation distance between that node's distribution with and without the pin. Without the flux constraint the influence falls with distance ($\qgTInflOpenNear$ at distance $1$ and $\qgTInflOpenFar$ at distance $6$, $n=13$). With closure it does not: for $n=21$ it is $\qgTInflClosedThree$ at distance $3$ and $\qgTInflClosedEight$ at distance $8$. A fixed node acts on the whole timeline through the constraint; it does not send a disturbance that fades outwards. The ``ripple'' of Sections~\ref{sec:retro} and~\ref{sec:formal} is a property of a greedy solver, not of the action. A greedy solver reaches an admissible timeline in a fraction $\qgTGreedySuccess$ of runs and in a fraction $\qgTGreedyCollapse$ ends on a constant timeline, which has probability zero in the exact ensemble.
+\begin{result}[\exact; \negres\ for the ``ripple'']\label{res:influence}
+Let the influence of a pin on a node be the total-variation distance between that node's distribution with and without the pin. Without the flux constraint it falls with distance ($\qgTInflOpenNear$ at distance $1$, $\qgTInflOpenFar$ at $6$, $n=13$). With closure it does not ($\qgTInflClosedThree$ at distance $3$, $\qgTInflClosedEight$ at $8$, $n=21$): a pin acts on the whole timeline through the constraint. The ripple of Section~\ref{sec:formal} is a property of a greedy solver, which reaches an admissible timeline in a fraction $\qgTGreedySuccess$ of runs and in $\qgTGreedyCollapse$ ends on a constant timeline, of probability zero in the exact ensemble.
 \end{result}
 
 \subsection{Where an orientation enters}\label{sec:staged-arrow}
 \begin{result}[\exact]\label{res:audit}
-(i) $\mathcal{A}$ takes the same value on a closed timeline and on its reverse (proved; checked on all closed timelines of $3$ to $7$ steps). On open timelines it does not: $\qgTOpenAsym$ of the $\qgTOpenAll$ timelines of $5$ steps differ, because the flux $\Phi_{\mathrm{net}}$ is counted from $t=0$. For open histories the choice of that base point is an orientation, which Section~\ref{sec:formal} does not state; in the exact ensemble it shows as a difference of $\qgTBaseAsym$ between the two ends in how often neighbouring letters agree ($n=9$, $\lambda=0.5$).
-(ii) With closure, a pin at node $m$ read backwards is a pin at node $n-1-m$: the asymmetry of a pinned history is the asymmetry of its boundary data.
-(iii) The damped wave equation of Section~\ref{sec:formal}, on a ring, retraces its steps backwards only for $\gamma=0$; the energy changes by the factor $\qgTDampPlus$ for $\gamma=+0.1$ and $\qgTDampMinus$ for $\gamma=-0.1$ over the same run.
-(iv) In the chain, the tick at which a single flip occurred lies $\qgTMeanFlip$ ticks after the middle on average; reversing the order of the ticks mirrors this exactly, and equal angles remove it, with the same final state in all three cases.
-(v) Mirroring the tile changes the sign of the turn at the flat vertex and changes no cost of the chain.
-So three inputs carry an orientation, each put in by hand and each independent of the others by construction (boundary data, the sign of $\gamma$, the order of the ticks), and the handedness of the tile carries none.
+(i) $\mathcal{A}$ takes the same value on a closed timeline and on its reverse (proved; checked on all closed timelines of $3$ to $7$ steps), but not on open ones ($\qgTOpenAsym$ of $\qgTOpenAll$ of $5$ steps), because $\Phi_{\mathrm{net}}$ is counted from $t=0$: for open histories that base point is an orientation, seen as a difference of $\qgTBaseAsym$ between the two ends in how often neighbouring letters agree ($n=9$, $\lambda=0.5$). (ii) With closure, a pin at node $m$ read backwards is a pin at $n-1-m$. (iii) The wave equation \eqref{eq:wave} on a ring retraces its steps only for $\gamma=0$; the energy changes by $\qgTDampPlus$ for $\gamma=+0.1$ and $\qgTDampMinus$ for $\gamma=-0.1$. (iv) In the chain a single flip lies $\qgTMeanFlip$ ticks after the middle on average; reversing the order of the ticks mirrors this, equal angles remove it, and the final state is the same in all three cases. (v) Mirroring the tile changes the sign of the turn at the flat vertex and no cost of the chain. So three inputs carry an orientation (boundary data, the sign of $\gamma$, the order of the ticks), each put in by hand, and handedness carries none.
 \end{result}
 \begin{result}[\exact]\label{res:census}
-Call a closed hexagonal timeline \emph{oriented} if its reverse is not obtained from it by a rotation or reflection of the six directions and a shift of the starting point. There is none with fewer than $5$ steps; there are $\qgTOrientedFive$ of $\qgTClosedFive$ with $5$ steps and $\qgTOrientedEight$ of $\qgTClosedEight$ with $8$. The outline of the Spectre family is oriented in the same sense.
+Call a closed hexagonal timeline \emph{oriented} if its reverse is not obtained from it by a rotation or reflection and a shift of the start. There is none with fewer than $5$ steps; there are $\qgTOrientedFive$ of $\qgTClosedFive$ with $5$ steps and $\qgTOrientedEight$ of $\qgTClosedEight$ with $8$. The outline of the Spectre family is oriented.
 \end{result}
-Item~\ref{item:arrow} of Section~\ref{sec:open} asked for an object on which reversal is not a symmetry. Result~\ref{res:census} says such objects are the generic closed timeline. What is missing is a weight that tells a timeline from its reverse, and by Result~\ref{res:audit} the action of Section~\ref{sec:formal} is not one.
+So oriented objects are generic; what is missing is a weight that tells a timeline from its reverse, and $\mathcal{A}$ is not one.
 \begin{result}[\exact; \negres\ for a single arrow]\label{res:records}
-In the chain, an optimal reading at tick $j$ returns the value the bit had at tick $i$ with probability $\tfrac12\bigl(1+\sqrt{1-c_j^2}\,\cos\Theta_{ij}\bigr)$, with $\Theta_{ij}$ the tunnelling angle accumulated between the two ticks. Of two ticks, the one with the smaller overlap therefore holds the better record of the other. Measured as mutual information, the Spectre end holds $\qgTHeldSpectre$ bits about the other $\qgTTicks$ ticks (at least $\qgTHeldMin$ about each tick before the Hat), the last tick before the Hat holds $\qgTHeldLast$, and the Hat holds none, since the two packets coincide there. The laws continue through the Hat ($d$ odd and $c$ even about $\tau=1$) and no record crosses it. Records therefore sit at the end where the bit is frozen, while the chain as drawn runs towards the Hat: defining ``later'' as ``holds records'' and defining ``earlier'' as ``determined'' give opposite orientations, and the model does not choose.
+In the chain, an optimal reading at tick $j$ returns the bit of tick $i$ with probability $\tfrac12\bigl(1+\sqrt{1-c_j^2}\cos\Theta_{ij}\bigr)$, $\Theta_{ij}$ the tunnelling angle between the ticks, so of two ticks the one with smaller overlap holds the better record of the other. The Spectre end holds $\qgTHeldSpectre$ bits about the other $\qgTTicks$ ticks (at least $\qgTHeldMin$ about each tick before the Hat), the last tick before the Hat $\qgTHeldLast$, the Hat none. The laws continue through the Hat ($d$ odd, $c$ even about $\tau=1$) and no record crosses it. Records sit at the frozen end while the chain runs towards the Hat: ``later = holds records'' and ``earlier = determined'' give opposite orientations, and the model does not choose.
 \end{result}
-
 \begin{figure}[t]\centering
 \includegraphics[width=\linewidth]{research/toymodel_v2/figures/tm2_stage3_arrow.png}
-\caption{The orientation audit. From left: neighbour agreement along an open and a closed timeline (the base point of the flux); influence of a pin at three positions of a closed timeline; fraction of oriented closed timelines; readable and held bits along the chain continued through the Hat at $\tau=1$ (\texttt{tm2\_arrow.py}).}\label{fig:staged-arrow}
+\caption{The orientation audit. From left: neighbour agreement along open and closed timelines (the base point of the flux); influence of a pin at three positions of a closed timeline; fraction of oriented closed timelines; readable and held bits along the chain, continued through the Hat at $\tau=1$ (\texttt{tm2\_arrow.py}).}\label{fig:staged-arrow}
 \end{figure}
-
-\subsection{The bit as the sign of a letter}\label{sec:staged-directed}
-Let the letter at tick $j$ be $b_ju_j$, with $b_j=\pm1$ the bit and $u_j$ a prescribed hexagonal direction, and call a history compatible with a reference history if it ends in the same bit and its flux $\sum_jb_jw_ju_j$ differs from the reference by at most $\delta$ ($w_j=d(\tau_j)/2$). With all $u_j$ equal this is a scalar constraint.
+\label{sec:staged-directed}
+Writing the letter at tick $j$ as $b_ju_j$ ($b_j$ the bit, $u_j$ a prescribed direction) and requiring a history to keep its flux $\sum_jb_jw_ju_j$ within $\delta$ of a reference joins the two models.
 \begin{result}[\exact\ and \numeric]\label{res:directed}
-The amplitude of a history in which the flip occurred $m$ ticks earlier than in the reference falls steeply with $m$, and no constraint of this kind can raise it, since a constraint only removes histories. The vector constraint is not the scalar one renamed: at $\delta=0.4$ there are $\qgTCompatOne$, $\qgTCompatThree$ and $\qgTCompatSix$ compatible histories for axes along one, three and six directions. Where the best earlier and later histories are single flips, earlier is the less likely one for every choice of axes. Where the constraint forces compensating flips this can reverse: in $\qgTRevFwdBad$ of $\qgTRevFwdAll$ such cases for $200$ random axis sequences, and in $\qgTRevRevBad$ of $\qgTRevRevAll$ with the order of ticks reversed (\numeric, a fixed grid). The orientation is in the amplitudes; a tight constraint can override it.
+A history whose flip is $m$ ticks earlier than the reference's has an amplitude that falls steeply with $m$, and no such constraint can raise it. The vector constraint is not the scalar one renamed ($\qgTCompatOne$, $\qgTCompatThree$, $\qgTCompatSix$ compatible histories at $\delta=0.4$ for axes along one, three and six directions). Where the best earlier and later histories are single flips, earlier is less likely for every axis sequence; where compensating flips are needed this can reverse ($\qgTRevFwdBad$ of $\qgTRevFwdAll$ cases for $200$ random sequences, $\qgTRevRevBad$ of $\qgTRevRevAll$ with the ticks reversed; \numeric). The orientation is in the amplitudes; a tight constraint can override it.
 \end{result}
-If the width $\sigma$ is fixed and the separation $d$ grows with the tile under inflation, the overlap at inflation level $j$ is $c_j=c_0^{\lambda^{2j}}$ with $\lambda^2=4+\sqrt{15}=\qgLambdaSquared$, the leading eigenvalue of the substitution: $\qgTLadderZero$, $\qgTLadderOne$, $\qgTLadderTwo$ from $c_0=c(0.9)$. This is a consequence of the assumption (\hypo), not a property of the tiling.
+If $\sigma$ is fixed and $d$ grows with the tile under inflation, the overlap at level $j$ is $c_j=c_0^{\lambda^{2j}}$: $\qgTLadderZero$, $\qgTLadderOne$, $\qgTLadderTwo$ from $c_0=c(0.9)$ (\hypo: a consequence of the assumption).
 
 \subsection{A correlation rule from a two-ended history}\label{sec:staged-rule}
-Item~\ref{item:rule} of Section~\ref{sec:open} asks for a derivation of the rule of Result~\ref{res:rule}. Take an origin direction $v$, a wing of $n$ letters from $v$ to one party and from $-v$ to the other, each with weight $e^{-\beta\sum\|s(t)-s(t-1)\|^2}$ (the first term of $\mathcal{A}$), and at each end a boundary weight $e^{\mu\,\alpha\,a\cdot s}$ for the outcome $\alpha=\pm1$ of the setting $a$; $\mu\to\infty$ is the pin $s=\alpha a$. The table is $P(\alpha,\beta\,|\,a,b)=W/Z(a,b)$, with $Z(a,b)$ the sum over outcomes: the ensemble is the histories that meet both end conditions.
+Take an origin direction $v$, a wing of $n$ letters from $v$ to one party and from $-v$ to the other, each with weight $e^{-\beta\sum\|s(t)-s(t-1)\|^2}$, and at each end a weight $e^{\mu\,\alpha\,a\cdot s}$ for the outcome $\alpha=\pm1$ of setting $a$ ($\mu\to\infty$ is the pin $s=\alpha a$). The table is $P(\alpha,\beta\,|\,a,b)=W/Z(a,b)$: the ensemble of histories that meet both end conditions.
 \begin{result}[\exact]\label{res:derived}
-(a) The rule that results is not $e^{\kappa AB}$. The origin is weighted by a product $g(v,a)\,g(-v,b)$ of one factor for each setting, which $e^{\kappa AB}$ is not. For pins, with $\lambda_k=1+2e^{-\beta}\cos\frac{\pi k}{3}+2e^{-3\beta}\cos\frac{2\pi k}{3}+(-1)^ke^{-4\beta}$ and $r_k=(\lambda_k/\lambda_0)^{2n}$, settings $m\times60^\circ$ apart have
+(a) The rule is not $e^{\kappa AB}$: the origin is weighted by a product $g(v,a)\,g(-v,b)$. For pins, with $\lambda_k=1+2e^{-\beta}\cos\frac{\pi k}{3}+2e^{-3\beta}\cos\frac{2\pi k}{3}+(-1)^ke^{-4\beta}$ and $r_k=(\lambda_k/\lambda_0)^{2n}$, settings $m\times60^\circ$ apart have
 \[E(m)=-\frac{2r_1\cos(\pi m/3)+(-1)^mr_3}{1+2r_2\cos(2\pi m/3)} .\]
-(b) There is no free parameter $\kappa$. The best CHSH value on the six directions rises with the stiffness $\beta$ and falls with the wing length $n$; for $n=1$ it passes $2$ at $\beta=\qgTBetaTwo$ and $\qgTsirelson$ at $\beta=\qgTBetaTsirelson$, tends to $4$ for stiff wings, where $E\to-\mathrm{sgn}(a\cdot b)$ as in Result~\ref{res:chsh}, and for soft or long wings becomes a cosine law of visibility $2r_1<0.8$ with CHSH below $2$.
-(c) Neither party's marginal depends on the other's setting, to $10^{-14}$, for the six directions and for the twelve at multiples of $30^\circ$, because the weight is unchanged when all letters and both outcomes are inverted; there are no zero outcomes. A bias that breaks this symmetry signals (a marginal between $\qgTBiasLo$ and $\qgTBiasHi$ depending on the far setting).
-(d) The normalisation is a conditioning on both ends, and the weight $Z(a,b)$ of the histories that pass depends on both settings: its largest ratio over the far setting is $\qgTContrastTwo$ where CHSH reaches $2$ and $\qgTContrastTsirelson$ where it reaches $\qgTsirelson$. The outcomes carry no signal; the rate at which histories pass would.
-The bound of Result~\ref{res:price} holds for every table computed and is far from attained: CHSH$=2$ needs $\delta=\qgTDeltaTwo$. The shift $\delta$ of the origin's distribution falls with the wing length ($\qgTPastShiftOne$ at $n=1$, $\qgTPastShiftEight$ at $n=8$, $\beta=2$).
+(b) There is no free $\kappa$: CHSH rises with $\beta$ and falls with $n$; for $n=1$ it passes $2$ at $\beta=\qgTBetaTwo$ and $\qgTsirelson$ at $\beta=\qgTBetaTsirelson$, tends to $4$ for stiff wings ($E\to-\mathrm{sgn}(a\cdot b)$, as in Result~\ref{res:chsh}), and for soft or long wings becomes a cosine law of visibility $2r_1<0.8$. (c) No marginal depends on the far setting ($10^{-14}$, six and twelve settings), because the weight is invariant under inverting all letters and outcomes; a bias that breaks this signals (marginals $\qgTBiasLo$ to $\qgTBiasHi$). (d) The normalisation is a conditioning on both ends, and the pass weight $Z(a,b)$ depends on both settings, by a factor up to $\qgTContrastTwo$ where CHSH reaches $2$ and $\qgTContrastTsirelson$ at $\qgTsirelson$: the outcomes carry no signal, the pass rate would. The bound of Result~\ref{res:price} holds and is far from attained: CHSH $=2$ needs $\delta=\qgTDeltaTwo$.
 \end{result}
 \begin{result}[\exact]\label{res:rule-label}
-The rule of Result~\ref{res:rule} depends on how an outcome is named. Describing the second party's measurement by $-b$ with its outcome renamed is the same measurement and replaces $\kappa$ by $-\kappa$. Accordingly $E(180^\circ-\theta)\ne-E(\theta)$ for the rule: at $\kappa=0.5$, $E(60^\circ)=\qgTRuleSixty$ and $E(120^\circ)=\qgTRuleOneTwenty$. Its CHSH values are reproduced here ($\qgTRuleChshOne$ at $\kappa=1$). Result~\ref{res:rule} should be read with this convention fixed; the table of Result~\ref{res:derived} does not have the defect.
+The rule of Result~\ref{res:rule} depends on how an outcome is named: describing the second measurement by $-b$ with its outcome renamed replaces $\kappa$ by $-\kappa$, so $E(180^\circ-\theta)\ne-E(\theta)$ (at $\kappa=0.5$, $E(60^\circ)=\qgTRuleSixty$, $E(120^\circ)=\qgTRuleOneTwenty$). Its CHSH values are reproduced ($\qgTRuleChshOne$ at $\kappa=1$). The table of Result~\ref{res:derived} has no such defect.
 \end{result}
 \begin{result}[\exact; \negres\ for a quantum bound]\label{res:noquantum}
-Replace the weights of the wings by complex amplitudes (any unitary on the six letters, applied to each wing, summed over the shared origin). If each party reads the sign of $a\cdot s$ at the end of its wing, the table is a classical distribution of the two ends with local read-outs, and CHSH $\le2$. If instead the ends are pinned and the table normalised as above, a quantum walk on the six letters gives CHSH above $\qgTsirelson$ for $\qgTWalkAbove$ per cent of walk times and up to $4$. In neither case is $\qgTsirelson$ a bound. A bound would need the setting to act on the state before it is read, which this construction does not contain.
-\end{result}
-So the violation in this family rests entirely on the conditioning on both ends: with it, any sufficiently stiff shared history violates the CHSH inequality; without it, none does. That conditioning is the precise content of ``retrocausal'' in Section~\ref{sec:retro}, and its observable footprint is the pass rate of item (d).
-
-\begin{figure}[t]\centering
-\includegraphics[width=\linewidth]{research/toymodel_v2/figures/tm2_stage4_rule.png}
-\caption{The derived rule. From left: $E$ against the angle between the settings for four wings, the rule of Result~\ref{res:rule} at $\kappa=0.5$ and $-\cos$; CHSH against stiffness; CHSH against the shift $\delta$ of the origin's distribution, with the bound of Result~\ref{res:price}; the dependence of the pass weight on the far setting against wing length (\texttt{tm2\_rule.py}).}\label{fig:staged-rule}
-\end{figure}
-
-\subsection{The cost of checking, and two readings of distance}\label{sec:staged-check}
-\begin{result}[\exact]\label{res:check}
-The probabilities of the $2^{\qgTTicks}$ flip histories of the chain form a product distribution, of entropy $\qgTCheckEntropy$ bit in all; $\qgTCheckLast$ per cent of it is in the last three ticks. Deciding which history lies behind a given present costs nothing where the bit is frozen and is concentrated where it is plastic.
+With complex amplitudes on the wings (any unitary on the six letters) and each party reading the sign of $a\cdot s$ at its end, the table is a classical distribution with local read-outs and CHSH $\le2$. With pinned ends and the normalisation above, a quantum walk on the letters exceeds $\qgTsirelson$ for $\qgTWalkAbove$ per cent of walk times, up to $4$. In neither case is $\qgTsirelson$ a bound: that would need the setting to act on the state before it is read.
 \end{result}
 \begin{result}[\exact]\label{res:space}
-Take the two-wing history of Result~\ref{res:derived} with hard pins and a wing of $n$ letters on each side. (a) Only the axis of a setting reaches the origin: summed over the outcome, the odd modes cancel, so the distribution of the origin letter is proportional to $(1+2q\cos\frac{2\pi(v-a)}{3})(1+2q\cos\frac{2\pi(v-b)}{3})$ with $q=(\lambda_2/\lambda_0)^n$, and the largest shift of the past, at equal axes, is $\delta=q(2+q)/(3(1+2q^2))$ for every stiffness. (b) Three quantities decay with $n$ at three rates per wing step: the shift of the past, the setting dependence of the pass rate, and the correlation between the two ends. At $\beta=2$ the rates are $\qgTRatePast$, $\qgTRateContrast$ and $\qgTRateCorr$, and the order (contrast fastest, correlation slowest) holds for every $\beta$ from $0.05$ to $8$. (c) The bits of the check that land on the shared past fall from $\qgTPastBitsOne$ at $n=1$ to $\qgTPastBitsFour$ at $n=4$ and $\qgTPastBitsEight$ at $n=8$; the end of each wing is always fully checked. (d) With long wings the ends can be strongly correlated while the past is almost unrevised and CHSH stays below $2$: at $\beta=3$, $n=16$, $\delta=\qgTLongDelta$, $|E(0)|=\qgTLongE$, CHSH $=\qgTLongChsh$. A violation needs both stiffness and short wings. Here $n$ counts letters of a history; nothing in it is a distance in space.
+With pins, (a) only the axis of a setting reaches the origin (summed over outcomes the odd modes cancel): the origin's distribution is proportional to $(1+2q\cos\frac{2\pi(v-a)}{3})(1+2q\cos\frac{2\pi(v-b)}{3})$, $q=(\lambda_2/\lambda_0)^n$, and the largest shift of the past is $\delta=q(2+q)/(3(1+2q^2))$ for every $\beta$. (b) The shift of the past, the setting dependence of the pass rate and the end-to-end correlation decay with $n$ at three rates ($\qgTRatePast$, $\qgTRateContrast$, $\qgTRateCorr$ per step at $\beta=2$), in the same order for every $\beta$ from $0.05$ to $8$. (c) The bits of the check that land on the shared past fall from $\qgTPastBitsOne$ at $n=1$ to $\qgTPastBitsEight$ at $n=8$; each end is always fully checked. (d) Long wings can have correlated ends, an almost unrevised past and CHSH below $2$ ($\beta=3$, $n=16$: $\delta=\qgTLongDelta$, $|E(0)|=\qgTLongE$, CHSH $\qgTLongChsh$).
 \end{result}
-The companion model has a clock factor $\sqrt{1-r_s/r}$ (Section~\ref{sec:density-limits}). Two identifications of the overlap with it can be written down, and they are exchanged by $c^2\leftrightarrow1-c^2$ (\exact, as algebra): $c^2=r_s/r$, which puts the plastic end at $r=r_s$ and the frozen end far away; or $c^2=1-r_s/r$, which puts the frozen end at $r=r_s$, the Hat at infinity, and gives $d^2=-4\sigma^2\ln(1-r_s/r)\to4\sigma^2r_s/r$. The second agrees with the statement of Section~\ref{sec:formal} that dense regions resist reordering; neither is derived (\hypo). Section~\ref{sec:staged-waves} shows what each needs.
+So the violation rests entirely on conditioning on both ends, which is the precise content of ``retrocausal'' here, and it needs stiff and short histories; its observable footprint is the pass rate of item (d).
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{research/toymodel_v2/figures/tm2_stage4_rule.png}
+\caption{The derived rule. From left: $E$ against the angle between the settings for four wings, the rule of Result~\ref{res:rule} at $\kappa=0.5$ and $-\cos$; CHSH against stiffness; CHSH against the shift $\delta$ of the past, with the bound of Result~\ref{res:price}; dependence of the pass weight on the far setting against wing length (\texttt{tm2\_rule.py}).}\label{fig:staged-rule}
+\end{figure}
+\label{sec:staged-check}
+\begin{result}[\exact]\label{res:check}
+The $2^{\qgTTicks}$ flip histories of the chain form a product distribution of entropy $\qgTCheckEntropy$ bit, $\qgTCheckLast$ per cent of it in the last three ticks: deciding which history lies behind a present costs nothing where the bit is frozen.
+\end{result}
 
 \subsection{The sheet as a wave field: snaps and the clock}\label{sec:staged-waves}
-The wave equation of Section~\ref{sec:formal} is taken with $\gamma=0$ on a periodic lattice in one, two and three dimensions, integrated by the leapfrog scheme. A flip of the bit changes the area of its tile and is modelled as a step in the source at one site (a \emph{snap}); the bump-and-dent pair of Result~\ref{res:pairs} is a source $+q$ next to $-q$.
-\begin{result}[\exact; \negres\ for ``phase lag'']\label{res:waves}
-The scheme conserves a discrete energy to $10^{-12}$, retraces its steps backwards to $10^{-10}$, and is exactly causal: after $n$ steps nothing has changed beyond lattice distance $n$. The speed of the equation as written is $c\sqrt{\rho}$: waves are \emph{faster} where the density is higher (group speed $\qgTSpeedOne$ for $\rho=1$ and $\qgTSpeedDense$ for $\rho=4$ at wavenumber $0.5$, as the discrete dispersion relation gives), and a pulse that crosses a dense slab comes out ahead of one that does not. Section~\ref{sec:density} says that dense regions induce phase lag; with this equation and the clock $1/\rho$, dense regions have slow clocks and fast waves. Reflection at a density step agrees with the discrete theory (a fraction $\qgTStepRefl$ of the energy for $\rho$ from $1$ to $4$).
+Equation \eqref{eq:wave} is taken with $\gamma=0$ on a periodic lattice in one, two and three dimensions (leapfrog). A flip changes the area of its tile and is modelled as a step in the source at one site (a \emph{snap}); a bump-and-dent pair is $+q$ next to $-q$.
+\begin{result}[\exact; \negres\ for ``lag'']\label{res:waves}
+The scheme conserves a discrete energy to $10^{-12}$, retraces backwards to $10^{-10}$ and is exactly causal. Its speed is $c\sqrt\rho$: waves are \emph{faster} where the density is higher (group speed $\qgTSpeedOne$ at $\rho=1$, $\qgTSpeedDense$ at $\rho=4$), so with the clock $1/\rho$ dense regions have slow clocks and fast waves. Reflection at a density step agrees with the discrete theory ($\qgTStepRefl$ of the energy for $\rho$ from $1$ to $4$).
 \end{result}
 \begin{result}[\numeric]\label{res:snap}
-In three dimensions a snap sends out a front whose height falls as $r^{-\qgTFrontSlope}$ and leaves behind it the static field of a point source, equal to the lattice Green function within $0.5$ per cent at $r=2$ to $8$. The energy, counting the work of the source, is conserved, and the run retraces: the radiation is reversible, and only the damping would make it one-way (Result~\ref{res:audit}). A pair snap has no net source: its settled field is a fraction $\qgTPairNear$ of a single snap's at $r=2$ and $\qgTPairFar$ at $r=8$. The static field of a point source is linear in one dimension, logarithmic in two and $1/r$ in three (checked on the lattice to $2$ per cent): a $1/r$ profile needs three dimensions.
+In three dimensions a snap sends out a front whose height falls as $r^{-\qgTFrontSlope}$ and leaves the static field of a point source behind it (the lattice Green function to $0.5$ per cent, $r=2$ to $8$); the run is reversible. A pair snap is a dipole (a fraction $\qgTPairNear$ of a single snap's field at $r=2$, $\qgTPairFar$ at $r=8$). The static field is linear in one dimension, logarithmic in two and $1/r$ in three.
 \end{result}
 \begin{result}[\exact, as algebra of a definition]\label{res:clock}
-Suppose the squared separation $d^2$ of the bit's two states is linear in the static field of a source (\hypo). On a two-dimensional sheet, with $d^2$ proportional to the drop of the field from a radius $r_s$, $d^2=4\sigma^2\ln(r/r_s)$ and $c^2=r_s/r$: the readable fraction $\sqrt{1-c^2}$ of the bit equals the clock factor $\sqrt{1-r_s/r}$ exactly, the Hat is at $r_s$, and the dense region is the plastic one. On a three-dimensional sheet, with $d^2$ proportional to the field, $d^2=4\sigma^2r_s/r$ and $c^2=e^{-r_s/r}$: the overlap equals the clock factor to first order in $r_s/r$ (it is $\qgTRuleIErr$ per cent larger at $r=2r_s$), the dense region is the frozen one, and there is no horizon. If instead $d$ itself is linear in the field, $1-c^2$ falls as $1/r^2$, as the densities of Section~\ref{sec:density-limits} do.
+Suppose $d^2$ is linear in the static field of a source (\hypo). On a two-dimensional sheet, with $d^2$ proportional to the drop of the field from $r_s$, $c^2=r_s/r$ and the readable fraction $\sqrt{1-c^2}$ of the bit equals the clock factor $\sqrt{1-r_s/r}$ exactly; the Hat is at $r_s$ and the dense region is plastic. On a three-dimensional sheet, with $d^2$ proportional to the field, $c^2=e^{-r_s/r}$: the overlap equals the clock factor to first order ($\qgTRuleIErr$ per cent larger at $2r_s$), the dense region is frozen, and there is no horizon. If $d$ itself follows the field, $1-c^2$ falls as $1/r^2$.
 \end{result}
-Item~\ref{item:density} of Section~\ref{sec:open} asks for $1/r$ and a horizon. Under the hypothesis of Result~\ref{res:clock} the two come apart: an exact clock with a horizon on a two-dimensional sheet, without $1/r$; or $1/r$ and a first-order clock on a three-dimensional sheet, without a horizon. The tile and its lift are two-dimensional. Why $d^2$ rather than $d$ should follow the field is not explained, the snaps are prescribed and not triggered by the field, and the sheet is a cubic lattice, not the tiling.
-
+So $1/r$ and a horizon come apart: an exact clock with a horizon on a two-dimensional sheet without $1/r$, or $1/r$ and a first-order clock on a three-dimensional sheet without a horizon. Why $d^2$ should follow the field is not explained, the snaps do not respond to the field, and the sheet is a cubic lattice, not the tiling.
 \begin{figure}[t]\centering
 \includegraphics[width=\linewidth]{research/toymodel_v2/figures/tm2_stage5_waves.png}
-\caption{From left: a pulse after crossing a slab of four times the density, against one that did not; the settled field of a snap and of a pair snap in three dimensions; the clock factor against the overlap under the three coupling rules of Result~\ref{res:clock}; the tunnelling rate per tick and per coordinate time under the two readings (\texttt{tm2\_waves.py}).}\label{fig:staged-waves}
+\caption{From left: a pulse after crossing a slab of four times the density, against one that did not; the settled field of a snap and of a pair snap in three dimensions; the clock factor against the overlap under the coupling rules of Result~\ref{res:clock}; tunnelling rate per tick and per coordinate time (\texttt{tm2\_waves.py}).}\label{fig:staged-waves}
 \end{figure}
 
-\subsection{What this changes in the earlier sections}\label{sec:staged-changes}
-\begin{itemize}[leftmargin=1.6em,itemsep=2pt]
-\item Sections~\ref{sec:retro} and~\ref{sec:formal}: a measurement does not send a ripple outwards through the history; with the flux constraint its influence is global (Result~\ref{res:influence}).
-\item Section~\ref{sec:formal}: the action has no arrow on closed histories and, on open ones, has the arrow of its base point (Result~\ref{res:audit}).
-\item Result~\ref{res:rule}: a sign convention is hidden in $\kappa$ (Result~\ref{res:rule-label}); a rule with no free parameter follows from a two-ended weight, it is not the $e^{\kappa AB}$ rule, and it brings no quantum bound (Results~\ref{res:derived} and~\ref{res:noquantum}).
-\item Section~\ref{sec:density} and the wave equation of Section~\ref{sec:formal}: as written, waves are faster in dense regions, not slower (Result~\ref{res:waves}).
-\item Item~\ref{item:density} of Section~\ref{sec:open}: $1/r$ and a horizon come apart under the one coupling tried (Result~\ref{res:clock}).
-\item Result~\ref{res:space}: how the check weakens with the length of the history; a violation needs short wings as well as stiffness.
-\item Item~\ref{item:arrow} of Section~\ref{sec:open}: oriented objects are generic (Result~\ref{res:census}); the open question is a weight that prefers one orientation, and where records can sit (Result~\ref{res:records}).
-\end{itemize}
+\subsection{What this changes in the proposal}\label{sec:staged-changes}
+A measurement does not send a fading ripple through a history; with the flux constraint its influence is global (Result~\ref{res:influence}). The action has no arrow on closed histories and, on open ones, the arrow of its base point (Result~\ref{res:audit}). The rule $e^{\kappa AB}$ hides a sign convention; a parameter-free rule follows from a two-ended weight but brings no quantum bound (Results~\ref{res:derived} to~\ref{res:space}). As written, \eqref{eq:wave} makes waves faster in dense regions, not slower (Result~\ref{res:waves}).
 
-% ==============================================================================
-% CONCLUSION SECTION: SYNTHESIS AND FUTURE DIRECTIONS
-% ==============================================================================
+%------------------------------------------------------------------------------------------------------------------------------------
+\section{Open problems and tests that could fail}\label{sec:open}
+Each item says what would count as an answer.
+\begin{enumerate}[leftmargin=1.6em,itemsep=1pt]
+\item \textbf{A hexagonal block map.} A block-averaging map on hexagonal blocks of $A_2+A_2$ and the constrained first-step energy on it, so that $60^\circ$, $90^\circ$ and $120^\circ$ corners get constants of their own; the unconstrained action exists (Result~\ref{res:wilson-hex}).
+\item \textbf{Which placement.} Whether the blocks of the Wilson programme correspond to the aligned placement, to the average, or to neither; and Section~\ref{sec:wilson} at another block size with the finite-size error controlled. Whether $30^\circ$ contours are admissible there is a question for its authors.
+\item \textbf{Tip-to-root rule.} A rule, not a fit, that assigns Chair44 tips to $E_8$ roots and preserves a stated invariant; and a Chair44 substitution compatible with a map of lattices.
+\item \textbf{Both number fields.} A lattice with an Eisenstein and a $\mathbb{Z}[\varphi]$ structure in which $\lambda$ is a unit or an automorphism (Section~\ref{sec:inflation}).
+\item \textbf{Sources and proofs.} Reading Elser--Sloane, Sadoc--Mosseri and Ch\'eritat--Ma; proving the window invariance, the class-count formula and the shell law for all $n$; checking that the other choice of $R_\omega$ gives the mirror image.
+\item\label{item:arrow} \textbf{An arrow of time.} A weight on histories that tells a timeline from its reverse and is not put in by hand. Oriented closed timelines are generic (Result~\ref{res:census}), and every orientation in the model is an input (Result~\ref{res:audit}).
+\item\label{item:rule} \textbf{A quantum bound.} A read-out in which the setting acts on the state before it is read, inside a two-ended history, and a reason for the conditioning on both ends (Results~\ref{res:derived} and~\ref{res:noquantum}); a replacement for the copy contract (Result~\ref{res:copy}).
+\item\label{item:density} \textbf{$1/r$ and a horizon.} A rule for the clock from the tiling and its sources that gives both; under the one coupling tried they come apart (Result~\ref{res:clock}).
+\end{enumerate}
 
-\section{Conclusion and Future Directions}
-This work has explored the structural intersections between aperiodic monotiles (the Spectre), discrete root lattices ($E_8$), Hopf fibrations, and abelian Wilson-loop probes, alongside a complementary dynamical framework based on directional axis interactions. 
+%------------------------------------------------------------------------------------------------------------------------------------
+\section{Conclusion}
+The static half gives exact structure and exact negatives: $25$ inscribed $24$-cells and fibre-preserving windows in $E_8$ (Results~\ref{res:cells} to~\ref{res:vor}), an $E_6\times A_2$ description by fibres (Result~\ref{res:e6}), an isometric embedding of the Spectre lift lattice in which every edge is a root, for the whole Spectre--Hat family (Results~\ref{res:embed} and~\ref{res:family}); an inflation that does not extend and a different number field (Results~\ref{res:inflation} and~\ref{res:field}); a Chair44 count that matches in shape only (Result~\ref{res:chair-neg}); and a Wilson-loop probe dominated by placement (Result~\ref{res:wl-place}). None of these structures carries an arrow of time; the Spectre has a handedness, not an order.
 
-The explicit computations documented here provide exact enumerations and geometric identities—such as the 25 inscribed 24-cells within the 600-cell (Result 1), the Voronoi window invariance over fibre rotations (Result 4), the explicit isometric embedding of the Spectre lift lattice into $E_8$ (Result 6), and the triality-based decomposition into $E_6 \times A_2$ (Result 5). Simultaneously, they record significant negative constraints: the Spectre inflation does not extend to an $E_8$ automorphism (Result 8), the Chair44 solid shares numerical shapes but not algebraic structures with equatorial $E_8$ roots (Result 11), and abelian Wilson-loop probes reveal high sensitivity to grid placement and geometric corner definitions.
-
-Crucially, as emphasized throughout this investigation, none of the static combinatorial structures or finite lattice computations exhibited an intrinsic arrow of time. The companion computations make this more precise: the Spectre outline is chiral and has a handedness theorem, but chirality is not order, since flux closure is symmetric under reversal; the line sums and the Chair44 drift are the same traversed backwards. To bridge this gap we sketched a dynamic extension—discrete directional axes, entanglement as shared axis fusion resolved through retrocausal consistency contracts, and a clock rate defined from a local interaction density $\rho(t)$. Testing the sketch against the lattice results gave four statements. The six directions in $E_8$ are hexagonal, not cubic. The copy contract signals, so it does not remove action at a distance. The retro-dependence needed for a Bell violation can be priced ($\min(4,2+12\delta)$ for the hexagonal set, threshold $\delta>1/12$ for the cubic one, the latter set by the read-out's zero outcomes) a chosen one-parameter rule pays it on zero-free read-outs, but none is derived. The density gives a clock by definition, with the wrong fall-off and no horizon, on top of an exact tiling baseline $\rho_0$, which is twice the frequency of the Mystic tile (Result~\ref{res:mystic}).
-
-These dynamic extensions remain working hypotheses rather than established derivations. Future progress depends on resolving several open problems: constructing a true hexagonal action and block-averaging map for the $A_2 \oplus A_2$ lift, identifying number fields that simultaneously capture Eisenstein and icosahedral structures, and formalizing the topological self-consistency conditions for retrocausal shockwaves. By combining exact computational geometry with bottom-up operational principles, this exploratory path seeks to determine whether a consistent, background-independent physics can emerge from discrete geometric substrates.
+The dynamic proposal, tested, says where its claims stand. The directions in $E_8$ are hexagonal; the copy contract signals; a Bell violation costs a settings-dependence of the shared past, and a history conditioned on both ends pays it with no free parameter, but no quantum bound follows and the pass rate depends on both settings. A measurement acts on a history globally, not as a ripple. Every orientation in the model is put in by hand, and records sit at the opposite end from the one the flow runs to. The wave equation makes dense regions fast, and $1/r$ and a horizon do not come together. These are working hypotheses tested as toys, not derivations; the open problems of Section~\ref{sec:open} say what would change that.
 
 \appendix
 \section{Reproduction}\label{app:repro}
+Repositories: the main repository \url{https://github.com/brentharts/spectre-monotile-py}; the fork of Matshaba's repository \cite{matshaba2026}, \url{https://github.com/brentharts/Quantum-Gravity-Dynamics}; the Hat and Spectre repository \url{https://github.com/brentharts/spectre}; and CICY, \url{https://github.com/brentharts/CICY}.
 
-Main repository \url{https://github.com/brentharts/spectre-monotile-py}
-\newline
-Fork of the repository of Romeo Matshaba \cite{matshaba2026}: \url{https://github.com/brentharts/Quantum-Gravity-Dynamics}
-\newline
-The Hat and Spectre Monotile \url{https://github.com/brentharts/spectre}
-\newline
-Exact methods for string theory and QFT (CICY) \url{https://github.com/brentharts/CICY}
+All commands run from the root of the main repository with \texttt{numpy}, \texttt{scipy}, \texttt{sympy} and \texttt{matplotlib}. Each module of Table~\ref{tab:summary} has a self test with the number of checks given there: \texttt{python3 models/X.py --tests-only} for the modules of Sections~\ref{sec:e8} to~\ref{sec:wilson} and Appendix~\ref{app:tb}, and \texttt{python3 research/toymodel\_v2/X.py --tests-only} for those of Section~\ref{sec:staged}, which also use \texttt{spectre\_hat\_quantum\_bit\_model.py} and \texttt{spectre\_hat\_backward\_snap\_model.py} in the root. \texttt{wilson\_corner\_locality} needs \texttt{WILSON\_RG\_DIR} to point at the Wilson-loop repository. \texttt{make quantgrav} writes the numbers and builds this document.
 
+\textbf{Numbers marked $\dagger$.} Those of Section~\ref{sec:wilson} were copied as printed strings into \texttt{models/data/wilson\_snapshot.json} from the Wilson-loop repository at commit 52a3972 (7 and 8 November 2026); recomputing them is \texttt{make test} there (about $10$ minutes). Those of Sections~\ref{sec:companion} and~\ref{sec:dynamic-tests} are in \texttt{models/data/companion\_snapshot.json} with the commit of each source, from the self tests of the Hat and Spectre repository (\texttt{--tests}) and the Quantum-Gravity-Dynamics fork (\texttt{pytest tests/test\_directional\_hex*.py}). Closed forms ($\log_23$, $2\sqrt2$, the $\delta$ thresholds, $\rho_0$, $4-\sqrt{15}$) are computed by \texttt{paper\_numbers.py}. A mismatch with a snapshot is a reason to doubt this paper, not its source.
 
-All commands are run from the root of the main repository, with \texttt{numpy}, \texttt{scipy}, \texttt{sympy} and \texttt{matplotlib}; \texttt{latexmk} and \texttt{pdflatex} are needed only for the paper. Each module has a self test:
-\begin{center}\footnotesize
-\begin{tabular}{@{}lrl@{}}
-\toprule
-Module & Checks & Section \\ \midrule
-\texttt{\_tb} & 22 & App.~\ref{app:tb} \\
-\texttt{twist\_hopping} & 29 & App.~\ref{app:tb} \\
-\texttt{chair\_fibers} & 10 & Sec.~\ref{sec:intro}, App.~\ref{app:tb} \\
-\texttt{hopf\_shells} & 33 & \ref{sec:cells}, \ref{sec:shells} \\
-\texttt{icosian\_e8} & 17 & \ref{sec:bg-e8} \\
-\texttt{e8\_shells} & 45 & \ref{sec:shells} \\
-\texttt{fibre\_window} & 11 & \ref{sec:windows} \\
-\texttt{voronoi\_window} & 10 & \ref{sec:windows} \\
-\texttt{e6\_fibres} & 25 & \ref{sec:e6} \\
-\texttt{spectre\_in\_e8} & 13 & \ref{sec:tiles} \\
-\texttt{chair\_e8\_192} & 11 & \ref{sec:chair} \\
-\texttt{wilson\_corner\_locality} & 9 & \ref{sec:probe-limits} \\
-\texttt{paper\_numbers} & 35 & all \\ \bottomrule
-\end{tabular}\end{center}
-The counts are those of the run that accompanied this draft, $270$ checks in all, with no failure. For a module \texttt{X}: \texttt{python3 models/X.py --tests-only}. The module \texttt{wilson\_corner\_locality} imports the operators of the Wilson-loop repository and needs
-\texttt{WILSON\_RG\_DIR} to point at it. The numbers of the paper are written by \texttt{make numbers} (about $30$ seconds), and \texttt{make quantgrav} builds this document.
+\section{Tight-binding, twist hopping and fibres on the Spectre family}\label{app:tb}
+These earliest models of the line do not use $E_8$ and see no direction along an edge.
 
-\textbf{Companion repositories.} The checks of Sections~\ref{sec:hexdirs}, \ref{sec:retro-tests}, \ref{sec:density-limits} and~\ref{sec:companion} are run in the repositories named there, not here:
-\begin{center}\footnotesize
-\begin{tabular}{@{}llr@{}}
-\toprule
-Module & Repository & Checks \\ \midrule
-\texttt{chair44\_polarisation} & Hat and Spectre & 14 \\
-\texttt{spectre\_outline\_arrow} & Hat and Spectre & 9 \\
-\texttt{spectre\_density\_clock} & Hat and Spectre & 6 \\
-\texttt{spectre\_wilson} (about $16$ s) & Hat and Spectre & 21 \\
-\texttt{spectre\_mystic\_xbond} (about $18$ s) & Hat and Spectre & 15 \\
-\texttt{chair44\_notch\_axis} & Hat and Spectre & 11 \\
-\texttt{spectre\_line\_sums} (about $47$ s) & Hat and Spectre & --- \\
-Ollivier--Ricci, Regge, diffraction, shear fits (pull request 17) & Hat and Spectre & recorded runs, no self-tests \\
-\texttt{hex\_directions}, \texttt{hex\_e8}, \texttt{hex\_contract} & Quantum-Gravity-Dynamics & $17+6+9$ \\
-\texttt{retro\_rule} & Quantum-Gravity-Dynamics & $7$ \\ \bottomrule
-\end{tabular}\end{center}
-\textbf{The staged test.} The modules of Section~\ref{sec:staged} are in \texttt{research/toymodel\_v2} and are run as \texttt{python3 research/toymodel\_v2/X.py --tests-only}: \texttt{core} ($7$ checks), \texttt{tm2\_lattice} ($9$), \texttt{tm2\_history\_sum} ($8$), \texttt{tm2\_directed} ($9$), \texttt{tm2\_arrow} ($11$), \texttt{tm2\_rule} ($11$), \texttt{tm2\_waves} ($9$); about $50$ seconds in all. The chain is \texttt{spectre\_hat\_quantum\_bit\_model.py} and \texttt{spectre\_hat\_backward\_snap\_model.py} in the root of the repository. They are not counted in the $270$ above; their numbers in the text are recomputed by \texttt{paper\_numbers}.
+\textbf{Tight-binding (\texttt{\_tb}).} A level-$3$ Spectre patch has $3734$ sites and $4292$ bonds. Hat, Spectre and Turtle have the same bond graph, so with unit hopping their spectra coincide; the spectrum is symmetric about $0$ (bipartite) and $\sum E^2=\sum H_{ij}^2$ (\exact). For unit hopping $E\in[-2.434,2.434]$ and the mean $N\cdot\mathrm{IPR}$ is $14.7$; with hopping $1/\text{length}$ Hat has $E\in[-2.133,2.133]$ and $84.4$, Turtle $[-1.965,1.965]$ and $58.7$ (\numeric, finite patches, no scaling law).
 
-Each is run with \texttt{--tests} (Hat and Spectre) or \texttt{python3 -m pytest tests/test\_directional\_hex*.py} (Quantum-Gravity-Dynamics); they are not counted in the $270$ above.
+\textbf{Twist hopping (\texttt{twist\_hopping}).} A bond is a B\'ezier edge whose length depends on the twist of its handles. The twists under which copies of a tile still tile the plane are exactly two numbers, $\alpha$ at even and $\beta$ at odd vertices (\exact, levels $1$ to $3$); all edges then have one length $\ell(\alpha,\beta)\ge1$, and with hopping $t_0/\text{length}$ the spectrum is the unit-hopping spectrum divided by $\ell$ (to $10^{-13}$).
 
-\textbf{Provenance of the numbers marked $\dagger$.} They were copied, as printed strings, into \texttt{models/data/wilson\_snapshot.json} from the output of \texttt{numerics/corner\_locality} and \texttt{numerics/bridge\_figs} of the Wilson-loop repository at commit 52a3972 (run on 7 and 8 November 2026).
-They are not recomputed here. Recomputing them is \texttt{make test} in that repository (about $10$ minutes); a mismatch with the snapshot is a reason to doubt this paper, not that repository.
-The numbers of Sections~\ref{sec:hexdirs} to~\ref{sec:density-limits} and~\ref{sec:companion} are in \texttt{models/data/companion\_snapshot.json}, copied as printed strings from the ledgers and self tests of the Hat and Spectre and Quantum-Gravity-Dynamics repositories; the commit of each is recorded in that file. The closed forms ($\log_2 3$, $2\sqrt2$, the $\delta$ thresholds, $\rho_0$, $4-\sqrt{15}$) are computed by \texttt{paper\_numbers.py}.
-
-\section{Tight-binding and twist-hopping on the Spectre family}\label{app:tb}
-These three models are the earliest in this line, and they do not use $E_8$. They are included because the figures of the Introduction come from them.
-
-\textbf{Tight-binding (\texttt{\_tb}).} A level-$3$ Spectre patch has $3734$ sites and $4292$ bonds. The Hat, Spectre and Turtle tilings of the Spectre family have the same bond graph, so with unit hopping their spectra coincide (\exact); the spectrum is symmetric about $0$ because the
-graph is bipartite, and $\sum E^2=\sum H_{ij}^2$ (\exact). For unit hopping, $E\in[-2.434,2.434]$ and the mean of $N\cdot\mathrm{IPR}$ is $14.7$; with hopping $1/\text{length}$ the three tilings differ: Hat has $E\in[-2.133,2.133]$ and mean $N\cdot\mathrm{IPR}=84.4$, Turtle $[-1.965,1.965]$ and $58.7$ (\numeric). These describe
-three finite patches with a boundary; they give no scaling law.
-
-\textbf{Twist hopping (\texttt{twist\_hopping}).} Here a bond is a B\'ezier edge whose length depends on the curve strength and on the twist of its two handles. Twisting does not change the bond graph, so with unit hopping the spectrum does not depend on any twist (\exact).
-The twists under which copies of one tile still tile the plane are exactly two numbers, $\alpha$ at the even vertices and $\beta$ at the odd ones (\exact, levels $1$ to $3$). On such a patch all $14$ edges have one length $\ell(\alpha,\beta)\ge1$, and with hopping $t_0/\text{length}$ the spectrum is the unit-hopping
-spectrum divided by $\ell$ (tested to $10^{-13}$): twisting a tiling in the only way it can be twisted gives a rescaling and nothing else. The arc length of a B\'ezier edge does not change when the edge is reversed, so these models see no direction along an edge, in line with the remark in the Introduction.
-The rule $t=t_0/\text{length}$ is a choice and says nothing about any real material.
-
-\textbf{Fibres to the Chair44 (\texttt{chair\_fibers}).} The fibre of Figures~\ref{fig:intro-scene} and~\ref{fig:intro-twist} is the cubic B\'ezier with control points $X$, $X+s_0u$, $T+s_1n$, $T$, with $X$ a base point of the tile, $u$ the direction of its handle, $T$ a pyramid tip and $n$ the outward normal of its panel.
-With $D=T-X$, its energy $\int_0^1|B''|^2\,dt$ is a convex quadratic in the speeds $s_0,s_1\ge0$ (\exact, derived with SymPy and checked against quadrature). For a tip on an up-facing panel the energy of the best fibre is $12|D|^2-9D_z^2-9\max(0,\cdot)^2$ with a plateau where the vertex points away from the tip, and
-$E_{\min}=3|D|^2$ (\exact). The pairing of the $42$ bases with the tips by least total energy (total $490.0$ for $a=b=1$, $k=0.5$) is a rule and the height of the sheet is a free choice (\numeric); this model does not test any thesis about the Chair44.
+\textbf{Fibres to the Chair44 (\texttt{chair\_fibers}).} A Spectre tile above the Chair44 is joined to its pyramid tips by cubic B\'ezier fibres $X$, $X+s_0u$, $T+s_1n$, $T$ ($X$ a base point, $u$ its handle direction, $T$ a tip, $n$ its panel normal). With $D=T-X$ the energy $\int_0^1|B''|^2dt$ is a convex quadratic in $s_0,s_1\ge0$, and the best fibre has energy $12|D|^2-9D_z^2-9\max(0,|D_h|\cos(\text{twist}+\varphi_0-\text{bearing}))^2$, a single minimum when the vertex points at its tip and a plateau when it points away, with $E_{\min}=3|D|^2$ (\exact, SymPy and quadrature). The least-energy pairing of the $42$ bases with tips (total $490.0$) is a rule and the height of the sheet a free choice. The fibre energy is unchanged if the curve is traversed backwards.
 
 \bibliographystyle{plain}
 \bibliography{quantgrav}
