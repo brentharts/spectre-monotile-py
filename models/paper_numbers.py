@@ -58,6 +58,7 @@ def toymodel_v3_numbers():
             sys.path.insert(0, d)
     import core
     import t3_area as va
+    import t3_chair_metric as vm
     import t3_chair_handedness as vc
     import t3_escape as ve
     import t3_optics as vo
@@ -83,6 +84,21 @@ def toymodel_v3_numbers():
     A = [v / (1.0 / r - 1.0 / 28.0) for r, v in zip(radii, h)]
     put("ChairA", "%.2f" % np.mean(A), "t3_escape.chair44_rings: mean of h (1/r - 1/L)^-1, r = 5..18")
     put("ChairFlat", "%.0f" % (100.0 * (max(A) / min(A) - 1.0)), "same: spread max/min - 1, percent")
+    c = vm.by_class(vm.hop_metric(6))
+    put("HopAxis", "%.2f" % np.mean(c["axis"]), "t3_chair_metric: hop count / r on the cube axes, level 6 bulk, r = 16..26")
+    put("HopFace", "%.2f" % np.mean(c["face"]), "t3_chair_metric: hop count / r on the face diagonals")
+    put("HopBody", "%.2f" % np.mean(c["body"]), "t3_chair_metric: hop count / r on the body diagonals")
+    put("HopSpread", "%.2f" % vm.spread([np.mean(v) for v in c.values()]), "t3_chair_metric: spread (max - min) / mean of the hop count over the three classes")
+    S, M = vm.relaxed_tensor(6, 30.0)
+    ev = np.linalg.eigvalsh(S)
+    m_, e_ = ("%.0e" % ((ev.max() - ev.min()) / ev.mean())).split("e")
+    put("TensorSpread", "%s\\times10^{%d}" % (m_, int(e_)), "t3_chair_metric: relative eigenvalue spread of the relaxed walk tensor, level 6 bulk")
+    put("RelaxDrop", "%.0f" % (100 * (1 - ev.mean() / M[0, 0])), "t3_chair_metric: percent by which relaxation lowers the walk tensor")
+    en = np.linalg.eigvalsh(vm.relaxed_tensor(5, at_notch=True)[0])
+    put("NotchRatio", "%.0f" % (en[-1] / en[0]), "t3_chair_metric: eigenvalue ratio of the same tensor measured at the notch (artefact)")
+    ex = vm.body_excess(6)
+    put("BodyNear", "%.1f" % (100 * ex[0][1]), "t3_chair_metric: percent excess of h on body diagonals over axes, r = 6..10")
+    put("BodyFar", "%.1f" % (100 * abs(ex[-1][1])), "t3_chair_metric: same, r = 15..20, absolute")
     for n, nm in ((6, "Six"), (8, "Eight")):
         T = core.closed_timelines("hex", n).astype(int)
         put("Area" + nm, int((va.K_of(T) != 0).sum()), "t3_area: closed timelines of %d steps with nonzero signed area" % n)
@@ -101,6 +117,9 @@ def toymodel_v3_numbers():
         rng.normal(size=6)  # keep the draw order of the test irrelevant: a separate stream
         fd.append(vq.fidelity(vq.spin_state(vq.winding(-1), U, vq.random_unitary(rng))))
     put("DiffWing", "%.2f" % np.mean(fd), "t3_qubit: mean singlet fidelity with two different random wings")
+    lo, hi = vq.flux_branch_range()
+    put("FluxLo", "%.3f" % lo, "t3_qubit: least singlet fidelity of the flux amplitude over the 64 spinor branches")
+    put("FluxHi", "%.2f" % hi, "t3_qubit: greatest singlet fidelity of the flux amplitude over the 64 spinor branches")
     free = vx.profile(13, False, 8000, vx.TIMES, seed=5)
     put("FreeOne", "%.0f" % free[0][2], "t3_relax: t_half at d = 1, free, n = 13")
     put("FreeFive", "%.0f" % free[4][2], "same, d = 5")
@@ -334,7 +353,7 @@ EXPECTED = {"Inscribed": "25", "Partitions": "10", "Roots": "240", "Fibres": "10
 # research/toymodel_v2 (section 'A staged test of the dynamic half'); recomputed by toymodel_numbers()
 EXPECTED.update({'TSeams': '406', 'TBroken': '88', 'TPairFracTwo': '24.0', 'TPairFracThree': '34.9', 'TPairFracFour': '40.0', 'TSeamAll': '4096', 'TSeamClosed': '64', 'TSeamLedger': '924', 'THatNormSq': '6', 'TInflOpenNear': '0.436', 'TInflOpenFar': '0.079', 'TInflClosedThree': '0.069', 'TInflClosedEight': '0.199', 'TGreedySuccess': '0.85', 'TGreedyCollapse': '0.14', 'TCompatOne': '43', 'TCompatThree': '70', 'TCompatSix': '711', 'TRevFwdBad': '18', 'TRevFwdAll': '994', 'TRevRevBad': '145', 'TRevRevAll': '572', 'TLadderZero': '0.872', 'TLadderOne': '0.340', 'TOpenAsym': '6624', 'TOpenAll': '7776', 'TBaseAsym': '0.246', 'TDampPlus': '0.142', 'TDampMinus': '7.45', 'TMeanFlip': '4.85', 'TClosedFive': '360', 'TOrientedFive': '240', 'TClosedEight': '54810', 'TOrientedEight': '43488', 'THeldSpectre': '10.67', 'THeldLast': '1.24', 'THeldMin': '0.777', 'TTicks': '12', 'TBetaTwo': '0.841', 'TBetaTsirelson': '1.255', 'TContrastTwo': '1.21', 'TContrastTsirelson': '1.68', 'TDeltaTwo': '0.169', 'TRuleSixty': '+0.152', 'TRuleOneTwenty': '+0.689', 'TRuleChshOne': '3.620', 'TBiasLo': '0.535', 'TBiasHi': '0.571', 'TPastShiftOne': '0.315', 'TPastShiftEight': '0.030', 'TWalkAbove': '36', 'TCheckEntropy': '0.216', 'TCheckLast': '95', 'TRatePast': '0.392', 'TRateContrast': '0.783', 'TRateCorr': '0.239', 'TPastBitsOne': '1.322', 'TPastBitsFour': '0.240', 'TPastBitsEight': '0.011', 'TLongDelta': '0.066', 'TLongE': '0.442', 'TLongChsh': '1.117'})
 # research/toymodel_v3 (section 'A second pass'); recomputed by toymodel_v3_numbers()
-EXPECTED.update({'VClockOnly': '1.00', 'VFullBend': '2.00', 'VSlabLag': '105.5', 'VReff': '2.81', 'VSpecHitOne': '0.31', 'VSpecHitTwo': '0.63', 'VChairA': '2.02', 'VChairFlat': '7', 'VAreaSix': '1020', 'VAreaEight': '34920', 'VPsi': '-3/14', 'VPinSignChsh': '3.92', 'VChWorst': '-0.0088', 'VRecBoth': '-2.96', 'VRecFlat': '-0.93', 'VRecAmp': '-2.03', 'VDiffWing': '0.26', 'VFreeOne': '9', 'VFreeFive': '23', 'VFarThirteen': '88', 'VFarSeventeen': '139', 'VFarRatio': '1.6'})
+EXPECTED.update({'VClockOnly': '1.00', 'VFullBend': '2.00', 'VSlabLag': '105.5', 'VReff': '2.81', 'VSpecHitOne': '0.31', 'VSpecHitTwo': '0.63', 'VChairA': '2.02', 'VChairFlat': '7', 'VHopAxis': '0.55', 'VHopFace': '0.71', 'VHopBody': '0.66', 'VHopSpread': '0.24', 'VTensorSpread': '2\\times10^{-4}', 'VRelaxDrop': '4', 'VNotchRatio': '9', 'VBodyNear': '2.2', 'VBodyFar': '0.1', 'VAreaSix': '1020', 'VAreaEight': '34920', 'VPsi': '-3/14', 'VPinSignChsh': '3.92', 'VChWorst': '-0.0088', 'VRecBoth': '-2.96', 'VRecFlat': '-0.93', 'VRecAmp': '-2.03', 'VDiffWing': '0.26', 'VFluxLo': '0.017', 'VFluxHi': '0.93', 'VFreeOne': '9', 'VFreeFive': '23', 'VFarThirteen': '88', 'VFarSeventeen': '139', 'VFarRatio': '1.6'})
 EXPECTED.update({'TSpeedDense': '1.947', 'TSpeedOne': '0.970', 'TStepRefl': '0.118', 'TFrontSlope': '1.09', 'TPairNear': '0.16', 'TPairFar': '0.006', 'TRuleIErr': '10'})
 
 
