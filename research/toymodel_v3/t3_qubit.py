@@ -25,6 +25,18 @@ Exact claims (each a test; ``python3 t3_qubit.py --tests-only``)
         (a_{v+3} = a_v) gives a state with no singlet component at all.  Different wings break it (mean fidelity 0.26 over 200 random pairs).  The quantum walk
         exp(-i t H) keeps the w = -1 singlet at every t.  A classical origin (any probability vector) gives a separable mixture, CHSH <= 2.
 
+  E4.5  No rotation-invariant weight makes the singlet.  If the two-wing amplitude depends only on the relative geometry (stiffness exp(-beta N), and a complex area
+        phase exp(i theta K) on the path from Alice's end through the origin to Bob's end, theta in [0, pi], wings of 1 and 2 letters), the spin state is the product
+        |00>: singlet fidelity exactly 0.  The reason: Psi(s_A + 1, s_B + 1) = Psi(s_A, s_B) forces the |01>, |10> and |11> coefficients to vanish.  A flux cannot
+        supply the sign; the origin has to carry angular momentum.
+  E4.6  A spinor read-out of these scalar amplitudes is not well defined.  The SU(2)-covariant map reads a letter as (e^{-i phi/2} |0> + e^{i phi/2} |1>) / sqrt 2,
+        which is double valued: each letter's sign is a choice (64 choices for six letters), and with no wing flipping the sign of letter u is the same as flipping both a_u and a_{u+3}
+        (u is Alice's letter in one term and Bob's in another), which keeps an odd origin odd.
+        The results depend on that choice: an odd winding gives singlet fidelity 0 or 1, and the flux amplitude of E4.5 (n = 1, beta = 0.5, theta = 2.75) gives
+        0.017 to 0.93, depending on the branch.  (With the principal branch, half angles 0..150 degrees, every odd winding happens to give the singlet.)
+        A consistent version needs spinor-valued amplitudes, a spin structure on the histories (the double cover in which the Spectre's holonomy group Dic_12 lives,
+        Hat and Spectre repository, research/holonomy_group.py); it is not built.  [Negative: no conclusion about the sign can be drawn from a spinor read-out yet]
+
 What it says.  The quantum range is reached without post-selection, and the singlet is reached exactly, by one condition: the shared origin must be a coherent
 superposition that is ODD under v -> -v.  That is the paper's anti-correlated fusion S_B(0) = -S_A(0), made coherent with a relative sign -1 between an origin
 and its opposite: an antisymmetry of the kind fermions have.  With it, any wing the two parties share keeps the singlet; without it (an even, e.g. uniform, origin)
@@ -105,6 +117,51 @@ def classical_mixture(p):
     return rho
 
 
+SPINOR_KET = np.array([[np.exp(-0.5j * f), np.exp(0.5j * f)] for f in PHI]) / math.sqrt(2.0)
+
+
+def spin_state_with(kets, a_v, U=None, UB=None):
+    U = np.eye(6, dtype=complex) if U is None else U
+    UB = U if UB is None else UB
+    Psi = sum(a_v[v] * np.outer(U[:, v], UB[:, (v + 3) % 6]) for v in range(6))
+    return np.einsum("ab,ai,bj->ij", Psi, kets, kets).reshape(4)
+
+
+def branch_kets(signs):
+    """Half-angle kets with a chosen sign (branch) for each of the six letters."""
+    h = PHI / 2 + np.pi * np.array(signs)
+    return np.array([[np.exp(-1j * x), np.exp(1j * x)] for x in h]) / math.sqrt(2.0)
+
+
+def flux_branch_range(n=1, beta=0.5, theta=2.75):
+    """Least and greatest singlet fidelity of the flux amplitude over the 64 branches."""
+    Psi = flux_amplitude(n, beta, theta)
+    fl = [fidelity(np.einsum("ab,ai,bj->ij", Psi, branch_kets(sg), branch_kets(sg)).reshape(4))
+          for sg in itertools.product((0, 1), repeat=6)]
+    return min(fl), max(fl)
+
+
+def flux_amplitude(n, beta, theta):
+    """Psi(s_A end, s_B end) of the two-wing history with stiffness and the area phase exp(i theta K) of the joined path (E4.5)."""
+    H = np.array([(1, 0), (0, 1), (-1, 1), (-1, 0), (0, -1), (1, -1)])
+    norms = (0, 1, 3, 4, 3, 1)
+    Psi = np.zeros((6, 6), dtype=complex)
+    for v in range(6):
+        for wa in itertools.product(range(6), repeat=n):
+            sa = (v,) + wa
+            ka = sum(norms[(sa[t] - sa[t - 1]) % 6] for t in range(1, n + 1))
+            for wb in itertools.product(range(6), repeat=n):
+                sb = ((v + 3) % 6,) + wb
+                kb = sum(norms[(sb[t] - sb[t - 1]) % 6] for t in range(1, n + 1))
+                steps = [-H[x] for x in sa[::-1]] + [H[x] for x in sb]
+                pos, K = np.zeros(2, dtype=int), 0
+                for st in steps:
+                    K += pos[0] * st[1] - pos[1] * st[0]
+                    pos = pos + st
+                Psi[sa[-1], sb[-1]] += math.exp(-beta * (ka + kb)) * np.exp(1j * theta * K)
+    return Psi
+
+
 def random_unitary(rng):
     q, r = np.linalg.qr(rng.normal(size=(6, 6)) + 1j * rng.normal(size=(6, 6)))
     return q * (np.diag(r) / np.abs(np.diag(r)))
@@ -127,7 +184,7 @@ def test_e41_nothing_is_discarded_and_tsirelson_holds():
     chi = normalised(spin_state(winding(-1)))
     for a in TWELVE:
         for b in TWELVE:
-            P = [0.25 * (1 + sa * 0 + sb * 0 + sa * sb * correlation(chi, a, b)) for sa in (1, -1) for sb in (1, -1)]   # marginals are 0 (below)
+            P = [0.25 * (1 + sa * sb * correlation(chi, a, b)) for sa in (1, -1) for sb in (1, -1)]   # the marginals are 0 (checked below)
             assert math.isclose(sum(P), 1.0) and min(P) >= -1e-12
             # marginal of Alice: <sigma(a) x 1> independent of b
             m = float(np.vdot(chi, np.kron(sigma(a), np.eye(2)) @ chi).real)
@@ -179,6 +236,43 @@ def test_e44_an_odd_origin_gives_the_singlet_for_any_common_wing():
     for _ in range(100):
         p = rng.dirichlet(np.ones(6))
         assert chsh_of(classical_mixture(p), TWELVE) <= 2.0 + 1e-12
+
+
+def test_e45_no_rotation_invariant_weight_makes_the_singlet():
+    for n in (1, 2):
+        for beta in (0.5, 2.0):
+            for theta in np.linspace(0.0, math.pi, 7):
+                Psi = flux_amplitude(n, beta, theta)
+                assert np.allclose(np.roll(np.roll(Psi, 1, 0), 1, 1), Psi, atol=1e-12), "rotation invariant"
+                chi = np.einsum("ab,ai,bj->ij", Psi, KET, KET).reshape(4)
+                assert fidelity(chi) < 1e-20, (n, beta, theta)
+                c = normalised(np.einsum("ab,ai,bj->ij", Psi, KET, KET).reshape(4))
+                assert np.allclose(np.abs(c), [1, 0, 0, 0], atol=1e-12)
+
+
+def test_e46_a_spinor_read_out_depends_on_the_branch():
+    Rz = np.diag([np.exp(-1j * np.pi / 6), np.exp(1j * np.pi / 6)])
+    for v in range(6):
+        assert np.allclose(Rz @ SPINOR_KET[v], SPINOR_KET[(v + 1) % 6] * (1 if v < 5 else -1)), "covariant up to the sign of the double cover"
+
+    kets = branch_kets
+    odd = {round(fidelity(spin_state_with(kets(sg), winding(-1))), 6) for sg in itertools.product((0, 1), repeat=6)}
+    assert odd == {0.0, 1.0}, odd
+    lo, hi = flux_branch_range()
+    assert lo < 0.02 and hi > 0.93, (lo, hi)
+    # flipping letter u's sign equals flipping a_u and a_{u+3} (no wing); an odd origin stays odd, yet the fidelity changes
+    a = winding(-1)
+    for u in range(6):
+        sg = [0] * 6
+        sg[u] = 1
+        a2 = a.copy()
+        a2[u] *= -1
+        a2[(u + 3) % 6] *= -1
+        assert np.allclose(spin_state_with(kets(sg), a), spin_state_with(SPINOR_KET, a2), atol=1e-12)
+        assert np.allclose(a2[(np.arange(6) + 3) % 6], -a2), "still odd"
+    for w in range(-3, 4):   # the principal branch: odd windings happen to give the singlet
+        f = fidelity(spin_state_with(SPINOR_KET, winding(w)))
+        assert (f > 1 - 1e-12) if w % 2 else (f < 1e-20), (w, f)
 
 
 def run_tests(verbose=True):
