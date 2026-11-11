@@ -2,6 +2,35 @@
 
 The Spectre Monotile project provides a simple Python tool to visualize a geometric tile pattern based on given parameters a, b, and curve_value.
 
+## Featured: the 14th vertex, expanding and collapsing (Spectre -> Hat)
+
+`spectre_hat_time_3d.py` extends the figure of `spectre_hat_time_model.py` into three dimensions, with the flow parameter `tau`
+as the vertical axis. Left: every tile outline of the Spectre -> Hat flow stacked into one solid; the two values of the bit stored
+at the 14th vertex P_8 are the blue (`s = +1`) and red (`s = -1`) sheets, which part at the Spectre end and close at the Hat, and the
+black line is the worldline of P_8 that the record of the run follows (triangle: rewrite of an earlier tick, circle: flip of the
+present). Right: the 14th vertex alone, a horn whose width is the jump `d(tau) = 2h`, coloured by readability: widest at the
+Spectre (expansion of the two values) and pinched shut at the Hat (collapse: the two tiles are the same Hat). The orange plane is
+the start of the window in which snaps are allowed; below it the bit is set in stone.
+
+```
+python3 spectre_hat_time_3d.py --no-show --save figures/spectre_hat_time_3d.png
+python3 spectre_hat_time_3d.py --no-show --gif figures/spectre_hat_time_3d.gif    # turntable
+python3 spectre_hat_time_3d.py --no-show --corner 160 --save figures/spectre_hat_time_3d_omega160.png
+python3 spectre_hat_time_3d.py --tests-only                                      # 3 tests
+```
+
+![the 14th vertex in 3D](figures/spectre_hat_time_3d.png)
+
+![turntable](figures/spectre_hat_time_3d.gif)
+
+At a larger corner angle (`omega_0 = 160` degrees) the reflex value `s = -1` is not even a valid outline near `tau = 0` (its curve
+self-intersects for `tau <= 0.13`; dotted black on the red branch), so the bit is forced to `+1` there:
+
+![omega_0 = 160](figures/spectre_hat_time_3d_omega160.png)
+
+This is a toy model: the bit is classical and the direction of `tau` is imposed. See "Time, two arrows and one bit at the 14th
+vertex" below for the 2D figure and `ARROW_OF_TIME.md` and `research/toymodel_v4/PLAN.md` for what the model does and does not show.
+
 ## Requirements
 
 The dependencies can usually be installed using `pip`:
@@ -351,6 +380,34 @@ and not 6, labelled numerology and asserted as a miss. The six site classes of t
 ```python3 spectre_cosmology.py --tests-only```
 
 ![cosmology](figures/spectre_cosmology.png)
+
+### Time, two arrows and one bit at the 14th vertex
+
+`spectre_hat_time_model.py` is a toy model of an arrow of time on the Spectre -> Hat flow
+(`spectre_hat_collinearity_flow_model.py`). The tile deforms smoothly with `tau` from the Spectre (`tau = 0`) to the Hat
+(`tau = 1`), and that direction is fixed. The only place where something discrete can happen is the 14th vertex P_8, which
+stores one bit: `s = +1` pushes P_8 out of the chord P_7 -> P_9 by `h(tau)`, `s = -1` pushes it in. The two outlines (blue
+and red in the figure) differ only in edges 7 and 8, and they merge at the Hat, so the bit becomes unreadable at the end of
+the flow. The two arrows are the tangents arriving at and leaving P_8; they turn by `-s * omega(tau)` and align at the Hat.
+A bit may "snap" (flip now, or rewrite an earlier tick) only under rules R1-R5; the cost rule freezes the early ticks
+("set in stone", grey) and leaves a window of late ticks that can still change (orange). The top row shows the tile at five
+values of `tau`; the bottom panel shows the readability `d(tau)/d(0)`, the turn `omega/pi`, the frozen epoch, the snap
+window, and the snaps of the scripted story (triangle = rewrite of an earlier tick, circle = flip of the present).
+
+```
+python3 spectre_hat_time_model.py --tests-only     # 9 tests
+python3 spectre_hat_time_model.py --corner 120 --snap-scale 0.5 --no-show --save figures/spectre_hat_time.png
+```
+
+The figure is made with `omega_0 = 120` degrees and `snap_scale = 0.5`, so that the backward-running arrows and the frozen
+epoch are both visible; the defaults (30 degrees, 0.1) give a much flatter picture. This is a toy: the bit is classical,
+and the direction of time is imposed by rule D6, not derived. `ARROW_OF_TIME.md` explains the model and what it does and does
+not establish; the quantum-bit and backward-snap versions are `spectre_hat_quantum_bit_model.py` and
+`spectre_hat_backward_snap_model.py`.
+
+![spectre_hat_time](figures/spectre_hat_time.png)
+
+The same flow in 3D, with `tau` vertical, is at the top of this file (`spectre_hat_time_3d.py`).
 
 ### Makefile
 
