@@ -253,6 +253,73 @@ def toymodel_numbers():
     return T
 
 
+def toymodel_v4_numbers():
+    """Numbers of the section on the flow of the 14th vertex (research/toymodel_v4 and spectre_hat_time_3d), recomputed.  {macro: (text, source)}; macro names start with W."""
+    import itertools
+    sys.path.insert(0, _ROOT)
+    vdir = os.path.join(_ROOT, "research", "toymodel_v4")
+    if vdir not in sys.path:
+        sys.path.insert(0, vdir)
+    import spectre_hat_time_3d as t3
+    import t4_arrow as ta4
+    import t4_patch as tp
+    import t4_spin as ts
+    from spectre_hat_time_model import SpectreHatTime
+    W = {}
+
+    def put(name, value, src):
+        W["W" + name] = (str(value), src)
+
+    m = t3.run_story()
+    put("TauStar", "%.3f" % m.tau_star(), "spectre_hat_time_model.tau_star(), omega_0 = 120, snap scale 0.5 (the 2D figure)")
+    put("JumpZero", "%.3f" % m.jump(0.0), "jump d(0) = 2 a tan(omega_0 / 2), a = 1, omega_0 = 120")
+    put("JumpHalf", "%.3f" % m.jump(0.5), "d(1/2) at the same parameters")
+    put("ReadHalf", "%.3f" % (m.jump(0.5) / m.jump(0.0)), "readability d(1/2)/d(0)")
+    for k0, nm in ((0.3, "Three"), (0.5, "Five"), (0.8, "Eight")):
+        oc, fb = ts.omega_c(k0)
+        put("OmegaC" + nm, "%.1f" % oc, "t4_spin.omega_c(%.1f): largest omega_0 (degrees) with a simple s = -1 outline at tau = 0" % k0)
+        put("FirstBad" + nm, fb, "same: first failing whole degree")
+    # a flow at omega_0 = 160: where the reflex value becomes valid
+    lo, hi = 0.0, 1.0
+    from spectre_hat_time_model import is_simple_tile
+    ok = lambda t: is_simple_tile(SpectreHatTime(corner_deg=160.0, k0=0.5).tile(t, -1))
+    assert not ok(0.0) and ok(0.99)
+    for _ in range(40):
+        mid = 0.5 * (lo + hi)
+        lo, hi = (lo, mid) if ok(mid) else (mid, hi)
+    put("ForbidEnd", "%.3f" % hi, "end of the tau interval in which s = -1 is not a simple curve, omega_0 = 160, k0 = 0.5 (bisection)")
+    # patch of real outlines
+    for lv, nm in ((2, "Two"), (3, "Three"), (4, "Four")):
+        P = tp.patch(lv, 1.0)
+        pr = tp.flat_pairs(lv, 1.0)
+        put("Pairs" + nm, len(pr), "t4_patch.flat_pairs(%d, 1): flat pairs" % lv)
+        put("PatchTiles" + nm, P.n_tiles, "t4_patch.patch(%d, 1).n_tiles" % lv)
+        put("PairPct" + nm, "%.1f" % (200.0 * len(pr) / P.n_tiles), "tiles in a flat pair / all tiles, percent")
+        put("FreeTiles" + nm, len(tp.free_flat_tiles(lv, 1.0)), "t4_patch.free_flat_tiles(%d, 1): boundary tiles with nothing at vertex 8" % lv)
+    # validity of s = -1 on the (b, k, omega) grid
+    Vm, oms = ta4._validity_grid(-1)
+    viol = total = 0
+    where = set()
+    for i, j, l in itertools.product(range(5), range(5), range(11)):
+        for di, dj, dl in ((1, 0, 0), (0, 1, 0), (0, 0, 1)):
+            i2, j2, l2 = i + di, j + dj, l + dl
+            if i2 < 5 and j2 < 5 and l2 < 11:
+                total += 1
+                if Vm[i, j, l] and not Vm[i2, j2, l2]:
+                    viol += 1
+                    where.add(float(oms[l]))
+    put("ValidViol", viol, "t4_arrow: steps toward the Hat (b up, k down, omega down) that lose validity of s = -1, grid 5 x 5 x 11")
+    put("ValidSteps", total, "same: number of such steps examined")
+    assert len(where) == 1
+    put("ValidBand", "%.0f" % where.pop(), "same: the one grid value of omega (degrees) at which those steps lose validity")
+    put("ValidPoints", Vm.size, "same: grid points")
+    # spin structure
+    tile = SpectreHatTime(corner_deg=30.0).tile(0.0, 1)
+    put("SignPatterns", len({ts.sign_pattern(tile, e0) for e0 in range(ts.N_EDGES)}), "t4_spin.sign_pattern: distinct patterns over the 14 base edges")
+    put("SpinEdges", ts.N_EDGES, "edges of the outline")
+    return W
+
+
 def compute():
     """{macro name: (value as text, how it was obtained)}"""
     import chair_e8_192 as ch
@@ -333,6 +400,8 @@ def compute():
         put(k, v[0], v[1])
     for k, v in toymodel_v3_numbers().items():
         put(k, v[0], v[1])
+    for k, v in toymodel_v4_numbers().items():
+        put(k, v[0], v[1])
     put("TNumbersChecked", len(EXPECTED), "number of quoted values checked by run_tests (len(EXPECTED))")
     comp = json.load(open(COMPANION))
     for k, v in comp.items():
@@ -355,6 +424,9 @@ EXPECTED.update({'TSeams': '406', 'TBroken': '88', 'TPairFracTwo': '24.0', 'TPai
 # research/toymodel_v3 (section 'A second pass'); recomputed by toymodel_v3_numbers()
 EXPECTED.update({'VClockOnly': '1.00', 'VFullBend': '2.00', 'VSlabLag': '105.5', 'VReff': '2.81', 'VSpecHitOne': '0.31', 'VSpecHitTwo': '0.63', 'VChairA': '2.02', 'VChairFlat': '7', 'VHopAxis': '0.55', 'VHopFace': '0.71', 'VHopBody': '0.66', 'VHopSpread': '0.24', 'VTensorSpread': '2\\times10^{-4}', 'VRelaxDrop': '4', 'VNotchRatio': '9', 'VBodyNear': '2.2', 'VBodyFar': '0.1', 'VAreaSix': '1020', 'VAreaEight': '34920', 'VPsi': '-3/14', 'VPinSignChsh': '3.92', 'VChWorst': '-0.0088', 'VRecBoth': '-2.96', 'VRecFlat': '-0.93', 'VRecAmp': '-2.03', 'VDiffWing': '0.26', 'VFluxLo': '0.017', 'VFluxHi': '0.93', 'VFreeOne': '9', 'VFreeFive': '23', 'VFarThirteen': '88', 'VFarSeventeen': '139', 'VFarRatio': '1.6'})
 EXPECTED.update({'TSpeedDense': '1.947', 'TSpeedOne': '0.970', 'TStepRefl': '0.118', 'TFrontSlope': '1.09', 'TPairNear': '0.16', 'TPairFar': '0.006', 'TRuleIErr': '10'})
+
+# research/toymodel_v4 and spectre_hat_time_3d (section on the flow of the 14th vertex); recomputed by toymodel_v4_numbers()
+EXPECTED.update({'WTauStar': '0.766', 'WJumpZero': '3.464', 'WJumpHalf': '1.155', 'WReadHalf': '0.333', 'WOmegaCThree': '133.0', 'WFirstBadThree': '133', 'WOmegaCFive': '132.1', 'WFirstBadFive': '133', 'WOmegaCEight': '120.5', 'WFirstBadEight': '121', 'WForbidEnd': '0.148', 'WPairsTwo': '6', 'WPatchTilesTwo': '71', 'WPairPctTwo': '16.9', 'WFreeTilesTwo': '21', 'WPairsThree': '82', 'WPatchTilesThree': '559', 'WPairPctThree': '29.3', 'WFreeTilesThree': '89', 'WPairsFour': '804', 'WPatchTilesFour': '4401', 'WPairPctFour': '36.5', 'WFreeTilesFour': '377', 'WValidViol': '5', 'WValidBand': '136', 'WValidSteps': '690', 'WValidPoints': '275', 'WSignPatterns': '6', 'WSpinEdges': '14'})
 
 
 def write(N, path=OUT):
