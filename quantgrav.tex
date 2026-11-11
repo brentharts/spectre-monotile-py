@@ -259,7 +259,7 @@ After one forced step in a closed timeline, one further edit restores closure fo
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{A staged test of the dynamic half}\label{sec:staged}
-This section tests the proposal again, in stages, with code in this repository (\texttt{research/toymodel\_v2}, one note per stage). Every number is recomputed by \texttt{paper\_numbers.py}; none is a snapshot.
+This section tests the proposal again, in stages, with code in this repository (in \texttt{research/\allowbreak toymodel\_v2}, one note per stage). Every number is recomputed by \texttt{paper\_numbers.py}; none is a snapshot.
 
 Two models are used. The \emph{history sum} is the action \eqref{eq:action} taken literally on the six hexagonal directions: a timeline of $n$ letters has weight $e^{-\beta\mathcal{A}}$, a closed timeline has zero total flux, and a measurement is a fixed letter (a \emph{pin}). Its marginals are computed exactly by a transfer matrix (agreeing with enumeration to $10^{-12}$). The \emph{chain} is a bit at the one vertex of the Spectre that becomes flat in the Hat: along a deformation $\tau\in[0,1]$ from Spectre to Hat the two values of the bit are two positions of that vertex a distance $d(\tau)$ apart, $d(1)=0$; as Gaussian packets of width $\sigma$ they overlap by $c(\tau)=e^{-d^2/8\sigma^2}$, and at each of $\qgTTicks$ ticks the bit tunnels by an angle proportional to $c$. Both models are definitions.
 
@@ -367,7 +367,12 @@ The dynamic proposal, tested, says where its claims stand. The directions in $E_
 
 \appendix
 \section{Reproduction}\label{app:repro}
-Repositories: the main repository \url{https://github.com/brentharts/spectre-monotile-py}; the fork of Matshaba's repository \cite{matshaba2026}, \url{https://github.com/brentharts/Quantum-Gravity-Dynamics}; the Hat and Spectre repository \url{https://github.com/brentharts/spectre}; and CICY, \url{https://github.com/brentharts/CICY}.
+Repositories:
+\begin{itemize}[leftmargin=1.6em,itemsep=0pt,topsep=2pt]
+\item main repository: \url{https://github.com/brentharts/spectre-monotile-py};
+\item fork of Matshaba's repository \cite{matshaba2026}:\\ \url{https://github.com/brentharts/Quantum-Gravity-Dynamics};
+\item Hat and Spectre: \url{https://github.com/brentharts/spectre}; CICY: \url{https://github.com/brentharts/CICY}.
+\end{itemize}
 
 All commands run from the root of the main repository with \texttt{numpy}, \texttt{scipy}, \texttt{sympy} and \texttt{matplotlib}. Each module of Table~\ref{tab:summary} has a self test with the number of checks given there: \texttt{python3 models/X.py --tests-only} for the modules of Sections~\ref{sec:e8} to~\ref{sec:wilson} and Appendix~\ref{app:tb}, and \texttt{python3 research/toymodel\_v2/X.py --tests-only} for those of Section~\ref{sec:staged}, which also use \texttt{spectre\_hat\_quantum\_bit\_model.py} and \texttt{spectre\_hat\_backward\_snap\_model.py} in the root. \texttt{wilson\_corner\_locality} needs \texttt{WILSON\_RG\_DIR} to point at the Wilson-loop repository. \texttt{make quantgrav} writes the numbers and builds this document.
 
