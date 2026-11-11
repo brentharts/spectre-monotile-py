@@ -73,3 +73,8 @@ Appendices: reproduction; tight-binding and twist-hopping models (appendix by de
 - No derivation of why the squared jump of the bit should be linear in the sheet's field; no back-reaction of the field on the bit; the sheet is a cubic lattice, not the tiling.
 - No record store or environment in any model, so the record test uses the register as its own memory.
 - No source on Janus-point arrows, two-state-vector quantum mechanics or Helstrom discrimination has been opened (names only).
+
+## Update 2026-11-10 (evening): toymodel_v3
+
+`research/toymodel_v3/` takes the problems of the condensed paper one by one (plan, six stage notes, eight test modules) and `quantgrav.tex` has a new Section "A second pass: the problems of the first" (Results res:bend to res:relax). Open problems 6 to 8 of the paper were rewritten to what is left: a reason for the area term and its coupling to a handedness, a mechanism for the sign of the fusion, and a reason for the escape coupling with a space factor. `CONNECTIONS_SPECTRE.md` records what the Hat and Spectre repository contributes (handedness theorem, Chair44 mirror proof, graph dilation, record recognizability).
+

@@ -306,6 +306,18 @@ compound of five cuboctahedra), `qgl_qsn.py` (tetragrids, 20G, Fibonacci icosagr
 - **Exact (`tm2_checking.py`, note `PAST_AND_POTENTIAL.md`):** in the two-wing model only the axis of a setting reaches the shared origin (the odd modes cancel); the past shift is delta = q(2 + q)/3(1 + 2q^2), q = (lambda_2/lambda_0)^n, for every stiffness and length; as the wings grow the pass-rate contrast fades first, the past shift next and the end-to-end correlation last (lambda_1^2 > lambda_0 lambda_2), so long wings give correlated ends with an unrevised past and CHSH below 2.
 - **Not tested / open:** axes taken from the tiling; six free letters per tick with amplitudes; the Helstrom form sqrt(1 - c^2) against the QGD clock sqrt(1 - sigma_t^2) is a coincidence of form until tau(r) is derived; the assumption behind the ladder.
 
+### toymodel_v3, a second pass at the problems (`research/toymodel_v3/`; plan in `PLAN.md`, results in `STAGE1.md` to `STAGE6.md`, `CONNECTIONS_SPECTRE.md`)
+
+*Reproduce: `python3 research/toymodel_v3/<module>.py --tests-only` for `t3_optics`, `t3_escape`, `t3_area`, `t3_passrate`, `t3_chair_handedness`, `t3_records`, `t3_qubit`, `t3_relax` (33 tests; `t3_relax` about 1.5 minutes).* Nothing here connects to gravity.
+
+- **Exact:** with the density as a refractive index waves slow down; the first-order deflection is (1 + gamma) r_s / b, so a clock alone (the model as stated) bends light by half the relativistic amount (**Negative**), and the factor 2 needs a space factor B = 1/A.
+- **Exact / Numeric:** the coupling c^2 = 1 - (probability that the substrate's walk reaches the source) gives the clock factor, 1/r and a horizon on Z^3; the Spectre vertex graph is recurrent (no 1/r), the Chair44 tile graph transient.
+- **Exact:** the signed area of a closed timeline is a weight odd under reversal, and a mirror image carries the opposite arrow; the decorated Chair44 has a handedness psi = -3/14 per tile (odd under mirror and under bump/dent flip), while its bare geometry has none.
+- **Exact:** an external record store makes rewriting the frozen end expensive even with symmetric amplitudes and agrees with them; the conflict of v2 Stage 3 disappears.
+- **Exact, Negative for "retrocausal" as a property of the data:** a constant pass rate keeps the post-selected violation (3.92), and the Clauser-Horne combination never exceeds 0: the two-ended tables are those of a local model with the detection loophole.
+- **Exact:** with spin read-outs and nothing discarded, an origin odd under inversion gives the singlet for any common wing (E = -cos); a uniform origin gives a product state.
+- **Numeric:** with closure a pin's influence reaches the far end on one global relaxation time (about n^2), not by a front; without closure there is a front.
+
 ### Not yet run
 
 Nothing connecting these structures to the tile, the Chair44 or a quasicrystal's point selection (E6 placement above is root-level only). The remaining questions
