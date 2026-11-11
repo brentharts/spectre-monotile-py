@@ -248,6 +248,7 @@ def compute():
     put("ShearSV", "%.4f" % math.sqrt(2 - math.sqrt(3)), "sqrt(2 - sqrt 3) = |1 - zeta_12|, both singular values of the fitted shear (spectre repository deform_fit_v1: 0.5176)")
     for k, v in toymodel_numbers().items():
         put(k, v[0], v[1])
+    put("TNumbersChecked", len(EXPECTED), "number of quoted values checked by run_tests (len(EXPECTED))")
     comp = json.load(open(COMPANION))
     for k, v in comp.items():
         if not k.startswith("_"):
