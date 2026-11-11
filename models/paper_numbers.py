@@ -50,6 +50,114 @@ def corner_types(levels=2):
     return len(tiles), len(lifted), (dict(types.pop()) if len(types) == 1 else None), dict(split)
 
 
+def toymodel_numbers():
+    """Numbers of the section 'A staged test of the dynamic half' (research/toymodel_v2), recomputed.  {macro: (text, source)}; macro names start with T."""
+    tdir = os.path.join(_ROOT, "research", "toymodel_v2")
+    if tdir not in sys.path:
+        sys.path.insert(0, tdir)
+    import tm2_arrow as ta
+    import tm2_directed as td
+    import tm2_history_sum as th
+    import tm2_lattice as tl
+    import tm2_rule as tr
+    from spectre_hat_backward_snap_model import BackwardSnap
+    T = {}
+
+    def put(name, value, src):
+        T["T" + name] = (str(value), src)
+
+    # Stage 0
+    put("Seams", len(tl.bond_graph(2, 1.0)), "tm2_lattice.bond_graph(2, 1)")
+    n, bad = tl.broken_seams(2, 1.0, {t: 0.2 for t in range(71)})
+    put("Broken", len(bad), "tm2_lattice.broken_seams, uniform opening, level 2")
+    for lv, nm in ((2, "Two"), (3, "Three"), (4, "Four")):
+        kinds, pairs = tl.flat_vertex_types(lv)
+        inter = tl.patch(lv).n_tiles - sum(c for k, c in kinds.items() if k[1] == ())
+        put("PairFrac" + nm, "%.1f" % (100.0 * 2 * len(pairs) / inter), "tm2_lattice.flat_vertex_types(%d): tiles in a flat pair / interior tiles, percent" % lv)
+    sv = th.seam_versus_ledger(2)
+    put("SeamAll", sv[0], "tm2_history_sum.seam_versus_ledger(2): sign assignments")
+    put("SeamClosed", sv[1], "same: assignments that close every seam")
+    put("SeamLedger", sv[2], "same: assignments with Q = 0")
+    put("HatNormSq", int(round(sorted(dict(tl.hat_physical_edge_norms(2)))[-1])), "tm2_lattice.hat_physical_edge_norms(2): largest E8 norm^2 of a Hat edge read through Z[w]")
+    # Stage 1
+    iu = th.HistorySum(13, 1.0, 0.0, th.BIG).influence(6)
+    put("InflOpenNear", "%.3f" % iu[7], "tm2_history_sum: influence at distance 1, n = 13, no flux constraint")
+    put("InflOpenFar", "%.3f" % iu[12], "same, distance 6")
+    iu = th.HistorySum(21, 1.0, 0.0, 0).influence(10)
+    put("InflClosedThree", "%.3f" % iu[13], "tm2_history_sum: influence at distance 3, n = 21, closed")
+    put("InflClosedEight", "%.3f" % iu[18], "same, distance 8")
+    s_, c_, tv = th.greedy_statistics()
+    put("GreedySuccess", "%.2f" % s_, "tm2_history_sum.greedy_statistics(): success rate")
+    put("GreedyCollapse", "%.2f" % c_, "same: collapse rate")
+    # Stage 2
+    m = BackwardSnap(ticks=12)
+    ref = m.reference(10)
+    for nm, spec in (("One", None), ("Three", [0, 1, 2]), ("Six", [0, 1, 2, 3, 4, 5])):
+        put("Compat" + nm, td.Directed(m, spec).candidates(ref, 0.4), "tm2_directed: compatible histories at delta = 0.4, %s-root axes" % nm.lower())
+    sw = td.sweep(200)
+    put("RevFwdBad", sw[("random", "fwd", "comp_bad")], "tm2_directed.sweep(200): reversed sign, forward flow")
+    put("RevFwdAll", sw[("random", "fwd", "comp_bad")] + sw[("random", "fwd", "comp_ok")], "same: cases needing compensation, forward flow")
+    put("RevRevBad", sw[("random", "rev", "comp_bad")], "same: reversed sign, reversed flow")
+    put("RevRevAll", sw[("random", "rev", "comp_bad")] + sw[("random", "rev", "comp_ok")], "same: cases needing compensation, reversed flow")
+    lad = td.ladder(ta.Records().q.overlap(0.9), 2)
+    put("LadderZero", "%.3f" % lad[0], "tm2_directed.ladder from c(tau = 0.9)")
+    put("LadderOne", "%.3f" % lad[1], "same, level 1")
+    put("LadderTwo", "%.1f\\times10^{-4}" % (lad[2] * 1e4), "same, level 2")
+    # Stage 3
+    U = ta.core.all_timelines("hex", 5).astype(int)
+    put("OpenAsym", int(sum(abs(ta.reverse_action_difference(u, 1.0)) > 1e-12 for u in U)), "tm2_arrow: open 5-step timelines with A(R s) != A(s)")
+    put("OpenAll", len(U), "6^5")
+    q = ta.agreement_profile(9, 1.0, 0.5, ta.BIG)
+    put("BaseAsym", "%.3f" % (q[-1] - q[0]), "tm2_arrow.agreement_profile(9, 1, 0.5, open): q(n-2) - q(0)")
+    put("DampPlus", "%.3f" % ta.energy_ratio(0.1), "tm2_arrow.energy_ratio(+0.1)")
+    put("DampMinus", "%.2f" % ta.energy_ratio(-0.1), "tm2_arrow.energy_ratio(-0.1)")
+    put("MeanFlip", "%.2f" % ta.mean_flip_time(m), "tm2_arrow.mean_flip_time(chain)")
+    for nn, nm in ((5, "Five"), (8, "Eight")):
+        c = ta.census(nn)
+        put("Closed" + nm, c[0], "tm2_arrow.census(%d): closed timelines" % nn)
+        put("Oriented" + nm, c[6], "same: oriented (cyclic sense)")
+    rec = ta.Records()
+    put("HeldSpectre", "%.2f" % rec.held_at(0), "tm2_arrow.Records().held_at(0), bits")
+    put("HeldLast", "%.2f" % rec.held_at(11), "same, tick 11")
+    put("HeldMin", "%.3f" % min(rec.K(i, 0) for i in range(1, rec.N)), "smallest K(i, 0), i before the Hat")
+    put("Ticks", rec.N, "ticks of the default chain")
+    # Stage 4
+    b2, bt = tr.crossing(2.0), tr.crossing(tr.TSIRELSON)
+    put("BetaTwo", "%.3f" % b2, "tm2_rule.crossing(2)")
+    put("BetaTsirelson", "%.3f" % bt, "tm2_rule.crossing(2 sqrt 2)")
+    put("ContrastTwo", "%.2f" % tr.TwoWing(b2, 1).contrast(), "contrast of the check weight at CHSH = 2")
+    put("ContrastTsirelson", "%.2f" % tr.TwoWing(bt, 1).contrast(), "same at 2 sqrt 2")
+    put("DeltaTwo", "%.3f" % tr.TwoWing(b2, 1).delta(), "delta at CHSH = 2")
+    put("RuleSixty", "%+.3f" % tr.rule_E(0, 2, 0.5), "tm2_rule.rule_E at 60 degrees, kappa = 0.5")
+    put("RuleOneTwenty", "%+.3f" % tr.rule_E(0, 4, 0.5), "same at 120 degrees")
+    put("RuleChshOne", "%.3f" % tr.chsh(tr.rule_table(1.0)), "CHSH of the rule at kappa = 1, recomputed")
+    ctrl = tr.TwoWing(2.0, 2, 2.0, eta=0.3, u=1)
+    marg = [ctrl.table(0, b)[0].sum() for b in tr.TWELVE]
+    put("BiasLo", "%.3f" % min(marg), "tm2_rule: biased control, smallest marginal")
+    put("BiasHi", "%.3f" % max(marg), "same, largest")
+    for nn, nm in ((1, "One"), (8, "Eight")):
+        put("PastShift" + nm, "%.3f" % tr.TwoWing(2.0, nn).delta(), "tm2_rule: delta at beta = 2, n = %d" % nn)
+    ts = np.linspace(0.01, 3.0, 600)
+    sw_ = np.array([tr.chsh(tr.postselected_E(tr.walk_unitary(t))) for t in ts])
+    put("WalkAbove", "%.0f" % (100.0 * (sw_ > tr.TSIRELSON).mean()), "tm2_rule: percent of walk times in (0, 3) with CHSH > 2 sqrt 2")
+    h = tr.check_entropy(m.angles())
+    put("CheckEntropy", "%.3f" % h.sum(), "tm2_rule.check_entropy(chain), total bits")
+    put("CheckLast", "%.0f" % (100.0 * h[-3:].sum() / h.sum()), "same: percent in the last three ticks")
+    # Stage 5
+    import tm2_waves as tw
+    put("SpeedDense", "%.3f" % tw.group_speed(0.5, 0.2, 2.0), "tm2_waves.group_speed, rho = 4, k = 0.5")
+    put("SpeedOne", "%.3f" % tw.group_speed(0.5, 0.2, 1.0), "same, rho = 1")
+    put("StepRefl", "%.3f" % tw.step_theory(0.5, 0.2, 1.0, 2.0)[0], "tm2_waves.step_theory: reflected fraction, rho 1 -> 4, k = 0.5")
+    fh = tw.front_height()
+    rr = sorted(fh)
+    put("FrontSlope", "%.2f" % -np.polyfit(np.log(rr), np.log([fh[r] for r in rr]), 1)[0], "tm2_waves.front_height: minus the log-log slope")
+    avg, pavg = tw.settled_average(), tw.settled_average(pair=True)
+    put("PairNear", "%.2f" % (pavg[32, 34, 32] / avg[32, 34, 32]), "tm2_waves.settled_average: pair / single at r = 2")
+    put("PairFar", "%.3f" % (pavg[32, 40, 32] / avg[32, 40, 32]), "same at r = 8")
+    put("RuleIErr", "%.0f" % (100.0 * (math.sqrt(tw.c2_rule(2.0, "I")) / tw.clock(2.0) - 1.0)), "tm2_waves: percent by which c exceeds the clock at 2 r_s, rule I")
+    return T
+
+
 def compute():
     """{macro name: (value as text, how it was obtained)}"""
     import chair_e8_192 as ch
@@ -126,6 +234,8 @@ def compute():
     put("PisotRatio", "%.3f" % (4 - math.sqrt(15)), "4 - sqrt 15, the Pisot conjugate 1/lambda^2")
     put("MysticFreq", "%.4f" % ((5 - math.sqrt(15)) / 10), "(5 - sqrt 15)/10, frequency of the Mystic tile = rho_0/2 (Exact in the spectre repository)")
     put("ShearSV", "%.4f" % math.sqrt(2 - math.sqrt(3)), "sqrt(2 - sqrt 3) = |1 - zeta_12|, both singular values of the fitted shear (spectre repository deform_fit_v1: 0.5176)")
+    for k, v in toymodel_numbers().items():
+        put(k, v[0], v[1])
     comp = json.load(open(COMPANION))
     for k, v in comp.items():
         if not k.startswith("_"):
@@ -142,6 +252,9 @@ EXPECTED = {"Inscribed": "25", "Partitions": "10", "Roots": "240", "Fibres": "10
             "BitsCopy": "1.585", "Tsirelson": "2.828", "DeltaCubic": "1/12", "DeltaCubicTsirelson": "0.187", "DeltaHexTsirelson": "0.069",
             "DeltaHexFull": "1/6", "RhoZero": "0.2254", "MysticFreq": "0.1127", "ShearSV": "0.5176", "PisotRatio": "0.127", "CChairfraction": "13/24",
             "SplitCoxOne": "7376", "SplitCoxTwo": "13251", "VorAccepted": "6120", "VorCoxSplit": "2540"}
+# research/toymodel_v2 (section 'A staged test of the dynamic half'); recomputed by toymodel_numbers()
+EXPECTED.update({'TSeams': '406', 'TBroken': '88', 'TPairFracTwo': '24.0', 'TPairFracThree': '34.9', 'TPairFracFour': '40.0', 'TSeamAll': '4096', 'TSeamClosed': '64', 'TSeamLedger': '924', 'THatNormSq': '6', 'TInflOpenNear': '0.436', 'TInflOpenFar': '0.079', 'TInflClosedThree': '0.069', 'TInflClosedEight': '0.199', 'TGreedySuccess': '0.85', 'TGreedyCollapse': '0.14', 'TCompatOne': '43', 'TCompatThree': '70', 'TCompatSix': '711', 'TRevFwdBad': '18', 'TRevFwdAll': '994', 'TRevRevBad': '145', 'TRevRevAll': '572', 'TLadderZero': '0.872', 'TLadderOne': '0.340', 'TOpenAsym': '6624', 'TOpenAll': '7776', 'TBaseAsym': '0.246', 'TDampPlus': '0.142', 'TDampMinus': '7.45', 'TMeanFlip': '4.85', 'TClosedFive': '360', 'TOrientedFive': '240', 'TClosedEight': '54810', 'TOrientedEight': '43488', 'THeldSpectre': '10.67', 'THeldLast': '1.24', 'THeldMin': '0.777', 'TTicks': '12', 'TBetaTwo': '0.841', 'TBetaTsirelson': '1.255', 'TContrastTwo': '1.21', 'TContrastTsirelson': '1.68', 'TDeltaTwo': '0.169', 'TRuleSixty': '+0.152', 'TRuleOneTwenty': '+0.689', 'TRuleChshOne': '3.620', 'TBiasLo': '0.535', 'TBiasHi': '0.571', 'TPastShiftOne': '0.315', 'TPastShiftEight': '0.030', 'TWalkAbove': '36', 'TCheckEntropy': '0.216', 'TCheckLast': '95'})
+EXPECTED.update({'TSpeedDense': '1.947', 'TSpeedOne': '0.970', 'TStepRefl': '0.118', 'TFrontSlope': '1.09', 'TPairNear': '0.16', 'TPairFar': '0.006', 'TRuleIErr': '10'})
 
 
 def write(N, path=OUT):
