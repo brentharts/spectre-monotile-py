@@ -29,6 +29,13 @@ Exact claims (each a test; ``python3 t3_escape.py --tests-only``)
   E2.4  The coupling (C) on Z^3: the overlap c = sqrt(1 - h) equals sqrt(1 - R_eff / r), the clock factor with r_s = R_eff, to 1% once the finite sphere is corrected for; c = 0 on the source (a horizon at r_s = R_eff); and 1 - c^2 falls as 1/r.  With the space factor of t3_optics (A B = 1) the index
         1 / (1 - h) bends light by 2 r_s / b to first order.  On Z^2 and on the Spectre tiling (C) gives c -> 0 everywhere as L grows.
 
+  E2.5  The Chair44 (the 3D aperiodic monotile of Tsiokos, substitution of chair44_core.py), tile-adjacency graph of the depth-5 supertile (32768 tiles,
+        mean degree 7.06, source = tiles with centroid within 3 of the centre): the walk is transient.  With the absorbing sphere at L = 28,
+        h (1/r - 1/L)^(-1) = 2.10, 1.96, 2.01, 1.97, 2.01, 2.05 at r = 5, 7, 9, 11, 14, 18: flat to 5%, so h = A / r with A = 2.0, as on Z^3, and rule (C) gives the
+        clock and a horizon on it.  But the Chair44 hull is achiral (proved in the Hat and Spectre repository: the substitution commutes with the x <-> y mirror,
+        research/chair44_mirror_proof.py), so it has no handedness to fix the sign of the area term of t3_area.py; the Spectre has one (Im Z_k < 0) and is
+        recurrent.  No substrate in either repository has both.
+
 What it says: the 2D/3D split found in Stage 5 of v2 is the recurrence/transience split of the substrate's random walk, and the rule (C) turns it into both halves of
 open problem 8 at once (1/r and a horizon) on a transient substrate, and into neither on a planar one.  The Chair44 (a 3D aperiodic solid) is the substrate to try next
 (Stage 6 of the plan).  Not shown: why (C); the walk's own dynamics; any back-reaction of the bit on the substrate.
@@ -144,6 +151,39 @@ def spectre_graph(level=4):
     return _CACHE[key]
 
 
+def chair44_graph(depth=5):
+    """(tile centroids, edges, distance to the central tile) of the tile-adjacency graph of the depth-th Chair44 supertile (tiles adjacent when they share a unit face)."""
+    key = ("C", depth)
+    if key in _CACHE:
+        return _CACHE[key]
+    import chair44_core as C
+    cells = C.patch_cells(depth)
+    tiles = {}
+    for c, ti in cells.items():
+        tiles.setdefault(ti, []).append(c)
+    ids = sorted(tiles)
+    pos = {ti: i for i, ti in enumerate(ids)}
+    cent = np.array([np.mean(tiles[ti], axis=0) for ti in ids]) + 0.5
+    edges = set()
+    for c, ti in cells.items():
+        for dd in ((1, 0, 0), (0, 1, 0), (0, 0, 1)):
+            tj = cells.get((c[0] + dd[0], c[1] + dd[1], c[2] + dd[2]))
+            if tj is not None and tj != ti:
+                a, b = pos[ti], pos[tj]
+                edges.add((min(a, b), max(a, b)))
+    E = np.array(sorted(edges))
+    side = 2 ** depth * 2
+    c0 = cent[np.argmin(np.linalg.norm(cent - side / 2.0, axis=1))]
+    _CACHE[key] = (cent, E, np.linalg.norm(cent - c0, axis=1))
+    return _CACHE[key]
+
+
+def chair44_rings(depth, R, L, radii):
+    X, E, d = chair44_graph(depth)
+    h = hitting_graph(X, E, d, R, L)
+    return [float(h[np.abs(d - r) < 0.75].mean()) for r in radii]
+
+
 def hitting_graph(X, E, d, R, L):
     src, out = d <= R, d >= L
     free = ~src & ~out
@@ -220,6 +260,17 @@ def test_e24_the_coupling_gives_the_clock_and_a_horizon_in_three_dimensions():
     assert math.sqrt(1.0 - axis_profile(2, 160, 3.0)[1][5]) < math.sqrt(1.0 - axis_profile(2, 20, 3.0)[1][5])
 
 
+def test_e25_the_chair44_is_transient_but_achiral():
+    X, E, d = chair44_graph(5)
+    assert len(X) == 32768 and math.isclose(2.0 * len(E) / len(X), 7.06, abs_tol=0.01)
+    radii = (5, 7, 9, 11, 14, 18)
+    h28 = chair44_rings(5, 3.0, 28, radii)
+    A = [v / (1.0 / r - 1.0 / 28.0) for r, v in zip(radii, h28)]
+    assert max(A) / min(A) < 1.08 and math.isclose(np.mean(A), 2.0, abs_tol=0.05), A
+    h20 = chair44_rings(5, 3.0, 20, (5,))[0]
+    assert h20 < h28[0] < 0.42, "converges as L grows (3D), to about A / r = 0.40 at r = 5, not to 1 (2D)"
+
+
 def test_validation():
     try:
         continuum(5.0, 10, 3.0, 4)
@@ -258,6 +309,9 @@ def story():
         print("  %2d: %.5f %.5f" % (x, hh[rr == x][0], continuum(float(x), 40, reff, 3)))
     print("Z^2, R = 3, r = 6: h for L = 20, 40, 80, 160:", " ".join("%.3f" % axis_profile(2, L, 3.0)[1][axis_profile(2, L, 3.0)[0] == 6.0][0] for L in (20, 40, 80, 160)))
     print("Spectre level 4, R = 3, r = 9: h for L = 15, 30, 60:", " ".join("%.3f" % spectre_ring(4, 3.0, L, 9.0) for L in (15, 30, 60)))
+    radii = (5, 7, 9, 11, 14, 18)
+    h = chair44_rings(5, 3.0, 28, radii)
+    print("Chair44 depth 5 tile graph, R = 3, L = 28: h (1/r - 1/L)^-1 at r =", radii, ":", " ".join("%.3f" % (v / (1 / r - 1 / 28)) for r, v in zip(radii, h)))
     X, E, d = spectre_graph(5)
     print("Spectre level 5 (%d vertices): h at r = 9 for L = 30, 60, 120, 240:" % len(X),
           " ".join("%.3f" % spectre_ring(5, 3.0, L, 9.0) for L in (30, 60, 120, 240)))

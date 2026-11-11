@@ -1,6 +1,6 @@
 # Stage 1: results (waves and light bending; the clock from a hitting probability)
 
-Labels as in `PLAN.md`. Nothing here is gravity; "clock" means the factor √(1 − r_s/r) of the companion model, and "light bending" means rays of the model's own wave equation. Files: `t3_optics.py` (5 tests, about 1 s) and `t3_escape.py` (5 tests, about 2 s); figures `figures/t3_optics.png` and `figures/t3_escape.png`.
+Labels as in `PLAN.md`. Nothing here is gravity; "clock" means the factor √(1 − r_s/r) of the companion model, and "light bending" means rays of the model's own wave equation. Files: `t3_optics.py` (5 tests, about 1 s) and `t3_escape.py` (6 tests, about 4 s); figures `figures/t3_optics.png` and `figures/t3_escape.png`.
 
 ```
 python3 research/toymodel_v3/t3_optics.py --tests-only --story
@@ -40,6 +40,7 @@ Rule (C): `c² = 1 − h`, where h is the probability that the substrate's rando
 | E2.1 | Z³ (source radius 3, absorbing sphere 40) | `h = R_eff/r` with R_eff = 2.81: the continuum form within 0.8% for r = 4 to 20, and r·h flat to 1% | Exact / Numeric |
 | E2.2 | Z² | at r = 6, h = 0.61, 0.71, 0.77, 0.81 as the absorbing radius grows from 20 to 160, following ln(L/r)/ln(L/R) → 1 | Exact / Numeric |
 | E2.3 | **Spectre tiling** (vertex graph, levels 4 and 5) | the same as Z²: at r = 9, h = 0.31, 0.51, 0.63 (level 4, L = 15 to 60) and up to 0.78 at L = 240 (level 5, 214 662 vertices), within 0.03 of the planar form | Exact / Numeric |
+| E2.5 | **Chair44** (tile graph of the depth-5 supertile, 32768 tiles; added after Stage 1) | **transient**: h·(1/r − 1/L)⁻¹ = 2.10, 1.96, 2.01, 1.97, 2.01, 2.05 at r = 5 to 18 (L = 28), flat to 5%: h ∝ 1/r as on Z³. But the Chair44 hull is achiral (proved in the Hat and Spectre repository); see `CONNECTIONS_SPECTRE.md` | Exact / Numeric |
 | E2.4 | rule (C) on Z³ | `c = √(1 − R_eff/r)` to 1%: **the clock factor, a horizon (c = 0 on the source) and 1/r, all from one rule**. With AB = 1 the index 1/(1 − h) bends light by 2r_s/b | Exact algebra on the numbers above |
 
 What this says:
