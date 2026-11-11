@@ -1,6 +1,6 @@
 # toymodel_v2: plan (revision 3, after Stage 0)
 
-Status: Stages 0 and 1 done (`STAGE0.md`, `STAGE1.md`); Stages 2 to 6 not started. Labels as in `quantgrav.tex`: **Exact** (checked by a test that can fail), **Numeric**, **Definition** (a choice made in the toy), **Hypothesis** (a physical reading nothing here tests), **Negative** (a test was run and the idea failed), **Not explained**.
+Status: Stages 0 to 5 done (`STAGE0.md` to `STAGE5.md`); Stage 6 (optional) not started. Stage 3 added input (i') to C5 and reading B to C7 (see `STAGE3.md`, section 4). Labels as in `quantgrav.tex`: **Exact** (checked by a test that can fail), **Numeric**, **Definition** (a choice made in the toy), **Hypothesis** (a physical reading nothing here tests), **Negative** (a test was run and the idea failed), **Not explained**.
 
 Framing, as in the paper: nothing here connects to gravity. "Gravity", "clock", "wave", "entanglement" and "arrow" name parts of small models and are used for a result only when a test shows the part behaves that way.
 
