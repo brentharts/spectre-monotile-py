@@ -50,6 +50,70 @@ def corner_types(levels=2):
     return len(tiles), len(lifted), (dict(types.pop()) if len(types) == 1 else None), dict(split)
 
 
+def toymodel_v3_numbers():
+    """Numbers of the section 'A second pass' (research/toymodel_v3), recomputed.  Macro names start with V."""
+    for sub in ("toymodel_v2", "toymodel_v3"):
+        d = os.path.join(_ROOT, "research", sub)
+        if d not in sys.path:
+            sys.path.insert(0, d)
+    import core
+    import t3_area as va
+    import t3_chair_handedness as vc
+    import t3_escape as ve
+    import t3_optics as vo
+    import t3_passrate as vp
+    import t3_qubit as vq
+    import t3_records as vr
+    import t3_relax as vx
+    V = {}
+
+    def put(name, value, src):
+        V["V" + name] = (str(value), src)
+
+    put("ClockOnly", "%.2f" % vo.coefficients(vo.index_from(0.0))[0], "t3_optics: first-order deflection coefficient, clock only")
+    put("FullBend", "%.2f" % vo.coefficients(vo.index_from(1.0))[0], "same, A B = 1")
+    lag, pred, exc = vo.slab_delay()
+    put("SlabLag", "%.1f" % lag, "t3_optics.slab_delay: lag of a pulse through a slab n = 1.5, width 200")
+    reff = ve.fit_reff(3, 40, 3.0, 4.0, 20.0)
+    put("Reff", "%.2f" % reff, "t3_escape.fit_reff: effective radius of the source on Z^3")
+    put("SpecHitOne", "%.2f" % ve.spectre_ring(4, 3.0, 15, 9.0), "t3_escape.spectre_ring(4, 3, L = 15, r = 9)")
+    put("SpecHitTwo", "%.2f" % ve.spectre_ring(4, 3.0, 60, 9.0), "same, L = 60")
+    radii = (5, 7, 9, 11, 14, 18)
+    h = ve.chair44_rings(5, 3.0, 28, radii)
+    A = [v / (1.0 / r - 1.0 / 28.0) for r, v in zip(radii, h)]
+    put("ChairA", "%.2f" % np.mean(A), "t3_escape.chair44_rings: mean of h (1/r - 1/L)^-1, r = 5..18")
+    put("ChairFlat", "%.0f" % (100.0 * (max(A) / min(A) - 1.0)), "same: spread max/min - 1, percent")
+    for n, nm in ((6, "Six"), (8, "Eight")):
+        T = core.closed_timelines("hex", n).astype(int)
+        put("Area" + nm, int((va.K_of(T) != 0).sum()), "t3_area: closed timelines of %d steps with nonzero signed area" % n)
+    put("Psi", "-3/14" if vc.psi() == vc.Fr(-3, 14) else str(vc.psi()), "t3_chair_handedness.psi(): handedness of the decorated chair")
+    put("PinSignChsh", "%.2f" % vp.Box(5.0, 1, "pin", "sign").chsh(), "t3_passrate: post-selected CHSH, pin/sign, beta = 5, constant pass rate")
+    worst = max(vp.Box(b, n, ma, mb).ch_max() for ma, mb in (("pin", "pin"), ("pin", "sign"), ("soft", "sign"), ("soft", "soft")) for b in (1.0, 2.0, 3.0, 5.0) for n in (1, 3))
+    put("ChWorst", "%.4f" % worst, "t3_passrate: largest Clauser-Horne combination found (local bound 0)")
+    r = vr.RecordedChain()
+    put("RecBoth", "%.2f" % r.asymmetry(6, 1), "t3_records: asymmetry at k = 6, m = 1, amplitudes and records")
+    put("RecFlat", "%.2f" % vr.RecordedChain(flat=True).asymmetry(6, 1), "same, flat amplitudes, records only")
+    put("RecAmp", "%.2f" % vr.amplitude_only("chain", 6, 1), "same, amplitudes only")
+    rng = np.random.default_rng(11)
+    fd = []
+    for _ in range(200):
+        U = vq.random_unitary(rng)
+        rng.normal(size=6)  # keep the draw order of the test irrelevant: a separate stream
+        fd.append(vq.fidelity(vq.spin_state(vq.winding(-1), U, vq.random_unitary(rng))))
+    put("DiffWing", "%.2f" % np.mean(fd), "t3_qubit: mean singlet fidelity with two different random wings")
+    free = vx.profile(13, False, 8000, vx.TIMES, seed=5)
+    put("FreeOne", "%.0f" % free[0][2], "t3_relax: t_half at d = 1, free, n = 13")
+    put("FreeFive", "%.0f" % free[4][2], "same, d = 5")
+    far = {}
+    for n in (13, 17):
+        rows = vx.profile(n, True, 8000, vx.TIMES, seed=6)
+        sel = [x[2] for x in rows if x[0] >= n // 2 - 2 and x[1] >= 0.04]
+        far[n] = float(np.mean(sel))
+        put("Far" + ("Thirteen" if n == 13 else "Seventeen"), "%.0f" % far[n], "t3_relax: mean t_half of the far nodes, closed, n = %d" % n)
+    put("FarRatio", "%.1f" % (far[17] / far[13]), "ratio of the two")
+    return V
+
+
 def toymodel_numbers():
     """Numbers of the section 'A staged test of the dynamic half' (research/toymodel_v2), recomputed.  {macro: (text, source)}; macro names start with T."""
     tdir = os.path.join(_ROOT, "research", "toymodel_v2")
@@ -248,6 +312,8 @@ def compute():
     put("ShearSV", "%.4f" % math.sqrt(2 - math.sqrt(3)), "sqrt(2 - sqrt 3) = |1 - zeta_12|, both singular values of the fitted shear (spectre repository deform_fit_v1: 0.5176)")
     for k, v in toymodel_numbers().items():
         put(k, v[0], v[1])
+    for k, v in toymodel_v3_numbers().items():
+        put(k, v[0], v[1])
     put("TNumbersChecked", len(EXPECTED), "number of quoted values checked by run_tests (len(EXPECTED))")
     comp = json.load(open(COMPANION))
     for k, v in comp.items():
@@ -267,6 +333,8 @@ EXPECTED = {"Inscribed": "25", "Partitions": "10", "Roots": "240", "Fibres": "10
             "SplitCoxOne": "7376", "SplitCoxTwo": "13251", "VorAccepted": "6120", "VorCoxSplit": "2540"}
 # research/toymodel_v2 (section 'A staged test of the dynamic half'); recomputed by toymodel_numbers()
 EXPECTED.update({'TSeams': '406', 'TBroken': '88', 'TPairFracTwo': '24.0', 'TPairFracThree': '34.9', 'TPairFracFour': '40.0', 'TSeamAll': '4096', 'TSeamClosed': '64', 'TSeamLedger': '924', 'THatNormSq': '6', 'TInflOpenNear': '0.436', 'TInflOpenFar': '0.079', 'TInflClosedThree': '0.069', 'TInflClosedEight': '0.199', 'TGreedySuccess': '0.85', 'TGreedyCollapse': '0.14', 'TCompatOne': '43', 'TCompatThree': '70', 'TCompatSix': '711', 'TRevFwdBad': '18', 'TRevFwdAll': '994', 'TRevRevBad': '145', 'TRevRevAll': '572', 'TLadderZero': '0.872', 'TLadderOne': '0.340', 'TOpenAsym': '6624', 'TOpenAll': '7776', 'TBaseAsym': '0.246', 'TDampPlus': '0.142', 'TDampMinus': '7.45', 'TMeanFlip': '4.85', 'TClosedFive': '360', 'TOrientedFive': '240', 'TClosedEight': '54810', 'TOrientedEight': '43488', 'THeldSpectre': '10.67', 'THeldLast': '1.24', 'THeldMin': '0.777', 'TTicks': '12', 'TBetaTwo': '0.841', 'TBetaTsirelson': '1.255', 'TContrastTwo': '1.21', 'TContrastTsirelson': '1.68', 'TDeltaTwo': '0.169', 'TRuleSixty': '+0.152', 'TRuleOneTwenty': '+0.689', 'TRuleChshOne': '3.620', 'TBiasLo': '0.535', 'TBiasHi': '0.571', 'TPastShiftOne': '0.315', 'TPastShiftEight': '0.030', 'TWalkAbove': '36', 'TCheckEntropy': '0.216', 'TCheckLast': '95', 'TRatePast': '0.392', 'TRateContrast': '0.783', 'TRateCorr': '0.239', 'TPastBitsOne': '1.322', 'TPastBitsFour': '0.240', 'TPastBitsEight': '0.011', 'TLongDelta': '0.066', 'TLongE': '0.442', 'TLongChsh': '1.117'})
+# research/toymodel_v3 (section 'A second pass'); recomputed by toymodel_v3_numbers()
+EXPECTED.update({'VClockOnly': '1.00', 'VFullBend': '2.00', 'VSlabLag': '105.5', 'VReff': '2.81', 'VSpecHitOne': '0.31', 'VSpecHitTwo': '0.63', 'VChairA': '2.02', 'VChairFlat': '7', 'VAreaSix': '1020', 'VAreaEight': '34920', 'VPsi': '-3/14', 'VPinSignChsh': '3.92', 'VChWorst': '-0.0088', 'VRecBoth': '-2.96', 'VRecFlat': '-0.93', 'VRecAmp': '-2.03', 'VDiffWing': '0.26', 'VFreeOne': '9', 'VFreeFive': '23', 'VFarThirteen': '88', 'VFarSeventeen': '139', 'VFarRatio': '1.6'})
 EXPECTED.update({'TSpeedDense': '1.947', 'TSpeedOne': '0.970', 'TStepRefl': '0.118', 'TFrontSlope': '1.09', 'TPairNear': '0.16', 'TPairFar': '0.006', 'TRuleIErr': '10'})
 
 
