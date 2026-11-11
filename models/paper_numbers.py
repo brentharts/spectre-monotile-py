@@ -56,6 +56,7 @@ def toymodel_numbers():
     if tdir not in sys.path:
         sys.path.insert(0, tdir)
     import tm2_arrow as ta
+    import tm2_checking as tk
     import tm2_directed as td
     import tm2_history_sum as th
     import tm2_lattice as tl
@@ -143,6 +144,17 @@ def toymodel_numbers():
     h = tr.check_entropy(m.angles())
     put("CheckEntropy", "%.3f" % h.sum(), "tm2_rule.check_entropy(chain), total bits")
     put("CheckLast", "%.0f" % (100.0 * h[-3:].sum() / h.sum()), "same: percent in the last three ticks")
+    # Stage 6 (tm2_checking)
+    pr, ct, co = tk.rates(2.0)
+    put("RatePast", "%.3f" % pr, "tm2_checking.rates(2): past shift, per wing step")
+    put("RateContrast", "%.3f" % ct, "same: pass-rate contrast")
+    put("RateCorr", "%.3f" % co, "same: end-to-end correlation")
+    for nn, nm in ((1, "One"), (4, "Four"), (8, "Eight")):
+        put("PastBits" + nm, "%.3f" % tk.bits_on_past(2.0, nn), "tm2_checking.bits_on_past, beta = 2, n = %d, a = b" % nn)
+    lw = tr.TwoWing(3.0, 16)
+    put("LongDelta", "%.3f" % lw.delta(), "tm2_rule.TwoWing(3, 16).delta()")
+    put("LongE", "%.3f" % abs(lw.E(0, 0)), "same: |E| at zero angle")
+    put("LongChsh", "%.3f" % lw.chsh(), "same: CHSH")
     # Stage 5
     import tm2_waves as tw
     put("SpeedDense", "%.3f" % tw.group_speed(0.5, 0.2, 2.0), "tm2_waves.group_speed, rho = 4, k = 0.5")
@@ -253,7 +265,7 @@ EXPECTED = {"Inscribed": "25", "Partitions": "10", "Roots": "240", "Fibres": "10
             "DeltaHexFull": "1/6", "RhoZero": "0.2254", "MysticFreq": "0.1127", "ShearSV": "0.5176", "PisotRatio": "0.127", "CChairfraction": "13/24",
             "SplitCoxOne": "7376", "SplitCoxTwo": "13251", "VorAccepted": "6120", "VorCoxSplit": "2540"}
 # research/toymodel_v2 (section 'A staged test of the dynamic half'); recomputed by toymodel_numbers()
-EXPECTED.update({'TSeams': '406', 'TBroken': '88', 'TPairFracTwo': '24.0', 'TPairFracThree': '34.9', 'TPairFracFour': '40.0', 'TSeamAll': '4096', 'TSeamClosed': '64', 'TSeamLedger': '924', 'THatNormSq': '6', 'TInflOpenNear': '0.436', 'TInflOpenFar': '0.079', 'TInflClosedThree': '0.069', 'TInflClosedEight': '0.199', 'TGreedySuccess': '0.85', 'TGreedyCollapse': '0.14', 'TCompatOne': '43', 'TCompatThree': '70', 'TCompatSix': '711', 'TRevFwdBad': '18', 'TRevFwdAll': '994', 'TRevRevBad': '145', 'TRevRevAll': '572', 'TLadderZero': '0.872', 'TLadderOne': '0.340', 'TOpenAsym': '6624', 'TOpenAll': '7776', 'TBaseAsym': '0.246', 'TDampPlus': '0.142', 'TDampMinus': '7.45', 'TMeanFlip': '4.85', 'TClosedFive': '360', 'TOrientedFive': '240', 'TClosedEight': '54810', 'TOrientedEight': '43488', 'THeldSpectre': '10.67', 'THeldLast': '1.24', 'THeldMin': '0.777', 'TTicks': '12', 'TBetaTwo': '0.841', 'TBetaTsirelson': '1.255', 'TContrastTwo': '1.21', 'TContrastTsirelson': '1.68', 'TDeltaTwo': '0.169', 'TRuleSixty': '+0.152', 'TRuleOneTwenty': '+0.689', 'TRuleChshOne': '3.620', 'TBiasLo': '0.535', 'TBiasHi': '0.571', 'TPastShiftOne': '0.315', 'TPastShiftEight': '0.030', 'TWalkAbove': '36', 'TCheckEntropy': '0.216', 'TCheckLast': '95'})
+EXPECTED.update({'TSeams': '406', 'TBroken': '88', 'TPairFracTwo': '24.0', 'TPairFracThree': '34.9', 'TPairFracFour': '40.0', 'TSeamAll': '4096', 'TSeamClosed': '64', 'TSeamLedger': '924', 'THatNormSq': '6', 'TInflOpenNear': '0.436', 'TInflOpenFar': '0.079', 'TInflClosedThree': '0.069', 'TInflClosedEight': '0.199', 'TGreedySuccess': '0.85', 'TGreedyCollapse': '0.14', 'TCompatOne': '43', 'TCompatThree': '70', 'TCompatSix': '711', 'TRevFwdBad': '18', 'TRevFwdAll': '994', 'TRevRevBad': '145', 'TRevRevAll': '572', 'TLadderZero': '0.872', 'TLadderOne': '0.340', 'TOpenAsym': '6624', 'TOpenAll': '7776', 'TBaseAsym': '0.246', 'TDampPlus': '0.142', 'TDampMinus': '7.45', 'TMeanFlip': '4.85', 'TClosedFive': '360', 'TOrientedFive': '240', 'TClosedEight': '54810', 'TOrientedEight': '43488', 'THeldSpectre': '10.67', 'THeldLast': '1.24', 'THeldMin': '0.777', 'TTicks': '12', 'TBetaTwo': '0.841', 'TBetaTsirelson': '1.255', 'TContrastTwo': '1.21', 'TContrastTsirelson': '1.68', 'TDeltaTwo': '0.169', 'TRuleSixty': '+0.152', 'TRuleOneTwenty': '+0.689', 'TRuleChshOne': '3.620', 'TBiasLo': '0.535', 'TBiasHi': '0.571', 'TPastShiftOne': '0.315', 'TPastShiftEight': '0.030', 'TWalkAbove': '36', 'TCheckEntropy': '0.216', 'TCheckLast': '95', 'TRatePast': '0.392', 'TRateContrast': '0.783', 'TRateCorr': '0.239', 'TPastBitsOne': '1.322', 'TPastBitsFour': '0.240', 'TPastBitsEight': '0.011', 'TLongDelta': '0.066', 'TLongE': '0.442', 'TLongChsh': '1.117'})
 EXPECTED.update({'TSpeedDense': '1.947', 'TSpeedOne': '0.970', 'TStepRefl': '0.118', 'TFrontSlope': '1.09', 'TPairNear': '0.16', 'TPairFar': '0.006', 'TRuleIErr': '10'})
 
 
