@@ -27,7 +27,7 @@
 \theoremstyle{definition}
 \newtheorem{result}{Result}
 
-\title{From $E_{8}$ Lattices to Retrocausal Networks: Exact Geometries and Directional Spacetime Dynamics}
+\title{On the Origin of the Temporal Arrow: Dual Geometric Structures, Scale Separation, and State-Machine Gravity}
 \author{Brent Hartshorn and Tristan Romanov}
 \date{\today}
 
@@ -126,6 +126,11 @@ Spectre vertices: sheared $\mathbb{Z}[\zeta_{12}]$ model set, window radius $\ap
 Wilson action on $A_2\oplus A_2$: tiles give an area law; sharp corner resolved; outline gap & \exact, \numeric$^\dagger$ & \ref{sec:companion} & \texttt{spectre\_wilson} \\
 Hexagonal six directions in $E_8$ ($\qgCHexorth$ orthogonal roots) & \exact$^\dagger$ & \ref{sec:hexdirs} & \texttt{hex\_directions}, \texttt{hex\_e8} \\
 Copy contract signals ($\qgBitsCopy$ bits); price of retro-dependence $\min(4,2+12\delta)$ & \exact, \numeric$^\dagger$ & \ref{sec:retro-tests} & \texttt{hex\_directions}, \texttt{hex\_contract} \\
+One lift for the Spectre--Hat family; the bit opens only in bump-and-dent pairs & \exact & \ref{sec:staged-lattice} & \texttt{tm2\_lattice} \\
+A pin acts globally under the flux constraint; no ripple & \negres & \ref{sec:staged-history} & \texttt{tm2\_history\_sum} \\
+Orientation audit; oriented timelines are generic; records sit at the frozen end & \exact, \negres & \ref{sec:staged-arrow} & \texttt{tm2\_arrow}, \texttt{tm2\_directed} \\
+A correlation rule from a two-ended history; no free $\kappa$; no quantum bound & \exact, \negres & \ref{sec:staged-rule} & \texttt{tm2\_rule} \\
+Wave speed $c\sqrt\rho$; a snap radiates; the clock on a 2D and on a 3D sheet & \exact, \numeric, \negres & \ref{sec:staged-waves} & \texttt{tm2\_waves} \\
 Tight-binding spectra, twist hopping and the Spectre--Chair44 fibres & \exact, \numeric & \ref{app:tb} & \texttt{\_tb}, \texttt{twist\_hopping}, \texttt{chair\_fibers} \\
 \bottomrule
 \end{tabular}
@@ -439,10 +444,10 @@ Each item says what would count as an answer. None has been done.
 \item \textbf{Reading the sources.} The Elser--Sloane paper, to decide whether the window of Result~\ref{res:vor} is theirs; the Sadoc--Mosseri paper beyond its abstract; the construction of Ch\'eritat and Ma behind the lift; the five arXiv papers cited in the Introduction beyond their abstracts, and the literature on causal sets and loop quantum gravity mentioned there.
 \item \textbf{Proofs.} The invariance of the Voronoi window under the fibre group (a sketch only), the class-count formula for the shells ($n\le 60$ checked), and the shell law for all $n$.
 \item \textbf{The orientation.} Whether the other choice of $R_\omega$ in the embedding of Section~\ref{sec:embed} gives the mirror image.
-\item\label{item:arrow} \textbf{An arrow of time.} The aim of the Introduction. A candidate structure would be a graph or combinatorial object on which reversal of the order of events is not a symmetry, which also has the exact structure found here. None of the computations in this paper provides one; Result~\ref{res:chirality} gives a handedness, not an order.
-\item \textbf{A rule that pays the price.} A consistency rule for the retrocausal contract, not a free choice of the joint probabilities, under which the settings-dependent ensemble stays free of signalling and lands on a Bell violation (Result~\ref{res:price} gives the price). Partly done: Result~\ref{res:rule} pays it with a chosen weight on zero-free read-outs. Open: derive the weight from a path action with boundary terms at both ends and a normalisation over the whole history, fix $\kappa$, and keep no signalling when zero outcomes are allowed. The copy contract of Result~\ref{res:copy}, which signals, would have to be replaced.
+\item\label{item:arrow} \textbf{An arrow of time.} The aim of the Introduction. A candidate structure would be a graph or combinatorial object on which reversal of the order of events is not a symmetry, which also has the exact structure found here. None of the computations in this paper provides one; Result~\ref{res:chirality} gives a handedness, not an order. Section~\ref{sec:staged-arrow} lists where an orientation enters the dynamic half and finds each one put in by hand.
+\item\label{item:rule} \textbf{A rule that pays the price.} A consistency rule for the retrocausal contract, not a free choice of the joint probabilities, under which the settings-dependent ensemble stays free of signalling and lands on a Bell violation (Result~\ref{res:price} gives the price). Partly done: Result~\ref{res:rule} pays it with a chosen weight on zero-free read-outs. Open: derive the weight from a path action with boundary terms at both ends and a normalisation over the whole history, fix $\kappa$, and keep no signalling when zero outcomes are allowed. The copy contract of Result~\ref{res:copy}, which signals, would have to be replaced. Addressed in part in Section~\ref{sec:staged-rule}: a rule is derived from such a weight, it is not the rule of Result~\ref{res:rule}, and it rests on conditioning on both ends.
 \item \textbf{The Wilson action on the real Spectre plaquettes.} Done in part (Result~\ref{res:wilson-hex}): with the tiles as the only plaquettes the energy is an area law, so corners need the transverse plaquettes of the lift lattice. Open: the constrained energy of item~1 on the lift lattice, the $\mathrm{Dic}_{12}$ holonomy, and the placement dependence of Section~\ref{sec:wilson}; and why the outline is not described by one constant per corner (gap in Result~\ref{res:wilson-hex}).
-\item \textbf{A density with the right fall-off.} A rule for $\rho$ (or for the clock) from the tiling and its sources that gives $1/r$ and a horizon, using the exact baseline of Section~\ref{sec:density-limits}. The toy of Section~\ref{sec:density} fails this test.
+\item\label{item:density} \textbf{A density with the right fall-off.} A rule for $\rho$ (or for the clock) from the tiling and its sources that gives $1/r$ and a horizon, using the exact baseline of Section~\ref{sec:density-limits}. The toy of Section~\ref{sec:density} fails this test.
 \end{enumerate}
 
 % ==============================================================================
@@ -580,6 +585,114 @@ Let $S(x, y, t)$ represent the collective directional state vector at spatial gr
 where $\nabla^2$ is the discrete Laplacian over the spatial grid neighbors, $\gamma$ is a damping coefficient, and $\mathcal{S}_{\text{source}}$ represents dynamic quadrupole mass fluctuations (such as binary inspirals). This equation couples the micro-axis orientations across adjacent spatial timelines, yielding propagating wave fronts of consistency adjustments without requiring a smooth pseudo-Riemannian metric tensor.
 
 % ==============================================================================
+% STAGED TEST OF THE DYNAMIC HALF (research/toymodel_v2)
+% ==============================================================================
+\section{A staged test of the dynamic half}\label{sec:staged}
+Sections~\ref{sec:axes} to~\ref{sec:formal} state the dynamic picture and test parts of it with numbers copied from a companion repository. This section tests it again, in six stages, with code in this repository (\texttt{research/toymodel\_v2}; plan and one note per stage are in that folder). Every number below is recomputed by \texttt{models/paper\_numbers.py}; none is a snapshot. Several results correct statements made in the earlier sections, and those are named. As everywhere in this paper, no result is a claim about physics.
+
+Two models are used. The \emph{history sum} is the action $\mathcal{A}[\gamma]$ of Section~\ref{sec:formal} taken literally on the six hexagonal directions of Result~\ref{res:hexdirs}: a timeline of $n$ letters has weight $e^{-\beta\mathcal{A}}$, a closed timeline has zero total flux, and a measurement is a fixed letter (a \emph{pin}). Its marginals are computed exactly by a transfer matrix over the last letter and the running flux, and agree with enumeration to $10^{-12}$. The \emph{chain} is a single two-valued degree of freedom, a bit, placed at the vertex of the Spectre that becomes flat in the Hat (the tile has exactly one such vertex): along a deformation parameter $\tau\in[0,1]$ from Spectre to Hat the two values of the bit are two positions of that vertex a distance $d(\tau)$ apart, with $d(1)=0$. Given a width $\sigma$, the two positions are Gaussian packets with overlap $c(\tau)=e^{-d^2/8\sigma^2}$, and at each of $\qgTTicks$ ticks the bit tunnels with an angle proportional to $c$. Both models are definitions. What is tested is what follows from them.
+
+\subsection{The lift along the Spectre--Hat family, and a pairing rule}\label{sec:staged-lattice}
+\begin{result}[\exact]\label{res:family}
+The tiles $\mathrm{Tile}(1,b)$ for $1\le b\le2$, which include the Spectre ($b=1$) and the Hat ($b=\sqrt3$), are one and the same walk in the lift lattice $A_2\oplus A_2$ of Result~\ref{res:embed}: every edge is an $E_8$ root for every $b$, and the tile-adjacency graph of a patch ($\qgTSeams$ shared edges at level $2$) does not depend on $b$. The deformation only rescales one $A_2$ plane against the other in the projection. At the Hat the projected vertices lie on a single hexagonal lattice, so the projection has a kernel of rank $2$; read through that lattice the long edges of the Hat have $E_8$ norm$^2$ $\qgTHatNormSq$ and are not roots. The statement of Appendix~\ref{app:tb} that the Hat, the Spectre and the Turtle share a bond graph holds for the whole family.
+\end{result}
+\begin{result}[\exact, finite patches]\label{res:pairs}
+Let the flat vertex of a tile be pushed out of its side by $\pm h$ (the bit). If every tile of the level-$2$ patch is opened alike, $\qgTBroken$ of the $\qgTSeams$ shared edges no longer match. The flat vertex of a tile coincides either with the flat vertex of exactly one other tile, or with corners of other tiles, or with nothing. In the first case the two tiles can open as a bump and a dent: every shared edge still matches and the total area is unchanged; two bumps break two shared edges, and a tile that is not in such a pair cannot open at all. The fraction of interior tiles that are in a pair is $\qgTPairFracTwo$, $\qgTPairFracThree$ and $\qgTPairFracFour$ per cent at levels $2$, $3$ and $4$; its limit is not known. On the six pairs of the level-$2$ patch, $\qgTSeamClosed$ of the $\qgTSeamAll$ sign patterns keep every edge matched, a strict subset of the $\qgTSeamLedger$ with zero total area change.
+\end{result}
+This is a compatibility rule that the tiling supplies, in contrast to the flux constraint of $\mathcal{A}$, which cannot see the bit: an opened outline is still closed. Reading the pairing as a rule of nature is a \hypo.
+
+\subsection{What a fixed measurement does to a history}\label{sec:staged-history}
+\begin{result}[\exact; \negres\ for the ``shockwave'']\label{res:influence}
+Let the influence of a pin on another node be the total-variation distance between that node's distribution with and without the pin. Without the flux constraint the influence falls with distance ($\qgTInflOpenNear$ at distance $1$ and $\qgTInflOpenFar$ at distance $6$, $n=13$). With closure it does not: for $n=21$ it is $\qgTInflClosedThree$ at distance $3$ and $\qgTInflClosedEight$ at distance $8$. A fixed node acts on the whole timeline through the constraint; it does not send a disturbance that fades outwards. The ``ripple'' of Sections~\ref{sec:retro} and~\ref{sec:formal} is a property of a greedy solver, not of the action. A greedy solver reaches an admissible timeline in a fraction $\qgTGreedySuccess$ of runs and in a fraction $\qgTGreedyCollapse$ ends on a constant timeline, which has probability zero in the exact ensemble.
+\end{result}
+
+\subsection{Where an orientation enters}\label{sec:staged-arrow}
+\begin{result}[\exact]\label{res:audit}
+(i) $\mathcal{A}$ takes the same value on a closed timeline and on its reverse (proved; checked on all closed timelines of $3$ to $7$ steps). On open timelines it does not: $\qgTOpenAsym$ of the $\qgTOpenAll$ timelines of $5$ steps differ, because the flux $\Phi_{\mathrm{net}}$ is counted from $t=0$. For open histories the choice of that base point is an orientation, which Section~\ref{sec:formal} does not state; in the exact ensemble it shows as a difference of $\qgTBaseAsym$ between the two ends in how often neighbouring letters agree ($n=9$, $\lambda=0.5$).
+(ii) With closure, a pin at node $m$ read backwards is a pin at node $n-1-m$: the asymmetry of a pinned history is the asymmetry of its boundary data.
+(iii) The damped wave equation of Section~\ref{sec:formal}, on a ring, retraces its steps backwards only for $\gamma=0$; the energy changes by the factor $\qgTDampPlus$ for $\gamma=+0.1$ and $\qgTDampMinus$ for $\gamma=-0.1$ over the same run.
+(iv) In the chain, the tick at which a single flip occurred lies $\qgTMeanFlip$ ticks after the middle on average; reversing the order of the ticks mirrors this exactly, and equal angles remove it, with the same final state in all three cases.
+(v) Mirroring the tile changes the sign of the turn at the flat vertex and changes no cost of the chain.
+So three inputs carry an orientation, each put in by hand and each independent of the others by construction (boundary data, the sign of $\gamma$, the order of the ticks), and the handedness of the tile carries none.
+\end{result}
+\begin{result}[\exact]\label{res:census}
+Call a closed hexagonal timeline \emph{oriented} if its reverse is not obtained from it by a rotation or reflection of the six directions and a shift of the starting point. There is none with fewer than $5$ steps; there are $\qgTOrientedFive$ of $\qgTClosedFive$ with $5$ steps and $\qgTOrientedEight$ of $\qgTClosedEight$ with $8$. The outline of the Spectre family is oriented in the same sense.
+\end{result}
+Item~\ref{item:arrow} of Section~\ref{sec:open} asked for an object on which reversal is not a symmetry. Result~\ref{res:census} says such objects are the generic closed timeline. What is missing is a weight that tells a timeline from its reverse, and by Result~\ref{res:audit} the action of Section~\ref{sec:formal} is not one.
+\begin{result}[\exact; \negres\ for a single arrow]\label{res:records}
+In the chain, an optimal reading at tick $j$ returns the value the bit had at tick $i$ with probability $\tfrac12\bigl(1+\sqrt{1-c_j^2}\,\cos\Theta_{ij}\bigr)$, with $\Theta_{ij}$ the tunnelling angle accumulated between the two ticks. Of two ticks, the one with the smaller overlap therefore holds the better record of the other. Measured as mutual information, the Spectre end holds $\qgTHeldSpectre$ bits about the other $\qgTTicks$ ticks (at least $\qgTHeldMin$ about each tick before the Hat), the last tick before the Hat holds $\qgTHeldLast$, and the Hat holds none, since the two packets coincide there. The laws continue through the Hat ($d$ odd and $c$ even about $\tau=1$) and no record crosses it. Records therefore sit at the end where the bit is frozen, while the chain as drawn runs towards the Hat: defining ``later'' as ``holds records'' and defining ``earlier'' as ``determined'' give opposite orientations, and the model does not choose.
+\end{result}
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{research/toymodel_v2/figures/tm2_stage3_arrow.png}
+\caption{The orientation audit. From left: neighbour agreement along an open and a closed timeline (the base point of the flux); influence of a pin at three positions of a closed timeline; fraction of oriented closed timelines; readable and held bits along the chain continued through the Hat at $\tau=1$ (\texttt{tm2\_arrow.py}).}\label{fig:staged-arrow}
+\end{figure}
+
+\subsection{The bit as the sign of a letter}\label{sec:staged-directed}
+Let the letter at tick $j$ be $b_ju_j$, with $b_j=\pm1$ the bit and $u_j$ a prescribed hexagonal direction, and call a history compatible with a reference history if it ends in the same bit and its flux $\sum_jb_jw_ju_j$ differs from the reference by at most $\delta$ ($w_j=d(\tau_j)/2$). With all $u_j$ equal this is a scalar constraint.
+\begin{result}[\exact\ and \numeric]\label{res:directed}
+The amplitude of a history in which the flip occurred $m$ ticks earlier than in the reference falls steeply with $m$, and no constraint of this kind can raise it, since a constraint only removes histories. The vector constraint is not the scalar one renamed: at $\delta=0.4$ there are $\qgTCompatOne$, $\qgTCompatThree$ and $\qgTCompatSix$ compatible histories for axes along one, three and six directions. Where the best earlier and later histories are single flips, earlier is the less likely one for every choice of axes. Where the constraint forces compensating flips this can reverse: in $\qgTRevFwdBad$ of $\qgTRevFwdAll$ such cases for $200$ random axis sequences, and in $\qgTRevRevBad$ of $\qgTRevRevAll$ with the order of ticks reversed (\numeric, a fixed grid). The orientation is in the amplitudes; a tight constraint can override it.
+\end{result}
+If the width $\sigma$ is fixed and the separation $d$ grows with the tile under inflation, the overlap at inflation level $j$ is $c_j=c_0^{\lambda^{2j}}$ with $\lambda^2=4+\sqrt{15}=\qgLambdaSquared$, the leading eigenvalue of the substitution: $\qgTLadderZero$, $\qgTLadderOne$, $\qgTLadderTwo$ from $c_0=c(0.9)$. This is a consequence of the assumption (\hypo), not a property of the tiling.
+
+\subsection{A correlation rule from a two-ended history}\label{sec:staged-rule}
+Item~\ref{item:rule} of Section~\ref{sec:open} asks for a derivation of the rule of Result~\ref{res:rule}. Take an origin direction $v$, a wing of $n$ letters from $v$ to one party and from $-v$ to the other, each with weight $e^{-\beta\sum\|s(t)-s(t-1)\|^2}$ (the first term of $\mathcal{A}$), and at each end a boundary weight $e^{\mu\,\alpha\,a\cdot s}$ for the outcome $\alpha=\pm1$ of the setting $a$; $\mu\to\infty$ is the pin $s=\alpha a$. The table is $P(\alpha,\beta\,|\,a,b)=W/Z(a,b)$, with $Z(a,b)$ the sum over outcomes: the ensemble is the histories that meet both end conditions.
+\begin{result}[\exact]\label{res:derived}
+(a) The rule that results is not $e^{\kappa AB}$. The origin is weighted by a product $g(v,a)\,g(-v,b)$ of one factor for each setting, which $e^{\kappa AB}$ is not. For pins, with $\lambda_k=1+2e^{-\beta}\cos\frac{\pi k}{3}+2e^{-3\beta}\cos\frac{2\pi k}{3}+(-1)^ke^{-4\beta}$ and $r_k=(\lambda_k/\lambda_0)^{2n}$, settings $m\times60^\circ$ apart have
+\[E(m)=-\frac{2r_1\cos(\pi m/3)+(-1)^mr_3}{1+2r_2\cos(2\pi m/3)} .\]
+(b) There is no free parameter $\kappa$. The best CHSH value on the six directions rises with the stiffness $\beta$ and falls with the wing length $n$; for $n=1$ it passes $2$ at $\beta=\qgTBetaTwo$ and $\qgTsirelson$ at $\beta=\qgTBetaTsirelson$, tends to $4$ for stiff wings, where $E\to-\mathrm{sgn}(a\cdot b)$ as in Result~\ref{res:chsh}, and for soft or long wings becomes a cosine law of visibility $2r_1<0.8$ with CHSH below $2$.
+(c) Neither party's marginal depends on the other's setting, to $10^{-14}$, for the six directions and for the twelve at multiples of $30^\circ$, because the weight is unchanged when all letters and both outcomes are inverted; there are no zero outcomes. A bias that breaks this symmetry signals (a marginal between $\qgTBiasLo$ and $\qgTBiasHi$ depending on the far setting).
+(d) The normalisation is a conditioning on both ends, and the weight $Z(a,b)$ of the histories that pass depends on both settings: its largest ratio over the far setting is $\qgTContrastTwo$ where CHSH reaches $2$ and $\qgTContrastTsirelson$ where it reaches $\qgTsirelson$. The outcomes carry no signal; the rate at which histories pass would.
+The bound of Result~\ref{res:price} holds for every table computed and is far from attained: CHSH$=2$ needs $\delta=\qgTDeltaTwo$. The shift $\delta$ of the origin's distribution falls with the wing length ($\qgTPastShiftOne$ at $n=1$, $\qgTPastShiftEight$ at $n=8$, $\beta=2$).
+\end{result}
+\begin{result}[\exact]\label{res:rule-label}
+The rule of Result~\ref{res:rule} depends on how an outcome is named. Describing the second party's measurement by $-b$ with its outcome renamed is the same measurement and replaces $\kappa$ by $-\kappa$. Accordingly $E(180^\circ-\theta)\ne-E(\theta)$ for the rule: at $\kappa=0.5$, $E(60^\circ)=\qgTRuleSixty$ and $E(120^\circ)=\qgTRuleOneTwenty$. Its CHSH values are reproduced here ($\qgTRuleChshOne$ at $\kappa=1$). Result~\ref{res:rule} should be read with this convention fixed; the table of Result~\ref{res:derived} does not have the defect.
+\end{result}
+\begin{result}[\exact; \negres\ for a quantum bound]\label{res:noquantum}
+Replace the weights of the wings by complex amplitudes (any unitary on the six letters, applied to each wing, summed over the shared origin). If each party reads the sign of $a\cdot s$ at the end of its wing, the table is a classical distribution of the two ends with local read-outs, and CHSH $\le2$. If instead the ends are pinned and the table normalised as above, a quantum walk on the six letters gives CHSH above $\qgTsirelson$ for $\qgTWalkAbove$ per cent of walk times and up to $4$. In neither case is $\qgTsirelson$ a bound. A bound would need the setting to act on the state before it is read, which this construction does not contain.
+\end{result}
+So the violation in this family rests entirely on the conditioning on both ends: with it, any sufficiently stiff shared history violates the CHSH inequality; without it, none does. That conditioning is the precise content of ``retrocausal'' in Section~\ref{sec:retro}, and its observable footprint is the pass rate of item (d).
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{research/toymodel_v2/figures/tm2_stage4_rule.png}
+\caption{The derived rule. From left: $E$ against the angle between the settings for four wings, the rule of Result~\ref{res:rule} at $\kappa=0.5$ and $-\cos$; CHSH against stiffness; CHSH against the shift $\delta$ of the origin's distribution, with the bound of Result~\ref{res:price}; the dependence of the pass weight on the far setting against wing length (\texttt{tm2\_rule.py}).}\label{fig:staged-rule}
+\end{figure}
+
+\subsection{The cost of checking, and two readings of distance}\label{sec:staged-check}
+\begin{result}[\exact]\label{res:check}
+The probabilities of the $2^{\qgTTicks}$ flip histories of the chain form a product distribution, of entropy $\qgTCheckEntropy$ bit in all; $\qgTCheckLast$ per cent of it is in the last three ticks. Deciding which history lies behind a given present costs nothing where the bit is frozen and is concentrated where it is plastic.
+\end{result}
+The companion model has a clock factor $\sqrt{1-r_s/r}$ (Section~\ref{sec:density-limits}). Two identifications of the overlap with it can be written down, and they are exchanged by $c^2\leftrightarrow1-c^2$ (\exact, as algebra): $c^2=r_s/r$, which puts the plastic end at $r=r_s$ and the frozen end far away; or $c^2=1-r_s/r$, which puts the frozen end at $r=r_s$, the Hat at infinity, and gives $d^2=-4\sigma^2\ln(1-r_s/r)\to4\sigma^2r_s/r$. The second agrees with the statement of Section~\ref{sec:formal} that dense regions resist reordering; neither is derived (\hypo). Section~\ref{sec:staged-waves} shows what each needs.
+
+\subsection{The sheet as a wave field: snaps and the clock}\label{sec:staged-waves}
+The wave equation of Section~\ref{sec:formal} is taken with $\gamma=0$ on a periodic lattice in one, two and three dimensions, integrated by the leapfrog scheme. A flip of the bit changes the area of its tile and is modelled as a step in the source at one site (a \emph{snap}); the bump-and-dent pair of Result~\ref{res:pairs} is a source $+q$ next to $-q$.
+\begin{result}[\exact; \negres\ for ``phase lag'']\label{res:waves}
+The scheme conserves a discrete energy to $10^{-12}$, retraces its steps backwards to $10^{-10}$, and is exactly causal: after $n$ steps nothing has changed beyond lattice distance $n$. The speed of the equation as written is $c\sqrt{\rho}$: waves are \emph{faster} where the density is higher (group speed $\qgTSpeedOne$ for $\rho=1$ and $\qgTSpeedDense$ for $\rho=4$ at wavenumber $0.5$, as the discrete dispersion relation gives), and a pulse that crosses a dense slab comes out ahead of one that does not. Section~\ref{sec:density} says that dense regions induce phase lag; with this equation and the clock $1/\rho$, dense regions have slow clocks and fast waves. Reflection at a density step agrees with the discrete theory (a fraction $\qgTStepRefl$ of the energy for $\rho$ from $1$ to $4$).
+\end{result}
+\begin{result}[\numeric]\label{res:snap}
+In three dimensions a snap sends out a front whose height falls as $r^{-\qgTFrontSlope}$ and leaves behind it the static field of a point source, equal to the lattice Green function within $0.5$ per cent at $r=2$ to $8$. The energy, counting the work of the source, is conserved, and the run retraces: the radiation is reversible, and only the damping would make it one-way (Result~\ref{res:audit}). A pair snap has no net source: its settled field is a fraction $\qgTPairNear$ of a single snap's at $r=2$ and $\qgTPairFar$ at $r=8$. The static field of a point source is linear in one dimension, logarithmic in two and $1/r$ in three (checked on the lattice to $2$ per cent): a $1/r$ profile needs three dimensions.
+\end{result}
+\begin{result}[\exact, as algebra of a definition]\label{res:clock}
+Suppose the squared separation $d^2$ of the bit's two states is linear in the static field of a source (\hypo). On a two-dimensional sheet, with $d^2$ proportional to the drop of the field from a radius $r_s$, $d^2=4\sigma^2\ln(r/r_s)$ and $c^2=r_s/r$: the readable fraction $\sqrt{1-c^2}$ of the bit equals the clock factor $\sqrt{1-r_s/r}$ exactly, the Hat is at $r_s$, and the dense region is the plastic one. On a three-dimensional sheet, with $d^2$ proportional to the field, $d^2=4\sigma^2r_s/r$ and $c^2=e^{-r_s/r}$: the overlap equals the clock factor to first order in $r_s/r$ (it is $\qgTRuleIErr$ per cent larger at $r=2r_s$), the dense region is the frozen one, and there is no horizon. If instead $d$ itself is linear in the field, $1-c^2$ falls as $1/r^2$, as the densities of Section~\ref{sec:density-limits} do.
+\end{result}
+Item~\ref{item:density} of Section~\ref{sec:open} asks for $1/r$ and a horizon. Under the hypothesis of Result~\ref{res:clock} the two come apart: an exact clock with a horizon on a two-dimensional sheet, without $1/r$; or $1/r$ and a first-order clock on a three-dimensional sheet, without a horizon. The tile and its lift are two-dimensional. Why $d^2$ rather than $d$ should follow the field is not explained, the snaps are prescribed and not triggered by the field, and the sheet is a cubic lattice, not the tiling.
+
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{research/toymodel_v2/figures/tm2_stage5_waves.png}
+\caption{From left: a pulse after crossing a slab of four times the density, against one that did not; the settled field of a snap and of a pair snap in three dimensions; the clock factor against the overlap under the three coupling rules of Result~\ref{res:clock}; the tunnelling rate per tick and per coordinate time under the two readings (\texttt{tm2\_waves.py}).}\label{fig:staged-waves}
+\end{figure}
+
+\subsection{What this changes in the earlier sections}\label{sec:staged-changes}
+\begin{itemize}[leftmargin=1.6em,itemsep=2pt]
+\item Sections~\ref{sec:retro} and~\ref{sec:formal}: a measurement does not send a ripple outwards through the history; with the flux constraint its influence is global (Result~\ref{res:influence}).
+\item Section~\ref{sec:formal}: the action has no arrow on closed histories and, on open ones, has the arrow of its base point (Result~\ref{res:audit}).
+\item Result~\ref{res:rule}: a sign convention is hidden in $\kappa$ (Result~\ref{res:rule-label}); a rule with no free parameter follows from a two-ended weight, it is not the $e^{\kappa AB}$ rule, and it brings no quantum bound (Results~\ref{res:derived} and~\ref{res:noquantum}).
+\item Section~\ref{sec:density} and the wave equation of Section~\ref{sec:formal}: as written, waves are faster in dense regions, not slower (Result~\ref{res:waves}).
+\item Item~\ref{item:density} of Section~\ref{sec:open}: $1/r$ and a horizon come apart under the one coupling tried (Result~\ref{res:clock}).
+\item Item~\ref{item:arrow} of Section~\ref{sec:open}: oriented objects are generic (Result~\ref{res:census}); the open question is a weight that prefers one orientation, and where records can sit (Result~\ref{res:records}).
+\end{itemize}
+
+% ==============================================================================
 % CONCLUSION SECTION: SYNTHESIS AND FUTURE DIRECTIONS
 % ==============================================================================
 
@@ -642,6 +755,8 @@ Ollivier--Ricci, Regge, diffraction, shear fits (pull request 17) & Hat and Spec
 \texttt{hex\_directions}, \texttt{hex\_e8}, \texttt{hex\_contract} & Quantum-Gravity-Dynamics & $17+6+9$ \\
 \texttt{retro\_rule} & Quantum-Gravity-Dynamics & $7$ \\ \bottomrule
 \end{tabular}\end{center}
+\textbf{The staged test.} The modules of Section~\ref{sec:staged} are in \texttt{research/toymodel\_v2} and are run as \texttt{python3 research/toymodel\_v2/X.py --tests-only}: \texttt{core} ($7$ checks), \texttt{tm2\_lattice} ($9$), \texttt{tm2\_history\_sum} ($8$), \texttt{tm2\_directed} ($9$), \texttt{tm2\_arrow} ($11$), \texttt{tm2\_rule} ($11$), \texttt{tm2\_waves} ($9$); about $50$ seconds in all. The chain is \texttt{spectre\_hat\_quantum\_bit\_model.py} and \texttt{spectre\_hat\_backward\_snap\_model.py} in the root of the repository. They are not counted in the $270$ above; their numbers in the text are recomputed by \texttt{paper\_numbers}.
+
 Each is run with \texttt{--tests} (Hat and Spectre) or \texttt{python3 -m pytest tests/test\_directional\_hex*.py} (Quantum-Gravity-Dynamics); they are not counted in the $270$ above.
 
 \textbf{Provenance of the numbers marked $\dagger$.} They were copied, as printed strings, into \texttt{models/data/wilson\_snapshot.json} from the output of \texttt{numerics/corner\_locality} and \texttt{numerics/bridge\_figs} of the Wilson-loop repository at commit 52a3972 (run on 7 and 8 November 2026).
