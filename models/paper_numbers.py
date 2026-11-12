@@ -407,6 +407,45 @@ def toymodel_v5_numbers():
     return X
 
 
+def toymodel_v6_numbers():
+    """Numbers of the section 'A Hamiltonian for the bits' (research/toymodel_v6), recomputed.  {macro: (text, source)}; macro names start with Y."""
+    for d in (os.path.join(_ROOT, "research", "toymodel_v6"), os.path.join(_ROOT, "research", "toymodel_v4")):
+        if d not in sys.path:
+            sys.path.insert(0, d)
+    import t6_pair as y0
+    import t6_patch as y1
+    Y = {}
+
+    def put(name, value, src):
+        Y["Y" + name] = (str(value), src)
+
+    f0 = y0.flow(0.0)
+    put("TwoC", "%.3f" % f0[2], "t6_pair.flow(0): concurrence of two pairs at the Spectre end")
+    put("TwoChsh", "%.3f" % f0[3], "t6_pair.flow(0): CHSH of the two-pair ground state")
+    put("TwoGap", "%.3f" % f0[5], "t6_pair.flow(0): gap")
+    put("TwoEnd", "%.3f" % y0.tau_two(), "t6_pair.tau_two(): flow time at which the two-pair CHSH with visibility falls to 2")
+    W, mid = y1.coupling(4, 1.0)
+    iu = np.triu_indices(W.shape[0], 1)
+    d = np.linalg.norm(mid[:, None] - mid[None], axis=2)[iu]
+    far = d > 15
+    put("Slope", "%.2f" % np.polyfit(np.log(d[far]), np.log(np.abs(W[iu][far])), 1)[0], "t6_patch.coupling(4, 1): slope of |W| against distance beyond 15")
+    put("AntiFour", "%.2f" % np.mean(W[iu] > 0), "t6_patch: fraction of antiferromagnetic couplings at level 4")
+    f = y1.test_e68_the_patch_is_frustrated()
+    put("FrusTwo", "%.3f" % f[0], "t6_patch.classical_ground: unsatisfied bond weight, 6 pairs of level 2")
+    put("FrusLo", "%.3f" % f[1], "t6_patch: same, central 6 pairs of level 3")
+    put("FrusHi", "%.3f" % f[-1], "t6_patch: same, central 14 pairs of level 3")
+    peaks, best, best_obs = y1.test_e610_along_the_flow()
+    cs = [c for c, _ in peaks]
+    ts = [t for _, t in peaks]
+    put("PeakLo", "%.2f" % min(cs), "t6_patch.scan: smallest of the peak pairwise concurrences over the clusters of 6 to 14 pairs")
+    put("PeakHi", "%.2f" % max(cs), "t6_patch.scan: largest")
+    put("PeakTauLo", "%.2f" % min(ts), "t6_patch.scan: earliest flow time of a peak")
+    put("PeakTauHi", "%.2f" % max(ts), "t6_patch.scan: latest")
+    put("ChshMax", "%.2f" % best[0], "t6_patch.scan: largest CHSH of a reduced two-pair state")
+    put("ChshObs", "%.2f" % best_obs[0], "t6_patch.scan: same with the read-out visibility")
+    return Y
+
+
 def compute():
     """{macro name: (value as text, how it was obtained)}"""
     import chair_e8_192 as ch
@@ -491,6 +530,8 @@ def compute():
         put(k, v[0], v[1])
     for k, v in toymodel_v5_numbers().items():
         put(k, v[0], v[1])
+    for k, v in toymodel_v6_numbers().items():
+        put(k, v[0], v[1])
     put("TNumbersChecked", len(EXPECTED), "number of quoted values checked by run_tests (len(EXPECTED))")
     comp = json.load(open(COMPANION))
     for k, v in comp.items():
@@ -519,6 +560,8 @@ EXPECTED.update({'WTauStar': '0.766', 'WJumpZero': '3.464', 'WJumpHalf': '1.155'
 
 # research/toymodel_v5 (section 'A third pass'); recomputed by toymodel_v5_numbers()
 EXPECTED.update({'XAnisoHalf': '0.333', 'XChshZero': '1.670', 'XChshHalf': '1.943', 'XChshHex': '2.828', 'XChshOne': '3.057', 'XBetaTwoHalf': '1.308', 'XWindowEnd': '0.391', 'XWindowEndTwo': '0.718', 'XCubicTwo': '1.992', 'XPlanarEight': '3.9993', 'XMonopole': '0', 'XTraceQ': '91/50', 'XQLow': '-47.8', 'XQMid': '0.10', 'XQHigh': '47.7', 'XAxialPct': '0.4', 'XChairSlope': '-3.00', 'XMinMonopole': '1.732', 'XMinPatterns': '560', 'XOverlap': '0.816', 'XResidual': '0.577', 'XLiveDipole': '41.6', 'XClockErrThree': '30.9', 'XClockErrTen': '0.9', 'XClockErrForty': '0.05'})
+# research/toymodel_v6 (section 'A Hamiltonian for the bits'); recomputed by toymodel_v6_numbers()
+EXPECTED.update({'YTwoC': '0.913', 'YTwoChsh': '2.708', 'YTwoGap': '0.095', 'YTwoEnd': '0.102', 'YSlope': '-2.99', 'YAntiFour': '0.50', 'YFrusTwo': '0.060', 'YFrusLo': '0.128', 'YFrusHi': '0.165', 'YPeakLo': '0.38', 'YPeakHi': '0.65', 'YPeakTauLo': '0.05', 'YPeakTauHi': '0.13', 'YChshMax': '2.33', 'YChshObs': '2.12'})
 
 def write(N, path=OUT):
     os.makedirs(os.path.dirname(path), exist_ok=True)
