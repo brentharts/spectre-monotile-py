@@ -35,6 +35,8 @@ The second term is the area ledger of v4 as a penalty. In the sector `Q = 0` a p
 4. **Direction along the flow agrees with v5 Stage 1, with a quantum bound.** With the forms of D6.3 the violating window is at the Spectre end and closes toward the Hat, as for the classical two-wing rule, and never exceeds 2 sqrt 2. With visibility included it closes early (tau = 0.102).
 5. **The entangled end is the fragile end.** Near the Spectre the gap is 0.095: the ground state there is nearly degenerate with its partner, so the "frozen, readable" end is also where the entangled state is least protected. A temperature or a noise scale is needed to say more (not done).
 
+**Revised by Stage 1.** Items 4 and 5 hold for two pairs only. On a patch the frozen end is a many-body cat with no pairwise entanglement, and the entanglement peaks in the middle of the flow (`STAGE1.md`, E6.9, E6.10).
+
 ## 4. Not done
 
 More than two pairs and a real pair graph (Stage 1); a derivation of the forms of Gamma, K and the visibility; thermal states; dynamics (the ground state is assumed, not prepared); the hopping and gauge sectors.
