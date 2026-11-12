@@ -40,3 +40,5 @@ python3 spectre_hat_time_model.py --corner 120 --snap-scale 0.5 --no-show --save
 ![fig2](chair_fibers_twist.png)
 
 ![spectre_operator_variations.png](spectre_operator_variations.png)
+
+![spectre_hat_critical.png](spectre_hat_critical.png)
