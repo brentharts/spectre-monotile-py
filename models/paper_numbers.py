@@ -317,6 +317,40 @@ def toymodel_v4_numbers():
     tile = SpectreHatTime(corner_deg=30.0).tile(0.0, 1)
     put("SignPatterns", len({ts.sign_pattern(tile, e0) for e0 in range(ts.N_EDGES)}), "t4_spin.sign_pattern: distinct patterns over the 14 base edges")
     put("SpinEdges", ts.N_EDGES, "edges of the outline")
+    # open questions (t4_open.py) and the coupling of pairs (t4_couple.py)
+    import t4_couple as tc4
+    import t4_open as to4
+    cls = to4.grid_classes()
+    put("GridCells", len(cls), "t4_open: (omega_0, k_0) grid, 17 x 5 cells")
+    put("GridMono", sum(1 for v in cls.values() if v[0]), "same: cells where the counting entropy is non-increasing along the linear flow")
+    put("GridMonoRes", sum(1 for v in cls.values() if v[1]), "same: cells where the resolved entropy is non-increasing")
+    put("GridValidStart", sum(1 for v in cls.values() if v[2]), "same: cells where the reflex outline is simple at tau = 0")
+    sc, sr = to4.entropies(*to4.linear_path(30.0, 0.5))
+    put("ResBeforeHat", "%.0f" % (100.0 * sr[-2] / sr[0]), "t4_open: resolved entropy at tau = 0.99 as a percent of its value at tau = 0, omega_0 = 30, k_0 = 0.5")
+    hs = np.linspace(0.3, 6.0, 20)
+    best = max(to4.sup_delta(bb, kk, (-60.0, -45.0, -30.0, 0.0, 30.0, 60.0), hs) for bb in (1.0, math.sqrt(3.0)) for kk in (0.0, 0.3))
+    put("DeltaSup", "%.0f" % math.degrees(best), "t4_open.sup_delta: largest corner-turn difference (degrees) over valid displacements of P_8, coarse scan")
+    put("DeltaNormal", "%.0f" % (2.0 * ts.omega_c(0.5)[0]), "2 omega_c at k_0 = 0.5: the largest difference for the chord-normal displacement")
+    import t4_proofs as tpf
+    put("Bx", "%.3f" % tpf.B_X, "t4_proofs.B_X = (1 + 2 sqrt 7) / (3 sqrt 3)")
+    put("OmegaCStraight", "%.1f" % (2.0 * math.degrees(math.atan(tpf.h_star(1.0)))), "t4_proofs.h_star(1): omega_c of the straight Spectre")
+    put("OmegaCHat", "%.0f" % (2.0 * math.degrees(math.atan(tpf.h_star(math.sqrt(3.0))))), "t4_proofs.h_star(sqrt 3): omega_c of the straight tile at the Hat")
+    est, fr = tp.pair_density_limit()
+    put("PairLimit", "%.4f" % est, "t4_patch.pair_density_limit(): extrapolated density of flat pairs per tile from levels 4 and 5")
+    put("PairFive", "%.4f" % fr[-1], "t4_patch: flat pairs per tile at level 5")
+    put("BoundaryRatio", "%.3f" % ((2.0 + math.sqrt(5.0)) / (4.0 + math.sqrt(15.0))), "nu / lambda^2 = phi^3 / (4 + sqrt 15)")
+    put("PairSix", tp.count_pairs_fast(6)[1], "t4_patch.count_pairs_fast(6): flat pairs of the level-6 patch")
+    put("PairSeven", int(round(tp.pair_closed_form(7))), "closed form of t4_patch.pair_closed_form(7); counted directly by t4_pairs_level7.py (2147679 tiles)")
+    put("ClusterSize", tc4.N_CLUSTER, "t4_couple: pairs in the exactly solved cluster")
+    put("CoupledTiles", len({t for pr in tp.flat_pairs(3, 1.0) for t in pr}), "t4_patch: tiles in flat pairs, level 3")
+    rng = np.random.default_rng(1)
+    pairs = tc4.pair_data(1.0)[0]
+    for kern, nm in (("log", "Log"), ("inv", "Inv"), ("inv2", "InvTwo")):
+        tot = 0
+        for _ in range(8):
+            sub = list(rng.choice(len(pairs), 12, replace=False))
+            tot += tc4.changes(tc4.sequence(kern, np.linspace(1.0, math.sqrt(3.0), 15), sub))
+        put("Changes" + nm, tot, "t4_couple: ground-state changes along b, 8 random 12-pair subsets, kernel %s" % kern)
     return W
 
 
@@ -426,7 +460,7 @@ EXPECTED.update({'VClockOnly': '1.00', 'VFullBend': '2.00', 'VSlabLag': '105.5',
 EXPECTED.update({'TSpeedDense': '1.947', 'TSpeedOne': '0.970', 'TStepRefl': '0.118', 'TFrontSlope': '1.09', 'TPairNear': '0.16', 'TPairFar': '0.006', 'TRuleIErr': '10'})
 
 # research/toymodel_v4 and spectre_hat_time_3d (section on the flow of the 14th vertex); recomputed by toymodel_v4_numbers()
-EXPECTED.update({'WTauStar': '0.766', 'WJumpZero': '3.464', 'WJumpHalf': '1.155', 'WReadHalf': '0.333', 'WOmegaCThree': '133.0', 'WFirstBadThree': '133', 'WOmegaCFive': '132.1', 'WFirstBadFive': '133', 'WOmegaCEight': '120.5', 'WFirstBadEight': '121', 'WForbidEnd': '0.148', 'WPairsTwo': '6', 'WPatchTilesTwo': '71', 'WPairPctTwo': '16.9', 'WFreeTilesTwo': '21', 'WPairsThree': '82', 'WPatchTilesThree': '559', 'WPairPctThree': '29.3', 'WFreeTilesThree': '89', 'WPairsFour': '804', 'WPatchTilesFour': '4401', 'WPairPctFour': '36.5', 'WFreeTilesFour': '377', 'WValidViol': '5', 'WValidBand': '136', 'WValidSteps': '690', 'WValidPoints': '275', 'WSignPatterns': '6', 'WSpinEdges': '14'})
+EXPECTED.update({'WTauStar': '0.766', 'WJumpZero': '3.464', 'WJumpHalf': '1.155', 'WReadHalf': '0.333', 'WOmegaCThree': '133.0', 'WFirstBadThree': '133', 'WOmegaCFive': '132.1', 'WFirstBadFive': '133', 'WOmegaCEight': '120.5', 'WFirstBadEight': '121', 'WForbidEnd': '0.148', 'WPairsTwo': '6', 'WPatchTilesTwo': '71', 'WPairPctTwo': '16.9', 'WFreeTilesTwo': '21', 'WPairsThree': '82', 'WPatchTilesThree': '559', 'WPairPctThree': '29.3', 'WFreeTilesThree': '89', 'WPairsFour': '804', 'WPatchTilesFour': '4401', 'WPairPctFour': '36.5', 'WFreeTilesFour': '377', 'WValidViol': '5', 'WValidBand': '136', 'WValidSteps': '690', 'WValidPoints': '275', 'WSignPatterns': '6', 'WGridCells': '85', 'WGridMono': '62', 'WGridMonoRes': '62', 'WGridValidStart': '62', 'WResBeforeHat': '1', 'WDeltaSup': '313', 'WDeltaNormal': '264', 'WClusterSize': '16', 'WPairSix': '58106', 'WPairSeven': '469766', 'WPairLimit': '0.2253', 'WPairFive': '0.2024', 'WBoundaryRatio': '0.538', 'WBx': '1.211', 'WOmegaCStraight': '134.2', 'WOmegaCHat': '120', 'WCoupledTiles': '164', 'WChangesLog': '0', 'WChangesInv': '1', 'WChangesInvTwo': '1', 'WSpinEdges': '14'})
 
 
 def write(N, path=OUT):
