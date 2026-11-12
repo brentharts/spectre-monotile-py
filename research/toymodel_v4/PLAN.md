@@ -1,6 +1,6 @@
 # toymodel_v4: use the outline, not the chain
 
-Status: **Stage 0 done** (`t4_geometry.py`, 4 tests: what a flip does to the tile's geometry). **Stage 1 done** (`STAGE1.md`, `t4_arrow.py`, 5 tests: the robust arrows are the flow's own parameters in disguise; the direction stays an input; Negative). **Stage 3 done** (`STAGE3.md`, `t4_spin.py`, 7 tests: the outline has a canonical spin structure, and it does not supply the sign of the fusion; Negative). **Stage 2 done** (`STAGE2.md`, `t4_patch.py`, 6 tests: the pairing rule holds on real Bezier outlines; one bit per flat pair; area is a transfer; counting entropy decreases toward the Hat). Stages 4 and 5 are a plan, not results. Labels as in `quantgrav.tex`: **Exact**, **Numeric**, **Negative**, **Hypothesis**, **Definition**. Nothing here connects to gravity or quantum mechanics until a test says so, and every number in the paper must come from code.
+Status: **Stage 0 done** (`t4_geometry.py`, 4 tests: what a flip does to the tile's geometry). **Stage 1 done** (`STAGE1.md`, `t4_arrow.py`, 5 tests: the robust arrows are the flow's own parameters in disguise; the direction stays an input; Negative). **Stage 4 done** (`STAGE4.md`, `t4_open.py` 4 tests, `t4_couple.py` 3 tests: the two open questions of the paper's Section 2, and coupled bits on a patch; Negative). **Stage 3 done** (`STAGE3.md`, `t4_spin.py`, 7 tests: the outline has a canonical spin structure, and it does not supply the sign of the fusion; Negative). **Stage 2 done** (`STAGE2.md`, `t4_patch.py`, 6 tests: the pairing rule holds on real Bezier outlines; one bit per flat pair; area is a transfer; counting entropy decreases toward the Hat). Stages 4 and 5 are a plan, not results. Labels as in `quantgrav.tex`: **Exact**, **Numeric**, **Negative**, **Hypothesis**, **Definition**. Nothing here connects to gravity or quantum mechanics until a test says so, and every number in the paper must come from code.
 
 ## 0. Why a v4, and what it is built on
 
@@ -12,7 +12,7 @@ Where v3 left the open problems of `quantgrav.tex` Section 'Open problems' (item
 |---|---|---|
 | 6 an arrow of time | an area term `theta K` and records give an orientation, each put in | the outline has a native monotone area `A(tau)`, a curvature budget, and an asymmetry between the two bit values (Stage 0, 1) |
 | 7 the sign of the fusion | a flux cannot supply it; a spin structure on the letters is needed | a closed outline has a canonical half-angle (spinor) lift of its tangent (Stage 3) |
-| 8 clock and space | the clock needs an escape coupling; light bending needs a space factor `B` | one flow gives both an area (space) and a jump (clock) (Stage 4) |
+| 8 clock and space | the clock needs an escape coupling; light bending needs a space factor `B` | one flow gives both an area (space) and a jump (clock) (Stage 5) |
 
 The toy keeps its rules: the bit is classical, the direction of `tau` is imposed (D6), and the physics words are borrowed.
 
@@ -44,8 +44,9 @@ Cheap and decisive first. Each stage ends with a note `STAGEn.md` and a test mod
 | 1 | **done** (Negative): an arrow from the outline; which quantity is monotone along every admissible path | S | open problem 6 |
 | 2 | **done**: many bits on a patch of real outlines: pairing rule, area budget, bits along the flow | M | whether the toy has a second law of its own (it has a counting entropy, and it points away from D6) |
 | 3 | **done** (Negative): a spin structure from the tangent; does the outline supply the sign of the fusion? | M | open problem 7 |
-| 4 | one flow, two couplings: area as space factor, jump as clock | M | open problem 8 |
-| 5 | paper: a section 'A third pass' and the figure | S | - |
+| 4 | **done** (Negative, `STAGE4.md`, `t4_open.py`, `t4_couple.py`): the two open questions of the paper's Section 2 (entropy survives only where the reflex outline is valid at the Spectre end; no displacement of P_8 gives the relative sign -1) and coupled bits on a patch (pairs are geometrically independent; no ordering emerges) | M | whether coupling gives an ordering |
+| 5 | one flow, two couplings: area as space factor, jump as clock | M | open problem 8 |
+| 6 | paper: a section 'A third pass' and the figure | S | - |
 
 ### Stage 1: an arrow from the outline (open problem 6)
 
@@ -96,7 +97,7 @@ v3 Results `res:singlet` and `res:noflux`: the singlet follows exactly if the sh
 
 **Fails if** the sign `-1` appears only at `omega = pi`, which the construction cannot reach (E0.4's companion: `h` diverges). Then the outline supplies the *mechanism* (a canonical spin structure) but not the *value*, and the sign stays an input; that is still a sharper statement than v3's.
 
-### Stage 4: one flow, two couplings (open problem 8)
+### Stage 5 (was 4): one flow, two couplings (open problem 8)
 
 v3: the clock needs an escape coupling `c^2 = 1 - h` with `h` the hitting probability of a random walk (transient substrate only); light bending needs a space factor `B = 1/A` that the model does not contain (a clock alone gives half the bending).
 

@@ -30,6 +30,17 @@ Exact claims (each a test; ``python3 t4_patch.py --tests-only``)
         at tau = 1 (level 3).  For omega_0 = 150 degrees (k_0 = 0.5) B = 0 until the flow enters the valid region, is 82 after, and is 0 at tau = 1.  So the log2 of the number of open configurations,
         B(tau), is not monotone in the second case, and decreases to 0 at the Hat in both.
 
+  E2.6  The density of flat pairs per tile is 0.1467, 0.1827, 0.2024, 0.2130 at levels 3 to 6; the boundary correction falls by the perimeter-to-area ratio nu/lambda^2 = 0.538 per level, and
+        extrapolating from levels 4 and 5 gives 0.2253, the density rho_0 = (5 - sqrt 15)/5 of valence-4 vertices per tile, to within 1e-4.
+  E2.7  (Exact given the recurrence; the recurrence is Checked) The pair counts of the level-k patch, 0, 0, 6, 82, 804, 7012, 58106, 469766 for k = 0..7 (level 7 by t4_pairs_level7.py, outside the tests),
+        satisfy the order-5 recurrence with characteristic polynomial (x - 1)(x^2 - 8x + 1)(x^2 - 4x - 1): the roots are those of the tile counts (mu = 4 + sqrt 15 and 1/mu) and of the perimeter law
+        (nu = 2 + sqrt 5 = phi^3 and 2 - sqrt 5) and 1, as the supertile structure predicts (pairs inside the tiles of a supertile grow like mu^k, pairs at its boundary like nu^k).  It was fitted to levels
+        0 to 4 and holds at levels 5, 6 and 7.  Its solution is
+            P_k = (mu^k - mu'^k)/sqrt15 - (1/4 + 3 sqrt5/20) nu^k - (1/4 - 3 sqrt5/20) nu'^k + 1/2,   T_k = A mu^k + B mu'^k, A = (5 + sqrt15)/(2 sqrt15),
+        so P_k / T_k -> 2 / (5 + sqrt 15) = (5 - sqrt 15)/5 = rho_0 exactly, with correction of order (nu/mu)^k.  A proof of the recurrence needs the boundary of a supertile as a finite-state operator
+        (spectre_boundary_operator.py of the Hat and Spectre repository): not done.
+        No local bijection with valence-4 vertices exists in the simplest form: each valence-4 vertex carries exactly one corner of index 12, but only 697 of the 992 such tiles at level 4 lie in a pair.
+
 Status.  The pairing rule is not an artefact of straight polygons: it holds on the curves, with no change.  The constraint leaves a two-state space per pair, so the tiling fixes which
 configurations are allowed and not their amplitudes (the sign of the fusion stays an input, Stage 3).  The number of open configurations is maximal at the Spectre end and collapses at the Hat,
 so a counting entropy decreases along the flow, opposite to the reading 'later = more entropy'; the other reading (information about the bit is lost toward the Hat) is the D6 direction.
@@ -270,6 +281,65 @@ def test_e25_the_number_of_bits_along_the_flow():
     on = np.flatnonzero(b150 == 82)
     assert on.size and on[0] > 0 and np.all(b150[on[0]:-1] == 82), b150  # closed early, then a single block of 82, then 0 at the Hat
     assert not (np.all(np.diff(b150) <= 0) or np.all(np.diff(b150) >= 0)), "not monotone"
+
+
+def count_pairs_fast(levels):
+    """(tiles, flat pairs) of the level-``levels`` patch at b = 1 by sorting vertex keys (vectorised; same count as len(flat_pairs); the patch class is limited to 6 levels)."""
+    P = patch(levels, 1.0)
+    V0 = so.vertices(1.0, 1.0)  # at a = b = 1 the straight polygons of the Spectre and of the Mystic coincide
+    M = P.placements
+    X = np.einsum("nij,vj->nvi", M[:, :2, :2], V0) + M[:, None, :2, 2]
+    K = np.rint(X * 1e5).astype(np.int64)
+    key = (K[:, :, 0] + 10 ** 9) * (2 ** 31) + (K[:, :, 1] + 10 ** 9)
+    flat = key.ravel()
+    order = np.argsort(flat, kind="stable")
+    fs = flat[order]
+    vid = order % 14
+    starts = np.flatnonzero(np.r_[True, fs[1:] != fs[:-1]])
+    sizes = np.diff(np.r_[starts, len(fs)])
+    two = starts[sizes == 2]
+    return P.n_tiles, int(((vid[two] == FLAT) & (vid[two + 1] == FLAT)).sum())
+
+
+# the recurrence of the pair counts (E2.7): characteristic polynomial (x - 1)(x^2 - 8x + 1)(x^2 - 4x - 1) = x^5 - 13 x^4 + 44 x^3 - 28 x^2 - 5 x + 1
+PAIR_RECURRENCE = (1, -13, 44, -28, -5, 1)
+
+
+def pair_closed_form(k):
+    """Exact value (float) of P_k = (mu^k - mu'^k)/sqrt15 - (1/4 + 3 sqrt5/20) nu^k - (1/4 - 3 sqrt5/20) nu'^k + 1/2, mu = 4 + sqrt15, nu = 2 + sqrt5 (E2.7)."""
+    r15, r5 = math.sqrt(15.0), math.sqrt(5.0)
+    mu, mu2, nu, nu2 = 4.0 + r15, 4.0 - r15, 2.0 + r5, 2.0 - r5
+    return (mu ** k - mu2 ** k) / r15 - (0.25 + 3.0 * r5 / 20.0) * nu ** k - (0.25 - 3.0 * r5 / 20.0) * nu2 ** k + 0.5
+
+
+def pair_density_limit(levels=(4, 5)):
+    """E2.6: estimate of the limit of (flat pairs per tile) from two consecutive levels, assuming the boundary correction falls by the perimeter-to-area ratio r = nu / lambda^2 per level,
+    nu = phi^3 (perimeter law of the Spectre supertiles) and lambda^2 = 4 + sqrt 15 (area): f_inf = f_n + (f_n - f_(n-1)) r / (1 - r)."""
+    r = (2.0 + math.sqrt(5.0)) / (4.0 + math.sqrt(15.0))
+    f = [len(flat_pairs(lv, 1.0)) / patch(lv, 1.0).n_tiles for lv in levels]
+    return f[-1] + (f[-1] - f[-2]) * r / (1.0 - r), f
+
+
+def test_e26_the_density_of_flat_pairs_tends_to_the_density_of_valence_four_vertices():
+    est, f = pair_density_limit()
+    rho0 = (5.0 - math.sqrt(15.0)) / 5.0
+    assert abs(f[0] - 804 / 4401) < 1e-12 and abs(f[1] - 7012 / 34649) < 1e-12
+    assert abs(est - rho0) < 2e-4, (est, rho0)
+
+
+def test_e27_the_pair_counts_obey_a_linear_recurrence_with_the_exact_limit_rho_0():
+    series = [count_pairs_fast(lv) for lv in range(0, 7)]
+    assert [p for _, p in series] == [0, 0, 6, 82, 804, 7012, 58106], series
+    assert [len(flat_pairs(lv, 1.0)) for lv in (2, 3, 4)] == [6, 82, 804]
+    c, T, Pn = PAIR_RECURRENCE, [t for t, _ in series], [p for _, p in series]
+    for n in range(0, 2):  # order 5: five initial values, two independent checks (levels 5 and 6)
+        assert sum(c[i] * Pn[n + 5 - i] for i in range(6)) == 0, n
+    assert all(T[k + 2] == 8 * T[k + 1] - T[k] for k in range(5))
+    for k in range(7):
+        assert abs(pair_closed_form(k) - Pn[k]) < 1e-6, (k, pair_closed_form(k), Pn[k])
+    mu = 4.0 + math.sqrt(15.0)
+    A = (9.0 - (4.0 - math.sqrt(15.0))) / (mu - (4.0 - math.sqrt(15.0)))  # T_k = A mu^k + B mu'^k from T_0 = 1, T_1 = 9
+    assert abs((1.0 / math.sqrt(15.0)) / A - (1.0 - math.sqrt(15.0) / 5.0)) < 1e-12, "limit P_k / T_k = 1 - sqrt15/5 = rho_0"
 
 
 def run_tests():
