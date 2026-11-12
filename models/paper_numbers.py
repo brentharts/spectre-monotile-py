@@ -354,6 +354,59 @@ def toymodel_v4_numbers():
     return W
 
 
+def toymodel_v5_numbers():
+    """Numbers of the section 'A third pass: several tiles and the Chair44' (research/toymodel_v5), recomputed.  {macro: (text, source)}; macro names start with X."""
+    for d in (os.path.join(_ROOT, "research", "toymodel_v5"), os.path.join(_ROOT, "research", "toymodel_v2")):
+        if d not in sys.path:
+            sys.path.insert(0, d)
+    import t5_alphabet as xa
+    import t5_arrow as xw
+    import t5_clock as xc
+    import t5_ensemble as xe
+    import t5_rule as xr
+    import t5_source as xs
+    X = {}
+
+    def put(name, value, src):
+        X["X" + name] = (str(value), src)
+
+    put("AnisoHalf", "%.3f" % xa.anisotropy(0.5), "t5_alphabet.anisotropy(1/2): ratio of the eigenvalues of the frame operator")
+    hexk = math.sqrt(3) / 2
+    for nm, k in (("Zero", 0.0), ("Half", 0.5), ("Hex", hexk), ("One", 1.0)):
+        put("Chsh" + nm, "%.3f" % xr.chsh_of(xr.alphabet(k), 1.255), "t5_rule.chsh_of(alphabet(k), 1.255), k = %.3f" % k)
+    put("BetaTwoHalf", "%.3f" % xr.crossing(xr.alphabet(0.5), 2.0), "t5_rule.crossing: stiffness at which CHSH passes 2, k = 1/2")
+    put("WindowEnd", "%.3f" % xr.window_end(1.255, hexk), "t5_rule.window_end(1.255, sqrt3/2): flow time at which CHSH falls to 2")
+    put("WindowEndTwo", "%.3f" % xr.window_end(2.0, hexk), "t5_rule.window_end(2, sqrt3/2)")
+    put("CubicTwo", "%.3f" % xr.chsh_of(xr.cubic(), 2.0), "t5_rule.chsh_of(cubic(), 2): the cubic six")
+    put("PlanarEight", "%.4f" % xr.chsh_of(xr.alphabet(1.0), 8.0), "t5_rule.chsh_of(alphabet(1), 8)")
+    m0, m1, Q = xs.moments()
+    tr, Qt = xs.traceless(Q)
+    ev = np.linalg.eigvalsh(Qt)
+    put("Monopole", m0, "t5_source.moments(): sum of the 192 signed depths")
+    put("TraceQ", "%d/%d" % (tr.numerator, tr.denominator), "t5_source: trace of the second moment (exact)")
+    put("QLow", "%.1f" % ev[0], "t5_source: smallest eigenvalue of the traceless quadrupole")
+    put("QMid", "%.2f" % ev[1], "t5_source: middle eigenvalue")
+    put("QHigh", "%.1f" % ev[2], "t5_source: largest eigenvalue")
+    n = np.ones(3) / math.sqrt(3)
+    ax = 1.5 * float(n @ Qt @ n) * (np.outer(n, n) - np.eye(3) / 3)
+    put("AxialPct", "%.1f" % (100 * np.linalg.norm(ax) / np.linalg.norm(Qt)), "t5_source: norm of the part of Qt axial about (1,1,1), percent of |Qt|")
+    put("ChairSlope", "%.2f" % xc.slope(np.geomspace(20, 200, 10), xc.rms_profile(*xc.sources_chair_units(), np.geomspace(20, 200, 10))), "t5_clock: log-log slope of rms |phi| of the chair, r = 20..200")
+    mono = xe.monopoles([0.0] * 3 + [1.0] * 3 + [0.0] * 4)
+    put("MinMonopole", "%.3f" % np.abs(mono).min(), "t5_ensemble.monopoles: least |net bit source| over the 1024 patterns, all live bits at tau = 0")
+    put("MinPatterns", int((np.abs(np.abs(mono) - math.sqrt(3)) < 1e-9).sum()), "t5_ensemble: patterns that reach it")
+    Qc, ov = xe.overlaps()
+    cmax = max(abs(c) for _, c in ov)
+    put("Overlap", "%.3f" % cmax, "t5_ensemble.overlaps(): largest |cos| between the group-bit quadrupole and the chair's")
+    put("Residual", "%.3f" % math.sqrt(1 - cmax ** 2), "sqrt(1 - cos^2): part of the chair's quadrupole the four groups cannot cancel")
+    put("LiveDipole", "%.1f" % xw.live_dipole(True), "t5_arrow.live_dipole(): dipole of the three live bits, Z = 8")
+    P, q = xc.sources_chair_units(xc.PATTERN_B)
+    D = xc.directions(200)
+    for nm, r in (("Three", 3), ("Ten", 10), ("Forty", 40)):
+        c = float(np.mean(np.sqrt(np.exp(-np.abs(xc.phi_at(P, q, r * D))))))
+        put("ClockErr" + nm, ("%.2f" if r > 20 else "%.1f") % (100 * abs(c / math.sqrt(1 - xc.M_B / r) - 1)), "t5_clock: |c / clock - 1| in percent at r = %d chair units, pattern B" % r)
+    return X
+
+
 def compute():
     """{macro name: (value as text, how it was obtained)}"""
     import chair_e8_192 as ch
@@ -436,6 +489,8 @@ def compute():
         put(k, v[0], v[1])
     for k, v in toymodel_v4_numbers().items():
         put(k, v[0], v[1])
+    for k, v in toymodel_v5_numbers().items():
+        put(k, v[0], v[1])
     put("TNumbersChecked", len(EXPECTED), "number of quoted values checked by run_tests (len(EXPECTED))")
     comp = json.load(open(COMPANION))
     for k, v in comp.items():
@@ -462,6 +517,8 @@ EXPECTED.update({'TSpeedDense': '1.947', 'TSpeedOne': '0.970', 'TStepRefl': '0.1
 # research/toymodel_v4 and spectre_hat_time_3d (section on the flow of the 14th vertex); recomputed by toymodel_v4_numbers()
 EXPECTED.update({'WTauStar': '0.766', 'WJumpZero': '3.464', 'WJumpHalf': '1.155', 'WReadHalf': '0.333', 'WOmegaCThree': '133.0', 'WFirstBadThree': '133', 'WOmegaCFive': '132.1', 'WFirstBadFive': '133', 'WOmegaCEight': '120.5', 'WFirstBadEight': '121', 'WForbidEnd': '0.148', 'WPairsTwo': '6', 'WPatchTilesTwo': '71', 'WPairPctTwo': '16.9', 'WFreeTilesTwo': '21', 'WPairsThree': '82', 'WPatchTilesThree': '559', 'WPairPctThree': '29.3', 'WFreeTilesThree': '89', 'WPairsFour': '804', 'WPatchTilesFour': '4401', 'WPairPctFour': '36.5', 'WFreeTilesFour': '377', 'WValidViol': '5', 'WValidBand': '136', 'WValidSteps': '690', 'WValidPoints': '275', 'WSignPatterns': '6', 'WGridCells': '85', 'WGridMono': '62', 'WGridMonoRes': '62', 'WGridValidStart': '62', 'WResBeforeHat': '1', 'WDeltaSup': '313', 'WDeltaNormal': '264', 'WClusterSize': '16', 'WPairSix': '58106', 'WPairSeven': '469766', 'WPairLimit': '0.2253', 'WPairFive': '0.2024', 'WBoundaryRatio': '0.538', 'WBx': '1.211', 'WOmegaCStraight': '134.2', 'WOmegaCHat': '120', 'WCoupledTiles': '164', 'WChangesLog': '0', 'WChangesInv': '1', 'WChangesInvTwo': '1', 'WSpinEdges': '14'})
 
+# research/toymodel_v5 (section 'A third pass'); recomputed by toymodel_v5_numbers()
+EXPECTED.update({'XAnisoHalf': '0.333', 'XChshZero': '1.670', 'XChshHalf': '1.943', 'XChshHex': '2.828', 'XChshOne': '3.057', 'XBetaTwoHalf': '1.308', 'XWindowEnd': '0.391', 'XWindowEndTwo': '0.718', 'XCubicTwo': '1.992', 'XPlanarEight': '3.9993', 'XMonopole': '0', 'XTraceQ': '91/50', 'XQLow': '-47.8', 'XQMid': '0.10', 'XQHigh': '47.7', 'XAxialPct': '0.4', 'XChairSlope': '-3.00', 'XMinMonopole': '1.732', 'XMinPatterns': '560', 'XOverlap': '0.816', 'XResidual': '0.577', 'XLiveDipole': '41.6', 'XClockErrThree': '30.9', 'XClockErrTen': '0.9', 'XClockErrForty': '0.05'})
 
 def write(N, path=OUT):
     os.makedirs(os.path.dirname(path), exist_ok=True)
