@@ -146,6 +146,34 @@ Labels as in `QUANTUM_GRAVITY.md`. Tests are in `research/toymodel_v2/` (`STAGE0
 * **Exact:** the opening of the 14th vertex by `h(tau)` used in this note is *not* a member of that family: on a tiling, opening every tile alike breaks 88 of 406 seams. It closes every seam only when two tiles that share their flat vertex open as a bump and a dent. So the first open question below has a partial answer: the opened vertex is consistent on a tiling only pairwise.
 * **Exact:** the laws continue past the Hat: `h` is odd and the overlap of the two bit states is even about `tau = 1`. The turn at P₈ changes sign under a mirror image while the jump and every cost of the chain do not. This is the measurable version of the arrow angle asked for in the second open question: the signed turn at P₈, `−ω(τ)` for bit +1. `tm2_arrow.py`.
 
+## The six points the bit moves, and the Hat as the silent end (added 2026-11-12)
+
+Labels as in `QUANTUM_GRAVITY.md`. Tests are in `research/toymodel_v5/` (`STAGE0.md`, `STAGE3.md`). These are statements about the tile model; reading the six points as letters and a bit as a source are Definitions.
+
+![The six points around the 14th vertex for three curvatures, the frame operator, the anisotropy along the flow, the cube and its (1,1,1) view, the chair and the tile perpendicular to its axis](research/toymodel_v5/figures/t5_stage0_alphabet.png)
+
+When the bit of the 14th vertex flips, six points of the curved tile move with it: the two neighbouring vertices and the four handles next to P₈. Relative to P₈ they are `(0, ±a)` and `(±k, ±a/2)`, three antipodal pairs.
+
+- *(a)* The six points for `k = 0.5, 0.7, √3/2`. Only the last is a regular hexagon.
+- *(b)* The frame operator of the pairs is `diag(2k², 3a²/2)`. Its two eigenvalues cross at `k = √3 a/2` (red dashed line); the black curve is their ratio. The default `k0 = 0.5` of this note (blue dotted line) has ratio 1/3.
+- *(c)* Along the flow `k = k0 (1 − τ)` the ratio falls as `(1 − τ)²`: the alphabet loses a direction and is a line at the Hat.
+- *(d), (e)* At `k = √3 a/2` the six points are what the six sides of a cube look like from a body diagonal, and the seven-cube chair has exactly one such diagonal as a symmetry axis, (1,1,1). The table gives the two rules for choosing the "plus" end of each pair; only the 120° choice gives the chair's axis.
+
+**Exact:** equal length, regular hexagon, tight frame and `k = √3 a/2` are one condition; no orthographic view of a cube exists for other `k`. **Numeric:** the outline with `k0 = √3/2` stays simple along the flow on 20 values of τ. That curvature is outside the range `k0 ≤ 0.8` that `toymodel_v4` examined, so it is not yet known to be admissible on a patch.
+
+Where this sits: the flow of this note has two smooth parameters, `b` and `k`, and one angle `ω`. Until now `k` only shaped the edges. Here it also decides whether the six points around the special vertex are isotropic, and there is one value at which they are. The flow then carries a hexagon at the Spectre to a line at the Hat, beside the facts already listed (the lift goes from rank 4 to rank 2, the jump `d(τ)` closes).
+
+![The ensemble as sources: strength of a flip along the flow, the net source of the ten bits, the least net source against the flow time of the groups, overlap of the group bits with the chair's quadrupole](research/toymodel_v5/figures/t5_stage3_ensemble.png)
+
+The second figure uses the area fact of this note directly: a flip changes the area by `2 a h(τ)`, and that change is taken as a source on a reversible wave field.
+
+- *Top left.* `2 h(τ)` falls from 2√3 at the Spectre (ω₀ = 120°) to 0 at the Hat. A flip of a Hat tile changes nothing at all. **Exact.**
+- *Top right.* Ten bits (three Spectre tiles, three Hat tiles, four groups) with the Hat silent leave seven live bits of equal strength. Their net source is an odd multiple of √3; no pattern is neutral. **Exact (counting).**
+- *Bottom left.* If the groups sit at another flow time than the full tiles, exact neutrality appears at isolated values (τ = 0.318 and 0.610) and nowhere between.
+- *Bottom right.* The overlap of the quadrupole of the four group bits with the Chair44's; the alternating pattern reaches √(2/3).
+
+Where this sits: "What later models established" above says the opening is consistent on a tiling only as bump-and-dent pairs. Pairs need an even number of live tiles. A layout with a silent Hat layer and an odd live count cannot satisfy it, so either the layout or the pairing rule has to give on such a cluster (**Negative** for holding both). And the first open question of this note (what the opened vertex means on a tiling) gains a second reading of the Hat end: besides being where the two bit values merge, it is where a flip stops being a source.
+
 ## A reading of the flow: past, potential and checking (added 2026-11-10)
 
 Your idea, as given:

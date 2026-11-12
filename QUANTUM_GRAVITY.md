@@ -320,6 +320,26 @@ compound of five cuboctahedra), `qgl_qsn.py` (tetragrids, 20G, Fibonacci icosagr
 - **Negative:** a flux (complex area phase) cannot make the origin odd: any rotation-invariant two-wing amplitude gives a product state. A half-angle (spinor) read-out of scalar amplitudes depends on an arbitrary sign per letter. The sign would need spinor-valued amplitudes (a spin structure, such as the Dic12 holonomy of the Spectre); not built.
 - **Numeric:** with closure a pin's influence reaches the far end on one global relaxation time (about n^2), not by a front; without closure there is a front.
 
+### toymodel_v5, several tiles against the Chair44 (`research/toymodel_v5/`; plan in `PLAN.md`, results in `STAGE0.md` to `STAGE5.md`; layout in `models/chair_fibers_14th.py`)
+
+*Reproduce: `python3 research/toymodel_v5/<module>.py --tests-only` for `t5_alphabet`, `t5_rule`, `t5_source`, `t5_ensemble`, `t5_arrow`, `t5_clock` (27 tests, seconds each).* Nothing here connects to gravity. The layout is a count: 192 tips = 3·42 (three curved tiles) + 3·14 (three Hat tiles, vertices only) + 4·6 (four groups of the six points the bit moves). Reading a tip's depth as a charge, a bit as a source and a tile point as a letter are Definitions.
+
+![The six points around the 14th vertex: hexagon at one curvature, frame operator, the flow, the cube and the chair axis](research/toymodel_v5/figures/t5_stage0_alphabet.png)
+![The two-wing rule on the six points: curvature sets the strength, the window closes along the flow, the cubic six are local](research/toymodel_v5/figures/t5_stage1_rule.png)
+![Chair44 as a source: charges, potential, fall-off, the saddle, symmetries](research/toymodel_v5/figures/t5_stage2_source.png)
+![The ensemble as sources on the sheet: flip strength, net monopoles, neutrality against group flow time, quadrupole overlap](research/toymodel_v5/figures/t5_stage3_ensemble.png)
+![Arrow audit on the ensemble: live-side dipole, damping, handedness](research/toymodel_v5/figures/t5_stage4_arrow.png)
+![The clock with the chair and with the ensemble as source: profile, overlap against the clock factor, sign-changing potential of the chair](research/toymodel_v5/figures/t5_stage5_clock.png)
+
+- **Exact (Stage 0):** the six points around P8 are a regular hexagon, a tight frame and the orthographic shadow of a cube's six sides at one and the same curvature, k = sqrt3 a/2; with plus ends 120 degrees apart the viewing direction is the chair's own three-fold axis (1,1,1). Along the flow the alphabet flattens as (1 - tau)^2.
+- **Exact tables, Numeric thresholds (Stage 1):** on these letters the rule of v2 Stage 4 is reproduced at the hexagon; CHSH rises with the curvature (1.670, 1.943, 2.828, 3.057 at k = 0, 1/2, sqrt3/2, 1; beta = 1.255) and falls below 2 at tau = 0.391 along the flow. The cube's own six stay at or below 2; their shadow reaches 4.
+- **Exact (Stage 2):** the 192 signed depths have monopole 0 and dipole 0; the traceless quadrupole is a saddle (-47.8, 0.10, 47.7), 0.4% axial about (1,1,1); the exchange x <-> y reverses all 192 charges. The potential falls as r^-3.
+- **Exact, Negative (Stage 3):** a bit flip is reversible once it is a term of the source; the Hat layer is silent (h(1) = 0); seven live bits of equal strength cannot be neutral (least net source sqrt3, 560 of 1024 patterns), so v4's pairing rule fails on this layout; the four group bits cancel the xx - yy part of the chair's quadrupole (overlap sqrt(2/3)) and never the xz, yz part.
+- **Exact (Stage 4):** no new arrow input; layer order and flow direction appear only as their product (the dipole of the live layer); x <-> y with all charges and bits reversed is an exact symmetry of the chair with its groups.
+- **Negative, Numeric (Stage 5):** the chair alone gives no clock under the coupling of v2 Stage 5 (r^-3, sign-changing, no monopole). With the bits, the profile is 1/r beyond about 8 chair units and the overlap matches sqrt(1 - r_s/r) to 0.9% at r = 10 and 0.05% at 40, first order only. The 1/r is carried by the unpaired live bit.
+
+**What the last figure shows, and where it sits.** Left: rms potential against distance for the chair alone (blue, slope -3) and the chair with the ten bits (red, bending onto the dotted 1/r line). Middle: the overlap c against the clock factor; the ensemble follows it from r about 10 outward and falls below it close in, and the chair alone goes to 1 far too fast. Right: the chair's potential on a sphere takes both signs. In the thread of this file this closes one branch and narrows another. v3 obtained a 1/r clock from random-walk escape on a transient substrate and found the Chair44 tile graph transient; v5 asks whether the chair's own decoration could be the source and the answer is no: the decoration is neutral to two orders. What the chair contributes is near-field structure (a saddle, a handedness), and the far field of the layout comes from a count being odd.
+
 ### Not yet run
 
 Nothing connecting these structures to the tile, the Chair44 or a quasicrystal's point selection (E6 placement above is root-level only). The remaining questions

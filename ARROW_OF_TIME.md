@@ -165,7 +165,28 @@ Where a two-ended check lands, on the shared past or only on the ends, is worked
 3. Put more than one bit in: "greater interconnections" needs the flat-pair rule of the tiling with weights (plan Stage 4 and Stage 6).
 4. Section 6, items 1 and 2 were run in Stage 3 in a first form: the time-symmetric law exists (the extension beyond the Hat, with two mirror branches), and the record test gives the answer in 7.2.
 
-## 8. Reproduce
+## 8. Several tiles and the Chair44: no new arrow (added 2026-11-12)
+
+`research/toymodel_v5` sets ten tiles against the 192 tips of the Chair44 (three Spectre tiles above, three Hat tiles below, four groups of six points on the sides; 192 = 3·42 + 3·14 + 4·6) and repeats the audit of section 7.2 on that layout. Everything is Exact unless marked; reading a tip's depth as a charge and a bit as a source of strength `h(τ)` are Definitions.
+
+![Arrow audit on the ensemble: the dipole of the live layer for the four combinations of layer order and flow direction; retrace error with and without reversing the damping; CHSH of the tile and of its mirror image](research/toymodel_v5/figures/t5_stage4_arrow.png)
+
+**What the figure shows.**
+
+- *Left, "layer order × flow = one datum".* Only the Spectre layer is live: a Hat bit has `h(1) = 0` and changes nothing. The live bits form a dipole (41.6 in lattice units) that points to the live side. Exchanging the layers reverses it, and so does reversing the flow; doing both restores it. The field cannot tell "Spectre above, flow downward" from "Hat above, flow upward".
+- *Middle, "damping is a third input".* The damped wave retraces itself (error 10⁻¹⁴) only if γ is reversed together with time; with γ kept the error is of order 1 from the smallest γ on. This is E3.4 of section 7.2 on the ensemble's own geometry.
+- *Right, "handedness is invisible".* Mirroring the tile reverses the cyclic order of the six points around P₈. The CHSH value of the two-wing rule is the same curve for both, to 10⁻¹².
+
+**How it fits the picture of this note.**
+
+1. Section 7.2 ended with three arrow inputs, all put in by hand (boundary data, the sign of γ, the orientation of τ), and two binary data without an arrow. The ensemble adds binary data of the second kind and nothing of the first: the live side, the chair's handedness and the cyclic order.
+2. "Early ticks are frozen, late ticks are plastic" (3.4) gets a spatial form. The frozen end of the flow in this note is the Spectre; in the field it is the *loud* end (a flip there changes the source by 2√3), and the plastic Hat end is silent. So the layer that can hold a record (7.2) is also the only one that the field can see. That is a consistency of two Definitions, not a derivation.
+3. The orientation of τ, the one arrow input that belongs to the flow, is not visible in the field on its own. It appears only multiplied by the layer order. So a spatial asymmetry (which side is live) can stand in for a flow direction, and the toy has no way to separate them. This sharpens item 4 of 7.2 (the record and the flow disagree as conventions): the second convention is not even observable alone.
+4. The chair has a handedness in its charges: the exchange x ↔ y reverses all 192. Combined with reversing every charge and bit it is an exact symmetry of the chair with its four groups. It is a mirror-times-conjugation symmetry of space, with no time in it.
+
+Not done: pins and the flux base on timelines that live on the ensemble; a coupling of γ to the live side.
+
+## 9. Reproduce
 
 ```
 python3 spectre_hat_collinearity_flow_model.py --tests-only      # 14 tests
@@ -176,6 +197,8 @@ python3 spectre_hat_backward_snap_model.py --story               # the numbers o
 python3 spectre_hat_backward_snap_model.py --no-show --save figures/spectre_hat_backward_snap.png
 python3 research/toymodel_v2/tm2_arrow.py --tests-only              # 11 tests (section 7)
 python3 research/toymodel_v2/tm2_arrow.py --story                   # the numbers of section 7
+python3 research/toymodel_v5/t5_arrow.py --tests-only               # 4 tests (section 8)
+python3 research/toymodel_v5/t5_ensemble.py --tests-only            # 5 tests (the silent Hat layer)
 ```
 
 The symbolic version of the flow is `symspectre_hat_flow.py`; it agrees with the numeric flow to about 10⁻¹⁴ (`--verify`).

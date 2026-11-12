@@ -127,19 +127,44 @@ The earlier note (`SPECTRE_HAT_FLOW.md`, "A reading of the flow") raised a const
 
 One reading this suggests, and nothing tests: matter, which is stiff (large β), would carry the check further into its past than light, soft histories do. Under this reading, "the past next to you" would be the stretch of history within about 1/ln(λ₀/λ₂) steps of each check. **Hypothesis.**
 
-## 7. What would test it next
+## 7. The letters taken from the tile (added 2026-11-12)
+
+Sections 2 to 5 use six hexagonal letters that were chosen. `research/toymodel_v5/t5_rule.py` takes them from the tile instead: the six points that the bit of the 14th vertex moves, `(0, ±1)` and `(±k, ±1/2)` about P₈, with step cost `exp(−β |V_i − V_j|²)`. The wings, the hard pins and the normalisation are those of section 2. At `k = √3/2` the six points are the regular hexagon and every table of this note is reproduced to 10⁻¹².
+
+![The two-wing rule on the six points of the tile: CHSH against curvature, the stiffness needed, the violating window along the flow, the cubic six against their shadow, correlations, no-signalling](research/toymodel_v5/figures/t5_stage1_rule.png)
+
+**What the figure shows.**
+
+- *(a)* CHSH against the curvature `k` at four stiffnesses. At β = 1.255: 1.670 (k = 0), 1.943 (1/2), 2.828 (√3/2), 3.057 (1). The dotted red line is the hexagon.
+- *(b)* The stiffness at which the table passes 2 and 2√2. A flatter alphabet needs a stiffer history: 1.308 at k = 1/2 against 0.841 at the hexagon.
+- *(c)* The same value along the flow, `k = k₀(1 − τ)`. From the hexagon it falls below 2 at τ = 0.391 (β = 1.255) or 0.718 (β = 2), and ends just under 2 at the Hat.
+- *(d)* The control. The cube's own six directions never exceed 2 (1.992 at β = 2); their planar shadow reaches 3.9993.
+- *(e)* The correlation of one letter with the six settings for three curvatures.
+- *(f)* No-signalling holds to 10⁻¹⁶ for every `k`, because the set is antipodal; a bias on the wings breaks it.
+
+**How it fits this note.**
+
+1. Section 4 found three things that fade with the length of the wings, at three rates. Panel (c) is a fourth way to fade, and it is along the flow instead of along space: the check on the shared past loses its grip as the tile flattens, at a fixed wing length. In the words of section 1, "past checking" needs curvature as well as closeness.
+2. The stiffness β was the one free number of section 2. With letters from the tile, part of it is geometry: the squared step distances contain `k`. This does not fix β; it says that β and `k` cannot be chosen independently if the letters are the tile's.
+3. At the Hat two letters coincide and the table is still defined, with CHSH between 1.67 and 1.95. The Hat is a loss of range, not a change of sign. That matches section 3: the check then says only what a shared-past model could say.
+4. Panel (d) answers a question this note left to a choice (hexagonal or cubic letters). In this rule the cubic six cannot beat 2 at any stiffness; the hexagon is their image seen along a body diagonal of the cube (`t5_alphabet.py`), and it can. The weight is still a Definition, so this is a property of the rule, not a reason for nature to use it.
+
+Caution, as before: the family passes through 2√2 and goes above it. There is no quantum bound here.
+
+## 8. What would test it next
 
 1. Put the flux term λ of the paper's action back on the wings. It ties the wings together through the total flux and may change which mode reaches the past.
 2. Let the check be soft (boundary weight μ instead of a pin) and see whether the order of the three rates survives. `tm2_rule.TwoWing` already supports μ.
 3. Give each wing its own length (n_A ≠ n_B) and ask which end the past "listens to".
 4. Replace the straight wing by a walk on the Spectre tiling (Stage 6), so that "space" is a number of tiles, not of letters.
 
-## 8. Reproduce
+## 9. Reproduce
 
 ```
 python3 research/toymodel_v2/tm2_checking.py --tests-only       # 6 tests, under a second
 python3 research/toymodel_v2/tm2_checking.py --story            # the tables above
 python3 research/toymodel_v2/tm2_checking.py --no-show --save research/toymodel_v2/figures/tm2_checking.png
+python3 research/toymodel_v5/t5_rule.py --tests-only            # 5 tests (section 7)
 ```
 
 Related notes: `ARROW_OF_TIME.md` (section 7), `SPECTRE_HAT_FLOW.md` ("A reading of the flow"), `research/toymodel_v2/STAGE4.md`.
