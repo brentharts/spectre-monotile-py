@@ -1,0 +1,8 @@
+![fig](t7_stage1_bell.png)
+![fig](t7_stage4_space.png)
+![fig](t7_stage7_entropy.png)
+![fig](t7_stage2_fields.png)
+![fig](t7_stage5_lorentz.png)
+![fig](t7_stage8_rg.png)
+![fig](t7_stage3_layout.png)
+![fig](t7_stage6_horizon.png)
