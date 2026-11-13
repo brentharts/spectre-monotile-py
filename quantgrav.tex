@@ -41,6 +41,34 @@ To investigate whether discrete geometry can supply an intrinsic arrow of time, 
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Introduction}\label{sec:intro}
+
+This expression traces the logical and dynamical pipeline of the theory, demonstrating how foundational geometric constraints cascade upward into wave propagation, many-body qubit Hamiltonians, and observable correlation bounds:
+
+{\tiny
+\begin{equation}
+\mathcal{U}_{\text{framework}} \;=\; \left\{
+\begin{aligned}
+&\overbrace{ \mathcal{Z} = \int \mathcal{D}[\gamma] \exp\left( -\beta \sum_{t=1}^{T} \left[ \underbrace{\|s(t) - s(t-1)\|_{E_8}^2}_{\text{Root-Step Cost on } D_4^a \oplus D_4^b} + \lambda \underbrace{\left(\Phi_{\text{net}}(t) - \Phi_{\text{target}}\right)^2}_{\text{Global Flux / Area Ledger}} \right] \right) }^{\text{I. Microscopic History Path Integral \& Consistency Action } \mathcal{A}[\gamma]} \\[10pt]
+&\qquad \Downarrow \quad \text{Couples via Monotile Geometric Source } \mathcal{S}_{\text{source}}\big(\pm h(\tau)\big), \;\; h(\tau) = a\tan\left(\frac{\omega(\tau)}{2}\right) \\[10pt]
+&\underbrace{ \left.
+\begin{aligned}
+&\text{Local Clock Dilation Rate:} && \Delta\tau = \frac{\Delta t_0}{\rho(x,t)}, \quad \rho(x,t) = 1 + \sum_{j} \frac{M_j}{\left(1 + \|x - x_j(t)\|^2\right)^{3/2}} \\[6pt]
+&\text{Dispersive Wave Propagation:} && \frac{1}{c^2\rho(x,t)}\frac{\partial^2\psi}{\partial t^2} - \nabla^2\psi + \gamma\frac{\partial\psi}{\partial t} = \mathcal{S}_{\text{source}}
+\end{aligned}
+\right\} }_{\text{II. Macroscopic Substrate Density, Clock Rate, and Wave Field Dynamics}} \\[10pt]
+&\qquad \Downarrow \quad \text{Constrained by Tiling Area Ledger } Q = \sigma_i^z + \sigma_j^z = 0 \text{ into Qubits} \\[10pt]
+&\underbrace{ \left.
+\begin{aligned}
+&\text{Many-Body Pair Hamiltonian:} && H_{\text{eff}} = \overbrace{-J(\tau)\sum_{\langle i,j \rangle} \sigma_i^x \sigma_j^x}^{\text{Bit Tunnelling } c(\tau)} + \overbrace{g\sum_{\text{pairs}} (\sigma_i^z + \sigma_j^z)^2}^{\text{Area Ledger Penalty } Q^2} - \overbrace{\sum_{A<B} K_{AB}\tau_A^z \tau_B^z}^{\text{Frustrated Dipoles } \propto r^{-3}} \\[8pt]
+&\text{CHSH Correlation Ruler:} && S = \underbrace{E(a,b) + E(a,b^{\prime}) + E(a^{\prime},b) - E(a^{\prime},b^{\prime})}_{\text{Settings-Dependent Past Integration}} \;\in\; \Big[\underbrace{2}_{\text{Local}},\; \underbrace{2\sqrt{2}}_{\text{Quantum}},\; \underbrace{4}_{\text{No-Signalling}}\Big]
+\end{aligned}
+\right\} }_{\text{III. Effective Quantum Qubit Dynamics and Correlation Sector}}
+\end{aligned}
+\right.
+\end{equation}
+}
+
+
 \emph{What this paper is.} Finite, tested computations and a few proofs, on a search for structures that carry an arrow of time and on which physics could later be written. Its most concrete object is small: one tile, one bit, and the flow that closes the bit (Section~\ref{sec:flow}). It does not derive quantum gravity. It does reach, from that bit and under stated definitions, several features of known physics: a qubit, a Bell violation with nothing discarded, a clock, a light cone with time dilation, an entropy that grows and a renormalisation map (Section~\ref{sec:toward}). It also states as numbers what is still missing, which is chiefly gravity: the factor $2$ of light bending, a horizon and a $1/r$ source. Most of the results on the way were negative. We report them in full, because each one narrowed the search and explains why the parts that work do.
 
 The search, we look for graphs and combinatorial structures with a built-in asymmetry under reversal of the order of events, rigid enough that a physical theory could later be mapped onto them: the geometry first, the theory afterwards. We have not found one: in every model an orientation is either put in by hand or points in two opposite ways depending on the reading, and we say so wherever the question can be asked. The nearest we come is an entropy that grows in a unitary dynamics, whose direction is set by the initial state (Result~\ref{res:toward-entropy}). Arrows of time from structure are studied in the Janus-point programme of Barbour and collaborators \cite{barbourlobo2026,barbourlourenco2026}. Our working suspicion, a \hypo, is that the aperiodic ``Einstein'' monotiles are the right kind of background, so most models start from the Spectre \cite{smith2023}. Three axes and two signs give six directions $\pm X,\pm Y,\pm Z$; we use this as bookkeeping for the parameters a model should carry, not as a statement about nature, and one could give each axis its own time (a \hypo; nothing here implements it). Nearby ideas, are the multiple-time states of Aharonov, Popescu, Tollaksen and Vaidman \cite{aharonov2007}, relational quantum mechanics \cite{rovelli1996} and analogue gravity in flowing fluids \cite{braunstein2024}.
