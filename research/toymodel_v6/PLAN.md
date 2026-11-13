@@ -1,4 +1,4 @@
-# toymodel_v6: plan (revision 2, after Stage 1)
+# toymodel_v6: plan (revision 5, after Stage 4)
 
 Aim: give the toy a quantum Hamiltonian and test it, in place of the classical history weights of v2 and v5. Labels as in `quantgrav.tex`: **Exact**, **Numeric**, **Definition**, **Hypothesis**, **Negative**, **Not explained**. Nothing here is gravity; a Hamiltonian written down is a Definition until something is derived from it.
 
@@ -20,9 +20,9 @@ Also: a hopping Hamiltonian has a Lieb-Robinson bound, not the exact light cone 
 |---|---|---|---|
 | 0 | one and two bump-and-dent pairs: the constrained Hamiltonian, the pair qubit, entanglement and CHSH along the flow (**done**, `STAGE0.md`) | S | the constraint and the coupling do not commute in any useful way |
 | 1 | the pair graph of a real patch (`toymodel_v4/t4_patch.flat_pairs`): a transverse-field Ising model on the pairs with K from the geometry (**done**, `STAGE1.md`: dipolar, frustrated; the frozen end is a cat with no pairwise entanglement, so Stage 0's Spectre-end entanglement is a two-pair artifact; entanglement peaks mid-flow) | M | pairs share tiles, so the pair qubit is not defined |
-| 2 | the hopping sector on the Spectre and Chair44 graphs (`models/_tb.py`): effective mass tensor at the band edge against the walk tensor of v3 (isotropy on the Chair44); Lieb-Robinson speed against the exact cone of v2 | M | the band edge is not quadratic |
-| 3 | a gauge form of the constraint: Z2 link variables on seams, a plaquette term, Gauss law = the ledger?; ground-state degeneracy on a patch | L | no plaquette structure on the seam graph |
-| 4 | coupling: a hopping particle whose amplitude depends on the pair qubits; phase rate against tau as a clock (the C7 question of v2 and v5 in Hamiltonian form) | L | the clock is put in by the coupling and nothing is derived |
+| 2 | the hopping sector on the Spectre and Chair44 graphs: walk tensor of v3 against the actual spreading; Lieb-Robinson against the exact cone of v2 (**done**, `STAGE2.md`: Spectre isotropic and sub-ballistic, t^0.56; Chair44 packet cubic with the axes slowest, opposite to the hop count, and uniaxial about (1,1,1); no exact cone) | M | the band edge is not quadratic |
+| 3 | a gauge form of the constraint: Z2 link variables on seams, a plaquette term, Gauss law = the ledger?; ground-state degeneracy on a patch (**done**, `STAGE3.md`: the complex is a disc and the theory is consistent, unique plaquette ground state, dual to an Ising model on vertices; the ledger is not a Gauss law but a Wilson line whose pair multiplies to the flux at P8; the plaquette limit has no two-link Bell pair) | L | no plaquette structure on the seam graph |
+| 4 | coupling: a hopping particle whose amplitude depends on the pair qubits; phase rate against tau as a clock (the C7 question of v2 and v5 in Hamiltonian form) (**done**, `STAGE4.md`: Franck-Condon narrowing makes the overlap a rate; seam bits give c and pass C7 to first order, tile bits give c^2 and fail; a slow region delays a packet by the time of flight) | L | the clock is put in by the coupling and nothing is derived |
 | 5 | a Bell test without post-selection: two distant pairs, read-outs that are defined on the tile, time evolution from a product state; comparison with the two-ended rule of v2 and v5 | L | only one read-out per pair exists on the tile |
 
 ## 3. Hypotheses kept apart
@@ -42,5 +42,11 @@ research/toymodel_v6/
   STAGE0.md
   t6_patch.py         Stage 1 (done)
   STAGE1.md
+  t6_hop.py           Stage 2 (done)
+  STAGE2.md
+  t6_gauge.py         Stage 3 (done)
+  STAGE3.md
+  t6_clock.py         Stage 4 (done)
+  STAGE4.md
   figures/
 ```
