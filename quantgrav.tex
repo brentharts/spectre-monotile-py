@@ -42,7 +42,45 @@ To investigate whether discrete geometry can supply an intrinsic arrow of time, 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Introduction}\label{sec:intro}
 
-This expression traces the logical and dynamical pipeline of the theory, demonstrating how foundational geometric constraints cascade upward into wave propagation, many-body qubit Hamiltonians, and observable correlation bounds:
+{\footnotesize
+\begin{equation}
+\mathcal{S}_{\text{monotile}}
+\;=\; \left\{ \begin{aligned} &\overbrace{ \mathcal{Z} = \int
+\mathcal{D}[\gamma]\,\exp\left(-\beta\, \mathcal{A}[\gamma]\right)
+}^{\text{I. History Path Integral with Consistency Action }
+\mathcal{A}[\gamma] \text{ \cite{aharonov2007, aharonov2002}}} \\ &\quad \text{where } \mathcal{A}[\gamma]
+= \sum_{t=1}^{T} \left( \underbrace{\|s(t) -
+s(t-1)\|_{E_8}^2}_{\text{Root-Step Kinetic Cost on } D_4^a
+\oplus D_4^b \text{ \cite{conwaysloane1999}}} + \lambda \underbrace{\left(\Phi_{\text{net}}(t) -
+\Phi_{\text{target}}\right)^2}_{\text{Global Flux / Area Constraint}}
+\right) \\ &\Downarrow \quad \text{(Coupled to Substrate
+Interaction Density } \rho(x,t) \text{ and Local Clock Rate }
+\Delta\tau \text{ \cite{braunstein2024})} \\ &\underbrace{
+\frac{1}{c^2\rho(x,t)}\frac{\partial^2\psi}{\partial t^2} -
+\nabla^2\psi + \gamma\frac{\partial\psi}{\partial t} =
+\mathcal{S}_{\text{source}}\left( h(\tau) =
+a\tan\left(\frac{\omega(\tau)}{2}\right) \right) }_{\text{II.
+Dispersive Wave Equation (Eq. 4) driven by Monotile Area Ledger
+Source } \pm h(\tau) \text{ with Clock } \Delta\tau = \frac{\Delta
+t_0}{\rho} \text{ (Eq. 3) \cite{braunstein2024, smith2023}}} \\ &\Downarrow \quad
+\text{(Constrained by Tiling Area Ledger } Q = \sigma_i^z +
+\sigma_j^z = 0 \text{ into Qubits \cite{gharibian2015})} \\ &\underbrace{
+H_{\text{eff}} = \overbrace{ -J(\tau)\sum_{\langle i,j \rangle}
+\sigma_i^x \sigma_j^x }^{\text{Bit Tunnelling } c(\tau)} +
+\overbrace{ g\sum_{\text{pairs}} (\sigma_i^z + \sigma_j^z)^2
+}^{\text{Area Ledger Penalty } Q^2} - \overbrace{ \sum_{A<B}
+K_{AB}\tau_A^z \tau_B^z }^{\text{Frustrated Dipole Coupling } \propto
+r^{-3}} }_{\text{III. Many-Body Pair-Qubit Hamiltonian (Eq. 5) \cite{gharibian2015, wootters1998}}} \\ &\Downarrow \quad \text{(Measured via the Observable
+Correlation Ruler)} \\ &\overbrace{ S = \underbrace{E(a,b) +
+E(a,b^{\prime}) + E(a^{\prime},b) -
+E(a^{\prime},b^{\prime})}_{\text{CHSH Correlation Value (Eq. 1) \cite{bell1964, chsh1969}}} \quad \text{vs.} \quad \text{Tsirelson Bound } (2\sqrt{2}) \text{ \cite{cirelson1980}}
+\text{ No-Signalling Limit } \text{ \cite{popescu1994}} }^{\text{IV. Bell Correlation
+Framework Governed by Settings-Dependent Past \cite{hall2010}}}
+\end{aligned} \right.
+\end{equation}
+}
+
+These expressions trace the logical and dynamical pipeline of the theory, demonstrating how foundational geometric constraints cascade upward into wave propagation, many-body qubit Hamiltonians, and observable correlation bounds:
 
 {\tiny
 \begin{equation}
@@ -73,7 +111,7 @@ This expression traces the logical and dynamical pipeline of the theory, demonst
 
 The search, we look for graphs and combinatorial structures with a built-in asymmetry under reversal of the order of events, rigid enough that a physical theory could later be mapped onto them: the geometry first, the theory afterwards. We have not found one: in every model an orientation is either put in by hand or points in two opposite ways depending on the reading, and we say so wherever the question can be asked. The nearest we come is an entropy that grows in a unitary dynamics, whose direction is set by the initial state (Result~\ref{res:toward-entropy}). Arrows of time from structure are studied in the Janus-point programme of Barbour and collaborators \cite{barbourlobo2026,barbourlourenco2026}. Our working suspicion, a \hypo, is that the aperiodic ``Einstein'' monotiles are the right kind of background, so most models start from the Spectre \cite{smith2023}. Three axes and two signs give six directions $\pm X,\pm Y,\pm Z$; we use this as bookkeeping for the parameters a model should carry, not as a statement about nature, and one could give each axis its own time (a \hypo; nothing here implements it). Nearby ideas, are the multiple-time states of Aharonov, Popescu, Tollaksen and Vaidman \cite{aharonov2007}, relational quantum mechanics \cite{rovelli1996} and analogue gravity in flowing fluids \cite{braunstein2024}.
 
-Section~\ref{sec:flow} follows the 14th vertex as the Spectre is deformed into the Hat; Section~\ref{sec:found} proves what the later computations rely on. Sections~\ref{sec:background} to~\ref{sec:companion} are the static half: $E_8$ and its fibres, the Spectre and the Chair44 against $E_8$, a Wilson-loop probe and results from companion repositories. Sections~\ref{sec:dynamic} to~\ref{sec:second} state the dynamic proposal and test it twice; Section~\ref{sec:third} joins several tiles to the Chair44; Section~\ref{sec:ham} gives the bits a quantum Hamiltonian; Section~\ref{sec:toward} collects what that Hamiltonian reaches and what it does not; and Section~\ref{sec:open} lists open problems.
+Section~\ref{sec:flow} follows the 14th vertex as the Spectre is deformed into the Hat; Section~\ref{sec:found} proves what the later computations rely on. Sections~\ref{sec:background} to~\ref{sec:companion} are the static half: $E_8$ and its fibres, the Spectre and the Chair44 against $E_8$, a Wilson-loop probe. Sections~\ref{sec:dynamic} to~\ref{sec:second} state the dynamic proposal and test it twice; Section~\ref{sec:third} joins several tiles to the Chair44; Section~\ref{sec:ham} gives the bits a quantum Hamiltonian; Section~\ref{sec:toward} collects what that Hamiltonian reaches and what it does not; and Section~\ref{sec:open} lists open problems.
 
 \subsection{A ruler for correlations: the CHSH value}\label{sec:chsh}
 Two distant parties, Alice and Bob, each choose one of two settings ($a$ or $a'$, $b$ or $b'$) and record an outcome $\pm1$. With $E(a,b)$ the mean product of the outcomes,
@@ -721,6 +759,8 @@ The last model (Section~\ref{sec:toward}) is where the work turns from finding w
 The negatives were not a detour. They ruled out the readings in which the bit lives on one tile, in which a Bell violation discards runs, in which the planar tiling makes a $1/r$ clock, and in which the arrow comes from the flow; what is left is narrower and works better. This is not yet a theory of quantum gravity, and nothing here derives one. It is a path toward physics from the corner of one aperiodic tile, with the steps that hold and the gaps that remain both on record.
 
 \appendix
+\footnotesize
+
 \section{Reproduction}\label{app:repro}
 Repositories:
 \begin{itemize}[leftmargin=1.6em,itemsep=0pt,topsep=2pt]
