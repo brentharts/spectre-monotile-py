@@ -608,6 +608,53 @@ No flat pair lies inside a level-$1$ supertile: $\qgZInsideTwo$ of $\qgZPairsTwo
 So the substitution is a renormalisation map for the pair model in which the degrees of freedom live on the boundaries of the blocks, as the links of Section~\ref{sec:ham-gauge} live on the boundaries of tiles, and the pair set closes by a local rule. The fixed point is trivial for the inherited pairs: their tunnelling is unchanged while their couplings fall by $\lambda^{-3}=\qgZLambdaMinusThree$ per level, so at large scale they are the paramagnet of the Hat end, and the tile-scale physics is carried by the new pairs of each level. This is the abelian (Ising) pair model only; a non-abelian block map, the one the Wilson-loop programme of Section~\ref{sec:wilson} needs, would put its degrees of freedom on the same boundaries.
 
 %------------------------------------------------------------------------------------------------------------------------------------
+\section{Toward physics: what the pair qubit reaches}\label{sec:toward}
+The earlier sections end mostly in negatives, and each says why a natural expectation fails. Read together they say where to look: the bit is a qubit only on a bump-and-dent pair (Result~\ref{res:ham-pair}), its overlap is a rate (Section~\ref{sec:ham}), a $1/r$ clock needs a transient substrate (Result~\ref{res:escape}), and a Bell violation that discards runs is a loophole (Result~\ref{res:ch}). This section follows those leads with the modules of \texttt{research/toymodel\_v7}. The features the theory lacks are turned into a scoreboard of $\qgZScoreRows$ numbers, each with a target and a test (\texttt{t7\_targets.py}); after the stages below $\qgZScoreMet$ are met and $\qgZScoreOpen$ are open. The met rows are the first places where the tile model reproduces a feature of known physics under definitions fixed in advance; the open rows are all stated as numbers. Nothing here is a derivation: the Hamiltonians and the read-out are definitions from Section~\ref{sec:ham}, and each result says what the model does with them.
+
+\subsection{A Bell test with the tile's own settings}\label{sec:toward-bell}
+Result~\ref{res:ham-pair} leaves the pair qubit with a single read-out, which tile is the bump. Its other directions can come from its own dynamics: a brief pulse of the pair's tunnelling rotates the read-out, so a setting is a pulse, the outcome is the bump, and every run counts.
+\begin{result}[\exact, given the definitions of Section~\ref{sec:ham}; \negres\ on patches]\label{res:toward-bell}
+For two pairs at the Spectre end, CHSH with pulse settings is $\qgZBellIdeal$, and $\qgZBellVis$ with the read-out visibility; the violation lasts up to $\tau=\qgZBellTauMax$. No run is discarded, so the detection loophole of Result~\ref{res:ch} does not arise. Every marginal is exactly $1/2$ in every protocol, by the global flip symmetry, so marginals cannot separate local from non-local protocols; what separates them is how long the coupling between the pairs acts during the measurement window. Short pulses make that phase vanish and recover the state's value; settings made by waiting let it act for about $\qgZBellWaitPhase$ radians and are excluded. On the $6$- to $14$-pair clusters of Section~\ref{sec:ham-patch} the best value is $\qgZBellPatch$, below $2$.
+\end{result}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{research/toymodel_v7/figures/t7_stage1_bell.png}
+\caption{A Bell test with the tile's own settings (Result~\ref{res:toward-bell}). Two pairs violate CHSH with pulse settings and nothing discarded; the coupling phase in the measurement window separates local from non-local protocols; patch clusters do not violate.}\label{fig:toward-bell}
+\end{figure}
+This closes, for two pairs, the gap left by Section~\ref{sec:second-quantum}, where the violations were the detection loophole, and by Section~\ref{sec:ham}, where no second read-out existed. The many-body ground state of a patch is a cat with no pairwise entanglement (Result~\ref{res:ham-flow}), which is why the patch does not violate.
+
+\subsection{One lattice for the two number fields}\label{sec:toward-fields}
+Section~\ref{sec:inflation} found that the Spectre's rotations and the icosian structure live in different number fields.
+\begin{result}[\exact]\label{res:toward-fields}
+The Coxeter element $w$ of $E_8$ has order $\qgZCoxOrder$; $w^{10}$ is an Eisenstein structure ($\sqrt{-3}$, the Spectre's side) and $w^6+w^{-6}$ satisfies the golden equation ($\sqrt5$, the icosian side), and the two commute. The Spectre's inflation field $\mathbb{Q}(\sqrt6,\sqrt{10})$ meets $\mathbb{Q}(\zeta_{30})$ only in $\mathbb{Q}$ (\negres), but $\lambda\sqrt2=\sqrt3+\sqrt5$, so $\lambda^2=4+\sqrt3\sqrt5$ is the fundamental unit of $\mathbb{Z}[\sqrt{15}]$, built from the two sides. The $12$-fold and $5$-fold rotations act together only from rank $\qgZRankBoth$.
+\end{result}
+So the claim of different number fields holds for the inflation and not for the rotations, and the next candidate lattice has rank $\qgZRankBoth$.
+
+\subsection{A clock, a light cone and a moving clock}\label{sec:toward-cone}
+The overlap of the bit is a rate: a particle that has to switch the bits it crosses carries their Franck--Condon overlap per hop, and with the bit on the seam the rate is $c$, which is the clock factor $\sqrt{1-r_s/r}$ to first order (\texttt{toymodel\_v6/t6\_clock.py}); at $2r_s$ the second order is off by $\qgZSeamSecond\%$. The hopping of Section~\ref{sec:ham} is first order in time, so it has no finite speed, and on the Spectre graph a packet spreads as $t^{\qgZSpreadExp}$. A wave that is second order in time does have a light cone.
+\begin{result}[\exact\ sums on finite balls; \numeric\ for the clock]\label{res:toward-cone}
+For $u_{tt}=-Lu$ with $L$ the graph Laplacian of the Chair44, the long-wave speed is isotropic to $\qgZConeAniso$ on a ball of radius $40$, and more so at larger radius. The first correction is cubic, slowest along the cube axes, with coefficient $\qgZConeQFour$, and falls as (tile size$/$wavelength)$^2$; on the Spectre the anisotropy starts one order later. A packet of a relativistic dispersion has phase rate $\omega-kv_g=m/\gamma$ at its centre, so a moving clock runs slow by the Lorentz factor; on the lattice at long wavelength it follows $1/\gamma$ to $\qgZGammaErr$.
+\end{result}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{research/toymodel_v7/figures/t7_stage5_lorentz.png}
+\caption{Isotropy grows with scale (Result~\ref{res:toward-cone}). The Chair44's long-wave anisotropy falls with the ball radius, its first correction falls as $\lambda^{-2}$, and a moving clock follows $1/\gamma$.}\label{fig:toward-cone}
+\end{figure}
+The anisotropy of the hopping particle (Section~\ref{sec:second-gravity}) is the lattice-scale end of the same correction: a packet started on one site is not a long wave. The quantum side is not yet Lorentz invariant; that needs a two-component field on the graph, which is a construction the tile does not supply.
+
+\subsection{An entropy that grows}\label{sec:toward-entropy}
+\begin{result}[\exact\ for the symmetry; \numeric\ for the values; \negres\ for an arrow]\label{res:toward-entropy}
+Every Hamiltonian of Section~\ref{sec:ham} is real, so even under time reversal, and the Spectre's handedness acts as a parity, not a time reversal; a real family has Berry phases $0$ or $\pi$ only, so no time-odd term comes from moving the tile's parameters. Started in the frozen product state, $12$ pairs build entanglement under unitary dynamics, $\qgZQuenchMid$ bits across the middle at $\tau=0.3$ (Page value $\qgZPage$), and only $\qgZQuenchFrozen$ at the Spectre end, where the eigenstates are nearly classical. Because the Hamiltonian is real, $S(-t)=S(t)$ exactly.
+\end{result}
+So the model now has an entropy that grows, which the counting entropy of Result~\ref{res:flow-entropy} never did. Its growth points away from the initial moment into the future and the past alike, the Janus-point structure of \cite{barbourlobo2026}: the arrow is that of the initial state, and the frozen end keeps its records.
+
+\subsection{What gravity still lacks}\label{sec:toward-gravity}
+\begin{result}[\exact\ and \numeric; \negres]\label{res:toward-gravity}
+Under rules for the Chair44 layout stated before counting, the chair's three-fold axis selects one of the $\qgZLayoutAll$ decompositions of $192$: $\qgZLayoutHat$ Hat tiles and $\qgZLayoutSix$ groups of the six points around $P_8$, one per side of the cube; it is neutral, so it gives no $1/r$ source. The bit lengthens its own edges as $1/c$ to first order, the opposite of the space factor of Result~\ref{res:bend}: the bending coefficient is $\qgZSpaceSOne$ if the field sets the opening, and falls as $b^{\qgZSpaceSTwo}$ instead of $b^{-1}$ if it sets the flow time. Under the field rule, Gauss's law keeps the field finite at every radius, so the bits cannot form a horizon (the seam overlap at $r_s$ is $\qgZSeamAtRs$); and the reflex outline is valid only below the critical angle, which puts a floor $c\ge\qgZCFloor$ ($h^*=(3+\sqrt3)/2=\qgZHStar$) on any overlap a tile can represent. With the escape coupling of Result~\ref{res:escape} the bits instead saturate in a thin shell $\qgZShellPct\%$ outside $R_{\mathrm{eff}}$.
+\end{result}
+These negatives are specific: the tile's geometry works against the bending of light, the bits and the critical angle forbid a horizon, and the selected layout has no monopole. They are where the next model starts.
+
+%------------------------------------------------------------------------------------------------------------------------------------
 \section{Open problems and tests that could fail}\label{sec:open}
 Each item says what would count as an answer.
 \begin{enumerate}[leftmargin=1.6em,itemsep=1pt]
