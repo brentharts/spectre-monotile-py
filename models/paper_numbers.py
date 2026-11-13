@@ -497,6 +497,58 @@ def toymodel_v7_numbers():
     put("RatioLo", "%.3f" % q[0], "same, lower quartile")
     put("RatioHi", "%.3f" % q[2], "same, upper quartile")
     put("LambdaMinusThree", "%.3f" % z.LAMBDA ** -3, "lambda^-3")
+
+    # Stages 1 to 7 of toymodel_v7 (section 'Toward physics'), from the tests that state them.
+    import t7_targets as zt          # also puts toymodel_v3, v4, v6 and models/ on the path
+    import t7_bell as zb
+    import t7_fields as zf
+    import t7_layout as zl
+    import t7_space as zs
+    import t7_lorentz as zo
+    import t7_horizon as zh
+    import t7_entropy as ze
+
+    def sci(x):
+        m, e = ("%.1e" % x).split("e")
+        return "%s\\times10^{%d}" % (m, int(e))
+
+    s0, sv, tmax = zb.test_e72_two_pairs_pass_with_tile_settings()
+    put("BellIdeal", "%.3f" % s0, "t7_bell E7.2: CHSH of two pairs at the Spectre end, tile settings")
+    put("BellVis", "%.3f" % sv, "t7_bell E7.2: the same times the read-out visibility")
+    put("BellTauMax", "%.3f" % tmax, "t7_bell E7.2: last flow time with CHSH > 2")
+    _, _, phase = zb.test_e73_marginals_cannot_decide_locality_the_window_can()
+    put("BellWaitPhase", "%.0f" % phase, "t7_bell E7.3: coupling phase in the window when settings are made by waiting (rad)")
+    pc = zb.test_e74_patches_do_not_pass()
+    put("BellPatch", "%.3f" % max(v[2] for v in pc.values()), "t7_bell E7.4: best CHSH on 6, 10, 14 pair clusters, tile settings and visibility")
+    put("CoxOrder", zf.order(zf.coxeter()), "t7_fields: order of the Coxeter element of E8")
+    put("RankBoth", zf.test_e78_both_rotations_need_rank_sixteen(), "t7_fields E7.8: least rank for the 12-fold and 5-fold rotations together")
+    nsol, _ = zl.test_e79_v5_layout_fails_the_rules()
+    put("LayoutAll", nsol, "t7_layout E7.9: decompositions of 192 into the five point counts")
+    sel = zl.test_e710_the_rotation_selects_one_layout()
+    put("LayoutHat", sel[3], "t7_layout E7.10: Hat tiles (13 points) in the selected layout")
+    put("LayoutSix", sel[4], "t7_layout E7.10: groups of six in the selected layout")
+    put("SpaceSOne", "%.3f" % zs.test_e713_reading_s1_reduces_the_bending()[4], "t7_space E7.13: bending coefficient, field sets the opening (level 4)")
+    put("SpaceSTwo", "%.2f" % zs.test_e714_reading_s2_has_the_wrong_order(), "t7_space E7.14: fall-off exponent of the bending, field sets the flow time")
+    _, an = zo.test_e718_only_the_second_order_form_has_an_isotropic_cone()
+    put("ConeAniso", sci(an[-1]), "t7_lorentz E7.18: long-wave speed anisotropy of u_tt = -L u on the Chair44, ball R = 40")
+    _, coef = zo.test_e719_the_first_correction_is_cubic_and_shrinks()
+    put("ConeQFour", "%.2f" % coef, "t7_lorentz E7.19: coefficient of the first (cubic) correction")
+    put("GammaErr", sci(abs(zo.test_e721_a_moving_clock_runs_slow_by_gamma_when_the_dispersion_is_relativistic()[0][2])), "t7_lorentz E7.21: moving clock against 1/gamma at k = 0.2")
+    hs, cf = zh.test_e715_the_tile_has_a_floor_on_the_overlap()
+    put("HStar", "%.3f" % hs, "t7_horizon E7.15: h* = (3 + sqrt3)/2")
+    put("CFloor", "%.4f" % cf, "t7_horizon E7.15: least overlap exp(-h*^2/2)")
+    put("ShellPct", "%.2f" % (100 * (zh.test_e717_the_escape_coupling_meets_the_floor() - 1)), "t7_horizon E7.17: saturated shell outside R_eff (percent)")
+    put("SeamSecond", "%.0f" % (100 * zt._c7_second_order()), "t7_targets: seam clock against sqrt(1 - r_s/r) at 2 r_s (percent)")
+    put("SeamAtRs", "%.3f" % zt._horizon(), "t7_targets: seam overlap at r = r_s")
+    late, _ = ze.test_e724_the_growth_depends_on_the_flow()
+    put("QuenchMid", "%.2f" % late[0.3], "t7_entropy E7.24: late entanglement entropy, 12 pairs, tau = 0.3 (bits)")
+    put("QuenchFrozen", "%.2f" % late[0.0], "t7_entropy E7.24: the same at the Spectre end")
+    put("Page", "%.2f" % ze.PAGE, "t7_entropy: Page value for 6 of 12 qubits")
+    put("SpreadExp", "%.2f" % zt._spectre_beta(), "t7_targets: spreading exponent of a hopping packet on the Spectre graph")
+    rows = zt.table()
+    put("ScoreMet", sum(r[4] == "met" for r in rows), "t7_targets.table: rows met (including Tsirelson, automatic)")
+    put("ScoreOpen", sum(r[4] == "open" for r in rows), "t7_targets.table: rows open")
+    put("ScoreRows", len(rows), "t7_targets.table: rows")
     return Z
 
 
