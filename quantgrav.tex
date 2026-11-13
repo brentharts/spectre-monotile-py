@@ -571,7 +571,8 @@ Sample the history sum by local moves (windows of three letters with the same su
 \end{result}
 
 %------------------------------------------------------------------------------------------------------------------------------------
-\section{A third pass: several tiles and the Chair44}\label{sec:third}
+\section{Combining Spectre, Hat, and Chair44 Geometries}
+\label{sec:third}
 The earlier sections use one tile at a time, and Section~\ref{sec:chair} compares the Chair44 with $E_8$ and finds a count that matches in shape only. This section starts from a different count. A curved tile has $14$ vertices and $28$ handles, $42$ points; the bit of the 14th vertex moves six of them (the two neighbouring vertices and the four handles next to $P_8$). Then
 \[ 192 \;=\; 3\cdot 42 \;+\; 3\cdot 14 \;+\; 4\cdot 6 , \]
 three curved tiles, three tiles with vertices only, and four groups of six, against the $192$ tips of the Chair44. The decomposition with these three sizes is a choice among several (\hypo\ that it means anything); it is used as a layout: three Spectre tiles above the chair, three Hat tiles below, four groups facing the four lateral sides. Every statement below is about this layout and the tile model; reading a tip's signed depth as a charge, and a point of the tile as a letter, are definitions of the toy. The modules are in \texttt{research/toymodel\_v5}.
@@ -593,7 +594,8 @@ Put the six points in place of the hexagonal letters of Result~\ref{res:derived}
 \end{result}
 So the strength of the rule of Section~\ref{sec:staged-rule} is in part geometric: the curvature sets it at a fixed stiffness, and the window in which the table exceeds $2$ closes on the way to the Hat. The weight is still a definition and no quantum bound appears.
 
-\subsection{The Chair44 as a source}\label{sec:third-source}
+\subsection{Multipole Analysis of the Chair44 as an Electrostatic Source}
+\label{sec:third-source}
 Take the $192$ tips as point charges equal to their signed depths $j=\pm1,\dots,\pm12$, about the centre of the chair, with the Coulomb potential (the three-dimensional static field of Section~\ref{sec:staged-waves}) and its multipole expansion \cite{jackson1998}.
 \begin{result}[\exact]\label{res:chairsource}
 The monopole is $\qgXMonopole$ and the dipole is zero, in exact arithmetic. The second moment has trace $\qgXTraceQ$ and its traceless part has eigenvalues $\qgXQLow$, $\qgXQMid$, $\qgXQHigh$: a saddle. The part of it that is axial about $(1,1,1)$ is $\qgXAxialPct\%$ of its norm. The positions of the tips are invariant under the six symmetries of the chair; the charges are not. The exchange $x\leftrightarrow y$ reverses all $192$; the other two exchanges reverse $144$ and the two three-fold rotations keep $144$. The potential falls as $r^{-3}$ (\numeric: fitted slope $\qgXChairSlope$ on $r=20$ to $200$).
@@ -605,7 +607,8 @@ The monopole is $\qgXMonopole$ and the dipole is zero, in exact arithmetic. The 
 \end{figure}
 Result~\ref{res:chair} found that only the identity preserves the labelled tips. Result~\ref{res:chairsource} sharpens this: one reflection of the chair is an exact charge conjugation. The chair is neutral at two orders, so in the language of Result~\ref{res:waves} it is a pair snap of pair snaps and radiates no $1/r$ field.
 
-\subsection{The ensemble on the sheet}\label{sec:third-ensemble}
+\subsection{The Tile-Chair Ensemble on the Reversible Wave Sheet}
+\label{sec:third-ensemble}
 Place the chair's charges, the six tiles and the four groups on the reversible lattice wave of Section~\ref{sec:staged-waves}. A bit is a source of strength $h(\tau)=a\tan(\omega(\tau)/2)$ with the sign of the bit (one unit of the area of Result~\ref{res:flow-area} is one unit of charge; a definition), and the tiles are sites of higher density.
 \begin{result}[\exact]\label{res:ensemble}
 (a) With a bit flip written as a term of the source, a run with a flip followed by the reversed run returns the data to $10^{-14}$; without the term it does not. (b) A flip of a Hat tile changes the source and the field by exactly zero, since $h(1)=0$: the Hat layer is silent. (c) With the Hat silent the live bits are seven of equal strength at $\tau=0$, an odd number, so no pattern of the ten bits is neutral: the least net source is $\sqrt3=\qgXMinMonopole$, reached by $\qgXMinPatterns$ of the $1024$ patterns. Neutrality is exact only when the groups sit at isolated other flow times. (d) The four group bits make a quadrupole with $xx$ and $yy$ entries only; its largest overlap with the chair's is $\sqrt{2/3}=\qgXOverlap$, for the alternating pattern, which carries no monopole and no dipole. The remaining $\qgXResidual$ of the norm (the $xz$, $yz$ part) cannot be cancelled by groups on the lateral sides at any coupling.
@@ -636,7 +639,8 @@ $\sigma^x_i\sigma^x_j$ flips both tiles of a pair, so it commutes with $Q^2$: th
 \end{result}
 Along the flow take the tunnelling $J=c(\tau)$, the overlap of the two positions of the shared vertex, and a read-out visibility $1-c^2$ (definitions). Two pairs with $K\propto h(\tau)^2$ then have concurrence $\qgYTwoC$ and CHSH $\qgYTwoChsh$ at the Spectre end, with gap $\qgYTwoGap$, and the observable value falls below $2$ at $\tau=\qgYTwoEnd$. The next result shows that this picture belongs to two pairs only.
 
-\subsection{The pairs of a patch}\label{sec:ham-patch}
+\subsection{Frustrated Dipoles and Many-Body Interactions on Patch Clusters}
+\label{sec:ham-patch}
 On a patch the pairs of Result~\ref{res:flow-patch} are disjoint and the same along the flow, so each carries a pair qubit. The coupling is not chosen: with the bit read as a charge $\pm h$ at the centroid of its tile, as in Section~\ref{sec:third-ensemble}, a pair is a dipole and $K_{AB}$ is the Coulomb energy of two dipoles.
 \begin{result}[\exact; \negres\ for the two-pair picture]\label{res:ham-patch}
 The charges give an exact Ising coupling with both signs ($\qgYAntiFour$ of the couplings antiferromagnetic at level $4$), falling as $r^{-3}$ (fitted slope $\qgYSlope$). The patch is frustrated: the classical ground state leaves $\qgYFrusTwo$ of the bond weight unsatisfied on the six pairs of level $2$, and $\qgYFrusLo$ to $\qgYFrusHi$ on the central $6$ to $14$ pairs of level $3$. As the tunnelling goes to zero, the ground state of every such cluster is the cat $(|s\rangle+|{-s}\rangle)/\sqrt2$ of its classical ground state $s$, whose two-pair reductions have concurrence below $10^{-10}$. For two pairs that cat is a Bell state, which is the whole reason the two-pair model is most entangled at the Spectre end.
@@ -681,7 +685,8 @@ So the substitution is a renormalisation map for the pair model in which the deg
 \section{Toward physics: what the pair qubit reaches}\label{sec:toward}
 The earlier sections end mostly in negatives, and each says why a natural expectation fails. Read together they say where to look: the bit is a qubit only on a bump-and-dent pair (Result~\ref{res:ham-pair}), the overlap of its two positions is its tunnelling (Section~\ref{sec:ham}), a $1/r$ clock needs a transient substrate (Result~\ref{res:escape}), and a Bell violation that discards runs is a loophole (Result~\ref{res:ch}). This section follows those leads with the modules of \texttt{research/toymodel\_v7}. The features the theory lacks are turned into a scoreboard of $\qgZScoreRows$ numbers, each with a target and a test (\texttt{t7\_targets.py}); after the stages below $\qgZScoreMet$ are met and $\qgZScoreOpen$ are open. The met rows are the first places where the tile model reproduces a feature of known physics under definitions fixed in advance; the open rows are all stated as numbers. Nothing here is a derivation: the Hamiltonians and the read-out are definitions from Section~\ref{sec:ham}, and each result says what the model does with them.
 
-\subsection{A Bell test with the tile's own settings}\label{sec:toward-bell}
+\subsection{A Bell Test Driven by Tunnelling Pulses and Tile Dynamics}
+\label{sec:toward-bell}
 Result~\ref{res:ham-pair} leaves the pair qubit with a single read-out, which tile is the bump. Its other directions can come from its own dynamics: a brief pulse of the pair's tunnelling rotates the read-out, so a setting is a pulse, the outcome is the bump, and every run counts.
 \begin{result}[\exact, given the definitions of Section~\ref{sec:ham}; \negres\ on patches]\label{res:toward-bell}
 For two pairs at the Spectre end, CHSH with pulse settings is $\qgZBellIdeal$, and $\qgZBellVis$ with the read-out visibility; the violation lasts up to $\tau=\qgZBellTauMax$. No run is discarded, so the detection loophole of Result~\ref{res:ch} does not arise. Every marginal is exactly $1/2$ in every protocol, by the global flip symmetry, so marginals cannot separate local from non-local protocols; what separates them is how long the coupling between the pairs acts during the measurement window. Short pulses make that phase vanish and recover the state's value; settings made by waiting let it act for about $\qgZBellWaitPhase$ radians and are excluded. On the $6$- to $14$-pair clusters of Section~\ref{sec:ham-patch} the best value is $\qgZBellPatch$, below $2$.
@@ -718,7 +723,8 @@ Every Hamiltonian of Section~\ref{sec:ham} is real, so even under time reversal,
 \end{result}
 So the model now has an entropy that grows, which the counting entropy of Result~\ref{res:flow-entropy} never did. Its growth points away from the initial moment into the future and the past alike, the Janus-point structure of \cite{barbourlobo2026}: the arrow is that of the initial state, and the frozen end keeps its records.
 
-\subsection{What gravity still lacks}\label{sec:toward-gravity}
+\subsection{Missing Gravitational Signatures: Light Deflection, Horizons, and the Monopole}
+\label{sec:toward-gravity}
 \begin{result}[\exact\ and \numeric; \negres]\label{res:toward-gravity}
 Under rules for the Chair44 layout stated before counting, the chair's three-fold axis selects one of the $\qgZLayoutAll$ decompositions of $192$: $\qgZLayoutHat$ Hat tiles and $\qgZLayoutSix$ groups of the six points around $P_8$, one per side of the cube; it is neutral, so it gives no $1/r$ source. The bit lengthens its own edges as $1/c$ to first order, the opposite of the space factor of Result~\ref{res:bend}: the bending coefficient is $\qgZSpaceSOne$ if the field sets the opening, and falls as $b^{\qgZSpaceSTwo}$ instead of $b^{-1}$ if it sets the flow time. Under the field rule, Gauss's law keeps the field finite at every radius, so the bits cannot form a horizon (the seam overlap at $r_s$ is $\qgZSeamAtRs$); and the reflex outline is valid only below the critical angle, which puts a floor $c\ge\qgZCFloor$ ($h^*=(3+\sqrt3)/2=\qgZHStar$) on any overlap a tile can represent. With the escape coupling of Result~\ref{res:escape} the bits instead saturate in a thin shell $\qgZShellPct\%$ outside $R_{\mathrm{eff}}$.
 \end{result}
@@ -811,7 +817,7 @@ Section & Test modules (number of checks) \\ \midrule
 
 \textbf{Numbers marked $\dagger$.} Those of Section~\ref{sec:wilson} were copied as printed strings into \texttt{models/data/wilson\_snapshot.json} from the Wilson-loop repository at commit 52a3972 (7 and 8 November 2026); recomputing them is \texttt{make test} there (about $10$ minutes). Those of Sections~\ref{sec:companion} and~\ref{sec:dynamic-tests} are in \texttt{models/data/companion\_snapshot.json} with the commit of each source, from the self tests of the Hat and Spectre repository (\texttt{--tests}) and the Quantum-Gravity-Dynamics fork (\texttt{pytest tests/test\_directional\_hex*.py}). Closed forms ($\log_23$, $2\sqrt2$, the $\delta$ thresholds, $\rho_0$, $4-\sqrt{15}$) are computed by \texttt{paper\_numbers.py}. A mismatch with a snapshot is a reason to doubt this paper, not its source.
 
-\section{Tight-binding, twist hopping and fibres on the Spectre family}\label{app:tb}
+\section{Tight-binding, twist hopping on the Spectre family}\label{app:tb}
 These earliest models of the line do not use $E_8$ and see no direction along an edge.
 
 \textbf{Tight-binding (\texttt{\_tb}).} A level-$3$ Spectre patch has $3734$ sites and $4292$ bonds. Hat, Spectre and Turtle have the same bond graph, so with unit hopping their spectra coincide; the spectrum is symmetric about $0$ (bipartite) and $\sum E^2=\sum H_{ij}^2$ (\exact). For unit hopping $E\in[-2.434,2.434]$ and the mean $N\cdot\mathrm{IPR}$ is $14.7$; with hopping $1/\text{length}$ Hat has $E\in[-2.133,2.133]$ and $84.4$, Turtle $[-1.965,1.965]$ and $58.7$ (\numeric, finite patches, no scaling law).
