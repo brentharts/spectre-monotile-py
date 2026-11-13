@@ -461,6 +461,45 @@ def toymodel_v6_numbers():
     return Y
 
 
+def toymodel_v7_numbers():
+    """Numbers of the subsection 'Renormalisation by the substitution' (research/toymodel_v7/t7_rg.py), recomputed.  {macro: (text, source)}; macro names start with Z."""
+    import collections
+    d = os.path.join(_ROOT, "research", "toymodel_v7")
+    if d not in sys.path:
+        sys.path.insert(0, d)
+    import numpy as np
+    import t7_rg as z
+    Z = {}
+
+    def put(name, value, src):
+        Z["Z" + name] = (str(value), src)
+
+    for L, nm in ((2, "Two"), (3, "Three"), (4, "Four")):
+        sup = [p[2][:-1] for p in z.build_paths(L)]
+        pr = z.tp.flat_pairs(L, 1.0)
+        put("Pairs" + nm, len(pr), "t4_patch.flat_pairs(%d)" % L)
+        put("Inside" + nm, sum(sup[a] == sup[b] for a, b in pr), "t7_rg: pairs with both tiles in one level-1 supertile, level %d" % L)
+    for L, nm in ((3, "Three"), (4, "Four")):
+        k = collections.Counter(c[0] for c in z.classify(L))
+        put("New" + nm, k["new"], "t7_rg.classify(%d): new pairs" % L)
+        put("Inh" + nm, k["inherited"], "t7_rg.classify(%d): inherited pairs" % L)
+    t3, _ = z.rule_table(3)
+    t4, _ = z.rule_table(4)
+    put("TypesThree", len(t3), "t7_rg.rule_table(3): boundary types")
+    put("TypesFour", len(t4), "t7_rg.rule_table(4): boundary types")
+    put("TypesCommon", len(set(t3) & set(t4)), "t7_rg: types seen at both levels (all agree)")
+    put("TypesNew", len(set(t4) - set(t3)), "t7_rg: types first seen at level 4")
+    rat, _, _, s = z.coupling_ratios(4)
+    q = np.percentile(rat, [25, 50, 75])
+    put("Scale", "%.3f" % s, "t7_rg: similarity scale of the inherited pair midpoints, level 3 to 4")
+    put("Lambda", "%.3f" % z.LAMBDA, "sqrt(4 + sqrt 15)")
+    put("RatioMed", "%.3f" % q[1], "t7_rg.coupling_ratios(4): median of coupling / (lambda^-3 x transformed parents), distance > 60")
+    put("RatioLo", "%.3f" % q[0], "same, lower quartile")
+    put("RatioHi", "%.3f" % q[2], "same, upper quartile")
+    put("LambdaMinusThree", "%.3f" % z.LAMBDA ** -3, "lambda^-3")
+    return Z
+
+
 def compute():
     """{macro name: (value as text, how it was obtained)}"""
     import chair_e8_192 as ch
@@ -547,6 +586,8 @@ def compute():
         put(k, v[0], v[1])
     for k, v in toymodel_v6_numbers().items():
         put(k, v[0], v[1])
+    for k, v in toymodel_v7_numbers().items():
+        put(k, v[0], v[1])
     put("TNumbersChecked", len(EXPECTED), "number of quoted values checked by run_tests (len(EXPECTED))")
     comp = json.load(open(COMPANION))
     for k, v in comp.items():
@@ -577,6 +618,8 @@ EXPECTED.update({'WTauStar': '0.766', 'WJumpZero': '3.464', 'WJumpHalf': '1.155'
 EXPECTED.update({'XAnisoHalf': '0.333', 'XChshZero': '1.670', 'XChshHalf': '1.943', 'XChshHex': '2.828', 'XChshOne': '3.057', 'XBetaTwoHalf': '1.308', 'XWindowEnd': '0.391', 'XWindowEndTwo': '0.718', 'XCubicTwo': '1.992', 'XPlanarEight': '3.9993', 'XMonopole': '0', 'XTraceQ': '91/50', 'XQLow': '-47.8', 'XQMid': '0.10', 'XQHigh': '47.7', 'XAxialPct': '0.4', 'XChairSlope': '-3.00', 'XMinMonopole': '1.732', 'XMinPatterns': '560', 'XOverlap': '0.816', 'XResidual': '0.577', 'XLiveDipole': '41.6', 'XClockErrThree': '30.9', 'XClockErrTen': '0.9', 'XClockErrForty': '0.05'})
 # research/toymodel_v6 (section 'A Hamiltonian for the bits'); recomputed by toymodel_v6_numbers()
 EXPECTED.update({'YTwoC': '0.913', 'YTwoChsh': '2.708', 'YTwoGap': '0.095', 'YTwoEnd': '0.102', 'YSlope': '-2.99', 'YAntiFour': '0.50', 'YFrusTwo': '0.060', 'YFrusLo': '0.128', 'YFrusHi': '0.165', 'YPeakLo': '0.38', 'YPeakHi': '0.65', 'YPeakTauLo': '0.05', 'YPeakTauHi': '0.13', 'YChshMax': '2.33', 'YChshObs': '2.12', 'YGTiles': '71', 'YGLinks': '406', 'YGPlaq': '336', 'YGTwo': '254', 'YGPairsThree': '82', 'YGZZ': '394', 'YGXX': '0', 'YGCutLinks': '215', 'YGCutBits': '12'})
+# research/toymodel_v7/t7_rg.py (subsection 'Renormalisation by the substitution'); recomputed by toymodel_v7_numbers()
+EXPECTED.update({'ZPairsTwo': '6', 'ZInsideTwo': '0', 'ZPairsThree': '82', 'ZInsideThree': '0', 'ZPairsFour': '804', 'ZInsideFour': '0', 'ZNewThree': '76', 'ZInhThree': '6', 'ZNewFour': '722', 'ZInhFour': '82', 'ZTypesThree': '96', 'ZTypesFour': '194', 'ZTypesCommon': '74', 'ZTypesNew': '120', 'ZScale': '2.803', 'ZLambda': '2.806', 'ZRatioMed': '1.002', 'ZRatioLo': '0.975', 'ZRatioHi': '1.025', 'ZLambdaMinusThree': '0.045'})
 
 def write(N, path=OUT):
     os.makedirs(os.path.dirname(path), exist_ok=True)
