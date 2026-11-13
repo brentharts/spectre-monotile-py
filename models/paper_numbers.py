@@ -443,6 +443,21 @@ def toymodel_v6_numbers():
     put("PeakTauHi", "%.2f" % max(ts), "t6_patch.scan: latest")
     put("ChshMax", "%.2f" % best[0], "t6_patch.scan: largest CHSH of a reduced two-pair state")
     put("ChshObs", "%.2f" % best_obs[0], "t6_patch.scan: same with the read-out visibility")
+    import collections
+    import t6_gauge as y3
+    c = y3.complex_(2)
+    put("GTiles", c["T"], "t6_gauge.complex_(2): tiles")
+    put("GLinks", c["L"], "t6_gauge.complex_(2): links (shared edges)")
+    put("GPlaq", c["P"], "t6_gauge.complex_(2): plaquettes (interior vertices)")
+    put("GTwo", collections.Counter(len(c["inc"][v]) for v in c["plaq"])[2], "t6_gauge: plaquettes with two links, level 2")
+    c3 = y3.complex_(3)
+    put("GPairsThree", len(y3.tp.flat_pairs(3, 1.0)), "t4_patch.flat_pairs(3): every P8 is a two-link plaquette (t6_gauge E6.19)")
+    st = y3.two_body_stabilizers(c)
+    put("GZZ", len(st["Z"][1]), "t6_gauge.two_body_stabilizers: two-link ZZ stabilizers of the plaquette limit")
+    put("GXX", len(st["X"][1]), "t6_gauge.two_body_stabilizers: two-link XX stabilizers")
+    _, n_left, S = y3.test_e621_the_plaquette_limit_has_no_two_link_bell_pair()
+    put("GCutLinks", n_left, "t6_gauge: links left of the centre line")
+    put("GCutBits", S, "t6_gauge.entropy_of_region: entanglement entropy of those links (bits)")
     return Y
 
 
@@ -561,7 +576,7 @@ EXPECTED.update({'WTauStar': '0.766', 'WJumpZero': '3.464', 'WJumpHalf': '1.155'
 # research/toymodel_v5 (section 'A third pass'); recomputed by toymodel_v5_numbers()
 EXPECTED.update({'XAnisoHalf': '0.333', 'XChshZero': '1.670', 'XChshHalf': '1.943', 'XChshHex': '2.828', 'XChshOne': '3.057', 'XBetaTwoHalf': '1.308', 'XWindowEnd': '0.391', 'XWindowEndTwo': '0.718', 'XCubicTwo': '1.992', 'XPlanarEight': '3.9993', 'XMonopole': '0', 'XTraceQ': '91/50', 'XQLow': '-47.8', 'XQMid': '0.10', 'XQHigh': '47.7', 'XAxialPct': '0.4', 'XChairSlope': '-3.00', 'XMinMonopole': '1.732', 'XMinPatterns': '560', 'XOverlap': '0.816', 'XResidual': '0.577', 'XLiveDipole': '41.6', 'XClockErrThree': '30.9', 'XClockErrTen': '0.9', 'XClockErrForty': '0.05'})
 # research/toymodel_v6 (section 'A Hamiltonian for the bits'); recomputed by toymodel_v6_numbers()
-EXPECTED.update({'YTwoC': '0.913', 'YTwoChsh': '2.708', 'YTwoGap': '0.095', 'YTwoEnd': '0.102', 'YSlope': '-2.99', 'YAntiFour': '0.50', 'YFrusTwo': '0.060', 'YFrusLo': '0.128', 'YFrusHi': '0.165', 'YPeakLo': '0.38', 'YPeakHi': '0.65', 'YPeakTauLo': '0.05', 'YPeakTauHi': '0.13', 'YChshMax': '2.33', 'YChshObs': '2.12'})
+EXPECTED.update({'YTwoC': '0.913', 'YTwoChsh': '2.708', 'YTwoGap': '0.095', 'YTwoEnd': '0.102', 'YSlope': '-2.99', 'YAntiFour': '0.50', 'YFrusTwo': '0.060', 'YFrusLo': '0.128', 'YFrusHi': '0.165', 'YPeakLo': '0.38', 'YPeakHi': '0.65', 'YPeakTauLo': '0.05', 'YPeakTauHi': '0.13', 'YChshMax': '2.33', 'YChshObs': '2.12', 'YGTiles': '71', 'YGLinks': '406', 'YGPlaq': '336', 'YGTwo': '254', 'YGPairsThree': '82', 'YGZZ': '394', 'YGXX': '0', 'YGCutLinks': '215', 'YGCutBits': '12'})
 
 def write(N, path=OUT):
     os.makedirs(os.path.dirname(path), exist_ok=True)
