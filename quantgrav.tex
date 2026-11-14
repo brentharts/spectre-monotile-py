@@ -60,9 +60,9 @@ Interaction Density } \rho(x,t) \text{ and Local Clock Rate }
 \nabla^2\psi + \gamma\frac{\partial\psi}{\partial t} =
 \mathcal{S}_{\text{source}}\left( h(\tau) =
 a\tan\left(\frac{\omega(\tau)}{2}\right) \right) }_{\text{II.
-Dispersive Wave Equation (Eq. 4) driven by Monotile Area Ledger
+Dispersive Wave Equation (Eq.~\ref{eq:wave}) driven by Monotile Area Ledger
 Source } \pm h(\tau) \text{ with Clock } \Delta\tau = \frac{\Delta
-t_0}{\rho} \text{ (Eq. 3) \cite{braunstein2024, smith2023}}} \\ &\Downarrow \quad
+t_0}{\rho} \text{ (Eq.~\ref{eq:density}) \cite{braunstein2024, smith2023}}} \\ &\Downarrow \quad
 \text{(Constrained by Tiling Area Ledger } Q = \sigma_i^z +
 \sigma_j^z = 0 \text{ into Qubits \cite{gharibian2015})} \\ &\underbrace{
 H_{\text{eff}} = \overbrace{ -J(\tau)\sum_{\langle i,j \rangle}
@@ -70,41 +70,18 @@ H_{\text{eff}} = \overbrace{ -J(\tau)\sum_{\langle i,j \rangle}
 \overbrace{ g\sum_{\text{pairs}} (\sigma_i^z + \sigma_j^z)^2
 }^{\text{Area Ledger Penalty } Q^2} - \overbrace{ \sum_{A<B}
 K_{AB}\tau_A^z \tau_B^z }^{\text{Frustrated Dipole Coupling } \propto
-r^{-3}} }_{\text{III. Many-Body Pair-Qubit Hamiltonian (Eq. 5) \cite{gharibian2015, wootters1998}}} \\ &\Downarrow \quad \text{(Measured via the Observable
+r^{-3}} }_{\text{III. Many-Body Pair-Qubit Hamiltonian (Eq.~\ref{eq:hbit}) \cite{gharibian2015, wootters1998}}} \\ &\Downarrow \quad \text{(Measured via the Observable
 Correlation Ruler)} \\ &\overbrace{ S = \underbrace{E(a,b) +
 E(a,b^{\prime}) + E(a^{\prime},b) -
-E(a^{\prime},b^{\prime})}_{\text{CHSH Correlation Value (Eq. 1) \cite{bell1964, chsh1969}}} \quad \text{vs.} \quad \text{Tsirelson Bound } (2\sqrt{2}) \text{ \cite{cirelson1980}}
+E(a^{\prime},b^{\prime})}_{\text{CHSH Correlation Value (Eq.~\ref{eq:chsh}) \cite{bell1964, chsh1969}}} \quad \text{vs.} \quad \text{Tsirelson Bound } (2\sqrt{2}) \text{ \cite{cirelson1980}}
 \text{ No-Signalling Limit } \text{ \cite{popescu1994}} }^{\text{IV. Bell Correlation
 Framework Governed by Settings-Dependent Past \cite{hall2010}}}
 \end{aligned} \right.
 \end{equation}
 }
 
-These expressions trace the logical and dynamical pipeline of the theory, demonstrating how foundational geometric constraints cascade upward into wave propagation, many-body qubit Hamiltonians, and observable correlation bounds:
+This expression traces the logical and dynamical pipeline of the theory, demonstrating how foundational geometric constraints cascade upward into wave propagation, many-body qubit Hamiltonians, and observable correlation bounds:
 
-{\tiny
-\begin{equation}
-\mathcal{U}_{\text{framework}} \;=\; \left\{
-\begin{aligned}
-&\overbrace{ \mathcal{Z} = \int \mathcal{D}[\gamma] \exp\left( -\beta \sum_{t=1}^{T} \left[ \underbrace{\|s(t) - s(t-1)\|_{E_8}^2}_{\text{Root-Step Cost on } D_4^a \oplus D_4^b} + \lambda \underbrace{\left(\Phi_{\text{net}}(t) - \Phi_{\text{target}}\right)^2}_{\text{Global Flux / Area Ledger}} \right] \right) }^{\text{I. Microscopic History Path Integral \& Consistency Action } \mathcal{A}[\gamma]} \\[10pt]
-&\qquad \Downarrow \quad \text{Couples via Monotile Geometric Source } \mathcal{S}_{\text{source}}\big(\pm h(\tau)\big), \;\; h(\tau) = a\tan\left(\frac{\omega(\tau)}{2}\right) \\[10pt]
-&\underbrace{ \left.
-\begin{aligned}
-&\text{Local Clock Dilation Rate:} && \Delta\tau = \frac{\Delta t_0}{\rho(x,t)}, \quad \rho(x,t) = 1 + \sum_{j} \frac{M_j}{\left(1 + \|x - x_j(t)\|^2\right)^{3/2}} \\[6pt]
-&\text{Dispersive Wave Propagation:} && \frac{1}{c^2\rho(x,t)}\frac{\partial^2\psi}{\partial t^2} - \nabla^2\psi + \gamma\frac{\partial\psi}{\partial t} = \mathcal{S}_{\text{source}}
-\end{aligned}
-\right\} }_{\text{II. Macroscopic Substrate Density, Clock Rate, and Wave Field Dynamics}} \\[10pt]
-&\qquad \Downarrow \quad \text{Constrained by Tiling Area Ledger } Q = \sigma_i^z + \sigma_j^z = 0 \text{ into Qubits} \\[10pt]
-&\underbrace{ \left.
-\begin{aligned}
-&\text{Many-Body Pair Hamiltonian:} && H_{\text{eff}} = \overbrace{-J(\tau)\sum_{\langle i,j \rangle} \sigma_i^x \sigma_j^x}^{\text{Bit Tunnelling } c(\tau)} + \overbrace{g\sum_{\text{pairs}} (\sigma_i^z + \sigma_j^z)^2}^{\text{Area Ledger Penalty } Q^2} - \overbrace{\sum_{A<B} K_{AB}\tau_A^z \tau_B^z}^{\text{Frustrated Dipoles } \propto r^{-3}} \\[8pt]
-&\text{CHSH Correlation Ruler:} && S = \underbrace{E(a,b) + E(a,b^{\prime}) + E(a^{\prime},b) - E(a^{\prime},b^{\prime})}_{\text{Settings-Dependent Past Integration}} \;\in\; \Big[\underbrace{2}_{\text{Local}},\; \underbrace{2\sqrt{2}}_{\text{Quantum}},\; \underbrace{4}_{\text{No-Signalling}}\Big]
-\end{aligned}
-\right\} }_{\text{III. Effective Quantum Qubit Dynamics and Correlation Sector}}
-\end{aligned}
-\right.
-\end{equation}
-}
 
 
 \emph{What this paper is.} Finite, tested computations and a few proofs, on a search for structures that carry an arrow of time and on which physics could later be written. Its most concrete object is small: one tile, one bit, and the flow that closes the bit (Section~\ref{sec:flow}). It does not derive quantum gravity. It does reach, from that bit and under stated definitions, several features of known physics: a qubit, a Bell violation with nothing discarded, a clock, a light cone with time dilation, an entropy that grows and a renormalisation map (Section~\ref{sec:toward}). It also states as numbers what is still missing, which is chiefly gravity: the factor $2$ of light bending, a horizon and a $1/r$ source. Most of the results on the way were negative. We report them in full, because each one narrowed the search and explains why the parts that work do.
@@ -762,7 +739,7 @@ A Hamiltonian for the bits (Section~\ref{sec:ham}) keeps one forced piece: the t
 
 The last model (Section~\ref{sec:toward}) is where the work turns from finding what fails to building on what holds. With the pair qubit and its overlap as the only ingredients, it reaches a Bell violation for two pairs with the tile's own settings and nothing discarded (Result~\ref{res:toward-bell}), a clock whose rate is the overlap, a long-wave light cone on the Chair44 with time dilation by $1/\gamma$ (Result~\ref{res:toward-cone}), an entropy that grows under unitary dynamics (Result~\ref{res:toward-entropy}), and one lattice, $E_8$, for the two number fields that the static half had kept apart (Result~\ref{res:toward-fields}). Gravity is the open side, and its negatives are now specific: the tile's geometry works against the bending of light, the bits and the critical angle forbid a horizon, and the layout the chair selects has no monopole (Result~\ref{res:toward-gravity}). Of the $\qgZScoreRows$ entries on the scoreboard, $\qgZScoreMet$ are met and $\qgZScoreOpen$ are open, each with a number and a test.
 
-The negatives were not a detour. They ruled out the readings in which the bit lives on one tile, in which a Bell violation discards runs, in which the planar tiling makes a $1/r$ clock, and in which the arrow comes from the flow; what is left is narrower and works better. This is not yet a theory of quantum gravity, and nothing here derives one. It is a path toward physics from the corner of one aperiodic tile, with the steps that hold and the gaps that remain both on record.
+The negatives ruled out the readings in which the bit lives on one tile, in which a Bell violation discards runs, in which the planar tiling makes a $1/r$ clock, and in which the arrow comes from the flow; what is left is narrower and works better. This is not yet a theory of quantum gravity, and nothing here derives one. It is a path toward physics from the corner of one aperiodic tile, with the steps that hold and the gaps that remain both on record.
 
 \appendix
 \footnotesize
