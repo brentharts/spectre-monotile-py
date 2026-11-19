@@ -25,6 +25,7 @@ for p in (_HERE, _ROOT):
 
 SNAPSHOT = os.path.join(_HERE, "data", "wilson_snapshot.json")
 COMPANION = os.path.join(_HERE, "data", "companion_snapshot.json")
+WADA = os.path.join(_HERE, "data", "wada_snapshot.json")
 OUT = os.path.join(_ROOT, "build", "quantgrav_numbers.tex")
 
 
@@ -645,6 +646,10 @@ def compute():
     for k, v in comp.items():
         if not k.startswith("_"):
             put("C" + "".join(c for c in k.title() if c.isalpha()), v, "snapshot data/companion_snapshot.json (not recomputed here)")
+    wada = json.load(open(WADA))
+    for k, v in wada.items():
+        if not k.startswith("_"):
+            put("K" + "".join(c for c in k.title() if c.isalpha()), v, "snapshot data/wada_snapshot.json (not recomputed here)")
     return N
 
 
