@@ -1,0 +1,9 @@
+part A: samples 3500 usable 2389
+rho 1.5  present 1.0 changed 0.009 any 0.009  G-changed 0.004  P(dG!=0|change) 0.409  P(dN!=0|change) 1.000
+rho 2.0  present 1.0 changed 0.009 any 0.009  G-changed 0.004  P(dG!=0|change) 0.409  P(dN!=0|change) 1.000
+rho 3.0  present 2.2 changed 0.017 any 0.013  G-changed 0.005  P(dG!=0|change) 0.344  P(dN!=0|change) 1.000
+rho 4.0  present 6.2 changed 0.051 any 0.027  G-changed 0.018  P(dG!=0|change) 0.656  P(dN!=0|change) 1.000
+rho 5.0  present 7.3 changed 0.061 any 0.027  G-changed 0.019  P(dG!=0|change) 0.692  P(dN!=0|change) 1.000
+rho 6.0  present 12.6 changed 0.113 any 0.039  G-changed 0.034  P(dG!=0|change) 0.745  P(dN!=0|change) 1.000
+rho 7.0  present 17.3 changed 0.165 any 0.044  G-changed 0.054  P(dG!=0|change) 0.905  P(dN!=0|change) 1.000
+log-log slope of changed tiles against rho (rho 2 to 7): 2.352 (rho^2 -> 2)
