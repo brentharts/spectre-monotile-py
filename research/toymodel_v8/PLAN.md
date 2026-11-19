@@ -21,9 +21,10 @@ Not established, and stated here so that the model starts honest:
 | 3 | **Move set.** Describe each closed cluster as an operation on the dual graph (tiles = nodes, shared edges = links) and ask whether it is a composition of standard local moves (Pachner or bistellar moves; vertex splitting). Definition first, then count | each cluster type matches a named move or a short word of them | a cluster type is not a composition of local moves |
 | 4 | **Markov chain on local patterns.** States: isomorphism classes of the contact graph around a footprint (with and without tile classes). Rates from the boundary measure of the windows. Test: detailed balance with stationary distribution = window area; relative entropy to the stationary law falls monotonically from any start (H-theorem of a reversible chain) | an exact statement that the arrow is the initial condition, with its numbers; or a violation of detailed balance, which would be a real asymmetry | the chain is not reversible and the violation is not a tolerance artefact (then find the source) |
 | 5 | **Inflation direction.** The substitution contracts internal space by 1/lambda. Compare pattern statistics at footprint scales lambda^k: entropy per tile, number of distinct patterns, flip rate. Is any of them monotone in k in a way that is not just a change of units | a monotone quantity with a stated mechanism | everything is scale-covariant (then inflation gives no arrow either) |
+| 7 | **Parity sectors and erasure codes (from qwla).** Orientation parity of patches and windows (done: E8.1 to E8.5, N8.1; hypotheses H8.4 to H8.7 run in `STAGE7B.md`: one supported with small n, one supported, one negative, one open) | exact parity frequencies reproduced; parity change per flip measured | parity counts disagree with the note (they do not: E8.3) |
 | 6 | **Link to gravity, only if Stage 3 succeeds.** Compare the move set with the v7 gravity entries (horizon, space factor) and with the exchange picture of `RECONNECTION.md`; define a transport velocity on the tiling if one exists | a defined F, R and u for the tiling, or a precise reason none exists | no definition is available (then say so in the paper and stop) |
 
-Order: 0, 1, 2, 3, then 4 and 5, then 6.
+Order: 0, 1, 2, 3, then 4 and 5, then 6; Stage 7 (qwla) runs alongside.
 
 ## 2. Hypotheses kept apart
 
@@ -42,5 +43,7 @@ research/toymodel_v8/
   t8_moves.py        Stage 3
   t8_chain.py        Stage 4
   t8_inflation.py    Stage 5
+  t8_parity.py       Stage 7 (E8.1 to E8.5)
+  spectre_flip_stats.py  Stage 7b (disc counts, erasure ambiguity)
   STAGE0.md ...
 ```
