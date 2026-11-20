@@ -1,6 +1,6 @@
 # toymodel_v8: flips of the contact graph, and what an arrow would need (plan, revision 1)
 
-Status: Stage 0 done (`STAGE0.md`); Stage 3 attempted and unresolved (`STAGE3.md`), blocked by Stage 1 (validity). Labels as in `quantgrav.tex`: **Exact**, **Counted/Numeric**, **Definition**, **Hypothesis**, **Negative**, **Not explained**.
+Status: Stage 0 done (`STAGE0.md`); Stage 3 attempted and unresolved (`STAGE3.md`), blocked by Stage 1 (validity), which is partly answered (`STAGE1.md`: overlaps are tolerance; holes are a window the phase just misses, cause found: box cut-off `|PH w| < 12` drops Mystic-pair tiles; widening it to 20 removes all holes, see `STAGE1.md`). Labels as in `quantgrav.tex`: **Exact**, **Counted/Numeric**, **Definition**, **Hypothesis**, **Negative**, **Not explained**.
 
 ## 0. Starting point (what is established, and what is not)
 
@@ -47,3 +47,5 @@ research/toymodel_v8/
   spectre_flip_stats.py  Stage 7b (disc counts, erasure ambiguity)
   STAGE0.md ...
 ```
+
+Update 2026-11-20: Stage 0/3/7b statistics rerun with the corrected engine: see `RERUN.md` (contact graph: 224 of 468 valid pairs change the footprint tile set, 169 non-isomorphic, reversal identical; H8.5 and H8.4 supported again, H8.6 negative again).
