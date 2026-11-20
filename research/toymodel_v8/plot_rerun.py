@@ -74,12 +74,13 @@ fig.tight_layout(rect=(0, 0, 1, 0.93)); fig.savefig("fig_rerun_stats.png"); plt.
 
 # ---------------- Figure 3: gallery ----------------
 ex = json.load(open("flip_examples.json")); R = ex["R"]
-fig, axs = plt.subplots(4, 3, figsize=(12, 15))
-for j, e in enumerate(ex["examples"]):
+NE = 4                                              # four events: before (top row) and after (bottom row)
+fig, axs = plt.subplots(2, NE, figsize=(14, 7.6))
+for j, e in enumerate(ex["examples"][:NE]):
     c0 = np.mean(np.array(e["origin_xy"]), axis=0)
     e["n_removed"] = sum(t["status"] == "removed" for t in e["tiles"]); e["n_added"] = sum(t["status"] == "added" for t in e["tiles"])   # tiles shown in the window only
     for side in (0, 1):
-        axx = axs[(j // 3) * 2 + side, j % 3]
+        axx = axs[side, j]
         for t in e["tiles"]:
             st_ = t["status"]
             if side == 0 and st_ == "added": continue
@@ -88,7 +89,7 @@ for j, e in enumerate(ex["examples"]):
             axx.add_patch(MPoly(np.array(t["xy"]), closed=True, fc=fc, ec="#3d4852", lw=0.6, hatch="////" if t["G"] else None, alpha=0.95))
         axx.add_patch(MPoly(np.array(e["origin_xy"]), closed=True, fc="none", ec="k", lw=2.2))
         axx.set_xlim(c0[0] - R - 1.5, c0[0] + R + 1.5); axx.set_ylim(c0[1] - R - 1.5, c0[1] + R + 1.5); axx.set_aspect("equal"); axx.axis("off")
-        axx.set_title(("before: phase z" if side == 0 else "after: phase z + 0.03") + (" (%d tiles removed in view)" % e["n_removed"] if side == 0 else " (%d tiles added in view)" % e["n_added"]), fontsize=9)
-fig.suptitle("Flip examples: tiles within 4.5 of the origin tile (black outline). Orange = removed, blue = added, grey = unchanged,\nhatched = Mystic-pair tile (two Spectres). Region validated: no overlaps, no holes, before and after.", fontsize=10)
-fig.tight_layout(rect=(0, 0, 1, 0.96)); fig.savefig("fig_flip_gallery.png"); plt.close(fig)
+        axx.set_title(("before z: %d tiles removed in view" % e["n_removed"]) if side == 0 else ("after z + 0.03: %d tiles added in view" % e["n_added"]), fontsize=9)
+fig.suptitle("Flip examples: tiles within 4.5 of the origin tile (black outline). Orange = removed, blue = added, grey = unchanged, hatched = Mystic-pair tile. Region validated: no overlaps, no holes.", fontsize=10)
+fig.tight_layout(rect=(0, 0, 1, 0.95)); fig.savefig("fig_flip_gallery.png"); plt.close(fig)
 print("ok")

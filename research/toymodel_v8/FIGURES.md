@@ -26,7 +26,7 @@ Why a rerun: the first runs had a placement box of 12 that dropped Mystic-pair t
 
 ![gallery](figures/fig_flip_gallery.png)
 
-Six events picked at random from 416 validated ones that touch the footprint. Black outline: origin tile. Orange: present before, not after. Blue: present after, not before. Hatched: Mystic-pair tile. Each flip moves five to ten tiles in view; the clusters inspected have 8 to 17 tiles per side, so a flip is not a one-tile swap. No cluster closed inside the validated region (needs radius about 26), so no (dV, dE, dF) and no statement about Pachner-type moves.
+Four events picked at random from 416 validated ones that touch the footprint. Black outline: origin tile. Orange: present before, not after. Blue: present after, not before. Hatched: Mystic-pair tile. Each flip moves five to ten tiles in view; the clusters inspected have 8 to 17 tiles per side, so a flip is not a one-tile swap. No cluster closed inside the validated region (needs radius about 26), so no (dV, dE, dF) and no statement about Pachner-type moves.
 
 ## Reproduce
 
