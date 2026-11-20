@@ -1,0 +1,22 @@
+imports 67s
+window classes (shape, frame): 12  tiles per class [70, 75, 76, 76, 70, 14, 66, 12, 9, 8, 9, 11]  shapes ['O', 'O', 'O', 'O', 'O', 'G', 'O', 'G', 'G', 'G', 'G', 'G']  similarity ratio 3.1622776601683795  67s
+difference lattice index in Z^4: 36
+lattice candidates 135693 box edge 45
+tile bounds (-3.8660254037844384, -0.8660254037844386, 0.8660254037844388, 2.3660254037844384) max class diam 21.111667470117474
+placements within 7.00 of the tile: 3569
+part A: samples 3500 usable 2831
+rho 1.5  present 1.0 changed 0.054 any 0.030  G-changed 0.020  P(dG!=0|change) 0.667  P(dN!=0|change) 0.190  P(dArea!=0|change) 0.690  area-conserving events 26: P(dG!=0) 0.000 mean dN 0.00
+rho 2.0  present 1.0 changed 0.058 any 0.031  G-changed 0.020  P(dG!=0|change) 0.625  P(dN!=0|change) 0.148  P(dArea!=0|change) 0.705  area-conserving events 26: P(dG!=0) 0.000 mean dN 0.00
+rho 3.0  present 2.2 changed 0.128 any 0.053  G-changed 0.047  P(dG!=0|change) 0.689  P(dN!=0|change) 0.629  P(dArea!=0|change) 0.715  area-conserving events 43: P(dG!=0) 0.767 mean dN -0.07
+rho 4.0  present 6.1 changed 0.326 any 0.088  G-changed 0.112  P(dG!=0|change) 0.512  P(dN!=0|change) 0.399  P(dArea!=0|change) 0.573  area-conserving events 106: P(dG!=0) 0.245 mean dN 0.06
+rho 5.0  present 7.3 changed 0.406 any 0.095  G-changed 0.134  P(dG!=0|change) 0.452  P(dN!=0|change) 0.281  P(dArea!=0|change) 0.619  area-conserving events 103: P(dG!=0) 0.010 mean dN 0.01
+rho 6.0  present 12.5 changed 0.673 any 0.123  G-changed 0.207  P(dG!=0|change) 0.510  P(dN!=0|change) 0.602  P(dArea!=0|change) 0.722  area-conserving events 97: P(dG!=0) 0.402 mean dN -0.15
+rho 7.0  present 17.2 changed 0.971 any 0.130  G-changed 0.316  P(dG!=0|change) 0.523  P(dN!=0|change) 0.434  P(dArea!=0|change) 0.558  area-conserving events 163: P(dG!=0) 0.319 mean dN -0.06
+log-log slope of changed tiles against rho (rho 2 to 7): 2.250 (rho^2 -> 2)
+part B: z used 184
+  eps    multiplicity >= 3  n= 19  P(inside not determined by outside) = 0.000   mean consistent fraction 0.628
+  eps    multiplicity 2     n= 22  P(inside not determined by outside) = 0.000   mean consistent fraction 0.685
+  eps    multiplicity 1     n=143  P(inside not determined by outside) = 0.000   mean consistent fraction 0.828
+  eps/2  multiplicity >= 3  n=  3  P(inside not determined by outside) = 0.000   mean consistent fraction 0.100
+  eps/2  multiplicity 2     n= 13  P(inside not determined by outside) = 0.000   mean consistent fraction 0.630
+  eps/2  multiplicity 1     n=168  P(inside not determined by outside) = 0.000   mean consistent fraction 0.815
