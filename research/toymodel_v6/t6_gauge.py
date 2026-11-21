@@ -252,6 +252,44 @@ def test_e621_the_plaquette_limit_has_no_two_link_bell_pair():
     return len(pz), int(len(A)), S
 
 
+def test_e622_flux_through_a_region_changes_only_across_its_cut():
+    """Discrete form of the flux-transfer law of Comisso and Asenjo (arXiv:2609.25241, Eq. 29: dPhi/dtau = line integral of the non-ideal term over the boundary):
+    the flux through a set S of plaquettes, prod_{p in S} B_p, is the product of Z over the cut of S (links with exactly one end in S), so X_l changes it iff l is in the cut,
+    and a link flip changes the flux at exactly two plaquettes, or at one when an end lies on the patch boundary.  H = -g sum_p B_p commutes with every flux."""
+    out = {}
+    for level in (2, 3):
+        c = complex_(level)
+        links, plaq = c["links"], set(c["plaq"])
+        pidx = {v: i for i, v in enumerate(c["plaq"])}
+        M = plaquette_matrix(c)
+        ends = collections.Counter(sum(1 for u in e if u in plaq) for e in links)
+        assert set(ends) == {1, 2}, ends
+        rng = np.random.default_rng(0)
+        P = list(c["plaq"])
+        for _ in range(100):
+            S = {P[rng.integers(len(P))]}
+            fr = list(S)
+            for _r in range(int(rng.integers(1, 6))):
+                nw = []
+                for u in fr:
+                    for k in c["inc"][u]:
+                        for w in links[k]:
+                            if w in plaq and w not in S:
+                                S.add(w)
+                                nw.append(w)
+                fr = nw
+            row = np.zeros(c["L"], np.uint8)
+            for v in S:
+                row ^= M[pidx[v]]
+            cut = np.array([sum(1 for u in e if u in S) % 2 for e in links], np.uint8)
+            assert np.array_equal(row, cut)
+            for k, e in enumerate(links):
+                n_in = sum(1 for u in e if u in S)
+                assert (n_in % 2 == 1) == (n_in == 1)
+        out[level] = (c["L"], ends[1], ends[2])
+    return out
+
+
 def run_tests(verbose=True):
     tests = [(n, f) for n, f in sorted(globals().items()) if n.startswith("test_e6")]
     failed = 0

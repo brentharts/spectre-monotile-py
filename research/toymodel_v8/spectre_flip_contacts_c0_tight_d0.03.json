@@ -1,0 +1,14 @@
+{
+ "NS": 6000,
+ "DELTA": 0.03,
+ "R2": 1.0,
+ "usable": 5245,
+ "changed": 539,
+ "events": 0,
+ "counts": {},
+ "feq": 0,
+ "link_changed": 0,
+ "nb_changed": 0,
+ "simple": 0,
+ "simple_link_changed": 0
+}

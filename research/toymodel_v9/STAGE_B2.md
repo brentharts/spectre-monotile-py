@@ -1,0 +1,23 @@
+# Stage B2: phason-flip engine for the Danzer ABCK model set (B2a: vertex level)
+
+Scripts: `t9_dflip.py` (engine), `t9_dflip_patch.py` (level-11 patch, tiles within r<22, `dflip_patch_L11.npz`, 3.5 min), `t9_dflip_stats.py` (`dflip_stats.json`), `t9_dflip_figs.py` (3 figures, `dflip_tiles.json`), `t9_dflip_tests.py` (7 tests, all pass). Make targets: `flip-patch`, `flip-stats`, `flip-figs`, `flip-tests`.
+
+## Engine
+Vertices of class c at phase gamma (a 3-vector in the internal "star" frame): { x in coset_c of the weight lattice D6* : star(x) + gamma in W_c }. Classes (level-11 labelling, `P.class_key`): I = half-integer coset ((2,..,2),1), II = the other half-integer coset ((2,..,2),0), III = the root lattice D6 itself ((0,..,0),0). Windows: II dodecahedron (exact), III great dodecahedron (exact), I radial table (`win_I_table.npz`) with a radial margin 1.004. Class IV (quarter lattice, about 1% of the window volume, 13% of tile vertices) is not modelled. (STAGE_B1d named the class II and III cosets the wrong way round in one sentence; the keys above are the checked ones.) Lattice points in a ball are enumerated with Fincke-Pohst (6859 points in 0.1 s).
+
+## Results
+1. **The model set is the substitution tiling** (Numeric, Counted). In the ball r<18 around the patch centre the model-set vertices equal the vertices of the substitution patch exactly: class I 1548 = 1548, II 467 = 467, III 395 = 395, no vertex in either set only. For II and III this uses only the explicit windows of STAGE_B1d with no fitting, so it is an independent test of those windows. For class I the radial margin (1.004) was fitted on the same patch (patch points r/R <= 1.002, other lattice points >= 1.006), so class I is calibrated, not tested.
+2. **Flip counts** (12 random directions, ball r<18; `dflip_stats.json`, `dflip_stats.png`). At |gamma| = 0.4 the removed counts are I 360, II 107, III 111, and added counts equal them within noise (the window volume is conserved); the uniform-window prediction vol(W minus (W-gamma))/vol(W) x N is 343, 100, 107. At smaller |gamma| the counts exceed the prediction by a factor 2 to 3 (II at 0.05: 34 against 13) and drop to zero for II and III at |gamma| = 0.01 (class I shows 8 there, which is the oracle margin, so |gamma| below about 0.02 is below the class I resolution). The zero is a finite-ball gap: the star distance of the ball's vertices to the window faces has a smallest nonzero value of order 0.01 to 0.02 at r = 18.
+3. **Flips are local hops** (`dflip_stats.png`, right). Over |gamma| = 0.05 to 0.4 the median distance from a removed vertex to the nearest added vertex is 1.176 = 2 sin 36 degrees (10th percentile the same, 90th percentile 1.73); most flips are a hop along one short vector, with rarer hops of 1.73, 2.0 and 2.8. This is the direct analogue of the local tile rearrangements seen for the Spectre.
+4. **Tile destruction.** The fraction of patch tiles that lose at least one class I to III vertex is 0.009, 0.095, 0.19, 0.27, 0.34, 0.45 at |gamma| = 0.01, 0.02, 0.05, 0.1, 0.2, 0.4 (tiles in r<12, 4793 tiles; class IV vertices, 13% of tile vertices, are assumed unchanged, so these are lower bounds).
+
+## What this is not
+- Not yet the v8 comparison. The v8 numbers (changed tile sets, valid sets, non-isomorphic, area-conserving events) need a **tiling** at the shifted phase, i.e. the new vertex set re-tetrahedralised into ABCK tiles. B2a only changes vertices and counts destroyed tiles. Re-tiling (B2b) needs a rule that assigns tiles to the shifted vertex set (for example a Delaunay-like or local-star rule); that rule is not known to me and is the next question. Hypothesis H9.4 (rewiring is generic for model sets) is supported only at the level of "flips are short hops", not tested on contact graphs.
+- The small-|gamma| excess over the uniform prediction is a finite-size effect of the Meyer-set structure near the window faces; I have not separated it from singular-boundary points.
+- Level-11 patch labelling only; the windows are in the star frame where class I has the edge-2 dodecahedron (Baake-Grimm volumes; Frettlöh's are tau^3 larger).
+- Nothing in `quantgrav.bib`; no new sources read.
+
+## Figures
+- `dflip_windows.png`: cross-sections of windows I, II, III through three planes (5-fold with 3-fold axis, two 2-fold axes, 5-fold with 2-fold axis).
+- `dflip_slab.png`: a slab of vertices coloured by class, and the removed (red), added (blue) vertices at |gamma| = 0.2 with each removed vertex joined to its nearest added vertex.
+- `dflip_stats.png`: flip counts against |gamma| with the uniform-window prediction, tile destruction, and the hop-length histogram.

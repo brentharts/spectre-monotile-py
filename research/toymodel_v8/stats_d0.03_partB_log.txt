@@ -1,0 +1,16 @@
+part A: samples 3500 usable 2274
+rho 1.5  present 1.0 changed 0.032 any 0.026  G-changed 0.011  P(dG!=0|change) 0.441  P(dN!=0|change) 0.763
+rho 2.0  present 1.0 changed 0.033 any 0.026  G-changed 0.011  P(dG!=0|change) 0.441  P(dN!=0|change) 0.746
+rho 3.0  present 2.2 changed 0.060 any 0.037  G-changed 0.021  P(dG!=0|change) 0.529  P(dN!=0|change) 0.871
+rho 4.0  present 6.2 changed 0.169 any 0.065  G-changed 0.060  P(dG!=0|change) 0.649  P(dN!=0|change) 0.838
+rho 5.0  present 7.3 changed 0.212 any 0.068  G-changed 0.068  P(dG!=0|change) 0.675  P(dN!=0|change) 0.805
+rho 6.0  present 12.6 changed 0.348 any 0.091  G-changed 0.105  P(dG!=0|change) 0.697  P(dN!=0|change) 0.889
+rho 7.0  present 17.3 changed 0.488 any 0.100  G-changed 0.163  P(dG!=0|change) 0.811  P(dN!=0|change) 0.850
+log-log slope of changed tiles against rho (rho 2 to 7): 2.216 (rho^2 -> 2)
+part B: z used 159
+  eps    multiplicity >= 3  n= 24  P(inside not determined by outside) = 0.000   mean consistent fraction 0.573
+  eps    multiplicity 2     n= 10  P(inside not determined by outside) = 0.000   mean consistent fraction 0.694
+  eps    multiplicity 1     n=125  P(inside not determined by outside) = 0.000   mean consistent fraction 0.862
+  eps/2  multiplicity >= 3  n=  5  P(inside not determined by outside) = 0.000   mean consistent fraction 0.325
+  eps/2  multiplicity 2     n=  7  P(inside not determined by outside) = 0.000   mean consistent fraction 0.407
+  eps/2  multiplicity 1     n=147  P(inside not determined by outside) = 0.000   mean consistent fraction 0.843

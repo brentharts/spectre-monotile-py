@@ -1,0 +1,17 @@
+imports 155s
+window classes (shape, frame): 12  tiles per class [70, 75, 76, 76, 70, 14, 66, 12, 9, 8, 9, 11]  shapes ['O', 'O', 'O', 'O', 'O', 'G', 'O', 'G', 'G', 'G', 'G', 'G']  similarity ratio 3.1622776601683795  155s
+difference lattice index in Z^4: 36
+lattice candidates 48847 box edge 43
+tile bounds (-3.8660254037844384, -0.8660254037844386, 0.8660254037844388, 2.3660254037844384) max class diam 21.111667470117474
+placements within 1.00 of the tile: 767
+samples 3000, unambiguous 2394, with a change of the present set 192
+changed samples with a valid tiling of the region before and after: 60 of 192
+events (connected clusters): 63  valid tilings before and after: 0
+(removed, added) counts: []
+footprints equal: 0 / 0
+linkage of outside tiles through the cluster changed: 0 / 0
+set of outside tiles touching the cluster changed: 0 / 0
+footprint-equal events: linkage changed in 0 of 0
+single swaps (class removed -> class added): []
+valid pairs 60  keys (same tile set, graph isomorphic, isomorphic with classes): {(False, False, False): 27, (False, True, False): 5, (True, True, True): 28}
+(tiles meeting the footprint before, after): [((1, 1), 21), ((3, 3), 6), ((2, 2), 5), ((3, 2), 4), ((2, 3), 4), ((3, 1), 3), ((1, 2), 2), ((2, 1), 2), ((3, 4), 2), ((5, 5), 2)]

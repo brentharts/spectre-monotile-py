@@ -25,6 +25,7 @@ for p in (_HERE, _ROOT):
 
 SNAPSHOT = os.path.join(_HERE, "data", "wilson_snapshot.json")
 COMPANION = os.path.join(_HERE, "data", "companion_snapshot.json")
+WADA = os.path.join(_HERE, "data", "wada_snapshot.json")
 OUT = os.path.join(_ROOT, "build", "quantgrav_numbers.tex")
 
 
@@ -458,6 +459,10 @@ def toymodel_v6_numbers():
     _, n_left, S = y3.test_e621_the_plaquette_limit_has_no_two_link_bell_pair()
     put("GCutLinks", n_left, "t6_gauge: links left of the centre line")
     put("GCutBits", S, "t6_gauge.entropy_of_region: entanglement entropy of those links (bits)")
+    fl = y3.test_e622_flux_through_a_region_changes_only_across_its_cut()
+    put("GFluxLinksThree", fl[3][0], "t6_gauge E6.22: links at level 3")
+    put("GFluxOneThree", fl[3][1], "t6_gauge E6.22: links at level 3 whose flip changes the flux at one plaquette only (an end on the patch boundary)")
+    put("GFluxTwoThree", fl[3][2], "t6_gauge E6.22: links at level 3 whose flip changes the flux at two plaquettes")
     return Y
 
 
@@ -645,6 +650,10 @@ def compute():
     for k, v in comp.items():
         if not k.startswith("_"):
             put("C" + "".join(c for c in k.title() if c.isalpha()), v, "snapshot data/companion_snapshot.json (not recomputed here)")
+    wada = json.load(open(WADA))
+    for k, v in wada.items():
+        if not k.startswith("_"):
+            put("K" + "".join(c for c in k.title() if c.isalpha()), v, "snapshot data/wada_snapshot.json (not recomputed here)")
     return N
 
 
@@ -669,7 +678,7 @@ EXPECTED.update({'WTauStar': '0.766', 'WJumpZero': '3.464', 'WJumpHalf': '1.155'
 # research/toymodel_v5 (section 'A third pass'); recomputed by toymodel_v5_numbers()
 EXPECTED.update({'XAnisoHalf': '0.333', 'XChshZero': '1.670', 'XChshHalf': '1.943', 'XChshHex': '2.828', 'XChshOne': '3.057', 'XBetaTwoHalf': '1.308', 'XWindowEnd': '0.391', 'XWindowEndTwo': '0.718', 'XCubicTwo': '1.992', 'XPlanarEight': '3.9993', 'XMonopole': '0', 'XTraceQ': '91/50', 'XQLow': '-47.8', 'XQMid': '0.10', 'XQHigh': '47.7', 'XAxialPct': '0.4', 'XChairSlope': '-3.00', 'XMinMonopole': '1.732', 'XMinPatterns': '560', 'XOverlap': '0.816', 'XResidual': '0.577', 'XLiveDipole': '41.6', 'XClockErrThree': '30.9', 'XClockErrTen': '0.9', 'XClockErrForty': '0.05'})
 # research/toymodel_v6 (section 'A Hamiltonian for the bits'); recomputed by toymodel_v6_numbers()
-EXPECTED.update({'YTwoC': '0.913', 'YTwoChsh': '2.708', 'YTwoGap': '0.095', 'YTwoEnd': '0.102', 'YSlope': '-2.99', 'YAntiFour': '0.50', 'YFrusTwo': '0.060', 'YFrusLo': '0.128', 'YFrusHi': '0.165', 'YPeakLo': '0.38', 'YPeakHi': '0.65', 'YPeakTauLo': '0.05', 'YPeakTauHi': '0.13', 'YChshMax': '2.33', 'YChshObs': '2.12', 'YGTiles': '71', 'YGLinks': '406', 'YGPlaq': '336', 'YGTwo': '254', 'YGPairsThree': '82', 'YGZZ': '394', 'YGXX': '0', 'YGCutLinks': '215', 'YGCutBits': '12'})
+EXPECTED.update({'YTwoC': '0.913', 'YTwoChsh': '2.708', 'YTwoGap': '0.095', 'YTwoEnd': '0.102', 'YSlope': '-2.99', 'YAntiFour': '0.50', 'YFrusTwo': '0.060', 'YFrusLo': '0.128', 'YFrusHi': '0.165', 'YPeakLo': '0.38', 'YPeakHi': '0.65', 'YPeakTauLo': '0.05', 'YPeakTauHi': '0.13', 'YChshMax': '2.33', 'YChshObs': '2.12', 'YGTiles': '71', 'YGLinks': '406', 'YGPlaq': '336', 'YGTwo': '254', 'YGPairsThree': '82', 'YGZZ': '394', 'YGXX': '0', 'YGCutLinks': '215', 'YGCutBits': '12', 'YGFluxLinksThree': '3534', 'YGFluxOneThree': '186', 'YGFluxTwoThree': '3348'})
 # research/toymodel_v7/t7_rg.py (subsection 'Renormalisation by the substitution'); recomputed by toymodel_v7_numbers()
 EXPECTED.update({'ZPairsTwo': '6', 'ZInsideTwo': '0', 'ZPairsThree': '82', 'ZInsideThree': '0', 'ZPairsFour': '804', 'ZInsideFour': '0', 'ZNewThree': '76', 'ZInhThree': '6', 'ZNewFour': '722', 'ZInhFour': '82', 'ZTypesThree': '96', 'ZTypesFour': '194', 'ZTypesCommon': '74', 'ZTypesNew': '120', 'ZScale': '2.803', 'ZLambda': '2.806', 'ZRatioMed': '1.002', 'ZRatioLo': '0.975', 'ZRatioHi': '1.025', 'ZLambdaMinusThree': '0.045', 'ZBellIdeal': '2.583', 'ZBellVis': '2.454', 'ZBellTauMax': '0.053', 'ZBellWaitPhase': '7', 'ZBellPatch': '1.988', 'ZCoxOrder': '30', 'ZRankBoth': '16', 'ZLayoutAll': '126', 'ZLayoutHat': '12', 'ZLayoutSix': '6', 'ZSpaceSOne': '0.950', 'ZSpaceSTwo': '-0.53', 'ZConeAniso': '5.6\\times10^{-5}', 'ZConeQFour': '-2.80', 'ZGammaErr': '3.0\\times10^{-4}', 'ZHStar': '2.366', 'ZCFloor': '0.0609', 'ZShellPct': '0.37', 'ZSeamSecond': '10', 'ZSeamAtRs': '0.607', 'ZQuenchMid': '2.90', 'ZQuenchFrozen': '0.17', 'ZPage': '5.28', 'ZSpreadExp': '0.56', 'ZScoreMet': '9', 'ZScoreOpen': '16', 'ZScoreRows': '25'})
 
