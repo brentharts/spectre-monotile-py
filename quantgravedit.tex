@@ -287,7 +287,7 @@ A phason flip of the Spectre is a cluster of tiles at uniform density, symmetric
 \section{Reproduction}\label{app:repro}
 Every number, table and figure is rebuilt by one script from the root of \url{https://github.com/brentharts/spectre-monotile-py}:
 \begin{center}\texttt{python3 repo\_paper.py all}\end{center}
-It clones the other repositories that some modules import (Hat and Spectre, \url{https://github.com/brentharts/spectre}; \texttt{wada-coudene}, \url{https://github.com/panjea/wada-coudene}; and others), runs every self test, redraws the figures, writes the numbers of \texttt{build/quantgrav\_numbers.tex} and builds this document and the long draft; it takes about $45$ minutes, and \texttt{--long} adds the runs of more than ten minutes (the cavity of $300$ tiles among them). Numbers marked $\dagger$ come from the logs and JSON of \texttt{research/toymodel\_v8}, \texttt{v9} and \texttt{v10} and from \texttt{models/data/wada\_snapshot.json}. \texttt{REPRODUCE.md} gives the module and command for each statement. A mismatch with a snapshot is a reason to doubt this paper, not its source.
+
 
 \bibliographystyle{plain}
 \bibliography{quantgrav}
