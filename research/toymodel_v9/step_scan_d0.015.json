@@ -1,0 +1,65 @@
+{
+ "delta": 0.015,
+ "NSA": 3500,
+ "usable": 2851,
+ "partA": {
+  "1.5": {
+   "mean_present": 0.9880743598737285,
+   "mean_changed": 0.02104524728165556,
+   "frac_any": 0.011925640126271484,
+   "mean_changed_given_change": 1.7647058823529411,
+   "n_area_conserving": 9,
+   "P_dG_nonzero_given_area_conserved": 0.0
+  },
+  "2": {
+   "mean_present": 1.0073658365485794,
+   "mean_changed": 0.023149772009821115,
+   "frac_any": 0.012627148368993335,
+   "mean_changed_given_change": 1.8333333333333333,
+   "n_area_conserving": 9,
+   "P_dG_nonzero_given_area_conserved": 0.0
+  },
+  "3": {
+   "mean_present": 2.2244826376709925,
+   "mean_changed": 0.053314626446860754,
+   "frac_any": 0.02209750964573834,
+   "mean_changed_given_change": 2.4126984126984126,
+   "n_area_conserving": 24,
+   "P_dG_nonzero_given_area_conserved": 0.7916666666666666
+  },
+  "4": {
+   "mean_present": 6.142756927393897,
+   "mean_changed": 0.1511750263065591,
+   "frac_any": 0.04103823219922834,
+   "mean_changed_given_change": 3.6837606837606836,
+   "n_area_conserving": 48,
+   "P_dG_nonzero_given_area_conserved": 0.2708333333333333
+  },
+  "5": {
+   "mean_present": 7.272185198176079,
+   "mean_changed": 0.18274289722904244,
+   "frac_any": 0.045247281655559454,
+   "mean_changed_given_change": 4.038759689922481,
+   "n_area_conserving": 50,
+   "P_dG_nonzero_given_area_conserved": 0.0
+  },
+  "6": {
+   "mean_present": 12.5377060680463,
+   "mean_changed": 0.2925289372150123,
+   "frac_any": 0.057172921781830935,
+   "mean_changed_given_change": 5.116564417177914,
+   "n_area_conserving": 51,
+   "P_dG_nonzero_given_area_conserved": 0.3137254901960784
+  },
+  "7": {
+   "mean_present": 17.22027358821466,
+   "mean_changed": 0.4279200280603297,
+   "frac_any": 0.061381971238162046,
+   "mean_changed_given_change": 6.9714285714285715,
+   "n_area_conserving": 73,
+   "P_dG_nonzero_given_area_conserved": 0.3835616438356164
+  }
+ },
+ "slope": 2.3336417900622224,
+ "seconds": 287.3368957042694
+}

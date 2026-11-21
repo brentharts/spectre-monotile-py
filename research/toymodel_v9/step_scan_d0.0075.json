@@ -1,0 +1,65 @@
+{
+ "delta": 0.0075,
+ "NSA": 3500,
+ "usable": 2858,
+ "partA": {
+  "1.5": {
+   "mean_present": 0.986703988803359,
+   "mean_changed": 0.005248425472358292,
+   "frac_any": 0.0031490552834149755,
+   "mean_changed_given_change": 1.6666666666666667,
+   "n_area_conserving": 2,
+   "P_dG_nonzero_given_area_conserved": 0.0
+  },
+  "2": {
+   "mean_present": 1.00629811056683,
+   "mean_changed": 0.006648005598320504,
+   "frac_any": 0.003848845346396081,
+   "mean_changed_given_change": 1.7272727272727273,
+   "n_area_conserving": 2,
+   "P_dG_nonzero_given_area_conserved": 0.0
+  },
+  "3": {
+   "mean_present": 2.2225332400279916,
+   "mean_changed": 0.015395381385584325,
+   "frac_any": 0.006648005598320504,
+   "mean_changed_given_change": 2.3157894736842106,
+   "n_area_conserving": 8,
+   "P_dG_nonzero_given_area_conserved": 0.75
+  },
+  "4": {
+   "mean_present": 6.135759272218334,
+   "mean_changed": 0.0370888733379986,
+   "frac_any": 0.012596221133659902,
+   "mean_changed_given_change": 2.9444444444444446,
+   "n_area_conserving": 6,
+   "P_dG_nonzero_given_area_conserved": 0.5
+  },
+  "5": {
+   "mean_present": 7.269769069279216,
+   "mean_changed": 0.04758572428271519,
+   "frac_any": 0.014345696291112667,
+   "mean_changed_given_change": 3.317073170731707,
+   "n_area_conserving": 8,
+   "P_dG_nonzero_given_area_conserved": 0.0
+  },
+  "6": {
+   "mean_present": 12.536039188243526,
+   "mean_changed": 0.07557732680195942,
+   "frac_any": 0.0185444366689993,
+   "mean_changed_given_change": 4.0754716981132075,
+   "n_area_conserving": 14,
+   "P_dG_nonzero_given_area_conserved": 0.35714285714285715
+  },
+  "7": {
+   "mean_present": 17.219734079776067,
+   "mean_changed": 0.10671798460461862,
+   "frac_any": 0.01994401679496151,
+   "mean_changed_given_change": 5.350877192982456,
+   "n_area_conserving": 10,
+   "P_dG_nonzero_given_area_conserved": 0.3
+  }
+ },
+ "slope": 2.21541540548859,
+ "seconds": 289.125057220459
+}
