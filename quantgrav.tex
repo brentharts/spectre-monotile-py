@@ -13,6 +13,7 @@
 \usepackage{enumitem}
 \usepackage{url}
 \usepackage[hidelinks]{hyperref}
+\usepackage{orcidlink}
 \graphicspath{{figures/}}
 \IfFileExists{build/quantgrav_numbers.tex}{\input{build/quantgrav_numbers.tex}}{\PackageError{quantgrav}{Run models/paper_numbers.py first (make quantgrav does)}{}}
 
@@ -29,7 +30,7 @@
 
 \title{From Spectre Phason Flips to Pair Qubits: Contact-Graph Rewiring, Bell Violations, Unitary Entropy, and Reversibility in Monotile Qubit Models}
 
-\author{Brent Hartshorn, Tristan Romanov and James Lockwood}
+\author{Brent Hartshorn \orcidlink{0009-0004-2853-655X}, Tristan Romanov and James Lockwood}
 \date{\today}
 
 \begin{document}
@@ -109,7 +110,7 @@ This expression traces the logical and dynamical pipeline of the theory, demonst
 
 Rows V to VIII are measured or exact; row IX is not. \emph{Time.} The relation $\mathcal{F}(z',z)=\mathcal{F}(z,z')$ says that flips themselves have no direction (Result~\ref{res:flip-symmetry}), so an arrow has to come from an initial condition, from a rate that breaks detailed balance, or from the inflation, which changes the relative size of a step by a factor $\lambda$ per level; only the last has not been tested. The change per step is uniform in the plane (Result~\ref{res:flip-density}), so the fraction of tiles that change is a candidate for the interaction density $\rho$ of Eq.~\eqref{eq:density}, and with it for the clock rate of equation~I; this identification is a \hypo. \emph{Connectivity and gravity.} The contact graph reconnects under flips while every flux of the lift stays zero (Result~\ref{res:flip-contact}), so connectivity and flux separate in this model; a gravitational reconnection in the sense of Comisso and Asenjo \cite{comisso2026} would need a field and a non-ideal term that the planar tile lacks (Section~\ref{sec:toward-reconnect}). The only route from here to discrete quantum gravity is row IX, whether a closed flip cluster is a composite of Pachner moves \cite{pachner1991}, and no closed cluster was reached. Nothing in Eq.~\eqref{eq:model} is a derivation of gravity.
 
-\emph{What this paper is.} A working sketch of a discrete model of quantum gravity on an aperiodic tiling, and a tested account of what it gives and what it does not. The substrate is the Spectre as a model set: a tile is present iff the internal image of its lattice vector lies in a fractal window, so a tiling is a point $z$ of internal space and a step of $z$ is a phason flip (Figure~\ref{fig:coset-label}; Section~\ref{sec:model}). The tile also carries a bit, a qubit once the area ledger is imposed, with a Hamiltonian, a clock and a Bell correlation. We report what follows from those two ingredients: how flips rearrange a tiling and change its connectivity (Section~\ref{sec:flips}), and which features of known physics the bit reaches, which fail, and what is still missing, chiefly gravity (Sections~\ref{sec:ham}, \ref{sec:toward}, \ref{sec:flow}). It does not derive quantum gravity. Most of the results on the way were negative; we report them in full, because each narrowed the search and explains why the parts that work do. Proofs and the earlier passes are in the appendix, in smaller type.
+\emph{What this paper is.} A working sketch of a discrete model of quantum gravity on an aperiodic tiling, and a tested account of what it gives and what it does not. The substrate is the Spectre as a model set: a tile is present iff the internal image of its lattice vector lies in a fractal window, so a tiling is a point $z$ of internal space and a step of $z$ is a phason flip (Figure~\ref{fig:coset-label}; Section~\ref{sec:model}). The tile also carries a bit, a qubit once the area ledger is imposed, with a Hamiltonian, a clock and a Bell correlation. We report what follows from those two ingredients: how flips rearrange a tiling and change its connectivity (Section~\ref{sec:flips}), and which features of known physics the bit reaches, which fail, and what is still missing, chiefly gravity (Sections~\ref{sec:ham}, \ref{sec:toward}, \ref{sec:flow}). It does not derive quantum gravity. Most of the results on the way were negative; we report them in full, because each narrowed the search and explains why the parts that work do.
 
 \begin{figure}[t]\centering
 \includegraphics[width=0.95\linewidth]{research/toymodel_v8/figures/spectre_coset_label.png}
@@ -120,7 +121,9 @@ The search, we look for graphs and combinatorial structures with a built-in asym
 
 Section~\ref{sec:model} states the model and what each part is tested by. Section~\ref{sec:flips} follows phason flips on a tiling; Section~\ref{sec:ham} gives the bits a quantum Hamiltonian; Section~\ref{sec:toward} collects what the bit reaches, including a dictionary with gravitational reconnection; Section~\ref{sec:flow} follows the 14th vertex as the Spectre is deformed into the Hat; Section~\ref{sec:open} lists open problems. The appendix holds the proofs and the supporting studies: foundations and the static half (\ref{sec:background} to \ref{sec:companion}), the windows and Wada tests (\ref{sec:wadawin}, \ref{sec:ym}), the earlier dynamic proposal and its two tests (\ref{sec:dynamic} to \ref{sec:second}), the Chair44 ensemble (\ref{sec:third}), and reproduction (\ref{app:repro}).
 
-\subsection{A ruler for correlations: the CHSH value}\label{sec:chsh}
+\subsection{CHSH Bounds, Measurement Independence, and the Quantum Threshold}
+\label{sec:chsh}
+
 Two distant parties, Alice and Bob, each choose one of two settings ($a$ or $a'$, $b$ or $b'$) and record an outcome $\pm1$. With $E(a,b)$ the mean product of the outcomes,
 \begin{equation}\label{eq:chsh}
 S=E(a,b)+E(a,b')+E(a',b)-E(a',b').
@@ -149,8 +152,7 @@ Four questions organise the tests, with their answers so far. \emph{Does the mod
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Scope and conventions}\label{sec:scope}
-Every result carries one of the labels \exact\ (an identity, a proof or a finite enumeration checked by a test that can fail), \numeric\ (a computed number on a finite patch, with the tolerance stated), \negres\ (a natural expectation that the computation refutes) or \hypo\ (not shown). Numbers marked $\dagger$ are copied from the output of another repository and are not recomputed here; all others are written into the text from the code, which checks $\qgTNumbersChecked$ of them on every build, so that the text cannot drift from the code. Table~\ref{tab:summary} lists the results; Appendix~\ref{app:repro} gives the modules and commands. Sources that were not opened are said so where they are used, and the bibliography contains only entries checked against a source that was opened.
-\textbf{Disclosure.} The code, the tests and the text were produced with the assistance of a large language model (Claude, Anthropic), working with the authors, and have not been independently reviewed.
+Every result carries one of the labels \exact\ (an identity, a proof or a finite enumeration checked by a test that can fail), \numeric\ (a computed number on a finite patch, with the tolerance stated), \negres\ (a natural expectation that the computation refutes) or \hypo\ (not shown). Numbers marked $\dagger$ are copied from the output of another repository and are not recomputed here; all others are written into the text from the code, which checks $\qgTNumbersChecked$ of them on every build, so that the text cannot drift from the code. Table~\ref{tab:summary} lists the results.
 
 \begin{table}[t]
 \centering\footnotesize
@@ -192,7 +194,9 @@ Tight-binding spectra, twist hopping and the Spectre--Chair44 fibres & \exact, \
 %------------------------------------------------------------------------------------------------------------------------------------
 
 %------------------------------------------------------------------------------------------------------------------------------------
-\section{Phason flips: clusters, contact graphs and what they could mean for physics}\label{sec:flips}
+\section{Phason Flips, Contact-Graph Rewiring, and Candidates for Discrete Dynamics}
+\label{sec:flips}
+
 Appendix~\ref{sec:wadawin} asked what the windows look like. This section asks what happens to a tiling when the internal point moves. A \emph{phason step} replaces the internal phase $z$ of the model set by $z'=z+\delta e$, $|e|=1$, and a \emph{flip} is the ordered pair $(z,z')$ when the set of tiles present differs; in quasicrystal language a phason is a rearrangement of unit cells \cite{socolar1986}. We follow the tile of class $0$ at the origin of a level-$3$ patch, with the window data of Appendix~\ref{sec:wada-cover} (the coset of Result~\ref{res:index36} only, which every real neighbour pair of class-$0$ tiles in real patches obeys). The work is in \texttt{research/toymodel\_v8} (plan, one note per stage, scripts and logs); the engine is the covering code of the \texttt{wada-coudene} repository, extended by flip tests. Numbers marked $\dagger$ are copied from the logs of that folder and are not recomputed by \texttt{paper\_numbers.py}; every one comes from a single class, a single footprint and a level-$3$ patch, so none is a statement about all tilings.
 
 \subsection{The engine}\label{sec:flips-engine}
@@ -232,8 +236,11 @@ The present set at a phase is a function of the phase, and `the region is tiled 
 \end{result}
 An arrow would need one of three things, none of which was found: an initial condition (a non-stationary distribution of local patterns relaxing to the stationary one), the direction of the inflation (which contracts internal space by $1/\lambda$ and so distinguishes coarse from fine), or a rate violating detailed balance between classes of local pattern. The first and third are the routes of Appendix~\ref{sec:second-arrow} (an area term and records); the second, the direction of the substitution, has not been tested.
 
-\subsection{Orientation parity, window areas and erasure}\label{sec:flips-parity}
-Two quantities of the notes of the qwla repository \cite{qwla2026}, which we read in part (the README and two notes; the code was not run), connect to flips. The notes quote Batle and Bednorz on two classes of Spectre tilings and Li and Boyle on codes from hulls; we did not read either paper in full.
+\subsection{Orientation parity, window areas and erasure}
+\label{sec:flips-parity}
+
+In our fork of qwla \url{https://github.com/panjea/qwla}, in the notes we
+quote Batle and Bednorz on two classes of Spectre tilings and Li and Boyle on codes from hulls.
 \begin{result}[\exact\snap]\label{res:flip-parity}
 The patches of levels $0$ to $5$ have $1, 9, 71, 559, 4401, 34649$ tiles, $N_k=8N_{k-1}-N_{k-2}$. With the orientation index $m=\text{angle}/30^\circ \bmod 12$ and its parity $m \bmod 2$, the minority parity is exactly the Mystic-shaped tiles ($1, 8, 63, 496, 3905$ at levels $1$ to $5$), the count at one level is the majority count at the previous one, and the minority frequency tends to $(5-\sqrt{15})/10=0.11270$ with ratio majority to minority $4+\sqrt{15}=\lambda^2$. Hence the area ratio of the window of a Mystic pair to that of a single tile should be $1/(3+\sqrt{15})=0.14550$; \numeric: measured $0.1578$, $0.1515$, $0.1479$, $0.1460$ at the tolerances $0.012$, $0.006$, $0.003$, $0.0015$. The frequencies of the two orientation classes are window areas.
 \end{result}
@@ -260,7 +267,7 @@ Two connectivities & contact graph changes in $75\%$ of tile-changing flips whil
 Moves of Pachner type \cite{pachner1991} & flips are clusters of $8$ to $17$ tiles per side (first twelve inspected) & closed clusters, $(dV,dE,dF)$, word length; a four-dimensional complex & not tested \\
 Arrow of time & none from flips (Result~\ref{res:flip-symmetry}) & initial condition, inflation direction, non-reversible rate & \negres \\
 Parity as a sector label & parity frequencies are window areas, $4+\sqrt{15}$; not locally conserved (Results~\ref{res:flip-parity} and~\ref{res:flip-parity-change}) & a map to the sectors of the notes, read in part & \exact, \numeric \\
-Local recoverability, codes & no ambiguous erasure; density of change positive everywhere & erasure of larger regions and a code in the qwla sense \cite{qwla2026} & \negres, \hypo \\
+Local recoverability, codes & no ambiguous erasure; density of change positive everywhere & erasure of larger regions and a code in the qwla sense & \negres, \hypo \\
 Cohomology of the hull & four integer coordinate forms of the lift are non-exact; the internal plane has bounded primitives & a map to $H^1$ of the hull, which we did not read & \numeric, open \\
 Erasure cost \cite{landauer1961} & none measured & a record of the erased tile and its cost & \hypo \\
 \bottomrule
@@ -282,7 +289,9 @@ Erasure cost \cite{landauer1961} & none measured & a record of the erased tile a
 %------------------------------------------------------------------------------------------------------------------------------------
 
 %------------------------------------------------------------------------------------------------------------------------------------
-\section{Toward physics: what the pair qubit reaches}\label{sec:toward}
+\section{Pair-Qubit Observables, $E_8$ Number Fields, and Obstacles to Gravity}
+\label{sec:toward}
+
 The appendix sections on the static half and on the dynamic proposal end mostly in negatives, and each says why a natural expectation fails. Read together they say where to look: the bit is a qubit only on a bump-and-dent pair (Result~\ref{res:ham-pair}), the overlap of its two positions is its tunnelling (Section~\ref{sec:ham}), a $1/r$ clock needs a transient substrate (Result~\ref{res:escape}), and a Bell violation that discards runs is a loophole (Result~\ref{res:ch}). This section follows those leads with the modules of \texttt{research/toymodel\_v7}. The features the theory lacks are turned into a scoreboard of $\qgZScoreRows$ numbers, each with a target and a test (\texttt{t7\_targets.py}); after the stages below $\qgZScoreMet$ are met and $\qgZScoreOpen$ are open. The met rows are the first places where the tile model reproduces a feature of known physics under definitions fixed in advance; the open rows are all stated as numbers. Nothing here is a derivation: the Hamiltonians and the read-out are definitions from Section~\ref{sec:ham}, and each result says what the model does with them.
 
 \subsection{A Bell Test Driven by Tunnelling Pulses and Tile Dynamics}
@@ -298,7 +307,9 @@ For two pairs at the Spectre end, CHSH with pulse settings is $\qgZBellIdeal$, a
 \end{figure}
 This closes, for two pairs, the gap left by Appendix~\ref{sec:second-quantum}, where the violations were the detection loophole, and by Section~\ref{sec:ham}, where no second read-out existed. The many-body ground state of a patch is a cat with no pairwise entanglement (Result~\ref{res:ham-flow}), which is why the patch does not violate.
 
-\subsection{One lattice for the two number fields}\label{sec:toward-fields}
+\subsection{$E_8$ as a Common Bridge for Inflation and Icosian Structures}
+\label{sec:toward-fields}
+
 Appendix~\ref{sec:inflation} found that the Spectre's rotations and the icosian structure live in different number fields.
 \begin{result}[\exact]\label{res:toward-fields}
 The Coxeter element $w$ of $E_8$ has order $\qgZCoxOrder$; $w^{10}$ is an Eisenstein structure ($\sqrt{-3}$, the Spectre's side) and $w^6+w^{-6}$ satisfies the golden equation ($\sqrt5$, the icosian side), and the two commute. The Spectre's inflation field $\mathbb{Q}(\sqrt6,\sqrt{10})$ meets $\mathbb{Q}(\zeta_{30})$ only in $\mathbb{Q}$ (\negres), but $\lambda\sqrt2=\sqrt3+\sqrt5$, so $\lambda^2=4+\sqrt3\sqrt5$ is the fundamental unit of $\mathbb{Z}[\sqrt{15}]$, built from the two sides. The $12$-fold and $5$-fold rotations act together only from rank $\qgZRankBoth$.
@@ -317,7 +328,9 @@ For $u_{tt}=-Lu$ with $L$ the graph Laplacian of the Chair44, the long-wave spee
 \end{figure}
 The cubic anisotropy of that hopping particle on the Chair44 is the lattice-scale end of the same correction: a packet started on one site is not a long wave. The quantum side is not yet Lorentz invariant; that needs a two-component field on the graph, which is a construction the tile does not supply.
 
-\subsection{An entropy that grows}\label{sec:toward-entropy}
+\subsection{Unitary Entanglement Growth and Janus-Point Symmetry}
+\label{sec:toward-entropy}
+
 \begin{result}[\exact\ for the symmetry; \numeric\ for the values; \negres\ for an arrow]\label{res:toward-entropy}
 Every Hamiltonian of Section~\ref{sec:ham} is real, so even under time reversal, and the Spectre's handedness acts as a parity, not a time reversal; a real family has Berry phases $0$ or $\pi$ only, so no time-odd term comes from moving the tile's parameters. Started in the frozen product state, $12$ pairs build entanglement under unitary dynamics, $\qgZQuenchMid$ bits across the middle at $\tau=0.3$ (Page value $\qgZPage$), and only $\qgZQuenchFrozen$ at the Spectre end, where the eigenstates are nearly classical. Because the Hamiltonian is real, $S(-t)=S(t)$ exactly.
 \end{result}
@@ -330,7 +343,9 @@ Under rules for the Chair44 layout stated before counting, the chair's three-fol
 \end{result}
 These negatives are specific: the tile's geometry works against the bending of light, the bits and the critical angle forbid a horizon, and the selected layout has no monopole. They are where the next model starts.
 
-\subsection{Gravitational reconnection: a dictionary, one exact transfer law and four corrections}\label{sec:toward-reconnect}
+\subsection{Gravitational Reconnection in Discrete Form: Gauge Flux, Trivial Lift Sheets}
+\label{sec:toward-reconnect}
+
 Comisso and Asenjo \cite{comisso2026} write general relativity in a tetrad form in which the tetrad $A^{\hat\alpha}$ is a vector potential and $F^{\hat\alpha}=dA^{\hat\alpha}$ its field strength (we read the arXiv version in full and did not check its derivations). With a transport velocity $u$, the \emph{ideal} condition $u^\lambda F^{\hat\alpha}{}_{\lambda\nu}=0$ makes $F$ Lie-transported, conserves the flux $\Phi=\tfrac12\int F\,d\Sigma$ through transported surfaces, and preserves the connectivity of the field sheets (the directions annihilated by $F$). Relaxing it by a term $R^{\hat\alpha}{}_\nu$ gives $d\Phi/d\tau=\oint_{\partial S}R$ (their Eqs.~(24) and~(29)); reconnection, a change of connectivity, needs more than $R\neq0$: it needs that no redefinition of the transport velocity absorbs $R$ (their Eq.~(28)). The same $R$ changes a gravitational helicity $K=\,^*F\!\wedge A$ at the rate $2R\cdot{}^*F\cdot u$ and the exchange density $X_{\hat\alpha}$ between the Sparling gravitational current and the matter current, whose sum is conserved. The theory is a continuum one; it has no lattice. This subsection records what of it the models of this paper can state, and corrects four things we first expected.
 
 \begin{result}[\exact]\label{res:flux-transfer}
@@ -348,7 +363,9 @@ So the reading ``a phason flip is a reconnection'' does not hold for the field s
 %------------------------------------------------------------------------------------------------------------------------------------
 
 %------------------------------------------------------------------------------------------------------------------------------------
-\section{A Hamiltonian for the bits}\label{sec:ham}
+\section{Pair-Qubit Hamiltonians, Frustrated Dipoles, and Substitution Renormalisation}
+\label{sec:ham}
+
 The dynamic sections so far use classical history weights. This section writes a quantum Hamiltonian for the bits of the 14th vertex and tests it; the modules are in \texttt{research/toymodel\_v6}. Every term is a definition. Two facts are fixed before anything is built. Any state on a tensor product, read out locally, has CHSH at most $2\sqrt2$ \cite{cirelson1980}, so a Hamiltonian cannot be credited with the quantum bound: the question is whether its ground state exceeds $2$, and where along the flow. And a Hamiltonian whose terms are local constraints is a quantum constraint satisfaction problem, whose ground state solves the corresponding classical one when the terms commute \cite{gharibian2015}.
 
 \subsection{The pair qubit}\label{sec:ham-pair}
@@ -406,7 +423,9 @@ So the substitution is a renormalisation map for the pair model in which the deg
 %------------------------------------------------------------------------------------------------------------------------------------
 
 %------------------------------------------------------------------------------------------------------------------------------------
-\section{The flow of the 14th vertex}\label{sec:flow}
+\section{Spectre-to-Hat Deformation: The 14th-Vertex Bit and Pair Coupling}
+\label{sec:flow}
+
 This section is the newest and the most concrete part of the paper, and the rest of it is read against it. It is a toy of one tile: the Spectre deformed continuously into the Hat, with one extra vertex that can sit on either side of a chord. It does not use $E_8$. Labels are as in Section~\ref{sec:scope}.
 
 \subsection{The model}\label{sec:flow-model}
@@ -1092,6 +1111,47 @@ These earliest models of the line do not use $E_8$ and see no direction along an
 \textbf{Twist hopping (\texttt{twist\_hopping}).} A bond is a B\'ezier edge whose length depends on the twist of its handles. The twists under which copies of a tile still tile the plane are exactly two numbers, $\alpha$ at even and $\beta$ at odd vertices (\exact, levels $1$ to $3$); all edges then have one length $\ell(\alpha,\beta)\ge1$, and with hopping $t_0/\text{length}$ the spectrum is the unit-hopping spectrum divided by $\ell$ (to $10^{-13}$).
 
 \textbf{Fibres to the Chair44 (\texttt{chair\_fibers}).} A Spectre tile above the Chair44 is joined to its pyramid tips by cubic B\'ezier fibres $X$, $X+s_0u$, $T+s_1n$, $T$ ($X$ a base point, $u$ its handle direction, $T$ a tip, $n$ its panel normal). With $D=T-X$ the energy $\int_0^1|B''|^2dt$ is a convex quadratic in $s_0,s_1\ge0$, and the best fibre has energy $12|D|^2-9D_z^2-9\max(0,|D_h|\cos(\text{twist}+\varphi_0-\text{bearing}))^2$, a single minimum when the vertex points at its tip and a plateau when it points away, with $E_{\min}=3|D|^2$ (\exact, SymPy and quadrature). The least-energy pairing of the $42$ bases with tips (total $490.0$) is a rule and the height of the sheet a free choice. The fibre energy is unchanged if the curve is traversed backwards.
+
+%------------------------------------------------------------------------------------------------------------------------------------
+\section{A three-dimensional counterpart: the Danzer ABCK tiling and its phason flips}\label{app:danzer}
+Everything above is two-dimensional. This section asks whether the picture of Section~\ref{sec:flips} (a tiling as a model set, a phason step as a shift of the internal phase, a flip as a local rearrangement) carries over to a three-dimensional aperiodic tiling with icosahedral symmetry, the Danzer tiling by four tetrahedra $A,B,C,K$. It is a model set of the root lattice $D_6$, cut along the icosahedral splitting $\mathbb{R}^6=E_\parallel\oplus E_\perp$, with inflation factor $\tau=(1+\sqrt5)/2$ (a Pisot number, as is the Spectre's $\lambda^2=4+\sqrt{15}$; the two differ in the field, $\mathbb{Q}(\sqrt5)$ against $\mathbb{Q}(\sqrt{15})$). The work is in \texttt{research/toymodel\_v9} (\texttt{STAGE\_B1c.md}, \texttt{STAGE\_B1d.md}, \texttt{STAGE\_B2.md}); all numbers below are from its logs and JSON files and carry $\dagger$. Nothing in this section is used in the main text.
+
+\subsection{Setting: substitution, vertex classes, windows}\label{sec:danzer-setting}
+\emph{Inflation.} The $\tau$-inflation acts on $\mathbb{R}^6$ by a $6\times6$ matrix with entries $\pm\tfrac12$ that preserves $D_6$ but not $\mathbb{Z}^6$ (\exact). The tile matrix has Perron root $\tau^3$, characteristic polynomial $x^4-5x^3+2x^2+5x+1$, tile volumes $K{:}B{:}C{:}A=1{:}2\tau{:}2\tau{:}2\tau{+}2$ and frequencies $0.5189,\,0.2829,\,0.1604,\,0.0379$ (\exact; the matrix, volumes and frequencies agree with the published ABCK note I used for a cross-check). \emph{Dissections.} I found the dissections of $\tau T$ into tiles by an exact cover (counts $1/3/2/10$ for $K/B/C/A$ in the candidate lists, matching the matrix), which leaves $60$ combinations; no combination is fully face-compatible, so the choice of the true substitution is made by test.
+\begin{result}[\numeric\snap]\label{res:danzer-windows}
+Growing patches (up to $1.5\times10^7$ tiles, level $12$) from each of the $60$ combinations, one combination reproduces the published tile frequencies \emph{and} gives exactly three vertex classes on the $D_6$-lattice cosets with window volumes $47.62,\ 14.47,\ 12.37$ at level $12$, against $20(4-\tau)=47.64$, $4(\tau+2)=14.47$ and $20(\tau-1)=12.36$ (agreement $0.05\%$). The other combinations give fill ratios $0.2$ to $0.8$ and more than three classes. (\emph{Selected by this test}, not proved to be Danzer's substitution.)
+\end{result}
+\begin{result}[\numeric\snap]\label{res:danzer-shapes}
+All three window clouds are invariant under one icosahedral group (voxel overlap $\ge0.94$; the other chirality gives $0.57$ to $0.81$). Class II is the convex dodecahedron of edge $2/\tau$. Class III is the \emph{great dodecahedron} whose vertices are those of the icosahedron of edge $2$ (a single plane family fits the whole boundary); it is star shaped about the origin and non-convex, with convex-hull fill $0.725$ at level $12$ (the fill does not drift to $1$). Class I has the dodecahedron of edge $2$ as its hull (fill $0.783$ at level $12$), with $12$ star-shaped pits, one over each face. For class I I do not have an exact formula: the obvious pit (all five neighbouring five-fold planes) removes only $4.2$ of the $13.7$ volume needed (\negres), and I use a tabulated radial function accurate to $0.4$ to $0.8\%$ in volume.
+\end{result}
+Figure~\ref{fig:danzer-stats} and the three-window cross-sections in \texttt{dflip\_windows.png} are the pictures of these sets. The point of the classes for what follows is that the vertex set at internal phase $\gamma$ is
+\[ V_c(\gamma)=\{x\in\text{coset}_c:\ \mathrm{star}(x)+\gamma\in W_c\},\qquad c\in\{\mathrm{I},\mathrm{II},\mathrm{III}\}, \]
+the same form as the placement rule of Section~\ref{sec:flips-engine}.
+
+\subsection{The flip engine, and a check on the windows}\label{sec:danzer-engine}
+\begin{result}[\numeric\snap]\label{res:danzer-modelset}
+In a ball of radius $18$ about the patch centre the model-set vertices $V_c(0)$ are \emph{identical} to the vertices of the substitution patch: class I $1548=1548$, II $467=467$, III $395=395$, no vertex in only one of the two sets. For classes II and III this uses only the explicit windows of Result~\ref{res:danzer-shapes}, with no fitted parameter, so it tests them; for class I the radial margin ($1.004$) was fitted on the same patch, so class I is calibrated, not tested. The fourth class of vertices (a quarter lattice, window volume about $1$, $13\%$ of tile vertices) is not modelled.
+\end{result}
+This is the three-dimensional analogue of the statement that the Spectre tiling is the model set of Result~\ref{res:index36}, and it is checked here by growing the tiling and comparing, not by assuming it.
+
+\subsection{Flips are short hops}\label{sec:danzer-flips}
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{research/toymodel_v9/dflip_stats.png}
+\caption{Phason shifts of the Danzer model set (ball of radius $18$, $12$ random directions per $|\gamma|$). Left: vertices removed against $|\gamma|$ (full lines), with the uniform-window prediction $\mathrm{vol}(W\setminus(W-\gamma))/\mathrm{vol}(W)\cdot N$ (dashed). Centre: fraction of tiles of the patch that lose at least one vertex of classes I to III (the quarter-lattice vertices are assumed unchanged, so this is a lower bound). Right: distance from each removed vertex to the nearest added vertex at $|\gamma|=0.2$. \label{fig:danzer-stats}}
+\end{figure}
+\begin{result}[\numeric\snap]\label{res:danzer-hops}
+(i) \emph{Conservation.} Removed and added counts agree within noise at every $|\gamma|$ (window volume is conserved), and at $|\gamma|=0.4$ the removed counts, $107$ (II) and $111$ (III), agree with the uniform-window prediction $100$ and $107$ within $10\%$. At smaller $|\gamma|$ the counts exceed the prediction by a factor $2$ to $3$, and for classes II and III they vanish at $|\gamma|=0.01$: a finite-ball gap in the distances of the vertices to the window faces, of order $0.01$ to $0.02$ at radius $18$ (not separated from singular boundary points). (ii) \emph{Locality.} For $|\gamma|=0.05$ to $0.4$ the median distance from a removed vertex to the nearest added vertex is $1.176=2\sin36^\circ$, and so is the $10$th percentile; the $90$th percentile is $1.73$. A flip is mostly a hop along one short vector. (iii) \emph{Tile loss.} The fraction of tiles that lose a vertex is $0.009,\,0.095,\,0.19,\,0.27,\,0.34,\,0.45$ at $|\gamma|=0.01,\,0.02,\,0.05,\,0.1,\,0.2,\,0.4$.
+\end{result}
+Result~\ref{res:danzer-hops}(ii) is the three-dimensional counterpart of Result~\ref{res:flip-clusters}: in both, a phase step produces local rearrangements, not scattered point changes. \hypo\ The generic feature, a flip as a bounded hop whose length is set by a short lattice vector, is a property of model sets with polytope windows and not of the Spectre windows; this is supported here only at the level of the vertex hops, not of contact graphs.
+
+\subsection{What this does not do, and the connections}\label{sec:danzer-limits}
+\textbf{Not done.} The comparison with Section~\ref{sec:flips} on the same four numbers (changed tile sets, valid sets, non-isomorphic sets, area-conserving events) needs a \emph{tiling} at the shifted phase, that is, the new vertex set cut into $A,B,C,K$ tiles. I do not know a rule that does this and I have not tried one; Result~\ref{res:danzer-hops} changes vertices and counts destroyed tiles only. The exact class I pit, the quarter-lattice window, and the density of vertices against the published value remain open (the last is probably the $\tau^3$ unit convention of the published coordinates; not checked). The choice of substitution is by test (Result~\ref{res:danzer-windows}).
+
+\textbf{Connections.} (a) The Spectre placements lie in an index-$36$ coset (Result~\ref{res:index36}); the Danzer tiling lives in $D_6$ with four cosets of the weight lattice, three of which carry the vertex classes. In both the internal space is hit by windows that are graph-directed fractals for the Spectre and polyhedra, convex and star shaped, for Danzer; the second case is the simpler test bed for any statement about flips that does not use fractal windows. (b) Chair44, whose multipoles and bond ensemble are treated in Section~\ref{sec:third}, sits in three dimensions like the Danzer tiling; whether a Chair44-like ensemble can be put on the Danzer vertex set is a question, not a result. (c) \hypo\ Romanov's three-dimensional forest-gauge bound \cite{romanov2026} is stated on $\mathbb{Z}^3$; the Danzer vertex set with its short hop vectors is a candidate three-dimensional aperiodic lattice on which the same Hessian question could be posed, with no result here.
+
+\textbf{Reproduction.} \texttt{make quick patch-tests win-tests flip-tests} in \texttt{research/toymodel\_v9} (about $40$ minutes; \texttt{make flip-all} regenerates the clouds, patch, statistics and figures; \texttt{make patch-long LEVEL=12} gives the level-$12$ rows of Result~\ref{res:danzer-windows}, about $8$ GB of memory).
+
 
 \bibliographystyle{plain}
 \bibliography{quantgrav}
