@@ -55,3 +55,22 @@ On the depth-$3$ three-dimensional Chair44 supertile ($512$ chairs, $3584$ unit 
 \begin{result}[\exact\ for $N\le28$; \numeric\ for $N\le804$]\label{res:dipole-scale}
 Extending the classical ground-state calculation of Result~\ref{res:ham-patch} by OpenMP Gray-code enumeration (\texttt{t9\_dipole\_scaling.py}) reproduces all $N\le14$ values and reaches $N=28$ exact ($f_{\mathrm{unsat}}=0.2091$, unique ground state $\mathrm{deg}=1\bmod\mathbb{Z}_2$ at every size $N=6,\dots,28$). Multi-start simulated annealing with $2$-opt polishing (zero error against exact at $N=14,20,26,28$) gives $f_{\mathrm{unsat}}\le0.2293$ on the full level-$3$ patch ($N=82$) and a thermodynamic plateau $f_{\mathrm{unsat}}\le0.2948$ on the full level-$4$ patch ($N=804$), nearly double the $14$-pair frustration of Result~\ref{res:ham-patch}.
 \end{result}
+
+% --- 5. Frontiers Part II Additions (Open-Boundary Holographic Wedges,
+%        Exact Heesch Numbers H_c=0,1, N=24 Quantum Lanczos, Depth-8 Langevin) ---
+
+\begin{result}[\exact]\label{res:holographic-wedge}
+On a $60$-tile level-$4$ chiral Spectre disc ($|\partial C|=126$), unpinning a boundary arc of angle $\theta_{\mathrm{open}}\le30^\circ$ (or two opposite $30^\circ$ arcs) leaves the entire disc \texttt{drat-trim} verified \textsc{unsat}. While shallow $1$-tile edge nibbles appear at $\theta_{\mathrm{open}}=60^\circ$, forcing the central tile ($\#2675$) to flip remains formally \texttt{drat-trim} verified \textsc{unsat} up to $\theta_{\mathrm{open}}=270^\circ$ (leaving only a $90^\circ$ pinned arc) and across opposite corridors up to $2\times90^\circ$. At $\theta_{\mathrm{open}}=300^\circ$ (corridor $2\times110^\circ$), a zero-overlap, zero-hole half-disc chiral phason wedge nucleates ($\mathrm{rem}=31$, $\mathrm{add}=36$; corridor $\mathrm{rem}=30$, $\mathrm{add}=33$, \texttt{t9\_frontiers.py}).
+\end{result}
+
+\begin{result}[\exact]\label{res:heesch-collapse}
+Uniformly opening the $14$th vertex $P_8$ outward ($+h$) or inward ($-h$) collapses the chiral Spectre immediately from $H_c=\infty$ to exact Heesch number $H_c=0$ (\texttt{drat-trim} verified $1$-corona \textsc{unsat}, both strictly chiral and with reflections allowed). Across all $14$ vertices of the chiral Spectre, $28/28$ single-vertex $\pm h$ perturbations collapse to $H_c=0$. Keeping the unmodified straight outline while forbidding flat-vertex pairs (Result-$66$ lattice) gives exact Heesch number $H_c=1$ ($1$-corona \textsc{sat}, $8$ tiles; $2$-corona \texttt{drat-trim} verified \textsc{unsat}, $106\,650$ clauses): bump-and-dent pairs are forced locally by the second corona (\texttt{t9\_frontiers.py}).
+\end{result}
+
+\begin{result}[\exact\ finite-$N$ ED to $N=24$; \negative\ for macroscopic pairwise Bell violation]\label{res:lanczos-n24}
+Matrix-free OpenMP Lanczos diagonalization of $H(\tau)$ (\texttt{t9\_frontiers.py}) reproduces \texttt{t6\_patch.py} at $N=10$ ($\mathrm{CHSH}_{\max}=2.325$, $\mathrm{CHSH}_{\mathrm{obs}}=2.121$) and extends exact ground states $1024\times$ to $N=24$ qubits ($2^{24}=16\,777\,216$ states). Edwards--Anderson spin-glass susceptibility scales extensively ($\chi_{\mathrm{SG}}(0)\to19.58$ at $N=24$, $q_{\mathrm{EA}}^2\approx0.81$--$0.93$), the magnetization inflection $\partial m_x/\partial\tau$ locks onto $\tau_c\approx0.13$--$0.14$ across $N=16,\dots,24$ while the critical even gap narrows to $0.268$ ($N=24$), and pairwise concurrence decays via monogamy ($C_{\max}\to0.380$) so observable $\mathrm{CHSH}_{\mathrm{obs}}\le1.900<2$ for every $N\in\{12,14,16,18,20,22,24\}$.
+\end{result}
+
+\begin{result}[\numeric]\label{res:langevin-depth8}
+A depth-$8$ fractal-window engine ($24.53\times10^6$ $O$-points, $3.57\times10^6$ $G$-points, zero boundary-censoring deadband, $480\,000$ samples across all $12$ level-$4$ window classes and $\delta\in\{0.005,0.01,0.015,0.03\}$) confirms rotational isotropy ($\pm3$--$5\%$) and yields $\delta$-scaling $\alpha=0.8805$ ($\alpha/2=0.4402$, within $0.9\%$ of $2-d_{\mathrm{box}}=0.889$). Two-dimensional Langevin Brownian walks in internal space across $3.6$ decades of temperature obey $R(T)\propto T^{0.4137}$ ($R^2=0.99902$), confirming anomalous sub-$T^{1/2}$ fractal kinetics (Open Problem~14; \texttt{t9\_frontiers.py}).
+\end{result}

@@ -1,0 +1,2170 @@
+{
+  "depth": 8,
+  "in_t": 0.0015,
+  "out_t": 0.0015,
+  "n_samples_per_class_delta": 10000,
+  "delta_summary_all12": [
+    {
+      "delta": 0.005,
+      "mean_usable_frac": 1.0,
+      "mean_changed_r7": 0.2677,
+      "std_changed_across_12": 0.0143,
+      "min_changed_12": 0.2509,
+      "max_changed_12": 0.2967,
+      "mean_frac_any_r7": 0.0584,
+      "mean_P_dG_nz_r7": 0.7875
+    },
+    {
+      "delta": 0.01,
+      "mean_usable_frac": 1.0,
+      "mean_changed_r7": 0.4835,
+      "std_changed_across_12": 0.0187,
+      "min_changed_12": 0.4437,
+      "max_changed_12": 0.514,
+      "mean_frac_any_r7": 0.0874,
+      "mean_P_dG_nz_r7": 0.7303
+    },
+    {
+      "delta": 0.015,
+      "mean_usable_frac": 1.0,
+      "mean_changed_r7": 0.6987,
+      "std_changed_across_12": 0.0374,
+      "min_changed_12": 0.652,
+      "max_changed_12": 0.7841,
+      "mean_frac_any_r7": 0.1148,
+      "mean_P_dG_nz_r7": 0.6774
+    },
+    {
+      "delta": 0.03,
+      "mean_usable_frac": 1.0,
+      "mean_changed_r7": 1.2933,
+      "std_changed_across_12": 0.0456,
+      "min_changed_12": 1.2145,
+      "max_changed_12": 1.3442,
+      "mean_frac_any_r7": 0.1873,
+      "mean_P_dG_nz_r7": 0.6296
+    }
+  ],
+  "all12_stats": [
+    {
+      "class_id": 0,
+      "species": "G",
+      "delta": 0.005,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0199,
+          "mean_changed": 0.0288,
+          "frac_any": 0.0241,
+          "P_dG_nz_given_ch": 0.526971,
+          "P_dA_nz_given_ch": 0.979253,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7387,
+          "mean_changed": 0.1208,
+          "frac_any": 0.0399,
+          "P_dG_nz_given_ch": 0.729323,
+          "P_dA_nz_given_ch": 0.894737,
+          "P_dG_nz_given_ac": 0.0714286
+        },
+        "6.0": {
+          "mean_present": 12.6762,
+          "mean_changed": 0.1919,
+          "frac_any": 0.0495,
+          "P_dG_nz_given_ch": 0.660606,
+          "P_dA_nz_given_ch": 0.943434,
+          "P_dG_nz_given_ac": 0.107143
+        },
+        "7.0": {
+          "mean_present": 18.3798,
+          "mean_changed": 0.2844,
+          "frac_any": 0.0616,
+          "P_dG_nz_given_ch": 0.816558,
+          "P_dA_nz_given_ch": 0.949675,
+          "P_dG_nz_given_ac": 0.0
+        }
+      }
+    },
+    {
+      "class_id": 0,
+      "species": "G",
+      "delta": 0.01,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0206,
+          "mean_changed": 0.0518,
+          "frac_any": 0.0368,
+          "P_dG_nz_given_ch": 0.668478,
+          "P_dA_nz_given_ch": 0.961957,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7339,
+          "mean_changed": 0.22,
+          "frac_any": 0.0592,
+          "P_dG_nz_given_ch": 0.591216,
+          "P_dA_nz_given_ch": 0.744932,
+          "P_dG_nz_given_ac": 0.0331126
+        },
+        "6.0": {
+          "mean_present": 12.6572,
+          "mean_changed": 0.3437,
+          "frac_any": 0.0742,
+          "P_dG_nz_given_ch": 0.51752,
+          "P_dA_nz_given_ch": 0.854447,
+          "P_dG_nz_given_ac": 0.166667
+        },
+        "7.0": {
+          "mean_present": 18.3792,
+          "mean_changed": 0.514,
+          "frac_any": 0.0913,
+          "P_dG_nz_given_ch": 0.786418,
+          "P_dA_nz_given_ch": 0.894852,
+          "P_dG_nz_given_ac": 0.114583
+        }
+      }
+    },
+    {
+      "class_id": 0,
+      "species": "G",
+      "delta": 0.015,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0172,
+          "mean_changed": 0.0678,
+          "frac_any": 0.0434,
+          "P_dG_nz_given_ch": 0.718894,
+          "P_dA_nz_given_ch": 0.97235,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7345,
+          "mean_changed": 0.2957,
+          "frac_any": 0.0714,
+          "P_dG_nz_given_ch": 0.487395,
+          "P_dA_nz_given_ch": 0.666667,
+          "P_dG_nz_given_ac": 0.012605
+        },
+        "6.0": {
+          "mean_present": 12.6732,
+          "mean_changed": 0.4691,
+          "frac_any": 0.0937,
+          "P_dG_nz_given_ch": 0.417289,
+          "P_dA_nz_given_ch": 0.824973,
+          "P_dG_nz_given_ac": 0.164634
+        },
+        "7.0": {
+          "mean_present": 18.3766,
+          "mean_changed": 0.6974,
+          "frac_any": 0.1133,
+          "P_dG_nz_given_ch": 0.736981,
+          "P_dA_nz_given_ch": 0.854369,
+          "P_dG_nz_given_ac": 0.10303
+        }
+      }
+    },
+    {
+      "class_id": 0,
+      "species": "G",
+      "delta": 0.03,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0199,
+          "mean_changed": 0.1266,
+          "frac_any": 0.0746,
+          "P_dG_nz_given_ch": 0.75067,
+          "P_dA_nz_given_ch": 0.941019,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7514,
+          "mean_changed": 0.5603,
+          "frac_any": 0.1221,
+          "P_dG_nz_given_ch": 0.354627,
+          "P_dA_nz_given_ch": 0.558559,
+          "P_dG_nz_given_ac": 0.0371058
+        },
+        "6.0": {
+          "mean_present": 12.6566,
+          "mean_changed": 0.8879,
+          "frac_any": 0.1625,
+          "P_dG_nz_given_ch": 0.316308,
+          "P_dA_nz_given_ch": 0.768615,
+          "P_dG_nz_given_ac": 0.154255
+        },
+        "7.0": {
+          "mean_present": 18.3824,
+          "mean_changed": 1.3378,
+          "frac_any": 0.1916,
+          "P_dG_nz_given_ch": 0.694154,
+          "P_dA_nz_given_ch": 0.800626,
+          "P_dG_nz_given_ac": 0.104712
+        }
+      }
+    },
+    {
+      "class_id": 1,
+      "species": "G",
+      "delta": 0.005,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0203,
+          "mean_changed": 0.028,
+          "frac_any": 0.0234,
+          "P_dG_nz_given_ch": 0.547009,
+          "P_dA_nz_given_ch": 0.982906,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7389,
+          "mean_changed": 0.1134,
+          "frac_any": 0.0358,
+          "P_dG_nz_given_ch": 0.73743,
+          "P_dA_nz_given_ch": 0.896648,
+          "P_dG_nz_given_ac": 0.027027
+        },
+        "6.0": {
+          "mean_present": 12.6718,
+          "mean_changed": 0.1819,
+          "frac_any": 0.0456,
+          "P_dG_nz_given_ch": 0.662281,
+          "P_dA_nz_given_ch": 0.936404,
+          "P_dG_nz_given_ac": 0.344828
+        },
+        "7.0": {
+          "mean_present": 18.3944,
+          "mean_changed": 0.2684,
+          "frac_any": 0.0562,
+          "P_dG_nz_given_ch": 0.823843,
+          "P_dA_nz_given_ch": 0.959075,
+          "P_dG_nz_given_ac": 0.130435
+        }
+      }
+    },
+    {
+      "class_id": 1,
+      "species": "G",
+      "delta": 0.01,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0156,
+          "mean_changed": 0.0494,
+          "frac_any": 0.0345,
+          "P_dG_nz_given_ch": 0.643478,
+          "P_dA_nz_given_ch": 0.965217,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.734,
+          "mean_changed": 0.2138,
+          "frac_any": 0.0567,
+          "P_dG_nz_given_ch": 0.541446,
+          "P_dA_nz_given_ch": 0.731922,
+          "P_dG_nz_given_ac": 0.0394737
+        },
+        "6.0": {
+          "mean_present": 12.6766,
+          "mean_changed": 0.3348,
+          "frac_any": 0.0718,
+          "P_dG_nz_given_ch": 0.513928,
+          "P_dA_nz_given_ch": 0.841226,
+          "P_dG_nz_given_ac": 0.149123
+        },
+        "7.0": {
+          "mean_present": 18.3835,
+          "mean_changed": 0.497,
+          "frac_any": 0.087,
+          "P_dG_nz_given_ch": 0.75977,
+          "P_dA_nz_given_ch": 0.87931,
+          "P_dG_nz_given_ac": 0.0761905
+        }
+      }
+    },
+    {
+      "class_id": 1,
+      "species": "G",
+      "delta": 0.015,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0187,
+          "mean_changed": 0.0734,
+          "frac_any": 0.0471,
+          "P_dG_nz_given_ch": 0.70913,
+          "P_dA_nz_given_ch": 0.957537,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7292,
+          "mean_changed": 0.3211,
+          "frac_any": 0.0782,
+          "P_dG_nz_given_ch": 0.452685,
+          "P_dA_nz_given_ch": 0.654731,
+          "P_dG_nz_given_ac": 0.0296296
+        },
+        "6.0": {
+          "mean_present": 12.6478,
+          "mean_changed": 0.5192,
+          "frac_any": 0.1049,
+          "P_dG_nz_given_ch": 0.397521,
+          "P_dA_nz_given_ch": 0.823642,
+          "P_dG_nz_given_ac": 0.172973
+        },
+        "7.0": {
+          "mean_present": 18.359,
+          "mean_changed": 0.7841,
+          "frac_any": 0.1264,
+          "P_dG_nz_given_ch": 0.709652,
+          "P_dA_nz_given_ch": 0.838608,
+          "P_dG_nz_given_ac": 0.0686275
+        }
+      }
+    },
+    {
+      "class_id": 1,
+      "species": "G",
+      "delta": 0.03,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0209,
+          "mean_changed": 0.1282,
+          "frac_any": 0.0747,
+          "P_dG_nz_given_ch": 0.779116,
+          "P_dA_nz_given_ch": 0.951807,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7381,
+          "mean_changed": 0.5536,
+          "frac_any": 0.1203,
+          "P_dG_nz_given_ch": 0.349958,
+          "P_dA_nz_given_ch": 0.588529,
+          "P_dG_nz_given_ac": 0.030303
+        },
+        "6.0": {
+          "mean_present": 12.6711,
+          "mean_changed": 0.8988,
+          "frac_any": 0.1619,
+          "P_dG_nz_given_ch": 0.302038,
+          "P_dA_nz_given_ch": 0.764052,
+          "P_dG_nz_given_ac": 0.157068
+        },
+        "7.0": {
+          "mean_present": 18.3788,
+          "mean_changed": 1.3429,
+          "frac_any": 0.1921,
+          "P_dG_nz_given_ch": 0.684019,
+          "P_dA_nz_given_ch": 0.780323,
+          "P_dG_nz_given_ac": 0.116114
+        }
+      }
+    },
+    {
+      "class_id": 2,
+      "species": "G",
+      "delta": 0.005,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0166,
+          "mean_changed": 0.0264,
+          "frac_any": 0.0222,
+          "P_dG_nz_given_ch": 0.572072,
+          "P_dA_nz_given_ch": 0.986486,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7305,
+          "mean_changed": 0.1121,
+          "frac_any": 0.0369,
+          "P_dG_nz_given_ch": 0.772358,
+          "P_dA_nz_given_ch": 0.894309,
+          "P_dG_nz_given_ac": 0.0512821
+        },
+        "6.0": {
+          "mean_present": 12.6322,
+          "mean_changed": 0.1839,
+          "frac_any": 0.0483,
+          "P_dG_nz_given_ch": 0.641822,
+          "P_dA_nz_given_ch": 0.919255,
+          "P_dG_nz_given_ac": 0.205128
+        },
+        "7.0": {
+          "mean_present": 18.3515,
+          "mean_changed": 0.2676,
+          "frac_any": 0.06,
+          "P_dG_nz_given_ch": 0.798333,
+          "P_dA_nz_given_ch": 0.94,
+          "P_dG_nz_given_ac": 0.0555556
+        }
+      }
+    },
+    {
+      "class_id": 2,
+      "species": "G",
+      "delta": 0.01,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.019,
+          "mean_changed": 0.0483,
+          "frac_any": 0.0342,
+          "P_dG_nz_given_ch": 0.619883,
+          "P_dA_nz_given_ch": 0.982456,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.725,
+          "mean_changed": 0.207,
+          "frac_any": 0.0547,
+          "P_dG_nz_given_ch": 0.563071,
+          "P_dA_nz_given_ch": 0.740402,
+          "P_dG_nz_given_ac": 0.0352113
+        },
+        "6.0": {
+          "mean_present": 12.6621,
+          "mean_changed": 0.3256,
+          "frac_any": 0.0711,
+          "P_dG_nz_given_ch": 0.500703,
+          "P_dA_nz_given_ch": 0.853727,
+          "P_dG_nz_given_ac": 0.173077
+        },
+        "7.0": {
+          "mean_present": 18.3738,
+          "mean_changed": 0.487,
+          "frac_any": 0.0862,
+          "P_dG_nz_given_ch": 0.761021,
+          "P_dA_nz_given_ch": 0.88051,
+          "P_dG_nz_given_ac": 0.0873786
+        }
+      }
+    },
+    {
+      "class_id": 2,
+      "species": "G",
+      "delta": 0.015,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0198,
+          "mean_changed": 0.0697,
+          "frac_any": 0.0464,
+          "P_dG_nz_given_ch": 0.633621,
+          "P_dA_nz_given_ch": 0.943966,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.737,
+          "mean_changed": 0.3082,
+          "frac_any": 0.0757,
+          "P_dG_nz_given_ch": 0.513871,
+          "P_dA_nz_given_ch": 0.675033,
+          "P_dG_nz_given_ac": 0.0609756
+        },
+        "6.0": {
+          "mean_present": 12.6815,
+          "mean_changed": 0.4954,
+          "frac_any": 0.1037,
+          "P_dG_nz_given_ch": 0.414658,
+          "P_dA_nz_given_ch": 0.827387,
+          "P_dG_nz_given_ac": 0.167598
+        },
+        "7.0": {
+          "mean_present": 18.3887,
+          "mean_changed": 0.7513,
+          "frac_any": 0.1234,
+          "P_dG_nz_given_ch": 0.740681,
+          "P_dA_nz_given_ch": 0.862237,
+          "P_dG_nz_given_ac": 0.105882
+        }
+      }
+    },
+    {
+      "class_id": 2,
+      "species": "G",
+      "delta": 0.03,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0202,
+          "mean_changed": 0.1269,
+          "frac_any": 0.0731,
+          "P_dG_nz_given_ch": 0.767442,
+          "P_dA_nz_given_ch": 0.948016,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7254,
+          "mean_changed": 0.5522,
+          "frac_any": 0.1199,
+          "P_dG_nz_given_ch": 0.355296,
+          "P_dA_nz_given_ch": 0.576314,
+          "P_dG_nz_given_ac": 0.0255906
+        },
+        "6.0": {
+          "mean_present": 12.6588,
+          "mean_changed": 0.8946,
+          "frac_any": 0.1614,
+          "P_dG_nz_given_ch": 0.306691,
+          "P_dA_nz_given_ch": 0.756506,
+          "P_dG_nz_given_ac": 0.157761
+        },
+        "7.0": {
+          "mean_present": 18.3629,
+          "mean_changed": 1.3265,
+          "frac_any": 0.1879,
+          "P_dG_nz_given_ch": 0.687068,
+          "P_dA_nz_given_ch": 0.78925,
+          "P_dG_nz_given_ac": 0.0883838
+        }
+      }
+    },
+    {
+      "class_id": 3,
+      "species": "G",
+      "delta": 0.005,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0185,
+          "mean_changed": 0.0317,
+          "frac_any": 0.0259,
+          "P_dG_nz_given_ch": 0.532819,
+          "P_dA_nz_given_ch": 0.980695,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7412,
+          "mean_changed": 0.1273,
+          "frac_any": 0.0389,
+          "P_dG_nz_given_ch": 0.745501,
+          "P_dA_nz_given_ch": 0.861183,
+          "P_dG_nz_given_ac": 0.037037
+        },
+        "6.0": {
+          "mean_present": 12.672,
+          "mean_changed": 0.2048,
+          "frac_any": 0.0493,
+          "P_dG_nz_given_ch": 0.628803,
+          "P_dA_nz_given_ch": 0.926978,
+          "P_dG_nz_given_ac": 0.138889
+        },
+        "7.0": {
+          "mean_present": 18.3757,
+          "mean_changed": 0.2967,
+          "frac_any": 0.0595,
+          "P_dG_nz_given_ch": 0.781513,
+          "P_dA_nz_given_ch": 0.931092,
+          "P_dG_nz_given_ac": 0.0731707
+        }
+      }
+    },
+    {
+      "class_id": 3,
+      "species": "G",
+      "delta": 0.01,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.017,
+          "mean_changed": 0.0466,
+          "frac_any": 0.0329,
+          "P_dG_nz_given_ch": 0.650456,
+          "P_dA_nz_given_ch": 0.978723,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.734,
+          "mean_changed": 0.1974,
+          "frac_any": 0.0539,
+          "P_dG_nz_given_ch": 0.562152,
+          "P_dA_nz_given_ch": 0.762523,
+          "P_dG_nz_given_ac": 0.015625
+        },
+        "6.0": {
+          "mean_present": 12.6459,
+          "mean_changed": 0.3193,
+          "frac_any": 0.0706,
+          "P_dG_nz_given_ch": 0.485836,
+          "P_dA_nz_given_ch": 0.858357,
+          "P_dG_nz_given_ac": 0.12
+        },
+        "7.0": {
+          "mean_present": 18.3616,
+          "mean_changed": 0.4816,
+          "frac_any": 0.0865,
+          "P_dG_nz_given_ch": 0.743353,
+          "P_dA_nz_given_ch": 0.861272,
+          "P_dG_nz_given_ac": 0.0833333
+        }
+      }
+    },
+    {
+      "class_id": 3,
+      "species": "G",
+      "delta": 0.015,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0185,
+          "mean_changed": 0.0698,
+          "frac_any": 0.0451,
+          "P_dG_nz_given_ch": 0.669623,
+          "P_dA_nz_given_ch": 0.95122,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7352,
+          "mean_changed": 0.2918,
+          "frac_any": 0.0726,
+          "P_dG_nz_given_ch": 0.515152,
+          "P_dA_nz_given_ch": 0.684573,
+          "P_dG_nz_given_ac": 0.0567686
+        },
+        "6.0": {
+          "mean_present": 12.6704,
+          "mean_changed": 0.4631,
+          "frac_any": 0.0978,
+          "P_dG_nz_given_ch": 0.42229,
+          "P_dA_nz_given_ch": 0.809816,
+          "P_dG_nz_given_ac": 0.139785
+        },
+        "7.0": {
+          "mean_present": 18.3786,
+          "mean_changed": 0.7105,
+          "frac_any": 0.1188,
+          "P_dG_nz_given_ch": 0.734007,
+          "P_dA_nz_given_ch": 0.851852,
+          "P_dG_nz_given_ac": 0.0852273
+        }
+      }
+    },
+    {
+      "class_id": 3,
+      "species": "G",
+      "delta": 0.03,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0197,
+          "mean_changed": 0.1316,
+          "frac_any": 0.076,
+          "P_dG_nz_given_ch": 0.753947,
+          "P_dA_nz_given_ch": 0.928947,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7363,
+          "mean_changed": 0.5524,
+          "frac_any": 0.1199,
+          "P_dG_nz_given_ch": 0.334445,
+          "P_dA_nz_given_ch": 0.574646,
+          "P_dG_nz_given_ac": 0.0254902
+        },
+        "6.0": {
+          "mean_present": 12.6473,
+          "mean_changed": 0.8899,
+          "frac_any": 0.1613,
+          "P_dG_nz_given_ch": 0.305022,
+          "P_dA_nz_given_ch": 0.756355,
+          "P_dG_nz_given_ac": 0.173028
+        },
+        "7.0": {
+          "mean_present": 18.3715,
+          "mean_changed": 1.3442,
+          "frac_any": 0.1922,
+          "P_dG_nz_given_ch": 0.693548,
+          "P_dA_nz_given_ch": 0.779917,
+          "P_dG_nz_given_ac": 0.148936
+        }
+      }
+    },
+    {
+      "class_id": 4,
+      "species": "G",
+      "delta": 0.005,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0178,
+          "mean_changed": 0.0243,
+          "frac_any": 0.0207,
+          "P_dG_nz_given_ch": 0.47343,
+          "P_dA_nz_given_ch": 0.990338,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7297,
+          "mean_changed": 0.1061,
+          "frac_any": 0.0354,
+          "P_dG_nz_given_ch": 0.737288,
+          "P_dA_nz_given_ch": 0.89548,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "6.0": {
+          "mean_present": 12.6584,
+          "mean_changed": 0.1725,
+          "frac_any": 0.044,
+          "P_dG_nz_given_ch": 0.677273,
+          "P_dA_nz_given_ch": 0.936364,
+          "P_dG_nz_given_ac": 0.142857
+        },
+        "7.0": {
+          "mean_present": 18.3683,
+          "mean_changed": 0.2509,
+          "frac_any": 0.0552,
+          "P_dG_nz_given_ch": 0.804348,
+          "P_dA_nz_given_ch": 0.95471,
+          "P_dG_nz_given_ac": 0.08
+        }
+      }
+    },
+    {
+      "class_id": 4,
+      "species": "G",
+      "delta": 0.01,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0199,
+          "mean_changed": 0.0486,
+          "frac_any": 0.0352,
+          "P_dG_nz_given_ch": 0.644886,
+          "P_dA_nz_given_ch": 0.96875,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.722,
+          "mean_changed": 0.2095,
+          "frac_any": 0.0568,
+          "P_dG_nz_given_ch": 0.602113,
+          "P_dA_nz_given_ch": 0.764085,
+          "P_dG_nz_given_ac": 0.0447761
+        },
+        "6.0": {
+          "mean_present": 12.6517,
+          "mean_changed": 0.3346,
+          "frac_any": 0.0746,
+          "P_dG_nz_given_ch": 0.517426,
+          "P_dA_nz_given_ch": 0.86059,
+          "P_dG_nz_given_ac": 0.173077
+        },
+        "7.0": {
+          "mean_present": 18.3586,
+          "mean_changed": 0.4961,
+          "frac_any": 0.09,
+          "P_dG_nz_given_ch": 0.777778,
+          "P_dA_nz_given_ch": 0.887778,
+          "P_dG_nz_given_ac": 0.108911
+        }
+      }
+    },
+    {
+      "class_id": 4,
+      "species": "G",
+      "delta": 0.015,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0172,
+          "mean_changed": 0.0694,
+          "frac_any": 0.0435,
+          "P_dG_nz_given_ch": 0.71954,
+          "P_dA_nz_given_ch": 0.965517,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7203,
+          "mean_changed": 0.2955,
+          "frac_any": 0.0719,
+          "P_dG_nz_given_ch": 0.463143,
+          "P_dA_nz_given_ch": 0.680111,
+          "P_dG_nz_given_ac": 0.0217391
+        },
+        "6.0": {
+          "mean_present": 12.6515,
+          "mean_changed": 0.4761,
+          "frac_any": 0.0945,
+          "P_dG_nz_given_ch": 0.404233,
+          "P_dA_nz_given_ch": 0.793651,
+          "P_dG_nz_given_ac": 0.153846
+        },
+        "7.0": {
+          "mean_present": 18.3644,
+          "mean_changed": 0.7177,
+          "frac_any": 0.1148,
+          "P_dG_nz_given_ch": 0.696864,
+          "P_dA_nz_given_ch": 0.821429,
+          "P_dG_nz_given_ac": 0.0731707
+        }
+      }
+    },
+    {
+      "class_id": 4,
+      "species": "G",
+      "delta": 0.03,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0166,
+          "mean_changed": 0.1232,
+          "frac_any": 0.0711,
+          "P_dG_nz_given_ch": 0.777778,
+          "P_dA_nz_given_ch": 0.940928,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7412,
+          "mean_changed": 0.5537,
+          "frac_any": 0.1196,
+          "P_dG_nz_given_ch": 0.330268,
+          "P_dA_nz_given_ch": 0.534281,
+          "P_dG_nz_given_ac": 0.0287253
+        },
+        "6.0": {
+          "mean_present": 12.6694,
+          "mean_changed": 0.8836,
+          "frac_any": 0.1621,
+          "P_dG_nz_given_ch": 0.303516,
+          "P_dA_nz_given_ch": 0.755706,
+          "P_dG_nz_given_ac": 0.19697
+        },
+        "7.0": {
+          "mean_present": 18.3781,
+          "mean_changed": 1.3322,
+          "frac_any": 0.1883,
+          "P_dG_nz_given_ch": 0.712161,
+          "P_dA_nz_given_ch": 0.808285,
+          "P_dG_nz_given_ac": 0.099723
+        }
+      }
+    },
+    {
+      "class_id": 5,
+      "species": "G",
+      "delta": 0.005,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0175,
+          "mean_changed": 0.0231,
+          "frac_any": 0.0203,
+          "P_dG_nz_given_ch": 0.541872,
+          "P_dA_nz_given_ch": 0.995074,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.718,
+          "mean_changed": 0.1024,
+          "frac_any": 0.0338,
+          "P_dG_nz_given_ch": 0.766272,
+          "P_dA_nz_given_ch": 0.908284,
+          "P_dG_nz_given_ac": 0.0322581
+        },
+        "6.0": {
+          "mean_present": 12.6496,
+          "mean_changed": 0.1622,
+          "frac_any": 0.0435,
+          "P_dG_nz_given_ch": 0.68046,
+          "P_dA_nz_given_ch": 0.947126,
+          "P_dG_nz_given_ac": 0.217391
+        },
+        "7.0": {
+          "mean_present": 18.3632,
+          "mean_changed": 0.2521,
+          "frac_any": 0.0571,
+          "P_dG_nz_given_ch": 0.816112,
+          "P_dA_nz_given_ch": 0.945709,
+          "P_dG_nz_given_ac": 0.16129
+        }
+      }
+    },
+    {
+      "class_id": 5,
+      "species": "G",
+      "delta": 0.01,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0178,
+          "mean_changed": 0.0497,
+          "frac_any": 0.0349,
+          "P_dG_nz_given_ch": 0.653295,
+          "P_dA_nz_given_ch": 0.988539,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7329,
+          "mean_changed": 0.2084,
+          "frac_any": 0.0546,
+          "P_dG_nz_given_ch": 0.565934,
+          "P_dA_nz_given_ch": 0.728938,
+          "P_dG_nz_given_ac": 0.0135135
+        },
+        "6.0": {
+          "mean_present": 12.6415,
+          "mean_changed": 0.321,
+          "frac_any": 0.0695,
+          "P_dG_nz_given_ch": 0.507914,
+          "P_dA_nz_given_ch": 0.856115,
+          "P_dG_nz_given_ac": 0.15
+        },
+        "7.0": {
+          "mean_present": 18.3587,
+          "mean_changed": 0.4821,
+          "frac_any": 0.0849,
+          "P_dG_nz_given_ch": 0.784452,
+          "P_dA_nz_given_ch": 0.878681,
+          "P_dG_nz_given_ac": 0.0776699
+        }
+      }
+    },
+    {
+      "class_id": 5,
+      "species": "G",
+      "delta": 0.015,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0182,
+          "mean_changed": 0.0659,
+          "frac_any": 0.043,
+          "P_dG_nz_given_ch": 0.702326,
+          "P_dA_nz_given_ch": 0.972093,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7365,
+          "mean_changed": 0.293,
+          "frac_any": 0.0725,
+          "P_dG_nz_given_ch": 0.49931,
+          "P_dA_nz_given_ch": 0.668966,
+          "P_dG_nz_given_ac": 0.0166667
+        },
+        "6.0": {
+          "mean_present": 12.6393,
+          "mean_changed": 0.4588,
+          "frac_any": 0.0936,
+          "P_dG_nz_given_ch": 0.445513,
+          "P_dA_nz_given_ch": 0.811966,
+          "P_dG_nz_given_ac": 0.176136
+        },
+        "7.0": {
+          "mean_present": 18.3658,
+          "mean_changed": 0.6885,
+          "frac_any": 0.1135,
+          "P_dG_nz_given_ch": 0.731278,
+          "P_dA_nz_given_ch": 0.842291,
+          "P_dG_nz_given_ac": 0.0837989
+        }
+      }
+    },
+    {
+      "class_id": 5,
+      "species": "G",
+      "delta": 0.03,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0211,
+          "mean_changed": 0.1339,
+          "frac_any": 0.0778,
+          "P_dG_nz_given_ch": 0.77892,
+          "P_dA_nz_given_ch": 0.943445,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.7351,
+          "mean_changed": 0.5593,
+          "frac_any": 0.1215,
+          "P_dG_nz_given_ch": 0.341564,
+          "P_dA_nz_given_ch": 0.57037,
+          "P_dG_nz_given_ac": 0.0268199
+        },
+        "6.0": {
+          "mean_present": 12.6735,
+          "mean_changed": 0.8907,
+          "frac_any": 0.1593,
+          "P_dG_nz_given_ch": 0.309479,
+          "P_dA_nz_given_ch": 0.754551,
+          "P_dG_nz_given_ac": 0.15601
+        },
+        "7.0": {
+          "mean_present": 18.3757,
+          "mean_changed": 1.3369,
+          "frac_any": 0.1892,
+          "P_dG_nz_given_ch": 0.705074,
+          "P_dA_nz_given_ch": 0.802326,
+          "P_dG_nz_given_ac": 0.0855615
+        }
+      }
+    },
+    {
+      "class_id": 6,
+      "species": "O",
+      "delta": 0.005,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0114,
+          "mean_changed": 0.0161,
+          "frac_any": 0.013,
+          "P_dG_nz_given_ch": 0.330769,
+          "P_dA_nz_given_ch": 0.907692,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2589,
+          "mean_changed": 0.0938,
+          "frac_any": 0.0377,
+          "P_dG_nz_given_ch": 0.668435,
+          "P_dA_nz_given_ch": 0.933687,
+          "P_dG_nz_given_ac": 0.28
+        },
+        "6.0": {
+          "mean_present": 11.6341,
+          "mean_changed": 0.1725,
+          "frac_any": 0.05,
+          "P_dG_nz_given_ch": 0.72,
+          "P_dA_nz_given_ch": 0.948,
+          "P_dG_nz_given_ac": 0.384615
+        },
+        "7.0": {
+          "mean_present": 17.1883,
+          "mean_changed": 0.2574,
+          "frac_any": 0.0564,
+          "P_dG_nz_given_ch": 0.765957,
+          "P_dA_nz_given_ch": 0.907801,
+          "P_dG_nz_given_ac": 0.192308
+        }
+      }
+    },
+    {
+      "class_id": 6,
+      "species": "O",
+      "delta": 0.01,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0111,
+          "mean_changed": 0.0276,
+          "frac_any": 0.0197,
+          "P_dG_nz_given_ch": 0.492386,
+          "P_dA_nz_given_ch": 0.888325,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2828,
+          "mean_changed": 0.1775,
+          "frac_any": 0.0604,
+          "P_dG_nz_given_ch": 0.597682,
+          "P_dA_nz_given_ch": 0.859272,
+          "P_dG_nz_given_ac": 0.188235
+        },
+        "6.0": {
+          "mean_present": 11.6483,
+          "mean_changed": 0.3284,
+          "frac_any": 0.0803,
+          "P_dG_nz_given_ch": 0.650062,
+          "P_dA_nz_given_ch": 0.865504,
+          "P_dG_nz_given_ac": 0.351852
+        },
+        "7.0": {
+          "mean_present": 17.1842,
+          "mean_changed": 0.488,
+          "frac_any": 0.0886,
+          "P_dG_nz_given_ch": 0.691874,
+          "P_dA_nz_given_ch": 0.806998,
+          "P_dG_nz_given_ac": 0.263158
+        }
+      }
+    },
+    {
+      "class_id": 6,
+      "species": "O",
+      "delta": 0.015,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0122,
+          "mean_changed": 0.0452,
+          "frac_any": 0.0281,
+          "P_dG_nz_given_ch": 0.437722,
+          "P_dA_nz_given_ch": 0.765125,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2728,
+          "mean_changed": 0.25,
+          "frac_any": 0.0756,
+          "P_dG_nz_given_ch": 0.572751,
+          "P_dA_nz_given_ch": 0.82672,
+          "P_dG_nz_given_ac": 0.198473
+        },
+        "6.0": {
+          "mean_present": 11.6325,
+          "mean_changed": 0.4683,
+          "frac_any": 0.1022,
+          "P_dG_nz_given_ch": 0.631115,
+          "P_dA_nz_given_ch": 0.847358,
+          "P_dG_nz_given_ac": 0.474359
+        },
+        "7.0": {
+          "mean_present": 17.1736,
+          "mean_changed": 0.685,
+          "frac_any": 0.1128,
+          "P_dG_nz_given_ch": 0.620567,
+          "P_dA_nz_given_ch": 0.745567,
+          "P_dG_nz_given_ac": 0.198606
+        }
+      }
+    },
+    {
+      "class_id": 6,
+      "species": "O",
+      "delta": 0.03,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0114,
+          "mean_changed": 0.0759,
+          "frac_any": 0.0431,
+          "P_dG_nz_given_ch": 0.547564,
+          "P_dA_nz_given_ch": 0.737819,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2759,
+          "mean_changed": 0.4387,
+          "frac_any": 0.1216,
+          "P_dG_nz_given_ch": 0.547697,
+          "P_dA_nz_given_ch": 0.763158,
+          "P_dG_nz_given_ac": 0.166667
+        },
+        "6.0": {
+          "mean_present": 11.6186,
+          "mean_changed": 0.8329,
+          "frac_any": 0.1682,
+          "P_dG_nz_given_ch": 0.565398,
+          "P_dA_nz_given_ch": 0.787158,
+          "P_dG_nz_given_ac": 0.435754
+        },
+        "7.0": {
+          "mean_present": 17.1769,
+          "mean_changed": 1.2423,
+          "frac_any": 0.1838,
+          "P_dG_nz_given_ch": 0.57889,
+          "P_dA_nz_given_ch": 0.66975,
+          "P_dG_nz_given_ac": 0.306425
+        }
+      }
+    },
+    {
+      "class_id": 7,
+      "species": "O",
+      "delta": 0.005,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0133,
+          "mean_changed": 0.0192,
+          "frac_any": 0.015,
+          "P_dG_nz_given_ch": 0.413333,
+          "P_dA_nz_given_ch": 0.84,
+          "P_dG_nz_given_ac": 0.0416667
+        },
+        "4.0": {
+          "mean_present": 6.2728,
+          "mean_changed": 0.1019,
+          "frac_any": 0.0402,
+          "P_dG_nz_given_ch": 0.629353,
+          "P_dA_nz_given_ch": 0.922886,
+          "P_dG_nz_given_ac": 0.290323
+        },
+        "6.0": {
+          "mean_present": 11.6373,
+          "mean_changed": 0.1931,
+          "frac_any": 0.0544,
+          "P_dG_nz_given_ch": 0.693015,
+          "P_dA_nz_given_ch": 0.944853,
+          "P_dG_nz_given_ac": 0.366667
+        },
+        "7.0": {
+          "mean_present": 17.197,
+          "mean_changed": 0.2829,
+          "frac_any": 0.0616,
+          "P_dG_nz_given_ch": 0.75,
+          "P_dA_nz_given_ch": 0.894481,
+          "P_dG_nz_given_ac": 0.230769
+        }
+      }
+    },
+    {
+      "class_id": 7,
+      "species": "O",
+      "delta": 0.01,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0118,
+          "mean_changed": 0.0308,
+          "frac_any": 0.0208,
+          "P_dG_nz_given_ch": 0.384615,
+          "P_dA_nz_given_ch": 0.788462,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2917,
+          "mean_changed": 0.1773,
+          "frac_any": 0.0588,
+          "P_dG_nz_given_ch": 0.634354,
+          "P_dA_nz_given_ch": 0.880952,
+          "P_dG_nz_given_ac": 0.228571
+        },
+        "6.0": {
+          "mean_present": 11.6422,
+          "mean_changed": 0.3333,
+          "frac_any": 0.0809,
+          "P_dG_nz_given_ch": 0.663782,
+          "P_dA_nz_given_ch": 0.887515,
+          "P_dG_nz_given_ac": 0.362637
+        },
+        "7.0": {
+          "mean_present": 17.1968,
+          "mean_changed": 0.4937,
+          "frac_any": 0.0896,
+          "P_dG_nz_given_ch": 0.674107,
+          "P_dA_nz_given_ch": 0.776786,
+          "P_dG_nz_given_ac": 0.28
+        }
+      }
+    },
+    {
+      "class_id": 7,
+      "species": "O",
+      "delta": 0.015,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0124,
+          "mean_changed": 0.0427,
+          "frac_any": 0.0271,
+          "P_dG_nz_given_ch": 0.424354,
+          "P_dA_nz_given_ch": 0.782288,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2663,
+          "mean_changed": 0.2396,
+          "frac_any": 0.0727,
+          "P_dG_nz_given_ch": 0.590096,
+          "P_dA_nz_given_ch": 0.81293,
+          "P_dG_nz_given_ac": 0.272059
+        },
+        "6.0": {
+          "mean_present": 11.6361,
+          "mean_changed": 0.4493,
+          "frac_any": 0.0983,
+          "P_dG_nz_given_ch": 0.632757,
+          "P_dA_nz_given_ch": 0.852492,
+          "P_dG_nz_given_ac": 0.406897
+        },
+        "7.0": {
+          "mean_present": 17.1804,
+          "mean_changed": 0.657,
+          "frac_any": 0.1085,
+          "P_dG_nz_given_ch": 0.635023,
+          "P_dA_nz_given_ch": 0.747465,
+          "P_dG_nz_given_ac": 0.277372
+        }
+      }
+    },
+    {
+      "class_id": 7,
+      "species": "O",
+      "delta": 0.03,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0129,
+          "mean_changed": 0.0736,
+          "frac_any": 0.0425,
+          "P_dG_nz_given_ch": 0.515294,
+          "P_dA_nz_given_ch": 0.722353,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2724,
+          "mean_changed": 0.4201,
+          "frac_any": 0.1171,
+          "P_dG_nz_given_ch": 0.567037,
+          "P_dA_nz_given_ch": 0.756618,
+          "P_dG_nz_given_ac": 0.287719
+        },
+        "6.0": {
+          "mean_present": 11.6468,
+          "mean_changed": 0.813,
+          "frac_any": 0.1657,
+          "P_dG_nz_given_ch": 0.59143,
+          "P_dA_nz_given_ch": 0.791792,
+          "P_dG_nz_given_ac": 0.452174
+        },
+        "7.0": {
+          "mean_present": 17.1945,
+          "mean_changed": 1.2145,
+          "frac_any": 0.1821,
+          "P_dG_nz_given_ch": 0.550247,
+          "P_dA_nz_given_ch": 0.663921,
+          "P_dG_nz_given_ac": 0.294118
+        }
+      }
+    },
+    {
+      "class_id": 8,
+      "species": "O",
+      "delta": 0.005,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0119,
+          "mean_changed": 0.0172,
+          "frac_any": 0.0138,
+          "P_dG_nz_given_ch": 0.362319,
+          "P_dA_nz_given_ch": 0.927536,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2668,
+          "mean_changed": 0.0969,
+          "frac_any": 0.0391,
+          "P_dG_nz_given_ch": 0.647059,
+          "P_dA_nz_given_ch": 0.938619,
+          "P_dG_nz_given_ac": 0.125
+        },
+        "6.0": {
+          "mean_present": 11.6438,
+          "mean_changed": 0.1824,
+          "frac_any": 0.0521,
+          "P_dG_nz_given_ch": 0.75048,
+          "P_dA_nz_given_ch": 0.957774,
+          "P_dG_nz_given_ac": 0.272727
+        },
+        "7.0": {
+          "mean_present": 17.1944,
+          "mean_changed": 0.2677,
+          "frac_any": 0.0588,
+          "P_dG_nz_given_ch": 0.753401,
+          "P_dA_nz_given_ch": 0.904762,
+          "P_dG_nz_given_ac": 0.125
+        }
+      }
+    },
+    {
+      "class_id": 8,
+      "species": "O",
+      "delta": 0.01,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0138,
+          "mean_changed": 0.0294,
+          "frac_any": 0.0203,
+          "P_dG_nz_given_ch": 0.472906,
+          "P_dA_nz_given_ch": 0.866995,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2741,
+          "mean_changed": 0.1609,
+          "frac_any": 0.0539,
+          "P_dG_nz_given_ch": 0.593692,
+          "P_dA_nz_given_ch": 0.857143,
+          "P_dG_nz_given_ac": 0.155844
+        },
+        "6.0": {
+          "mean_present": 11.6199,
+          "mean_changed": 0.3053,
+          "frac_any": 0.0755,
+          "P_dG_nz_given_ch": 0.647682,
+          "P_dA_nz_given_ch": 0.862252,
+          "P_dG_nz_given_ac": 0.423077
+        },
+        "7.0": {
+          "mean_present": 17.1804,
+          "mean_changed": 0.4437,
+          "frac_any": 0.0826,
+          "P_dG_nz_given_ch": 0.70339,
+          "P_dA_nz_given_ch": 0.819613,
+          "P_dG_nz_given_ac": 0.288591
+        }
+      }
+    },
+    {
+      "class_id": 8,
+      "species": "O",
+      "delta": 0.015,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0121,
+          "mean_changed": 0.0436,
+          "frac_any": 0.0276,
+          "P_dG_nz_given_ch": 0.449275,
+          "P_dA_nz_given_ch": 0.807971,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2733,
+          "mean_changed": 0.2529,
+          "frac_any": 0.0776,
+          "P_dG_nz_given_ch": 0.572165,
+          "P_dA_nz_given_ch": 0.79768,
+          "P_dG_nz_given_ac": 0.178344
+        },
+        "6.0": {
+          "mean_present": 11.6272,
+          "mean_changed": 0.4682,
+          "frac_any": 0.1034,
+          "P_dG_nz_given_ch": 0.647969,
+          "P_dA_nz_given_ch": 0.834623,
+          "P_dG_nz_given_ac": 0.397661
+        },
+        "7.0": {
+          "mean_present": 17.1865,
+          "mean_changed": 0.6873,
+          "frac_any": 0.1132,
+          "P_dG_nz_given_ch": 0.637809,
+          "P_dA_nz_given_ch": 0.733216,
+          "P_dG_nz_given_ac": 0.284768
+        }
+      }
+    },
+    {
+      "class_id": 8,
+      "species": "O",
+      "delta": 0.03,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0123,
+          "mean_changed": 0.0821,
+          "frac_any": 0.0472,
+          "P_dG_nz_given_ch": 0.449153,
+          "P_dA_nz_given_ch": 0.705508,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2682,
+          "mean_changed": 0.4559,
+          "frac_any": 0.1262,
+          "P_dG_nz_given_ch": 0.55309,
+          "P_dA_nz_given_ch": 0.752773,
+          "P_dG_nz_given_ac": 0.227564
+        },
+        "6.0": {
+          "mean_present": 11.6307,
+          "mean_changed": 0.8595,
+          "frac_any": 0.1706,
+          "P_dG_nz_given_ch": 0.598476,
+          "P_dA_nz_given_ch": 0.802462,
+          "P_dG_nz_given_ac": 0.4273
+        },
+        "7.0": {
+          "mean_present": 17.1902,
+          "mean_changed": 1.2594,
+          "frac_any": 0.1854,
+          "P_dG_nz_given_ch": 0.567961,
+          "P_dA_nz_given_ch": 0.67206,
+          "P_dG_nz_given_ac": 0.264803
+        }
+      }
+    },
+    {
+      "class_id": 9,
+      "species": "O",
+      "delta": 0.005,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0122,
+          "mean_changed": 0.0171,
+          "frac_any": 0.0138,
+          "P_dG_nz_given_ch": 0.391304,
+          "P_dA_nz_given_ch": 0.891304,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2693,
+          "mean_changed": 0.0916,
+          "frac_any": 0.0362,
+          "P_dG_nz_given_ch": 0.60221,
+          "P_dA_nz_given_ch": 0.922652,
+          "P_dG_nz_given_ac": 0.178571
+        },
+        "6.0": {
+          "mean_present": 11.6233,
+          "mean_changed": 0.1749,
+          "frac_any": 0.0503,
+          "P_dG_nz_given_ch": 0.745527,
+          "P_dA_nz_given_ch": 0.944334,
+          "P_dG_nz_given_ac": 0.464286
+        },
+        "7.0": {
+          "mean_present": 17.1783,
+          "mean_changed": 0.253,
+          "frac_any": 0.0551,
+          "P_dG_nz_given_ch": 0.774955,
+          "P_dA_nz_given_ch": 0.900181,
+          "P_dG_nz_given_ac": 0.236364
+        }
+      }
+    },
+    {
+      "class_id": 9,
+      "species": "O",
+      "delta": 0.01,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0114,
+          "mean_changed": 0.0261,
+          "frac_any": 0.0182,
+          "P_dG_nz_given_ch": 0.434066,
+          "P_dA_nz_given_ch": 0.807692,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2799,
+          "mean_changed": 0.1629,
+          "frac_any": 0.0566,
+          "P_dG_nz_given_ch": 0.636042,
+          "P_dA_nz_given_ch": 0.872792,
+          "P_dG_nz_given_ac": 0.166667
+        },
+        "6.0": {
+          "mean_present": 11.6344,
+          "mean_changed": 0.3073,
+          "frac_any": 0.0784,
+          "P_dG_nz_given_ch": 0.682398,
+          "P_dA_nz_given_ch": 0.895408,
+          "P_dG_nz_given_ac": 0.439024
+        },
+        "7.0": {
+          "mean_present": 17.1937,
+          "mean_changed": 0.4582,
+          "frac_any": 0.0863,
+          "P_dG_nz_given_ch": 0.691773,
+          "P_dA_nz_given_ch": 0.809965,
+          "P_dG_nz_given_ac": 0.22561
+        }
+      }
+    },
+    {
+      "class_id": 9,
+      "species": "O",
+      "delta": 0.015,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0121,
+          "mean_changed": 0.0439,
+          "frac_any": 0.0279,
+          "P_dG_nz_given_ch": 0.437276,
+          "P_dA_nz_given_ch": 0.774194,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2681,
+          "mean_changed": 0.2395,
+          "frac_any": 0.0732,
+          "P_dG_nz_given_ch": 0.571038,
+          "P_dA_nz_given_ch": 0.793716,
+          "P_dG_nz_given_ac": 0.205298
+        },
+        "6.0": {
+          "mean_present": 11.6246,
+          "mean_changed": 0.4467,
+          "frac_any": 0.1,
+          "P_dG_nz_given_ch": 0.614,
+          "P_dA_nz_given_ch": 0.844,
+          "P_dG_nz_given_ac": 0.384615
+        },
+        "7.0": {
+          "mean_present": 17.1769,
+          "mean_changed": 0.6557,
+          "frac_any": 0.1091,
+          "P_dG_nz_given_ch": 0.622365,
+          "P_dA_nz_given_ch": 0.731439,
+          "P_dG_nz_given_ac": 0.276451
+        }
+      }
+    },
+    {
+      "class_id": 9,
+      "species": "O",
+      "delta": 0.03,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0133,
+          "mean_changed": 0.077,
+          "frac_any": 0.0438,
+          "P_dG_nz_given_ch": 0.5,
+          "P_dA_nz_given_ch": 0.714612,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2842,
+          "mean_changed": 0.4422,
+          "frac_any": 0.1216,
+          "P_dG_nz_given_ch": 0.554276,
+          "P_dA_nz_given_ch": 0.749178,
+          "P_dG_nz_given_ac": 0.22623
+        },
+        "6.0": {
+          "mean_present": 11.6424,
+          "mean_changed": 0.8441,
+          "frac_any": 0.167,
+          "P_dG_nz_given_ch": 0.613174,
+          "P_dA_nz_given_ch": 0.803593,
+          "P_dG_nz_given_ac": 0.478659
+        },
+        "7.0": {
+          "mean_present": 17.1702,
+          "mean_changed": 1.2472,
+          "frac_any": 0.1844,
+          "P_dG_nz_given_ch": 0.570499,
+          "P_dA_nz_given_ch": 0.665944,
+          "P_dG_nz_given_ac": 0.284091
+        }
+      }
+    },
+    {
+      "class_id": 10,
+      "species": "O",
+      "delta": 0.005,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0123,
+          "mean_changed": 0.0147,
+          "frac_any": 0.0124,
+          "P_dG_nz_given_ch": 0.33871,
+          "P_dA_nz_given_ch": 0.959677,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2594,
+          "mean_changed": 0.0911,
+          "frac_any": 0.038,
+          "P_dG_nz_given_ch": 0.663158,
+          "P_dA_nz_given_ch": 0.939474,
+          "P_dG_nz_given_ac": 0.173913
+        },
+        "6.0": {
+          "mean_present": 11.6362,
+          "mean_changed": 0.1711,
+          "frac_any": 0.0518,
+          "P_dG_nz_given_ch": 0.733591,
+          "P_dA_nz_given_ch": 0.947876,
+          "P_dG_nz_given_ac": 0.259259
+        },
+        "7.0": {
+          "mean_present": 17.1992,
+          "mean_changed": 0.2547,
+          "frac_any": 0.0588,
+          "P_dG_nz_given_ch": 0.778912,
+          "P_dA_nz_given_ch": 0.906463,
+          "P_dG_nz_given_ac": 0.309091
+        }
+      }
+    },
+    {
+      "class_id": 10,
+      "species": "O",
+      "delta": 0.01,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0129,
+          "mean_changed": 0.032,
+          "frac_any": 0.0224,
+          "P_dG_nz_given_ch": 0.40625,
+          "P_dA_nz_given_ch": 0.825893,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2811,
+          "mean_changed": 0.1806,
+          "frac_any": 0.0602,
+          "P_dG_nz_given_ch": 0.598007,
+          "P_dA_nz_given_ch": 0.83887,
+          "P_dG_nz_given_ac": 0.195876
+        },
+        "6.0": {
+          "mean_present": 11.6326,
+          "mean_changed": 0.3403,
+          "frac_any": 0.0829,
+          "P_dG_nz_given_ch": 0.693607,
+          "P_dA_nz_given_ch": 0.882992,
+          "P_dG_nz_given_ac": 0.525773
+        },
+        "7.0": {
+          "mean_present": 17.1864,
+          "mean_changed": 0.4967,
+          "frac_any": 0.0899,
+          "P_dG_nz_given_ch": 0.700779,
+          "P_dA_nz_given_ch": 0.80089,
+          "P_dG_nz_given_ac": 0.290503
+        }
+      }
+    },
+    {
+      "class_id": 10,
+      "species": "O",
+      "delta": 0.015,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0117,
+          "mean_changed": 0.0422,
+          "frac_any": 0.027,
+          "P_dG_nz_given_ch": 0.414815,
+          "P_dA_nz_given_ch": 0.774074,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2872,
+          "mean_changed": 0.2282,
+          "frac_any": 0.0712,
+          "P_dG_nz_given_ch": 0.573034,
+          "P_dA_nz_given_ch": 0.816011,
+          "P_dG_nz_given_ac": 0.236641
+        },
+        "6.0": {
+          "mean_present": 11.63,
+          "mean_changed": 0.4445,
+          "frac_any": 0.1009,
+          "P_dG_nz_given_ch": 0.657086,
+          "P_dA_nz_given_ch": 0.869177,
+          "P_dG_nz_given_ac": 0.484848
+        },
+        "7.0": {
+          "mean_present": 17.1859,
+          "mean_changed": 0.652,
+          "frac_any": 0.1106,
+          "P_dG_nz_given_ch": 0.642857,
+          "P_dA_nz_given_ch": 0.73689,
+          "P_dG_nz_given_ac": 0.302405
+        }
+      }
+    },
+    {
+      "class_id": 10,
+      "species": "O",
+      "delta": 0.03,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0123,
+          "mean_changed": 0.0819,
+          "frac_any": 0.0457,
+          "P_dG_nz_given_ch": 0.551422,
+          "P_dA_nz_given_ch": 0.730853,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2633,
+          "mean_changed": 0.4582,
+          "frac_any": 0.126,
+          "P_dG_nz_given_ch": 0.539683,
+          "P_dA_nz_given_ch": 0.761905,
+          "P_dG_nz_given_ac": 0.19
+        },
+        "6.0": {
+          "mean_present": 11.615,
+          "mean_changed": 0.8581,
+          "frac_any": 0.1676,
+          "P_dG_nz_given_ch": 0.563246,
+          "P_dA_nz_given_ch": 0.793556,
+          "P_dG_nz_given_ac": 0.387283
+        },
+        "7.0": {
+          "mean_present": 17.1831,
+          "mean_changed": 1.2672,
+          "frac_any": 0.1841,
+          "P_dG_nz_given_ch": 0.548615,
+          "P_dA_nz_given_ch": 0.650733,
+          "P_dG_nz_given_ac": 0.251944
+        }
+      }
+    },
+    {
+      "class_id": 11,
+      "species": "O",
+      "delta": 0.005,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.012,
+          "mean_changed": 0.0157,
+          "frac_any": 0.013,
+          "P_dG_nz_given_ch": 0.361538,
+          "P_dA_nz_given_ch": 0.946154,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2817,
+          "mean_changed": 0.0963,
+          "frac_any": 0.0398,
+          "P_dG_nz_given_ch": 0.645729,
+          "P_dA_nz_given_ch": 0.942211,
+          "P_dG_nz_given_ac": 0.173913
+        },
+        "6.0": {
+          "mean_present": 11.6254,
+          "mean_changed": 0.1865,
+          "frac_any": 0.0555,
+          "P_dG_nz_given_ch": 0.72973,
+          "P_dA_nz_given_ch": 0.945946,
+          "P_dG_nz_given_ac": 0.6
+        },
+        "7.0": {
+          "mean_present": 17.203,
+          "mean_changed": 0.2767,
+          "frac_any": 0.0606,
+          "P_dG_nz_given_ch": 0.785479,
+          "P_dA_nz_given_ch": 0.90429,
+          "P_dG_nz_given_ac": 0.258621
+        }
+      }
+    },
+    {
+      "class_id": 11,
+      "species": "O",
+      "delta": 0.01,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0122,
+          "mean_changed": 0.0288,
+          "frac_any": 0.0211,
+          "P_dG_nz_given_ch": 0.42654,
+          "P_dA_nz_given_ch": 0.905213,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2708,
+          "mean_changed": 0.1645,
+          "frac_any": 0.0567,
+          "P_dG_nz_given_ch": 0.564374,
+          "P_dA_nz_given_ch": 0.87478,
+          "P_dG_nz_given_ac": 0.183099
+        },
+        "6.0": {
+          "mean_present": 11.6484,
+          "mean_changed": 0.3138,
+          "frac_any": 0.0769,
+          "P_dG_nz_given_ch": 0.647594,
+          "P_dA_nz_given_ch": 0.86606,
+          "P_dG_nz_given_ac": 0.349515
+        },
+        "7.0": {
+          "mean_present": 17.1728,
+          "mean_changed": 0.4642,
+          "frac_any": 0.0854,
+          "P_dG_nz_given_ch": 0.688525,
+          "P_dA_nz_given_ch": 0.807963,
+          "P_dG_nz_given_ac": 0.317073
+        }
+      }
+    },
+    {
+      "class_id": 11,
+      "species": "O",
+      "delta": 0.015,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0117,
+          "mean_changed": 0.045,
+          "frac_any": 0.0283,
+          "P_dG_nz_given_ch": 0.39576,
+          "P_dA_nz_given_ch": 0.756184,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.298,
+          "mean_changed": 0.2547,
+          "frac_any": 0.078,
+          "P_dG_nz_given_ch": 0.569231,
+          "P_dA_nz_given_ch": 0.792308,
+          "P_dG_nz_given_ac": 0.228395
+        },
+        "6.0": {
+          "mean_present": 11.622,
+          "mean_changed": 0.4751,
+          "frac_any": 0.1033,
+          "P_dG_nz_given_ch": 0.655373,
+          "P_dA_nz_given_ch": 0.864472,
+          "P_dG_nz_given_ac": 0.421429
+        },
+        "7.0": {
+          "mean_present": 17.1816,
+          "mean_changed": 0.6982,
+          "frac_any": 0.1132,
+          "P_dG_nz_given_ch": 0.621025,
+          "P_dA_nz_given_ch": 0.712014,
+          "P_dG_nz_given_ac": 0.257669
+        }
+      }
+    },
+    {
+      "class_id": 11,
+      "species": "O",
+      "delta": 0.03,
+      "n_samples": 10000,
+      "n_usable": 10000,
+      "usable_frac": 1.0,
+      "by_rho": {
+        "2.0": {
+          "mean_present": 1.0115,
+          "mean_changed": 0.0778,
+          "frac_any": 0.0447,
+          "P_dG_nz_given_ch": 0.472036,
+          "P_dA_nz_given_ch": 0.691275,
+          "P_dG_nz_given_ac": 0.0
+        },
+        "4.0": {
+          "mean_present": 6.2849,
+          "mean_changed": 0.4592,
+          "frac_any": 0.1265,
+          "P_dG_nz_given_ch": 0.56917,
+          "P_dA_nz_given_ch": 0.747036,
+          "P_dG_nz_given_ac": 0.221875
+        },
+        "6.0": {
+          "mean_present": 11.6403,
+          "mean_changed": 0.8674,
+          "frac_any": 0.1729,
+          "P_dG_nz_given_ch": 0.568537,
+          "P_dA_nz_given_ch": 0.796992,
+          "P_dG_nz_given_ac": 0.404558
+        },
+        "7.0": {
+          "mean_present": 17.1916,
+          "mean_changed": 1.2687,
+          "frac_any": 0.1859,
+          "P_dG_nz_given_ch": 0.563206,
+          "P_dA_nz_given_ch": 0.655729,
+          "P_dG_nz_given_ac": 0.282813
+        }
+      }
+    }
+  ],
+  "langevin": {
+    "n_walks": 500,
+    "n_steps": 60,
+    "R_disc": 7.0,
+    "rows": [
+      {
+        "class_id": 0,
+        "T": 1e-05,
+        "mean_flips_per_step": 0.33413333,
+        "se_flips": 0.024200662,
+        "frac_step_flip": 0.065633333,
+        "n_valid_steps": 30000,
+        "n_pl_disc": 1335
+      },
+      {
+        "class_id": 0,
+        "T": 2.5e-05,
+        "mean_flips_per_step": 0.45713333,
+        "se_flips": 0.033319404,
+        "frac_step_flip": 0.0771,
+        "n_valid_steps": 30000,
+        "n_pl_disc": 1335
+      },
+      {
+        "class_id": 0,
+        "T": 6e-05,
+        "mean_flips_per_step": 0.6818,
+        "se_flips": 0.034991805,
+        "frac_step_flip": 0.10946667,
+        "n_valid_steps": 30000,
+        "n_pl_disc": 1335
+      },
+      {
+        "class_id": 0,
+        "T": 0.00015,
+        "mean_flips_per_step": 1.0618,
+        "se_flips": 0.044533949,
+        "frac_step_flip": 0.1529,
+        "n_valid_steps": 30000,
+        "n_pl_disc": 1335
+      },
+      {
+        "class_id": 0,
+        "T": 0.0004,
+        "mean_flips_per_step": 1.4508667,
+        "se_flips": 0.045521578,
+        "frac_step_flip": 0.20063333,
+        "n_valid_steps": 30000,
+        "n_pl_disc": 1335
+      },
+      {
+        "class_id": 0,
+        "T": 0.001,
+        "mean_flips_per_step": 2.263,
+        "se_flips": 0.054000368,
+        "frac_step_flip": 0.28813333,
+        "n_valid_steps": 30000,
+        "n_pl_disc": 1335
+      },
+      {
+        "class_id": 0,
+        "T": 0.0025,
+        "mean_flips_per_step": 3.2073667,
+        "se_flips": 0.057566728,
+        "frac_step_flip": 0.3777,
+        "n_valid_steps": 30000,
+        "n_pl_disc": 1335
+      },
+      {
+        "class_id": 0,
+        "T": 0.006,
+        "mean_flips_per_step": 4.6840667,
+        "se_flips": 0.055859517,
+        "frac_step_flip": 0.5127,
+        "n_valid_steps": 30000,
+        "n_pl_disc": 1335
+      },
+      {
+        "class_id": 0,
+        "T": 0.015,
+        "mean_flips_per_step": 6.6149,
+        "se_flips": 0.054713327,
+        "frac_step_flip": 0.6493,
+        "n_valid_steps": 30000,
+        "n_pl_disc": 1335
+      },
+      {
+        "class_id": 0,
+        "T": 0.04,
+        "mean_flips_per_step": 9.4663667,
+        "se_flips": 0.052716062,
+        "frac_step_flip": 0.7944,
+        "n_valid_steps": 30000,
+        "n_pl_disc": 1335
+      }
+    ],
+    "fitted_beta": 0.41369,
+    "r2_fit": 0.999023,
+    "fitted_alpha_from_delta": 0.88048,
+    "op14_predicted_beta": 0.4445
+  },
+  "n_exact_valid_worms": 0,
+  "exact_worm_witness": null,
+  "elapsed_s": 15.7
+}

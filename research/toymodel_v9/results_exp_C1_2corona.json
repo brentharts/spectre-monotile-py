@@ -1,0 +1,42 @@
+{
+  "control_cor1": {
+    "k_corona": 1,
+    "forbid_fp": false,
+    "status": "SAT",
+    "n_placed_tiles": 8,
+    "n_cands": 53,
+    "n_clauses": 582,
+    "t_encode": 1.9,
+    "t_solve": 0.002
+  },
+  "no_fp_cor1": {
+    "k_corona": 1,
+    "forbid_fp": true,
+    "status": "SAT",
+    "n_placed_tiles": 8,
+    "n_cands": 53,
+    "n_clauses": 591,
+    "t_encode": 1.83,
+    "t_solve": 0.002
+  },
+  "control_cor2": {
+    "k_corona": 2,
+    "forbid_fp": false,
+    "status": "SAT",
+    "n_placed_tiles": 21,
+    "n_cands": 946,
+    "n_clauses": 106056,
+    "t_encode": 60.76,
+    "t_solve": 0.028
+  },
+  "no_fp_cor2": {
+    "k_corona": 2,
+    "forbid_fp": true,
+    "status": "UNSAT",
+    "drat_verified": true,
+    "n_cands": 946,
+    "n_clauses": 106650,
+    "t_encode": 65.82,
+    "t_solve": 0.035
+  }
+}

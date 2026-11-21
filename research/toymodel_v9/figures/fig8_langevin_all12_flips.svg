@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 315" width="960" height="315">
+<style>
+          .title { font: 700 12.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #1b2a4a; }
+          .sub { font: 400 10px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #475569; }
+          .axis { font: 600 9.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #334155; }
+          .tick { font: 400 8.5px "DejaVu Sans Mono", Consolas, monospace; fill: #475569; }
+          .panel { fill: #f8fafc; stroke: #cbd5e1; stroke-width: 1; rx: 5; }
+        </style>
+<text x="12" y="16" class="title">(a) 2D Langevin Brownian Walk: Anomalous T^(α/2) Kinetics</text>
+<text x="12" y="29" class="sub">Depth-8 (24.5M pts, 0 deadband): R(T) ~ T^0.414 (R²=0.9990); δ-scaling α/2 = 0.4402 vs. 0.4445</text>
+<rect x="10" y="34" width="470" height="245" class="panel"/>
+<line x1="78.2" y1="52" x2="78.2" y2="247" stroke="#f1f5f9" stroke-width="0.8"/>
+<text x="78.2" y="260" text-anchor="middle" class="tick">10^-5</text>
+<line x1="179.2" y1="52" x2="179.2" y2="247" stroke="#f1f5f9" stroke-width="0.8"/>
+<text x="179.2" y="260" text-anchor="middle" class="tick">10^-4</text>
+<line x1="280.2" y1="52" x2="280.2" y2="247" stroke="#f1f5f9" stroke-width="0.8"/>
+<text x="280.2" y="260" text-anchor="middle" class="tick">10^-3</text>
+<line x1="381.2" y1="52" x2="381.2" y2="247" stroke="#f1f5f9" stroke-width="0.8"/>
+<text x="381.2" y="260" text-anchor="middle" class="tick">10^-2</text>
+<line x1="58" y1="233.2" x2="462" y2="233.2" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="53" y="236.2" text-anchor="end" class="tick">0.3</text>
+<line x1="58" y1="176.6" x2="462" y2="176.6" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="53" y="179.6" text-anchor="end" class="tick">1</text>
+<line x1="58" y1="124.9" x2="462" y2="124.9" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="53" y="127.9" text-anchor="end" class="tick">3</text>
+<line x1="58" y1="68.2" x2="462" y2="68.2" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="53" y="71.2" text-anchor="end" class="tick">10</text>
+<text x="260.0" y="273" text-anchor="middle" class="axis">Internal-space Langevin temperature T (log scale)</text>
+<line x1="78.2" y1="246.5" x2="442.0" y2="51.4" stroke="#94a3b8" stroke-width="1.4" stroke-dasharray="4,3"/>
+<line x1="78.2" y1="234.5" x2="442.0" y2="61.0" stroke="#0f766e" stroke-width="1.4" stroke-dasharray="3,2"/>
+<polyline points="78.2,228.2 118.4,213.4 156.8,194.6 197.0,173.8 240.0,159.1 280.2,138.2 320.4,121.8 358.8,103.9 399.0,87.7 442.0,70.8" fill="none" stroke="#dc2626" stroke-width="2.2"/>
+<line x1="78.2" y1="224.9" x2="78.2" y2="231.7" stroke="#dc2626" stroke-width="1.2"/>
+<circle cx="78.2" cy="228.2" r="3.4" fill="#dc2626" stroke="#ffffff" stroke-width="0.9"/>
+<line x1="118.4" y1="210.1" x2="118.4" y2="217.0" stroke="#dc2626" stroke-width="1.2"/>
+<circle cx="118.4" cy="213.4" r="3.4" fill="#dc2626" stroke="#ffffff" stroke-width="0.9"/>
+<line x1="156.8" y1="192.2" x2="156.8" y2="197.1" stroke="#dc2626" stroke-width="1.2"/>
+<circle cx="156.8" cy="194.6" r="3.4" fill="#dc2626" stroke="#ffffff" stroke-width="0.9"/>
+<line x1="197.0" y1="171.8" x2="197.0" y2="175.8" stroke="#dc2626" stroke-width="1.2"/>
+<circle cx="197.0" cy="173.8" r="3.4" fill="#dc2626" stroke="#ffffff" stroke-width="0.9"/>
+<line x1="240.0" y1="157.6" x2="240.0" y2="160.6" stroke="#dc2626" stroke-width="1.2"/>
+<circle cx="240.0" cy="159.1" r="3.4" fill="#dc2626" stroke="#ffffff" stroke-width="0.9"/>
+<line x1="280.2" y1="137.0" x2="280.2" y2="139.3" stroke="#dc2626" stroke-width="1.2"/>
+<circle cx="280.2" cy="138.2" r="3.4" fill="#dc2626" stroke="#ffffff" stroke-width="0.9"/>
+<line x1="320.4" y1="120.9" x2="320.4" y2="122.6" stroke="#dc2626" stroke-width="1.2"/>
+<circle cx="320.4" cy="121.8" r="3.4" fill="#dc2626" stroke="#ffffff" stroke-width="0.9"/>
+<line x1="358.8" y1="103.4" x2="358.8" y2="104.5" stroke="#dc2626" stroke-width="1.2"/>
+<circle cx="358.8" cy="103.9" r="3.4" fill="#dc2626" stroke="#ffffff" stroke-width="0.9"/>
+<line x1="399.0" y1="87.3" x2="399.0" y2="88.1" stroke="#dc2626" stroke-width="1.2"/>
+<circle cx="399.0" cy="87.7" r="3.4" fill="#dc2626" stroke="#ffffff" stroke-width="0.9"/>
+<line x1="442.0" y1="70.6" x2="442.0" y2="71.1" stroke="#dc2626" stroke-width="1.2"/>
+<circle cx="442.0" cy="70.8" r="3.4" fill="#dc2626" stroke="#ffffff" stroke-width="0.9"/>
+<text x="66" y="65" class="axis" fill="#dc2626">Fit: β = 0.4137 (R² = 0.99902)</text>
+<text x="66" y="78" class="tick" fill="#0f766e">Direct δ-scan: α = 0.8805 → α/2 = 0.4402</text>
+<text x="456" y="225" text-anchor="end" class="tick" fill="#0f766e">--- OP #14 fractal T^0.4445</text>
+<text x="456" y="238" text-anchor="end" class="tick" fill="#94a3b8">- - Smooth-boundary T^0.500</text>
+<text x="498" y="16" class="title">(b) All-12-Class Level-4 Isotropy (480,000 Samples)</text>
+<text x="498" y="29" class="sub">Mean changed tiles in ρ=7 disc across 6 G-classes (0..5) &amp; 6 O-classes (6..11)</text>
+<rect x="496" y="34" width="454" height="245" class="panel"/>
+<line x1="735.0" y1="52" x2="735.0" y2="247" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="3,2"/>
+<text x="635.5" y="63" text-anchor="middle" class="tick" fill="#475569">6 Mystic (G) classes</text>
+<text x="834.5" y="63" text-anchor="middle" class="tick" fill="#475569">6 Ordinary (O) classes</text>
+<line x1="536" y1="247.0" x2="934" y2="247.0" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="531" y="250.0" text-anchor="end" class="tick">0.0</text>
+<line x1="536" y1="208.0" x2="934" y2="208.0" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="531" y="211.0" text-anchor="end" class="tick">0.3</text>
+<line x1="536" y1="169.0" x2="934" y2="169.0" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="531" y="172.0" text-anchor="end" class="tick">0.6</text>
+<line x1="536" y1="130.0" x2="934" y2="130.0" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="531" y="133.0" text-anchor="end" class="tick">0.9</text>
+<line x1="536" y1="91.0" x2="934" y2="91.0" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="531" y="94.0" text-anchor="end" class="tick">1.2</text>
+<line x1="536" y1="52.0" x2="934" y2="52.0" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="531" y="55.0" text-anchor="end" class="tick">1.5</text>
+<text x="552.6" y="260" text-anchor="middle" class="tick">c0</text>
+<text x="585.8" y="260" text-anchor="middle" class="tick">c1</text>
+<text x="618.9" y="260" text-anchor="middle" class="tick">c2</text>
+<text x="652.1" y="260" text-anchor="middle" class="tick">c3</text>
+<text x="685.2" y="260" text-anchor="middle" class="tick">c4</text>
+<text x="718.4" y="260" text-anchor="middle" class="tick">c5</text>
+<text x="751.6" y="260" text-anchor="middle" class="tick">c6</text>
+<text x="784.8" y="260" text-anchor="middle" class="tick">c7</text>
+<text x="817.9" y="260" text-anchor="middle" class="tick">c8</text>
+<text x="851.1" y="260" text-anchor="middle" class="tick">c9</text>
+<text x="884.2" y="260" text-anchor="middle" class="tick">c10</text>
+<text x="917.4" y="260" text-anchor="middle" class="tick">c11</text>
+<text x="735.0" y="273" text-anchor="middle" class="axis">Level-4 window class index</text>
+<polyline points="552.6,210.0 585.8,212.1 618.9,212.2 652.1,208.4 685.2,214.4 718.4,214.2 751.6,213.5 784.8,210.2 817.9,212.2 851.1,214.1 884.2,213.9 917.4,211.0" fill="none" stroke="#4f46e5" stroke-width="1.9"/>
+<circle cx="552.6" cy="210.0" r="3.0" fill="#4f46e5"/>
+<circle cx="585.8" cy="212.1" r="3.0" fill="#4f46e5"/>
+<circle cx="618.9" cy="212.2" r="3.0" fill="#4f46e5"/>
+<circle cx="652.1" cy="208.4" r="3.0" fill="#4f46e5"/>
+<circle cx="685.2" cy="214.4" r="3.0" fill="#4f46e5"/>
+<circle cx="718.4" cy="214.2" r="3.0" fill="#4f46e5"/>
+<circle cx="751.6" cy="213.5" r="3.0" fill="#4f46e5"/>
+<circle cx="784.8" cy="210.2" r="3.0" fill="#4f46e5"/>
+<circle cx="817.9" cy="212.2" r="3.0" fill="#4f46e5"/>
+<circle cx="851.1" cy="214.1" r="3.0" fill="#4f46e5"/>
+<circle cx="884.2" cy="213.9" r="3.0" fill="#4f46e5"/>
+<circle cx="917.4" cy="211.0" r="3.0" fill="#4f46e5"/>
+<polyline points="552.6,180.2 585.8,182.4 618.9,183.7 652.1,184.4 685.2,182.5 718.4,184.3 751.6,183.6 784.8,182.8 817.9,189.3 851.1,187.4 884.2,182.4 917.4,186.7" fill="none" stroke="#0f766e" stroke-width="1.9"/>
+<circle cx="552.6" cy="180.2" r="3.0" fill="#0f766e"/>
+<circle cx="585.8" cy="182.4" r="3.0" fill="#0f766e"/>
+<circle cx="618.9" cy="183.7" r="3.0" fill="#0f766e"/>
+<circle cx="652.1" cy="184.4" r="3.0" fill="#0f766e"/>
+<circle cx="685.2" cy="182.5" r="3.0" fill="#0f766e"/>
+<circle cx="718.4" cy="184.3" r="3.0" fill="#0f766e"/>
+<circle cx="751.6" cy="183.6" r="3.0" fill="#0f766e"/>
+<circle cx="784.8" cy="182.8" r="3.0" fill="#0f766e"/>
+<circle cx="817.9" cy="189.3" r="3.0" fill="#0f766e"/>
+<circle cx="851.1" cy="187.4" r="3.0" fill="#0f766e"/>
+<circle cx="884.2" cy="182.4" r="3.0" fill="#0f766e"/>
+<circle cx="917.4" cy="186.7" r="3.0" fill="#0f766e"/>
+<polyline points="552.6,156.3 585.8,145.1 618.9,149.3 652.1,154.6 685.2,153.7 718.4,157.5 751.6,157.9 784.8,161.6 817.9,157.7 851.1,161.8 884.2,162.2 917.4,156.2" fill="none" stroke="#d97706" stroke-width="1.9"/>
+<circle cx="552.6" cy="156.3" r="3.0" fill="#d97706"/>
+<circle cx="585.8" cy="145.1" r="3.0" fill="#d97706"/>
+<circle cx="618.9" cy="149.3" r="3.0" fill="#d97706"/>
+<circle cx="652.1" cy="154.6" r="3.0" fill="#d97706"/>
+<circle cx="685.2" cy="153.7" r="3.0" fill="#d97706"/>
+<circle cx="718.4" cy="157.5" r="3.0" fill="#d97706"/>
+<circle cx="751.6" cy="157.9" r="3.0" fill="#d97706"/>
+<circle cx="784.8" cy="161.6" r="3.0" fill="#d97706"/>
+<circle cx="817.9" cy="157.7" r="3.0" fill="#d97706"/>
+<circle cx="851.1" cy="161.8" r="3.0" fill="#d97706"/>
+<circle cx="884.2" cy="162.2" r="3.0" fill="#d97706"/>
+<circle cx="917.4" cy="156.2" r="3.0" fill="#d97706"/>
+<polyline points="552.6,73.1 585.8,72.4 618.9,74.6 652.1,72.3 685.2,73.8 718.4,73.2 751.6,85.5 784.8,89.1 817.9,83.3 851.1,84.9 884.2,82.3 917.4,82.1" fill="none" stroke="#dc2626" stroke-width="1.9"/>
+<circle cx="552.6" cy="73.1" r="3.0" fill="#dc2626"/>
+<circle cx="585.8" cy="72.4" r="3.0" fill="#dc2626"/>
+<circle cx="618.9" cy="74.6" r="3.0" fill="#dc2626"/>
+<circle cx="652.1" cy="72.3" r="3.0" fill="#dc2626"/>
+<circle cx="685.2" cy="73.8" r="3.0" fill="#dc2626"/>
+<circle cx="718.4" cy="73.2" r="3.0" fill="#dc2626"/>
+<circle cx="751.6" cy="85.5" r="3.0" fill="#dc2626"/>
+<circle cx="784.8" cy="89.1" r="3.0" fill="#dc2626"/>
+<circle cx="817.9" cy="83.3" r="3.0" fill="#dc2626"/>
+<circle cx="851.1" cy="84.9" r="3.0" fill="#dc2626"/>
+<circle cx="884.2" cy="82.3" r="3.0" fill="#dc2626"/>
+<circle cx="917.4" cy="82.1" r="3.0" fill="#dc2626"/>
+<circle cx="20" cy="296" r="3.5" fill="#dc2626"/><text x="29" y="299.5" class="sub">Langevin R(T) (±1 SE)</text>
+<circle cx="500" cy="296" r="3.5" fill="#4f46e5"/><text x="509" y="299.5" class="sub">δ=0.005</text>
+<circle cx="575" cy="296" r="3.5" fill="#0f766e"/><text x="584" y="299.5" class="sub">δ=0.01</text>
+<circle cx="650" cy="296" r="3.5" fill="#d97706"/><text x="659" y="299.5" class="sub">δ=0.015</text>
+<circle cx="725" cy="296" r="3.5" fill="#dc2626"/><text x="734" y="299.5" class="sub">δ=0.03</text>
+</svg>

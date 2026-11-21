@@ -1,0 +1,839 @@
+{
+  "control_unmodified_chiral": {
+    "status": "SAT",
+    "heesch_lower_bound": 1,
+    "n_corona1_tiles": 6,
+    "n_cands": 270,
+    "n_clauses": 11687,
+    "edge_cover_counts": [
+      9,
+      9,
+      12,
+      4,
+      4,
+      12,
+      12,
+      4,
+      4,
+      8,
+      8,
+      12,
+      9,
+      9
+    ]
+  },
+  "model_C1_flat_pair_forbidden_chiral": {
+    "status": "SAT",
+    "heesch_lower_bound": 1,
+    "n_corona1_tiles": 6,
+    "n_cands": 269,
+    "n_clauses": 11598,
+    "edge_cover_counts": [
+      9,
+      9,
+      12,
+      4,
+      4,
+      12,
+      12,
+      4,
+      4,
+      7,
+      7,
+      12,
+      9,
+      9
+    ]
+  },
+  "model_C2_result81_single_parity": {
+    "bump_pos_chiral": {
+      "status": "UNSAT",
+      "heesch_upper_bound": 0,
+      "drat_verified": true,
+      "n_cands": 221,
+      "n_clauses": 8084,
+      "edge_cover_counts": [
+        6,
+        6,
+        9,
+        4,
+        4,
+        10,
+        9,
+        2,
+        2,
+        2,
+        2,
+        8,
+        7,
+        7
+      ]
+    },
+    "bump_pos_reflect": {
+      "status": "UNSAT",
+      "heesch_upper_bound": 0,
+      "drat_verified": true,
+      "n_cands": 449,
+      "n_clauses": 33285,
+      "edge_cover_counts": [
+        13,
+        13,
+        19,
+        8,
+        8,
+        20,
+        18,
+        4,
+        4,
+        4,
+        4,
+        15,
+        13,
+        13
+      ]
+    },
+    "dent_neg_chiral": {
+      "status": "UNSAT",
+      "heesch_upper_bound": 0,
+      "drat_verified": true,
+      "n_cands": 246,
+      "n_clauses": 9953,
+      "edge_cover_counts": [
+        8,
+        8,
+        10,
+        4,
+        4,
+        10,
+        10,
+        4,
+        4,
+        1,
+        1,
+        10,
+        8,
+        8
+      ]
+    },
+    "dent_neg_reflect": {
+      "status": "UNSAT",
+      "heesch_upper_bound": 0,
+      "drat_verified": true,
+      "n_cands": 505,
+      "n_clauses": 41644,
+      "edge_cover_counts": [
+        16,
+        16,
+        20,
+        8,
+        8,
+        20,
+        20,
+        8,
+        8,
+        2,
+        2,
+        20,
+        16,
+        16
+      ]
+    }
+  },
+  "model_C3_14vertex_atlas_chiral": [
+    {
+      "vertex_idx": 0,
+      "out_pos": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 181,
+        "n_clauses": 5268,
+        "edge_cover_counts": [
+          1,
+          3,
+          7,
+          1,
+          1,
+          9,
+          9,
+          1,
+          1,
+          6,
+          6,
+          7,
+          3,
+          1
+        ]
+      },
+      "in_neg": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 213,
+        "n_clauses": 7116,
+        "edge_cover_counts": [
+          1,
+          8,
+          10,
+          3,
+          3,
+          10,
+          10,
+          3,
+          3,
+          7,
+          7,
+          10,
+          8,
+          1
+        ]
+      }
+    },
+    {
+      "vertex_idx": 1,
+      "out_pos": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 213,
+        "n_clauses": 7292,
+        "edge_cover_counts": [
+          1,
+          1,
+          8,
+          2,
+          2,
+          9,
+          10,
+          2,
+          2,
+          6,
+          7,
+          10,
+          6,
+          6
+        ]
+      },
+      "in_neg": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 267,
+        "n_clauses": 11385,
+        "edge_cover_counts": [
+          1,
+          1,
+          10,
+          3,
+          3,
+          10,
+          10,
+          3,
+          3,
+          7,
+          7,
+          10,
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "vertex_idx": 2,
+      "out_pos": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 181,
+        "n_clauses": 5533,
+        "edge_cover_counts": [
+          3,
+          1,
+          1,
+          1,
+          1,
+          8,
+          10,
+          2,
+          2,
+          5,
+          6,
+          8,
+          5,
+          5
+        ]
+      },
+      "in_neg": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 212,
+        "n_clauses": 7374,
+        "edge_cover_counts": [
+          8,
+          2,
+          2,
+          3,
+          3,
+          10,
+          10,
+          3,
+          3,
+          7,
+          6,
+          10,
+          8,
+          7
+        ]
+      }
+    },
+    {
+      "vertex_idx": 3,
+      "out_pos": {
+        "status": "UNSAT_EDGE_BLOCKED",
+        "n_cands": 209,
+        "uncoverable_edges": [
+          3,
+          4
+        ],
+        "edge_cover_counts": [
+          5,
+          6,
+          1,
+          0,
+          0,
+          8,
+          10,
+          3,
+          3,
+          6,
+          7,
+          10,
+          6,
+          7
+        ]
+      },
+      "in_neg": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 235,
+        "n_clauses": 8772,
+        "edge_cover_counts": [
+          7,
+          8,
+          2,
+          1,
+          4,
+          11,
+          10,
+          3,
+          4,
+          7,
+          7,
+          11,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "vertex_idx": 4,
+      "out_pos": {
+        "status": "UNSAT_EDGE_BLOCKED",
+        "n_cands": 248,
+        "uncoverable_edges": [
+          3,
+          4
+        ],
+        "edge_cover_counts": [
+          7,
+          7,
+          9,
+          0,
+          0,
+          9,
+          11,
+          4,
+          4,
+          8,
+          8,
+          11,
+          7,
+          7
+        ]
+      },
+      "in_neg": {
+        "status": "UNSAT_EDGE_BLOCKED",
+        "n_cands": 266,
+        "uncoverable_edges": [
+          3,
+          4
+        ],
+        "edge_cover_counts": [
+          8,
+          8,
+          11,
+          0,
+          0,
+          11,
+          11,
+          4,
+          4,
+          8,
+          8,
+          11,
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "vertex_idx": 5,
+      "out_pos": {
+        "status": "UNSAT_EDGE_BLOCKED",
+        "n_cands": 192,
+        "uncoverable_edges": [
+          3,
+          4
+        ],
+        "edge_cover_counts": [
+          7,
+          6,
+          8,
+          0,
+          0,
+          1,
+          9,
+          3,
+          3,
+          7,
+          7,
+          10,
+          7,
+          6
+        ]
+      },
+      "in_neg": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 223,
+        "n_clauses": 8306,
+        "edge_cover_counts": [
+          8,
+          7,
+          11,
+          4,
+          1,
+          2,
+          11,
+          4,
+          3,
+          7,
+          7,
+          10,
+          8,
+          7
+        ]
+      }
+    },
+    {
+      "vertex_idx": 6,
+      "out_pos": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 182,
+        "n_clauses": 5749,
+        "edge_cover_counts": [
+          5,
+          5,
+          8,
+          1,
+          1,
+          2,
+          2,
+          1,
+          1,
+          5,
+          6,
+          9,
+          5,
+          5
+        ]
+      },
+      "in_neg": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 227,
+        "n_clauses": 8594,
+        "edge_cover_counts": [
+          7,
+          7,
+          10,
+          3,
+          3,
+          2,
+          2,
+          3,
+          3,
+          6,
+          6,
+          10,
+          7,
+          7
+        ]
+      }
+    },
+    {
+      "vertex_idx": 7,
+      "out_pos": {
+        "status": "UNSAT_EDGE_BLOCKED",
+        "n_cands": 200,
+        "uncoverable_edges": [
+          7,
+          8
+        ],
+        "edge_cover_counts": [
+          6,
+          7,
+          10,
+          3,
+          3,
+          9,
+          1,
+          0,
+          0,
+          5,
+          7,
+          10,
+          6,
+          7
+        ]
+      },
+      "in_neg": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 220,
+        "n_clauses": 8091,
+        "edge_cover_counts": [
+          7,
+          8,
+          10,
+          3,
+          4,
+          11,
+          2,
+          1,
+          4,
+          7,
+          7,
+          11,
+          7,
+          8
+        ]
+      }
+    },
+    {
+      "vertex_idx": 8,
+      "out_pos": {
+        "status": "UNSAT_EDGE_BLOCKED",
+        "n_cands": 246,
+        "uncoverable_edges": [
+          7,
+          8
+        ],
+        "edge_cover_counts": [
+          7,
+          7,
+          11,
+          4,
+          4,
+          11,
+          9,
+          0,
+          0,
+          6,
+          8,
+          11,
+          7,
+          7
+        ]
+      },
+      "in_neg": {
+        "status": "UNSAT_EDGE_BLOCKED",
+        "n_cands": 262,
+        "uncoverable_edges": [
+          7,
+          8
+        ],
+        "edge_cover_counts": [
+          8,
+          8,
+          11,
+          4,
+          4,
+          11,
+          11,
+          0,
+          0,
+          8,
+          8,
+          11,
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "vertex_idx": 9,
+      "out_pos": {
+        "status": "UNSAT_EDGE_BLOCKED",
+        "n_cands": 226,
+        "uncoverable_edges": [
+          7,
+          8
+        ],
+        "edge_cover_counts": [
+          7,
+          7,
+          10,
+          4,
+          4,
+          10,
+          8,
+          0,
+          0,
+          1,
+          7,
+          10,
+          7,
+          7
+        ]
+      },
+      "in_neg": {
+        "status": "UNSAT_EDGE_BLOCKED",
+        "n_cands": 244,
+        "uncoverable_edges": [
+          8
+        ],
+        "edge_cover_counts": [
+          8,
+          8,
+          11,
+          4,
+          4,
+          10,
+          11,
+          4,
+          0,
+          1,
+          7,
+          10,
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "vertex_idx": 10,
+      "out_pos": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 221,
+        "n_clauses": 8084,
+        "edge_cover_counts": [
+          6,
+          6,
+          9,
+          4,
+          4,
+          10,
+          9,
+          2,
+          2,
+          2,
+          2,
+          8,
+          7,
+          7
+        ]
+      },
+      "in_neg": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 246,
+        "n_clauses": 9953,
+        "edge_cover_counts": [
+          8,
+          8,
+          10,
+          4,
+          4,
+          10,
+          10,
+          4,
+          4,
+          1,
+          1,
+          10,
+          8,
+          8
+        ]
+      }
+    },
+    {
+      "vertex_idx": 11,
+      "out_pos": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 195,
+        "n_clauses": 6515,
+        "edge_cover_counts": [
+          8,
+          7,
+          9,
+          3,
+          3,
+          10,
+          9,
+          3,
+          3,
+          6,
+          2,
+          2,
+          6,
+          5
+        ]
+      },
+      "in_neg": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 235,
+        "n_clauses": 9123,
+        "edge_cover_counts": [
+          8,
+          7,
+          10,
+          4,
+          3,
+          10,
+          10,
+          4,
+          3,
+          6,
+          2,
+          2,
+          8,
+          7
+        ]
+      }
+    },
+    {
+      "vertex_idx": 12,
+      "out_pos": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 171,
+        "n_clauses": 5096,
+        "edge_cover_counts": [
+          5,
+          5,
+          8,
+          2,
+          2,
+          10,
+          8,
+          2,
+          2,
+          6,
+          5,
+          1,
+          1,
+          3
+        ]
+      },
+      "in_neg": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 205,
+        "n_clauses": 6980,
+        "edge_cover_counts": [
+          7,
+          8,
+          10,
+          3,
+          3,
+          10,
+          10,
+          3,
+          3,
+          6,
+          7,
+          2,
+          2,
+          8
+        ]
+      }
+    },
+    {
+      "vertex_idx": 13,
+      "out_pos": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 203,
+        "n_clauses": 6621,
+        "edge_cover_counts": [
+          6,
+          6,
+          9,
+          2,
+          2,
+          10,
+          9,
+          2,
+          2,
+          7,
+          7,
+          8,
+          1,
+          1
+        ]
+      },
+      "in_neg": {
+        "status": "UNSAT",
+        "heesch_upper_bound": 0,
+        "drat_verified": true,
+        "n_cands": 257,
+        "n_clauses": 10663,
+        "edge_cover_counts": [
+          8,
+          8,
+          10,
+          3,
+          3,
+          10,
+          10,
+          3,
+          3,
+          7,
+          7,
+          10,
+          1,
+          1
+        ]
+      }
+    }
+  ],
+  "elapsed_s": 585.13
+}
