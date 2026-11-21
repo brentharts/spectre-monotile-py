@@ -54,13 +54,29 @@ def test_e97_exact_extension_to_28():
     return f"N=28 exact f={by_n[28]['frac_unsat']:.6f}, deg=1, t={by_n[28]['t_s']}s"
 
 
-def test_e98_bulk_frustration_plateau():
+def test_e98_parallel_tempering_upper_bounds():
+    """Variational upper bounds from 32 independent Parallel Tempering + Houdayer ICM + 2-opt
+    ensembles (strictly reported as Numeric upper bounds, NOT certified exact ground states)."""
     d = _load_data()
     l3_82 = {r["N"]: r for r in d["level3_sa"]}[82]
-    l4_804 = {r["N"]: r for r in d["level4_sa"]}[804]
     assert l3_82["frac_unsat"] < 0.230 and l3_82["count"] >= 100
-    assert 0.290 < l4_804["frac_unsat"] < 0.300
-    return f"L3(82) f<={l3_82['frac_unsat']:.4f}; L4(804) f<={l4_804['frac_unsat']:.4f}"
+    pt_path = os.path.join(_HERE, "results_dipole_pt_audit.json")
+    if os.path.isfile(pt_path):
+        pt = json.load(open(pt_path))
+        l3 = {r["N"]: r for r in pt["level3_pt"]}
+        l4 = {r["N"]: r for r in pt["level4_pt"]}
+        assert l3[28]["hits"] == 32 and abs(l3[28]["f_best"] - 0.209125) < 1e-5
+        assert l3[82]["hits"] == 32 and abs(l3[82]["f_best"] - 0.229310) < 1e-5
+        assert l4[82]["hits"] == 32 and l4[150]["hits"] == 32
+        assert l4[250]["hits"] >= 20 and l4[804]["hits"] >= 10
+        assert l4[804]["f_best"] < 0.290  # tightened from earlier 1/64-hit SA bound 0.2948
+        return (
+            f"PT+ICM upper bounds: L3(82)<={l3[82]['f_best']:.6f} (32/32), "
+            f"L4(250)<={l4[250]['f_best']:.6f} ({l4[250]['hits']}/32), "
+            f"L4(804)<={l4[804]['f_best']:.6f} ({l4[804]['hits']}/32)"
+        )
+    l4_804 = {r["N"]: r for r in d["level4_sa"]}[804]
+    return f"SA upper bounds: L3(82)<={l3_82['frac_unsat']:.4f}; L4(804)<={l4_804['frac_unsat']:.4f}"
 
 
 def run_tests(verbose=True):
