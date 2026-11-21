@@ -18,11 +18,27 @@ Grow a patch (level 9 to 10, about 2e5 to 1e6 tiles) from K with each of the 60 
 
 (Numeric, Counted.) Volumes agree within 1%. Class II fills its convex hull, which agrees with the dodecahedron derived in STAGE_B1 item 9 (edge 2/tau, volume 4(tau+2)). Classes I and III have hulls larger than their volumes, as expected for the non-convex star solids (dodecahedral extension, great dodecahedron). The class I hull of 60.0 is close to the edge-2 dodecahedron, 61.3.
 
+## Long runs (user's machine, `make patch-long LEVEL=11/12`, `patch_long_L11.json`, `patch_long_L12.json`) (Numeric, Counted)
+
+| class (by size) | level 10 | level 11 | level 12 | Baake-Grimm |
+|---|---|---|---|---|
+| I volume (n at L12 = 24941) | 47.69 | 47.73 | 47.62 | 47.64 |
+| II volume (n = 7577) | 14.46 | 14.50 | 14.47 | 14.47 |
+| III volume (n = 6478) | 12.47 | 12.28 | 12.37 | 12.36 |
+| I fill (volume / hull) | 0.79 | 0.788 | 0.783 | |
+| II fill | 1.03 | 1.023 | 1.012 | |
+| III fill | 0.76 | 0.730 | 0.725 | |
+
+- All three volumes agree with Baake-Grimm to 0.05% at level 12. The fills of classes I and III settle at 0.78 and 0.72 instead of drifting to 1, so these two windows are genuinely non-convex (a sample hull can only underestimate the true hull, so the true fill is at most these values). Class II stays at 1 (hull slightly below the volume by sampling), a convex window.
+- Class IV (quarter lattice): the two parity subclasses give 0.61 + 0.40 = 1.01 at levels 11 and 12.
+- The class labels (residue keys) shift between levels because the patch origin moves by a coset under S; classes are identified by volume, not by key.
+- The class III hull (17.07) and class I hull (60.8) are the convex hulls of the point clouds, not the star-solid definitions.
+
 ## What is and is not established
 - Evidence level: Numeric. The selected combination reproduces the published frequencies and all three window volumes. This is a strong selector but not a proof that it is Danzer's substitution; the tau A dissection had 10 candidates and the choice is by this test alone. The earlier statement that face compatibility selects none fully still stands.
 - Still open: the class I and III windows as explicit sets. We have their volumes and the convex hulls of their point clouds, not a definition. Next step: test the cloud against the Baake-Grimm description (star polyhedra) by membership in the dodecahedron minus identified pieces, or fit the attractor from the point cloud at higher level.
 - The earlier puzzle of total vertex density 0.16 to 0.21 against Frettlöh's 0.4163: the class I to III densities here are 0.0629, 0.0191, 0.0165 per unit physical volume (total 0.0985 on the D6 classes); the factor is not resolved and is probably the unit convention (his coordinates are tau^3 larger). Not checked.
-- Statistical noise: n of 300 to 1400 points per class, so the fill for class III (0.76) and class I (0.79) is not yet reliably below 1; the volume match is the stronger signal.
+- Statistical noise: resolved by the long runs below (n up to 25,000 per class).
 - Nothing from track B is in `quantgrav.bib`; no new sources were read in this stage.
 
 ## Next
