@@ -1,0 +1,37 @@
+{
+ "2": {
+  "pairs": 6,
+  "seams": 14,
+  "index_ordered_types": 14,
+  "canonical_types": 14,
+  "canonical_positive": 6
+ },
+ "3": {
+  "pairs": 82,
+  "seams": 152,
+  "index_ordered_types": 51,
+  "canonical_types": 46,
+  "canonical_positive": 28
+ },
+ "4": {
+  "pairs": 804,
+  "seams": 1362,
+  "index_ordered_types": 66,
+  "canonical_types": 53,
+  "canonical_positive": 35
+ },
+ "5": {
+  "pairs": 7012,
+  "seams": 11412,
+  "index_ordered_types": 66,
+  "canonical_types": 53,
+  "canonical_positive": 35
+ },
+ "6": {
+  "pairs": 58106,
+  "seams": 92754,
+  "index_ordered_types": 66,
+  "canonical_types": 53,
+  "canonical_positive": 35
+ }
+}
