@@ -1,0 +1,137 @@
+{
+  "exp_a_worm_defect": [
+    {
+      "k": 6,
+      "radius": 3.372,
+      "D_min": 20,
+      "drat_cert_D_minus_1": true,
+      "witness": {
+        "status": "SAT",
+        "D_bound": 20,
+        "exact_D": 20,
+        "uncovered_bd_edges": 7,
+        "unmatched_int_edges": 13,
+        "n_defect_components": 2,
+        "defect_comp_verts": [
+          12,
+          8
+        ],
+        "n_erased": 6,
+        "n_chosen": 5,
+        "delta_tiles": -1,
+        "n_removed": 2,
+        "n_added": 1,
+        "n_cands": 143,
+        "t_solve": 0.0245
+      },
+      "unsat_19": {
+        "status": "UNSAT",
+        "D": 19,
+        "drat_verified": true,
+        "n_cands": 143,
+        "n_clauses": 59044,
+        "t_solve": 0.0584
+      }
+    },
+    {
+      "k": 10,
+      "radius": 5.112,
+      "D_min": 20,
+      "drat_cert_D_minus_1": true,
+      "witness": {
+        "status": "SAT",
+        "D_bound": 20,
+        "exact_D": 20,
+        "uncovered_bd_edges": 7,
+        "unmatched_int_edges": 13,
+        "n_defect_components": 2,
+        "defect_comp_verts": [
+          12,
+          8
+        ],
+        "n_erased": 10,
+        "n_chosen": 9,
+        "delta_tiles": -1,
+        "n_removed": 2,
+        "n_added": 1,
+        "n_cands": 460,
+        "t_solve": 0.0683
+      },
+      "unsat_19": {
+        "status": "UNSAT",
+        "D": 19,
+        "drat_verified": true,
+        "n_cands": 460,
+        "n_clauses": 202443,
+        "t_solve": 0.4423
+      }
+    },
+    {
+      "k": 16,
+      "radius": 6.043,
+      "D_min": 20,
+      "drat_cert_D_minus_1": true,
+      "witness": {
+        "status": "SAT",
+        "D_bound": 20,
+        "exact_D": 20,
+        "uncovered_bd_edges": 5,
+        "unmatched_int_edges": 15,
+        "n_defect_components": 2,
+        "defect_comp_verts": [
+          12,
+          8
+        ],
+        "n_erased": 16,
+        "n_chosen": 15,
+        "delta_tiles": -1,
+        "n_removed": 2,
+        "n_added": 1,
+        "n_cands": 1083,
+        "t_solve": 0.7003
+      },
+      "unsat_19": {
+        "status": "UNSAT",
+        "D": 19,
+        "drat_verified": true,
+        "n_cands": 1083,
+        "n_clauses": 544183,
+        "t_solve": 4.402
+      }
+    },
+    {
+      "k": 20,
+      "radius": 7.331,
+      "D_min": 20,
+      "drat_cert_D_minus_1": true,
+      "witness": {
+        "status": "SAT",
+        "D_bound": 20,
+        "exact_D": 20,
+        "uncovered_bd_edges": 9,
+        "unmatched_int_edges": 11,
+        "n_defect_components": 2,
+        "defect_comp_verts": [
+          12,
+          8
+        ],
+        "n_erased": 20,
+        "n_chosen": 19,
+        "delta_tiles": -1,
+        "n_removed": 2,
+        "n_added": 1,
+        "n_cands": 1680,
+        "t_solve": 0.3914
+      },
+      "unsat_19": {
+        "status": "UNSAT",
+        "D": 19,
+        "drat_verified": true,
+        "n_cands": 1680,
+        "n_clauses": 899241,
+        "t_solve": 8.4538
+      }
+    }
+  ],
+  "elapsed_s": 27.79
+}

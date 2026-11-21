@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 315" width="960" height="315">
+<style>
+          .title { font: 700 12.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #1b2a4a; }
+          .sub { font: 400 10px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #475569; }
+          .axis { font: 600 9.5px -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; fill: #334155; }
+          .tick { font: 400 8.5px "DejaVu Sans Mono", Consolas, monospace; fill: #475569; }
+        </style>
+<text x="12" y="16" class="title">(a) Dipolar Frustration Scaling: Exact N ≤ 28 to Full Level 4 (N = 804)</text>
+<text x="12" y="29" class="sub">Bulk frustration nearly doubles from Result 17 (0.165 at N=14) to thermodynamic plateau f_∞ ≈ 0.295</text>
+<rect x="10" y="34" width="560" height="245" fill="#f8fafc" stroke="#cbd5e1" rx="5"/>
+<rect x="58" y="72.2" width="494" height="6.7" fill="#fee2e2" fill-opacity="0.6"/>
+<line x1="58" y1="75.5" x2="552" y2="75.5" stroke="#dc2626" stroke-width="1.0" stroke-dasharray="4,3"/>
+<text x="64" y="71.5" class="tick" fill="#dc2626">Bulk plateau f_∞ ≈ 0.295 (L4)</text>
+<line x1="58" y1="240.3" x2="552" y2="240.3" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="53" y="243.3" text-anchor="end" class="tick">0.05</text>
+<line x1="58" y1="206.7" x2="552" y2="206.7" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="53" y="209.7" text-anchor="end" class="tick">0.10</text>
+<line x1="58" y1="173.0" x2="552" y2="173.0" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="53" y="176.0" text-anchor="end" class="tick">0.15</text>
+<line x1="58" y1="139.4" x2="552" y2="139.4" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="53" y="142.4" text-anchor="end" class="tick">0.20</text>
+<line x1="58" y1="105.8" x2="552" y2="105.8" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="53" y="108.8" text-anchor="end" class="tick">0.25</text>
+<line x1="58" y1="72.2" x2="552" y2="72.2" stroke="#e2e8f0" stroke-width="0.7"/>
+<text x="53" y="75.2" text-anchor="end" class="tick">0.30</text>
+<line x1="75.2" y1="52" x2="75.2" y2="247" stroke="#f1f5f9" stroke-width="0.8"/>
+<text x="75.2" y="260" text-anchor="middle" class="tick">6</text>
+<line x1="154.9" y1="52" x2="154.9" y2="247" stroke="#f1f5f9" stroke-width="0.8"/>
+<text x="154.9" y="260" text-anchor="middle" class="tick">14</text>
+<line x1="220.2" y1="52" x2="220.2" y2="247" stroke="#f1f5f9" stroke-width="0.8"/>
+<text x="220.2" y="260" text-anchor="middle" class="tick">28</text>
+<line x1="321.4" y1="52" x2="321.4" y2="247" stroke="#f1f5f9" stroke-width="0.8"/>
+<text x="321.4" y="260" text-anchor="middle" class="tick">82</text>
+<line x1="426.3" y1="52" x2="426.3" y2="247" stroke="#f1f5f9" stroke-width="0.8"/>
+<text x="426.3" y="260" text-anchor="middle" class="tick">250</text>
+<line x1="536.3" y1="52" x2="536.3" y2="247" stroke="#f1f5f9" stroke-width="0.8"/>
+<text x="536.3" y="260" text-anchor="middle" class="tick">804</text>
+<text x="305.0" y="273" text-anchor="middle" class="axis">Number of bump-and-dent pair dipoles N (log scale)</text>
+<line x1="154.9" y1="52" x2="154.9" y2="247" stroke="#64748b" stroke-width="1.1" stroke-dasharray="3,2"/>
+<text x="158.9" y="210.0" class="tick" fill="#64748b" paint-order="stroke" stroke="#f8fafc" stroke-width="2.5">Result 17 limit (N=14)</text>
+<polygon points="75.2,228.9 79.7,233.4 75.2,237.9 70.7,233.4" fill="#64748b"/>
+<text x="83.2" y="236.4" class="tick" fill="#475569">L2 (N=6: 0.060)</text>
+<polyline points="75.2,187.8 102.3,182.6 123.3,173.2 140.4,169.1 154.9,163.0 167.5,159.9 178.6,158.1 188.5,143.6 197.5,136.3 205.7,135.3 213.2,132.0 220.2,133.3" fill="none" stroke="#4f46e5" stroke-width="2.2"/>
+<circle cx="75.2" cy="187.8" r="3.4" fill="#64748b" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="102.3" cy="182.6" r="3.4" fill="#64748b" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="123.3" cy="173.2" r="3.4" fill="#64748b" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="140.4" cy="169.1" r="3.4" fill="#64748b" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="154.9" cy="163.0" r="3.4" fill="#64748b" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="167.5" cy="159.9" r="3.4" fill="#4f46e5" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="178.6" cy="158.1" r="3.4" fill="#4f46e5" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="188.5" cy="143.6" r="3.4" fill="#4f46e5" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="197.5" cy="136.3" r="3.4" fill="#4f46e5" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="205.7" cy="135.3" r="3.4" fill="#4f46e5" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="213.2" cy="132.0" r="3.4" fill="#4f46e5" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="220.2" cy="133.3" r="3.4" fill="#4f46e5" stroke="#ffffff" stroke-width="0.8"/>
+<polyline points="220.2,133.3 232.8,135.7 253.8,129.4 274.8,126.1 292.0,125.0 306.5,120.9 321.4,119.7" fill="none" stroke="#0f766e" stroke-width="2.0" stroke-dasharray="4,2"/>
+<rect x="229.8" y="132.7" width="6" height="6" fill="#0f766e"/>
+<rect x="250.8" y="126.4" width="6" height="6" fill="#0f766e"/>
+<rect x="271.8" y="123.1" width="6" height="6" fill="#0f766e"/>
+<rect x="289.0" y="122.0" width="6" height="6" fill="#0f766e"/>
+<rect x="303.5" y="117.9" width="6" height="6" fill="#0f766e"/>
+<rect x="318.4" y="116.7" width="6" height="6" fill="#0f766e"/>
+<polyline points="321.4,88.7 378.2,84.8 426.3,77.5 470.6,74.3 536.3,75.7" fill="none" stroke="#dc2626" stroke-width="2.3"/>
+<circle cx="321.4" cy="88.7" r="3.8" fill="#dc2626" stroke="#ffffff" stroke-width="0.9"/>
+<circle cx="378.2" cy="84.8" r="3.8" fill="#dc2626" stroke="#ffffff" stroke-width="0.9"/>
+<circle cx="426.3" cy="77.5" r="3.8" fill="#dc2626" stroke="#ffffff" stroke-width="0.9"/>
+<circle cx="470.6" cy="74.3" r="3.8" fill="#dc2626" stroke="#ffffff" stroke-width="0.9"/>
+<circle cx="536.3" cy="75.7" r="3.8" fill="#dc2626" stroke="#ffffff" stroke-width="0.9"/>
+<text x="220.2" y="125.3" text-anchor="middle" class="tick" fill="#4f46e5">N=28 exact (0.209)</text>
+<text x="321.4" y="133.7" text-anchor="middle" class="tick" fill="#0f766e">L3 full (0.229)</text>
+<text x="530.3" y="90.7" text-anchor="end" class="tick" fill="#dc2626">L4 full: 0.2948</text>
+<circle cx="20" cy="295" r="3.5" fill="#64748b"/><text x="29" y="298.5" class="sub">Result 17 (N≤14)</text>
+<circle cx="136" cy="295" r="3.5" fill="#4f46e5"/><text x="145" y="298.5" class="sub">Exact Gray-code (N≤28, deg=1)</text>
+<rect x="318" y="291" width="7" height="7" fill="#0f766e"/><text x="329" y="298.5" class="sub">L3 SA+2opt</text>
+<circle cx="412" cy="295" r="3.5" fill="#dc2626"/><text x="421" y="298.5" class="sub">L4 SA+2opt (N≤804)</text>
+<text x="588" y="16" class="title">(b) Exact Gray-Code Speed &amp; AF Bond Balance</text>
+<text x="588" y="29" class="sub">0.063 s exact at N=28; SA matches exact to 0.00e+00 at N=14,20,26,28</text>
+<rect x="586" y="34" width="364" height="245" fill="#f8fafc" stroke="#cbd5e1" rx="5"/>
+<line x1="630" y1="87.1" x2="934" y2="87.1" stroke="#94a3b8" stroke-width="1.0" stroke-dasharray="3,2"/>
+<text x="625" y="139.6" text-anchor="end" class="tick">0.42</text>
+<text x="625" y="114.9" text-anchor="end" class="tick">0.46</text>
+<text x="625" y="90.1" text-anchor="end" class="tick">0.50</text>
+<text x="625" y="65.4" text-anchor="end" class="tick">0.54</text>
+<polyline points="640.6,107.7 657.2,65.0 670.2,80.3 680.7,87.1 689.7,117.8 697.4,128.4 704.2,121.5 710.3,123.0 715.8,107.2 720.9,98.3 725.5,112.8 729.8,103.5 737.5,94.6 750.5,93.5 763.4,90.9 774.0,92.7 782.9,96.5 792.1,93.6" fill="none" stroke="#0f766e" stroke-width="1.5"/>
+<circle cx="640.6" cy="107.7" r="2.7" fill="#4f46e5"/>
+<circle cx="657.2" cy="65.0" r="2.7" fill="#4f46e5"/>
+<circle cx="670.2" cy="80.3" r="2.7" fill="#4f46e5"/>
+<circle cx="680.7" cy="87.1" r="2.7" fill="#4f46e5"/>
+<circle cx="689.7" cy="117.8" r="2.7" fill="#4f46e5"/>
+<circle cx="697.4" cy="128.4" r="2.7" fill="#4f46e5"/>
+<circle cx="704.2" cy="121.5" r="2.7" fill="#4f46e5"/>
+<circle cx="710.3" cy="123.0" r="2.7" fill="#4f46e5"/>
+<circle cx="715.8" cy="107.2" r="2.7" fill="#4f46e5"/>
+<circle cx="720.9" cy="98.3" r="2.7" fill="#4f46e5"/>
+<circle cx="725.5" cy="112.8" r="2.7" fill="#4f46e5"/>
+<circle cx="729.8" cy="103.5" r="2.7" fill="#4f46e5"/>
+<circle cx="737.5" cy="94.6" r="2.7" fill="#0f766e"/>
+<circle cx="750.5" cy="93.5" r="2.7" fill="#0f766e"/>
+<circle cx="763.4" cy="90.9" r="2.7" fill="#0f766e"/>
+<circle cx="774.0" cy="92.7" r="2.7" fill="#0f766e"/>
+<circle cx="782.9" cy="96.5" r="2.7" fill="#0f766e"/>
+<circle cx="792.1" cy="93.6" r="2.7" fill="#0f766e"/>
+<circle cx="792.1" cy="106.8" r="2.7" fill="#dc2626"/>
+<circle cx="827.1" cy="95.4" r="2.7" fill="#dc2626"/>
+<circle cx="856.7" cy="90.0" r="2.7" fill="#dc2626"/>
+<circle cx="883.9" cy="91.6" r="2.7" fill="#dc2626"/>
+<circle cx="924.3" cy="89.8" r="2.7" fill="#dc2626"/>
+<text x="634" y="60" class="axis">AF Bond Fraction → 0.496 (50/50 glass balance)</text>
+<rect x="636.0" y="250.0" width="38.7" height="3.0" fill="#4f46e5" rx="2"/>
+<text x="655.3" y="247.0" text-anchor="middle" class="tick">2ms</text>
+<text x="655.3" y="265" text-anchor="middle" class="tick">N=18</text>
+<rect x="686.7" y="250.0" width="38.7" height="3.0" fill="#4f46e5" rx="2"/>
+<text x="706.0" y="247.0" text-anchor="middle" class="tick">2ms</text>
+<text x="706.0" y="265" text-anchor="middle" class="tick">N=20</text>
+<rect x="737.3" y="249.6" width="38.7" height="3.4" fill="#4f46e5" rx="2"/>
+<text x="756.7" y="246.6" text-anchor="middle" class="tick">3ms</text>
+<text x="756.7" y="265" text-anchor="middle" class="tick">N=22</text>
+<rect x="788.0" y="246.2" width="38.7" height="6.8" fill="#4f46e5" rx="2"/>
+<text x="807.3" y="243.2" text-anchor="middle" class="tick">6ms</text>
+<text x="807.3" y="265" text-anchor="middle" class="tick">N=24</text>
+<rect x="838.7" y="233.8" width="38.7" height="19.2" fill="#4f46e5" rx="2"/>
+<text x="858.0" y="230.8" text-anchor="middle" class="tick">17ms</text>
+<text x="858.0" y="265" text-anchor="middle" class="tick">N=26</text>
+<rect x="889.3" y="181.9" width="38.7" height="71.1" fill="#4f46e5" rx="2"/>
+<text x="908.7" y="178.9" text-anchor="middle" class="tick">63ms</text>
+<text x="908.7" y="265" text-anchor="middle" class="tick">N=28</text>
+<text x="634" y="170" class="axis">OpenMP C++20 Exact Gray-Code Runtime (100% deg = 1 mod Z₂)</text>
+<text x="588" y="298.5" class="sub">SA+2opt vs. exact at N=14, 20, 26, 28: 0.00e+00 gap</text>
+</svg>
