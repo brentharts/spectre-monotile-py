@@ -1072,57 +1072,11 @@ In this layout the chair shapes the near field and the bits set the far field. T
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Reproduction}\label{app:repro}
-Repositories:
-\begin{itemize}[leftmargin=1.6em,itemsep=0pt,topsep=2pt]
-\item main repository: \url{https://github.com/brentharts/spectre-monotile-py};
-\item Quantum-Gravity-Dynamics fork:\\ \url{https://github.com/brentharts/Quantum-Gravity-Dynamics};
-\item Hat and Spectre: \url{https://github.com/brentharts/spectre}; CICY: \url{https://github.com/brentharts/CICY};
-\item Wada and Yang--Mills (Appendices~\ref{sec:wadawin} and~\ref{sec:ym}): \url{https://github.com/panjea/wada-coudene} (\texttt{python3 -m pytest tests}; the window rasters need \texttt{SPECTRE\_DIR} pointing at a clone of the Hat and Spectre repository); Hopf lift of Result~\ref{res:hopf-wada}: \url{https://github.com/brentharts/HopfFibration} (\texttt{python3 hopf\_wada.py --tests}).
-\end{itemize}
+Every number, table and figure of this paper is rebuilt by one script from the root of the main repository, \url{https://github.com/brentharts/spectre-monotile-py}:
+\begin{center}\texttt{python3 repo\_paper.py all}\end{center}
+It clones the other repositories that some modules import (Hat and Spectre, \texttt{wada-coudene}, Quantum-Gravity-Dynamics, the Wilson-loop repository, \texttt{HopfFibration}, \texttt{CICY}, \texttt{qwla}; \url{https://github.com/brentharts/spectre}, \url{https://github.com/panjea/wada-coudene} and so on), checks the Python packages, runs every self test (a module has one if it accepts \texttt{--tests-only}; a figure is not drawn if its test fails), redraws the figures, writes the numbers of \texttt{build/quantgrav\_numbers.tex} with \texttt{models/paper\_numbers.py}, and builds this document with \texttt{latexmk}. It takes about $45$ minutes; \texttt{--long} adds the runs of more than ten minutes (the cavity of $300$ tiles, the level-$11$ Danzer patch and the flip statistics). \texttt{python3 repo\_paper.py --list} shows the steps and their times. The notes for each section (which module checks which statement and how many checks it has, the commands for single figures, the commit of every snapshot) are in \texttt{REPRODUCE.md}.
 
-All commands run from the root of the main repository with \texttt{numpy}, \texttt{scipy}, \texttt{sympy} and \texttt{matplotlib}. Each module of Table~\ref{tab:modules} has a self test with the number of checks given there: \texttt{python3 models/X.py --tests-only} for the modules of Appendices~\ref{sec:e8} to~\ref{sec:wilson} and Appendix~\ref{app:tb}, and \texttt{python3 research/toymodel\_v2/X.py --tests-only} for those of Appendix~\ref{sec:staged}, which also use \texttt{spectre\_hat\_quantum\_bit\_model.py} and \texttt{spectre\_hat\_backward\_snap\_model.py} in the root. Modules named \texttt{t3\_}, \texttt{t5\_}, \texttt{t6\_} and \texttt{t7\_} are in \texttt{research/\allowbreak toymodel\_v3}, \texttt{v5}, \texttt{v6} and \texttt{v7} and run the same way; \texttt{python3 research/\allowbreak toymodel\_v7/\allowbreak t7\_targets.py} prints the scoreboard of Section~\ref{sec:toward}. \texttt{wilson\_corner\_locality} needs \texttt{WILSON\_RG\_DIR} to point at the Wilson-loop repository. \texttt{make quantgrav} writes the numbers and builds this document.
-
-{\sloppy The modules of Section~\ref{sec:flow} are in \texttt{research/\allowbreak toymodel\_v4} (\texttt{python3 research/\allowbreak toymodel\_v4/\allowbreak X.py --tests-only}, seconds each; \texttt{t4\_open} and \texttt{t4\_couple} take about a minute) and \texttt{spectre\_hat\_time\_3d.py} (\texttt{--tests-only}); Figure~\ref{fig:flow3d} is \texttt{python3 spectre\_hat\_time\_3d.py --no-show --save figures/spectre\_hat\_time\_3d.png}, Figure~\ref{fig:flow3d160} the same with \texttt{--corner 160}, Figure~\ref{fig:critical} is \texttt{python3 spectre\_hat\_critical.py}, and the turntable is \texttt{--gif}. The modules of Appendix~\ref{sec:second} are in \texttt{research/\allowbreak toymodel\_v3} and run as \texttt{python3 research/\allowbreak toymodel\_v3/\allowbreak X.py --tests-only}; \texttt{t3\_relax} takes about $1.5$ minutes, the others seconds. The modules of Appendix~\ref{sec:third} are in \texttt{research/\allowbreak toymodel\_v5} (seconds each) and \texttt{models/\allowbreak chair\_fibers\_14th.py}; Figures~\ref{fig:alphabet} and~\ref{fig:chairsource} are written by \texttt{t5\_alphabet.py} and \texttt{t5\_source.py} there, with \texttt{--no-show --save} and the path of the figure. The modules of Section~\ref{sec:ham} are in \texttt{research/\allowbreak toymodel\_v6}; \texttt{t6\_patch} takes about $15$ seconds and writes Figure~\ref{fig:ham-patch}. Result~\ref{res:ham-rg} and Figure~\ref{fig:ham-rg} are \texttt{research/\allowbreak toymodel\_v7/\allowbreak t7\_rg.py} (seconds).}
-
-\begin{table}[h]
-\centering\footnotesize
-\begin{tabular}{@{}p{16mm}p{120mm}@{}}
-\toprule
-Section & Test modules (number of checks) \\ \midrule
-\ref{sec:found} & \texttt{t4\_proofs} (4), \texttt{hopf\_shells}  \\
-\ref{sec:flow} & \texttt{t4\_geometry} (4), \texttt{t4\_arrow} (5), \texttt{t4\_patch} (6), \texttt{t4\_spin} (7), \texttt{spectre\_hat\_time\_3d} (3)  \\
-\ref{sec:flow-results}, \ref{sec:flow-couple} & \texttt{t4\_open} (4), \texttt{t4\_couple} (3)  \\
-\ref{sec:e8} & \texttt{hopf\_shells} (33), \texttt{icosian\_e8} (17), \texttt{e8\_shells} (45)  \\
-\ref{sec:windows} & \texttt{fibre\_window} (11), \texttt{voronoi\_window} (10)  \\
-\ref{sec:e6} & \texttt{e6\_fibres} (25)  \\
-\ref{sec:tiles} & \texttt{spectre\_in\_e8} (13)  \\
-\ref{sec:chair} & \texttt{chair\_e8\_192} (11)  \\
-\ref{sec:wilson} & \texttt{wilson\_corner\_locality} (9)  \\
-\ref{sec:companion} & Hat and Spectre repository  \\
-\ref{sec:wadawin}, \ref{sec:ym} & \texttt{tests/test\_spectre\_window.py}, \texttt{tests/test\_yangmills.py} (wada-coudene), \texttt{hopf\_wada} (HopfFibration)  \\
-\ref{sec:dynamic-tests} & Quantum-Gravity-Dynamics fork  \\
-\ref{sec:staged-lattice} & \texttt{tm2\_lattice} (9)  \\
-\ref{sec:staged-history} & \texttt{tm2\_history\_sum} (8), \texttt{core} (7)  \\
-\ref{sec:staged-arrow} & \texttt{tm2\_arrow} (11), \texttt{tm2\_directed} (9)  \\
-\ref{sec:staged-rule} & \texttt{tm2\_rule} (11), \texttt{tm2\_checking} (6)  \\
-\ref{sec:staged-waves} & \texttt{tm2\_waves} (9)  \\
-\ref{sec:second-gravity} & \texttt{t3\_optics} (5), \texttt{t3\_escape} (6), \texttt{t3\_chair\_metric} (4)  \\
-\ref{sec:second-arrow} & \texttt{t3\_area} (4), \texttt{t3\_chair\_handedness} (4), \texttt{t3\_records} (4)  \\
-\ref{sec:second-quantum}, \ref{sec:second-relax} & \texttt{t3\_passrate} (3), \texttt{t3\_qubit} (6), \texttt{t3\_relax} (3)  \\
-\ref{sec:third-alphabet} & \texttt{t5\_alphabet} (5), \texttt{t5\_rule} (5), \texttt{chair\_fibers\_14th} (11)  \\
-\ref{sec:third-source}, \ref{sec:third-ensemble} & \texttt{t5\_source} (4), \texttt{t5\_ensemble} (5), \texttt{t5\_arrow} (4), \texttt{t5\_clock} (4)  \\
-\ref{sec:ham} & \texttt{t6\_pair} (5), \texttt{t6\_patch} (6), \texttt{t6\_gauge} (6)  \\
-\ref{sec:ham-rg} & \texttt{t7\_rg} (4)  \\
-\ref{sec:toward} & \texttt{t7\_targets} (1), \texttt{t7\_bell} (4), \texttt{t7\_fields} (4), \texttt{t7\_layout} (3), \texttt{t7\_space} (3), \texttt{t7\_lorentz} (4), \texttt{t7\_horizon} (3), \texttt{t7\_entropy} (3), \texttt{t6\_hop} (5), \texttt{t6\_clock} (5)  \\
-\ref{sec:flips}, \ref{sec:ham}, \ref{sec:found} & \texttt{research/toymodel\_v10} (\texttt{make quick cavity}, needs \texttt{SPECTRE\_DIR}; the $k=300$ hole takes $8$ minutes: \texttt{t10\_cavity.py --scan 300}); \texttt{research/toymodel\_v8/t8\_parity} (5); the flip engines \texttt{spectre\_flip\_contacts}, \texttt{spectre\_flip\_stats}, \texttt{spectre\_flip\_moves} are scripts with logs, not self tests  \\
-\ref{app:tb} & \texttt{\_tb} (22), \texttt{twist\_hopping} (29), \texttt{chair\_fibers} (10)  \\
-\bottomrule
-\end{tabular}
-\caption{The modules that check each section; \texttt{make quantgrav} writes the numbers and builds this document.}\label{tab:modules}
-\end{table}
-
-
-{\sloppy \textbf{Numbers marked $\dagger$.} Those of Section~\ref{sec:flips} are from the logs and JSON files in \texttt{research/toymodel\_v8} (\texttt{RERUN.md}, \texttt{STAGE1.md}, \texttt{STAGE3.md}, \texttt{STAGE7.md}, \texttt{STAGE7B.md}), run with \texttt{figures/spectre\_flip\_*.py} of the \texttt{wada-coudene} repository, and the figures are drawn by \texttt{plot\_rerun.py}. Those of Appendix~\ref{sec:wilson} were copied as printed strings into \texttt{models/data/wilson\_snapshot.json} from the Wilson-loop repository at commit 52a3972 (7 and 8 November 2026); recomputing them is \texttt{make test} there (about $10$ minutes). Those of Appendices~\ref{sec:companion} and~\ref{sec:dynamic-tests} are in \texttt{models/data/companion\_snapshot.json} with the commit of each source, from the self tests of the Hat and Spectre repository (\texttt{--tests}) and the Quantum-Gravity-Dynamics fork (\texttt{pytest tests/test\_directional\_hex*.py}). Those of Appendices~\ref{sec:wadawin} and~\ref{sec:ym} are in \texttt{models/data/wada\_snapshot.json}, from the \texttt{wada-coudene} repository (\texttt{YANGMILLS.md} sections 6 and 8 to 13 and the CSV files of \texttt{figures/}, 18 November 2026) and from \texttt{hopf\_wada.py}; a few inline numbers of Appendix~\ref{sec:ym} (the Hessian interval, the three-variable fractions) are quoted from the same document without a macro. Closed forms ($\log_23$, $2\sqrt2$, the $\delta$ thresholds, $\rho_0$, $4-\sqrt{15}$) are computed by \texttt{paper\_numbers.py}. A mismatch with a snapshot is a reason to doubt this paper, not its source.}
+\textbf{Numbers marked $\dagger$} are copied from a snapshot or from the logs of a run and are not recomputed by \texttt{paper\_numbers.py}: those of Section~\ref{sec:flips} (the logs and JSON of \texttt{research/toymodel\_v8}, \texttt{v9} and \texttt{v10}), of Appendix~\ref{sec:wilson} (the Wilson-loop repository at commit 52a3972), of Appendices~\ref{sec:companion} and~\ref{sec:dynamic-tests} (\texttt{models/data/companion\_snapshot.json}) and of Appendices~\ref{sec:wadawin} and~\ref{sec:ym} (\texttt{models/data/wada\_snapshot.json}). \texttt{REPRODUCE.md} gives the source and the command of each. A mismatch with a snapshot is a reason to doubt this paper, not its source.
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Tight-binding, twist hopping on the Spectre family}\label{app:tb}
@@ -1167,8 +1121,10 @@ This is the three-dimensional analogue of the statement that the Spectre tiling 
 \end{result}
 Result~\ref{res:danzer-hops}(ii) is the three-dimensional counterpart of Result~\ref{res:flip-clusters}: in both, a phase step produces local rearrangements, not scattered point changes. \hypo\ The generic feature, a flip as a bounded hop whose length is set by a short lattice vector, is a property of model sets with polytope windows and not of the Spectre windows; this is supported here only at the level of the vertex hops, not of contact graphs.
 
-\subsection{What this does not do, and the connections}\label{sec:danzer-limits}
-\textbf{Not done.} The comparison with Section~\ref{sec:flips} on the same four numbers (changed tile sets, valid sets, non-isomorphic sets, area-conserving events) needs a \emph{tiling} at the shifted phase, that is, the new vertex set cut into $A,B,C,K$ tiles. I do not know a rule that does this and I have not tried one; Result~\ref{res:danzer-hops} changes vertices and counts destroyed tiles only. The exact class I pit, the quarter-lattice window, and the density of vertices against the published value remain open (the last is probably the $\tau^3$ unit convention of the published coordinates; not checked). The choice of substitution is by test (Result~\ref{res:danzer-windows}).
+\subsection{Gaps in the Danzer Test and Links Elsewhere}
+\label{sec:danzer-limits}
+\textbf{Not done.} The comparison with Section~\ref{sec:flips} on the same four numbers (changed tile sets, valid sets, non-isomorphic sets, area-conserving events) needs a \emph{tiling} at the shifted phase, that is, the new vertex set cut into $A,B,C,K$ tiles.
+Result~\ref{res:danzer-hops} changes vertices and counts destroyed tiles only. The exact class I pit, the quarter-lattice window, and the density of vertices against the published value remain open (the last is probably the $\tau^3$ unit convention of the published coordinates; not checked). The choice of substitution is by test (Result~\ref{res:danzer-windows}).
 
 \textbf{Connections.} (a) The Spectre placements lie in an index-$36$ coset (Result~\ref{res:index36}); the Danzer tiling lives in $D_6$ with four cosets of the weight lattice, three of which carry the vertex classes. In both the internal space is hit by windows that are graph-directed fractals for the Spectre and polyhedra, convex and star shaped, for Danzer; the second case is the simpler test bed for any statement about flips that does not use fractal windows. (b) Chair44, whose multipoles and bond ensemble are treated in Section~\ref{sec:third}, sits in three dimensions like the Danzer tiling; whether a Chair44-like ensemble can be put on the Danzer vertex set is a question, not a result. (c) \hypo\ Romanov's three-dimensional forest-gauge bound \cite{romanov2026} is stated on $\mathbb{Z}^3$; the Danzer vertex set with its short hop vectors is a candidate three-dimensional aperiodic lattice on which the same Hessian question could be posed, with no result here.
 
