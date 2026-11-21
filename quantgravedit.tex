@@ -1,0 +1,310 @@
+% quantgrav.tex - working draft.  Build:  make quantgrav   (writes build/quantgrav.pdf)
+% Every number quoted in the text is a macro \qg... from build/quantgrav_numbers.tex, which models/paper_numbers.py writes from the models.
+% Write negative numbers inside math mode ($...$) so that the minus sign is typeset as a minus.
+\documentclass[11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage[a4paper,margin=28mm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\usepackage{orcidlink}
+\graphicspath{{figures/}}
+\IfFileExists{build/quantgrav_numbers.tex}{\input{build/quantgrav_numbers.tex}}{\PackageError{quantgrav}{Run models/paper_numbers.py first (make quantgrav does)}{}}
+
+% labels of evidence, used in every result
+\newcommand{\exact}{\textbf{\textsc{Exact}}}
+\newcommand{\numeric}{\textbf{\textsc{Numeric}}}
+\newcommand{\hypo}{\textbf{\textsc{Hypothesis}}}
+\newcommand{\negres}{\textbf{\textsc{Negative}}}
+\newcommand{\snap}{\textsuperscript{$\dagger$}}      % number copied from a snapshot, not recomputed by paper_numbers.py
+\newcommand{\todo}[1]{\textcolor{red}{[TODO: #1]}}
+\setlength{\emergencystretch}{3em}
+\theoremstyle{definition}
+\newtheorem{result}{Result}
+
+
+\title{From Spectre Phason Flips to Pair Qubits: What a Tiling Model of Discrete Dynamics Gives and What It Does Not}
+
+\author{Brent Hartshorn \orcidlink{0009-0004-2853-655X}, Tristan Romanov and James Lockwood}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent\textbf{Question.} In the Spectre monotile, a tiling is a point $z$ of an internal space and moving $z$ rearranges tiles (a phason flip). What does a flip do to the tiling, to its connectivity and to the qubits it can carry, and does it supply the discrete dynamics that quantum-gravity programmes ask of a background?
+\textbf{Proved or exactly checked.} The number of bump-and-dent pairs obeys a recurrence of order five for all levels (a $15$-state seam automaton); the local rule that places pairs on supertile boundaries is a finite table that closes at level $4$ ($53$ types, checked to level $6$); a hole of up to $300$ tiles in a level-$4$ patch has exactly one refilling; the area ledger turns the pair into one qubit, and the classical ground state of the dipolar pair model is unique and frustrated up to $28$ pairs.
+\textbf{Measured.} A flip is a cluster of tiles at uniform density; the contact graph of the tiles meeting a footprint changes class in three quarters of the flips that change the tile set, while the tetrad flux of the lift stays zero; orientation parity is a window area and is not locally conserved.
+\textbf{Ruled out.} An arrow of time from flips (the relation is symmetric), ambiguous erasure of one tile, a gravitational reconnection in the continuum sense, and a monopole, horizon or light bending from the tile as it stands.
+\textbf{Not established.} Any statement about Pachner-type moves: no closed flip cluster was found.
+\end{abstract}
+
+%------------------------------------------------------------------------------------------------------------------------------------
+\section{Introduction}\label{sec:intro}
+Discrete approaches to quantum gravity ask for a background whose elementary changes are local, reversible and rich enough to carry geometry: moves on a triangulation \cite{pachner1991}, rewrites of a graph. Aperiodic tilings have a ready-made family of such changes. A tiling of the plane by the Spectre \cite{smith2023}, the strictly chiral aperiodic monotile, is a model set: a tile is present iff the internal image of its lattice vector lies in a fractal window \cite{bgms}. Moving the internal phase by a small step $\delta$ (a \emph{phason step} \cite{socolar1986}) removes tiles near the window boundary and adds others elsewhere. We call the ordered pair of phases a \emph{flip}. The Spectre also carries a natural two-valued degree of freedom, the position of its $14$th vertex, which becomes a qubit once the tiling's area ledger is imposed.
+
+\emph{Research question.} What does a flip do to the tiling and to its connectivity, and what is the Hamiltonian of the qubits it carries? Which features of a dynamics a quantum-gravity model needs (locality, a move set, an arrow of time, a source of gravity) are then present, absent or untested? The first question is answered by exact enumeration and measurement on patches, the second by exact reductions of a pair-qubit model.
+
+\begin{table}[t]
+\centering\footnotesize
+\begin{tabular}{@{}p{58mm}p{50mm}p{20mm}@{}}
+\toprule
+Question & Answer & Result \\ \midrule
+Is a flip a local event? & A cluster of $8$ to $17$ tiles per side at uniform density, growing as $\rho^{2.25}$ & \numeric$^\dagger$; Res.~\ref{res:flip-clusters}, \ref{res:flip-density} \\
+Does connectivity change? & Contact graph: in $75\%$ of tile-changing flips. Tetrad flux of the lift: never & \numeric$^\dagger$, \exact; Res.~\ref{res:flip-contact}, \ref{res:lift-flux} \\
+Is there an arrow of time in flips? & No: the flip relation is symmetric under reversal & \exact; Res.~\ref{res:flip-symmetry} \\
+Can a hole be refilled in two ways? & Not for holes of $1$ to $300$ tiles tried (chiral tiles) & \exact; Res.~\ref{res:flip-cavity} \\
+Is the pair structure finite? & Pair counts: recurrence of order $5$, proved. Pair rule: $53$ types, closed from level $4$ & \exact; Res.~\ref{res:found-pairs-proof}, \ref{res:ham-rg-closed} \\
+What is the Hamiltonian of the bits? & One qubit per pair; frustrated dipolar couplings, unique classical ground state to $28$ pairs & \exact, \numeric; Res.~\ref{res:ham-pair}, \ref{res:ham-patch}, \ref{res:ham-dipole-large} \\
+Is a flip a Pachner move? & Not decided; no closed cluster reached & \hypo; Sec.~\ref{sec:flips-physics} \\
+Does the model give gravity? & No monopole, no horizon, light bending the wrong way & \negres; Sec.~\ref{sec:gravity} \\
+\bottomrule
+\end{tabular}
+\caption{The questions of this paper and their answers. Labels are defined below.}\label{tab:answers}
+\end{table}
+
+\emph{Related work.} Connectivity changes of a gravitational field in tetrad form are studied by Comisso and Asenjo \cite{comisso2026}; we test the nearest discrete statement (Section~\ref{sec:reconnect}). Arrows of time from structure are studied in the Janus-point programme \cite{barbourlobo2026}. Frustrated constraints and quantum constraint satisfaction are reviewed in \cite{gharibian2015}.
+
+\emph{Conventions.} Every result carries one label: \exact\ (an identity, a proof or a finite enumeration checked by a test that can fail), \numeric\ (a computed number on a finite patch, with its tolerance), \negres\ (a natural expectation that the computation refutes) or \hypo\ (not shown). Numbers marked $\dagger$ are copied from a log or snapshot and not recomputed when the paper is built; all others are written into the text from the code, which checks $\qgTNumbersChecked$ of them on every build. The code, data and the command that rebuilds everything are described in Appendix~\ref{app:repro}. This paper is the focused version of a longer working draft, \texttt{quantgrav.tex}, which also contains material on $E_8$ and Hopf fibres, a Wilson-loop probe, Yang--Mills mechanics, the Chair44, a Danzer tiling and earlier dynamic proposals; none of it is needed below.
+
+\emph{Plan.} Section~\ref{sec:model} defines the substrate and the bit. Section~\ref{sec:pairs} gives the exact combinatorics of the pairs. Section~\ref{sec:flips} follows flips. Section~\ref{sec:ham} gives the bits a Hamiltonian. Section~\ref{sec:flow} follows the $14$th vertex as the Spectre is deformed into the Hat. Section~\ref{sec:gravity} says what is missing, and Section~\ref{sec:open} lists the open problems.
+
+%------------------------------------------------------------------------------------------------------------------------------------
+\section{The substrate and the bit}\label{sec:model}
+\subsection{The Spectre, its lift and its windows}
+The Spectre has $14$ edges of unit length at multiples of $30^\circ$ \cite{smith2023}; the Hat \cite{smith2024hat} belongs to the same two-parameter family. In the lift of Ch\'eritat and Ma \cite{cheritat2023} a vertex is an integer vector $(p,q,r,s)$ with plane position $u+\zeta v$, $u=p+q\varpi$, $v=r+s\varpi$, $\varpi=e^{i\pi/3}$, $\zeta=e^{i\pi/6}$: the lift lattice is $\mathbb{Z}[\zeta_{12}]$, a red $A_2$ (edges at even multiples of $30^\circ$) plus a green $A_2$. All exact computations below use these integer vectors. (The lift lattice embeds isometrically in $E_8$ with every edge a root, but the inflation does not extend to $E_8$; we do not use $E_8$ here.)
+
+The vertices form a model set: a tile $(b,u{+}w)$ of class $b$ is present at internal phase $z$ iff $B_bz+d_{b,w}\in Z_0(S_b)$, where $Z_0$ is a window with fractal boundary.
+\begin{result}[\exact, source]\label{res:window-pieces}
+The window of a tile of shape $O$ (the tile) or $G$ (the two-tile ``Gamma'' shape) in the frame of parity $p\in\{0,1\}$ is an attractor of a graph-directed system of similarities of ratio $1/\lambda$, $\lambda^2=4+\sqrt{15}$ ($\lambda=\qgKLam$). The pieces $Z_0(O)$, $Z_1(O)$, $Z_0(G)$, $Z_1(G)$ have $\qgKPieces$ children, and the seams between the children have box dimension $\log(5+2\sqrt6)/\log(4+\sqrt{15})=\qgKSeam$ (a lower bound for the boundary dimension of the window). We rasterise these maps and do not re-prove them.
+\end{result}
+\begin{result}[\exact\snap]\label{res:index36}
+The tile vectors of every window class of the level-$3$ patch lie in a coset of one sublattice of $\mathbb{Z}^4$ of index $\qgKIndex$ (Smith normal form $1,1,6,6$; $\qgKTilevec$ tile vectors, $\qgKClasses$ classes). A placement $(b,w)$ is possible only if $w\equiv v_b-u_a$ modulo that sublattice.
+\end{result}
+Without this restriction a first attempt put $36$ to $39$ windows over an interior point instead of one. The windows of neighbouring tiles cover internal space with no hole and no detected overlap at the resolution tested, but they do not have the Wada property (three or more pieces meeting at every boundary point): at a tenth of the boundary pixels three or more pieces lie within the radius $0.064$, and the children of one piece are not a Wada partition (Results 33 and 35 of the long draft; $\dagger$).
+
+\subsection{Flips}
+A \emph{phason step} replaces $z$ by $z'=z+\delta e$, $|e|=1$. A \emph{flip} is the ordered pair $(z,z')$ when the set of tiles present, $\mathcal{T}(z)$, differs from $\mathcal{T}(z')$, and its content is $\mathcal{F}(z,z')=\mathcal{T}(z)\triangle\mathcal{T}(z')$. Since $\mathcal{F}(z',z)=\mathcal{F}(z,z')$, a flip has no direction by construction.
+
+\subsection{The bit and the pair qubit}\label{sec:bit}
+Of the $14$ vertices the eighth, $P_8$, is flat in the straight outline. In the model it carries a bit $s=\pm1$: with $s=+1$ it stands out of the chord $P_7P_9$ by $h$ (a convex tile), with $s=-1$ it stands in by $h$ (a reflex tile). On a tiling of the plane a tile can open only together with a partner: two tiles whose eighth vertices meet alone, a \emph{bump-and-dent pair} (Section~\ref{sec:pairs}). The \emph{area ledger} $Q=\sigma^z_i+\sigma^z_j=0$ then holds for the pair, which is the constraint that turns the two bits into one qubit (Section~\ref{sec:ham}).
+
+%------------------------------------------------------------------------------------------------------------------------------------
+\section{Exact combinatorics of the pairs}\label{sec:pairs}
+Let $T_k$ be the number of tiles of the level-$k$ patch (built by $k$ substitutions; $1,9,71,559,4401,34649$ tiles at levels $0$ to $5$, $T_k=8T_{k-1}-T_{k-2}$) and $P_k$ its number of bump-and-dent pairs. At levels $2,3,4$ the patches have $\qgWPatchTilesTwo$, $\qgWPatchTilesThree$, $\qgWPatchTilesFour$ tiles and $\qgWPairsTwo$, $\qgWPairsThree$, $\qgWPairsFour$ pairs.
+\begin{result}[\exact]\label{res:found-pairs}
+$T_k=A\mu^k+B\mu^{-k}$ with $\mu=4+\sqrt{15}$, and the counts $P_k=0,0,6,82,804,7012,58106,\qgWPairSeven$ for $k=0,\dots,7$ satisfy a recurrence with characteristic polynomial $(x-1)(x^2-8x+1)(x^2-4x-1)$: the roots are those of the tile counts ($\mu^{\pm1}$) and of the perimeter law of the supertiles ($\nu=2+\sqrt5=\varphi^3$, $2-\sqrt5$, and $1$). The recurrence holds for every $k$ (Result~\ref{res:found-pairs-proof}). From it
+\[
+P_k=\frac{\mu^k-\mu^{-k}}{\sqrt{15}}-\Bigl(\tfrac14+\tfrac{3\sqrt5}{20}\Bigr)\nu^k-\Bigl(\tfrac14-\tfrac{3\sqrt5}{20}\Bigr)(2-\sqrt5)^k+\tfrac12,
+\]
+so $P_k/T_k\to2/(5+\sqrt{15})=(5-\sqrt{15})/5=\rho_0=\qgRhoZero$, the density of valence-$4$ vertices, with a correction of order $(\nu/\mu)^k=\qgWBoundaryRatio^k$. At level $3$, $\qgWPairPctThree\%$ of the tiles are in a pair.
+\end{result}
+\begin{result}[\exact]\label{res:found-pairs-proof}
+The recurrence of Result~\ref{res:found-pairs} holds for every $k$. Call $O$ any of the eight species other than $\Gamma$, and $G$ the species $\Gamma$. By induction on $k$ the eight species $O$ have the same tile set, outline and flat-pair count $P_k(O)$, because their substitution rules differ only in the species of the children; $\Gamma$ omits the child in slot $2$ and has $P_k(G)$. Write the seam of two adjacent children as a relative transform in $\mathbb{Z}[\omega]^4$, $\omega=e^{i\pi/3}$. The reflection $R=-\overline{(\cdot)}$ cancels in every transform between children of the same level, and the reachable seams close on $15$ states ($13$ occur in $O$, $11$ in $G$) with an integer transition matrix $M\in\mathbb{Z}^{15\times15}$. No triple junction creates a flat pair, so $P_{k+1}(O)=7P_k(O)+P_k(G)+J_{k+1}(O)$ and $P_{k+1}(G)=6P_k(O)+P_k(G)+J_{k+1}(G)$, where $J_k$ counts the pairs across seams and is linear in $M^k\mathbf b_1$. The Krylov space of $\mathbf b_1$ under $M$ has dimension $4$ (eigenvalues $2\pm\sqrt5$, $+1$, $-1$), and the $(-1)^k$ mode vanishes in the read-out of both $O$ and $G$, so $J_k$ has minimal polynomial $(x-1)(x^2-4x-1)$ for $k\ge2$, and $P_k$ the polynomial above for all $k\ge0$ ($O$) and $k\ge1$ ($G$).
+\end{result}
+The computation uses exact integer and rational arithmetic (closure of the automaton, $M\mathbf b_k=\mathbf b_{k+1}$ for $k\le3$, the Krylov dimension and the counts to level $7$; \texttt{research/toymodel\_v10/t10\_pair\_proof.py}, a module of J.~Lockwood run here). The step from these checks to all $k$ is the closure of the automaton; no second, independent program has confirmed it.
+
+\subsection{The local pair rule}\label{sec:rule}
+A level-$L$ supertile of one tile of the level-$(L{-}1)$ patch is a block; no flat pair lies inside a block ($0$ of $6$, $82$, $804$ at levels $2,3,4$), every pair of level $L-1$ reappears as one pair of level $L$, and the others lie on boundaries between adjacent blocks. Does the number of pairs on a boundary depend only on a finite label of the two blocks and the edges they share?
+\begin{result}[\exact\snap\ for levels $2$ to $6$]\label{res:ham-rg-closed}
+Give each tile its leaf label, the species $c$ of the tile it was created as (a tile of species $c$ is inflated into the supertile of species $c$), and its kind (single, or one of the two halves of a Mystic pair). The type of the seam between two adjacent blocks is the two labels with the shared edge pairs, taken up to exchange of the blocks; its count is the number of flat pairs on the seam. At levels $2$ to $6$ ($6$, $82$, $804$, $7012$, $58106$ pairs) no pair lies inside a block or joins blocks that are not adjacent, a seam carries at most one pair, and the count is a function of the type. The numbers of types are $14$, $46$, $53$, $53$, $53$ ($6$, $28$, $35$, $35$, $35$ of them with a pair), and the sets at levels $4$, $5$, $6$ are equal: no new type appears after level $4$. Keyed instead by the outermost species of the tile (a position in the whole hierarchy, not a property of the block) the table does not close ($\qgZTypesFour$ types at level $4$, $\qgZTypesNew$ of them new).
+\end{result}
+\hypo: no new type appears at any level (a proof would need the seam automaton of Result~\ref{res:found-pairs-proof} to determine the type). Code: \texttt{research/toymodel\_v10/t10\_rules.py}, a re-implementation of the table in J.~Lockwood's notes (which gives $66$ types when blocks are ordered by index, $53$ up to exchange).
+
+\subsection{Orientation parity}
+With the orientation index $m=\text{angle}/30^\circ\bmod12$, the minority parity $m\bmod2$ is exactly the Mystic-shaped tiles.
+\begin{result}[\exact\snap]\label{res:flip-parity}
+The minority parity counts $1,8,63,496,3905$ at levels $1$ to $5$; the count at one level is the majority count at the previous one, and the minority frequency tends to $(5-\sqrt{15})/10=0.11270$ with ratio majority to minority $4+\sqrt{15}=\lambda^2$. Hence the window of a Mystic pair has $1/(3+\sqrt{15})=0.14550$ of the area of a single tile's window; \numeric: measured $0.1578$, $0.1515$, $0.1479$, $0.1460$ at tolerances $0.012$, $0.006$, $0.003$, $0.0015$. The orientation frequencies are window areas.
+\end{result}
+
+%------------------------------------------------------------------------------------------------------------------------------------
+\section{Phason flips}\label{sec:flips}
+The work is in \texttt{research/toymodel\_v8} (stage notes, scripts, logs), \texttt{v9} (the engine as a module with regression tests) and \texttt{v10} (exact refilling). We follow the tile of class $0$ at the origin of a level-$3$ patch. All numbers marked $\dagger$ are for one class, one footprint and a level-$3$ patch, so none is a statement about all tilings.
+
+\subsection{The engine}\label{sec:flips-engine}
+The engine lists the placements $(b,w)$ in the coset of Result~\ref{res:index36} inside a lattice box and tests membership in a window by the nearest point of a depth-$7$ cloud: inside if nearer than $\mathrm{IN}_T$, outside if farther than $\mathrm{OUT}_T$, otherwise the phase is dropped.
+\begin{result}[\numeric\snap]\label{res:flip-engine}
+(i) \emph{Box.} The box must contain the Mystic-pair placements, whose footprints are displaced from the physical part of $w$ (class $5$, $|w_{\rm phys}|=12.77$). With a box of radius $20$ every one of $1934$ real neighbour pairs around class-$0$ tiles of real level-$3$ patches is in the list, all in the same coset; a box of $12$ loses $5$ of the pairs and leaves $12\%$ of the phases of $Z_0(O)$ uncovered. (ii) \emph{Tolerance.} A flip occurs only where $z$ is within $\delta$ of a window boundary, so if $\mathrm{IN}_T$ is comparable to $\delta$ both the old and the new tile count as present, exactly in the changed samples: $\mathrm{IN}_T=0.003$, $\delta=0.01$ gives overlapping tiles in $37$ of $60$ changed samples against $0$ of $60$ unchanged; $\mathrm{IN}_T=0.0015$ (cloud spacing $0.0012$), $\delta=0.03$ gives $5$ and $1$ of $60$, and $1180$ of $1321$ changed samples ($89\%$) have a valid tiling before and after.
+\end{result}
+All results below use box radius $20$, $\mathrm{IN}_T=0.0015$, $\mathrm{OUT}_T=0.0035$, $\delta=0.03$.
+
+\subsection{A flip is a cluster at uniform density}\label{sec:flips-clusters}
+\begin{result}[\numeric\snap]\label{res:flip-clusters}
+One phase changes about $10$ tiles in a region of radius $14$ about the origin tile (mean $9.9$ removed, median $11$, at most $37$), uniformly in distance: the frequency of change per placement is $0.0021$, $0.0020$, $0.0022$, $0.0022$, $0.0023$ in the shells $0$--$3$, $3$--$6$, $6$--$9$, $9$--$12$, $12$--$14$. Linking removed and added tiles that overlap gives $818$ clusters; the first twelve inspected have $8$ to $17$ tiles on each side and areas $80$ to $172$ (Figure~\ref{fig:flip-gallery}). The tile count differs by one where a Mystic pair is exchanged for two single tiles. No cluster satisfies the closure test, because the region in which the placement list is complete (radius $8.5$) is smaller than the clusters.
+\end{result}
+\begin{result}[\numeric\snap]\label{res:flip-density}
+The mean number of changed tiles inside a disc of radius $\rho$ about the tile grows as $\rho^{2.25}$ ($\rho=1.5$ to $7$, $2831$ usable phases), and the number of changed tiles per tile present is constant, $0.056$ at every $\rho$ (a lower bound, since phases inside the ambiguity band are dropped).
+\end{result}
+The growth exponent does not depend on the step ($2.19$, $2.25$, $2.33$ at $\delta=0.06$, $0.03$, $0.015$; the step $0.0075$ is below the resolution of the tolerance), and the elementary flip is a cluster of about two tiles at the origin that does not shrink to a single swap as the step halves. So a step changes tiles with a positive density over the whole plane: a pattern of local clusters, not an isolated event. The same picture holds for the phason displacement of the internal point itself:
+\begin{result}[\numeric\snap]\label{res:phason}
+For a Gaussian displacement of standard deviation $\delta$ of the internal point of $Z_0(O)$, the probability of leaving the window follows $\delta^{\alpha}$ with $\alpha=\qgKAexit$ for $\delta=0.012$ to $0.048$, the value $2-D=\qgKAexpect$ expected from $D=\qgKSeam$. In the variable $T=\delta^2$ of a thermal noise the slope is $\qgKTexpect$.
+\end{result}
+A thermal phason noise of variance $T$ should then change a fraction $\propto T^{\alpha/2}$ of the tiles; this is a prediction for a Langevin simulation on internal space that was not run (\hypo).
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{research/toymodel_v8/figures/fig_flip_gallery.png}
+\caption{Four flips picked at random among $416$ validated events that touch the footprint (class $0$, level $3$, $\delta=0.03$). Black: the tile at the origin; orange: present before and not after; blue: present after and not before; hatched: Mystic-pair tiles. In each panel the region within $4.5$ of the origin tile has no overlap and no hole before and after.}\label{fig:flip-gallery}
+\end{figure}
+
+\subsection{The contact graph changes; the field sheets do not}\label{sec:flips-contact}
+The footprint is the origin tile enlarged by a margin of $1$ ($767$ placements); the graph has the tiles meeting the footprint as vertices and contact along an edge as links.
+\begin{result}[\numeric\snap]\label{res:flip-contact}
+Of $6000$ phases ($5245$ unambiguous) $539$ change the present set, and $468$ of these have a valid tiling before and after. In $224$ ($48\%$) the set of tiles meeting the footprint changes, and in $169$ of those ($75\%$) the contact graph is not isomorphic before and after; in $55$ it is isomorphic as an unlabelled graph and differs in the classes. The reversed step gives identical counts.
+\end{result}
+\begin{figure}[t]\centering
+\includegraphics[width=\linewidth]{research/toymodel_v8/figures/fig_rerun_contact.png}
+\caption{Result~\ref{res:flip-contact}. (a) Outcomes of the $468$ valid pairs; solid bars forward, hatched bars the reversed step. (b) Number of tiles meeting the footprint before and after.}\label{fig:flip-contact}
+\end{figure}
+\begin{result}[\exact; \hypo\ for the identification]\label{res:lift-flux}
+Identify the four components of a tetrad index with the four coordinates of the lift lattice $\mathbb{Z}^4$ (this identification is ours). The edge vectors of any tiling that is a lift are differences of lattice points, so the one-forms $A^{\hat\alpha}$ are exact and the field strength $F^{\hat\alpha}=dA^{\hat\alpha}$ is zero on every closed loop of the tiling graph, for every phase. A phason flip, which changes which tiles touch, leaves every flux equal to zero: every direction is annihilated by $F$, the field sheets are trivial and there is nothing to reconnect.
+\end{result}
+The two notions of connectivity therefore disagree on the same flips. This is a precise statement about this model; it does not make a flip a reconnection in the sense of Comisso and Asenjo \cite{comisso2026} (Section~\ref{sec:reconnect}). \hypo: that the contact graph is the right discrete stand-in for the connectivity of the sheets.
+
+\subsection{No arrow of time from flips}
+\begin{result}[\exact; \negres]\label{res:flip-symmetry}
+The present set at a phase is a function of the phase, and ``the region is tiled without overlap or hole'' and ``the two contact graphs are isomorphic'' are symmetric in the two phases. So $(z,z')$ is a valid flip iff $(z',z)$ is, and every count of flips by type is identical in the two orientations. \numeric\snap: the reversed run of Result~\ref{res:flip-contact} reproduces all counts.
+\end{result}
+An arrow would need an initial condition, a rate violating detailed balance between local patterns, or the direction of the inflation (which contracts internal space by $1/\lambda$ and changes the relative size of a step by $\lambda$ per level); none was found, and the last has not been tested.
+
+\subsection{Parity and erasure}
+\begin{result}[\numeric\snap]\label{res:flip-parity-change}
+The local parity is not conserved by flips. Among events inside a disc in which the area $n_O+2n_G$ is unchanged, the number of Mystic pairs $n_G$ changed in $0.32$ of $163$ events at $\rho=7$; the fraction is not smooth in $\rho$, so only its sign is stable. A pair exchanged for two singles changes $n_G$ by $-1$ and $n_O$ by $+2$ at fixed area.
+\end{result}
+\begin{result}[\negres\snap]\label{res:flip-erasure}
+Erase the origin tile, keep the tiles outside it, draw $50$ phases within $0.05$ of the true one and keep those whose outside is unchanged: in no case is the set of tiles meeting the erased tile ambiguous ($200$ phases drawn, $184$ used). Places where three or more window pieces meet are not where erasure is harder. One tile, exterior radius $7$.
+\end{result}
+
+\subsection{Exact refilling of a hole}\label{sec:flips-cavity}
+The point cloud cannot say whether a cluster of changed tiles is a tiling. We ask exactly on the level-$4$ patch ($4401$ tiles of one chirality, vertices as integer vectors): erase $k$ tiles and list every filling of the hole by Spectres, edge to edge and without overlap. A search takes an open vertex of the hole (its tiles cover less than $360^\circ$), lists the tiles that fit its free directions without overlapping anything (an exact test over $\mathbb{Q}(\sqrt3)$), and continues at the vertex with the fewest candidates, so a single candidate is a forced move. It is complete for edge-to-edge tilings, which holds on the central tiles tested, and since all tiles have equal area a filling by $k$ tiles covers the hole. No SAT solver is used.
+\begin{result}[\exact\snap\ for the holes tried]\label{res:flip-cavity}
+For the $k$ tiles nearest to a central tile, $k=1$ (all twelve orientations), $10$, $20$, $40$, $80$, $150$ and $300$ (radius $27.96$), the only filling is the original. Every step is forced: the search visits $k+1$ nodes for $k\le40$ and $88$, $170$, $371$ nodes for $k=80$, $150$, $300$ ($8$ minutes at $k=300$). So no flip of the tiles of such a hole exists that leaves the rest of the patch fixed.
+\end{result}
+This is the exact form of Result~\ref{res:flip-erasure}, at $300$ tiles instead of one. It does not say that the clusters of Result~\ref{res:flip-clusters} are absent: they may reach outside the hole, or be artefacts of the cloud tolerance; to decide this one must refill the holes of the flips that are valid tilings. The holes are one family (nearest $k$, one centre, one class). A SAT computation by J.~Lockwood (CaDiCaL, certificates checked with \texttt{drat-trim}; \texttt{research/toymodel\_v10/lockwood\_reported}) reports the same uniqueness to $300$ tiles, and in addition a $2$-tile swap at $k=4$ when reflected tiles are allowed. That swap is \emph{not} reproduced here: with reflections allowed we find no second filling in $57$ small holes, and its holes are not given in the report.
+
+\subsection{What the flips say about physics}\label{sec:flips-physics}
+\emph{Moves.} In two dimensions two triangulations of one closed surface are related by a finite sequence of bistellar moves \cite{pachner1991}, so ``a flip is a composite of local moves'' is close to automatic; what would carry information is the length of the word and the size of the cluster, and for quantum gravity the four-dimensional moves, for which a planar tiling is only a slice of the lift in $\mathbb{Z}^4$. The clusters inspected have $8$ to $17$ tiles per side, so a flip is not a single elementary move; no closed cluster was reached and nothing here supports or contradicts a link to quantum gravity.
+\emph{Time.} The orientation is not in the flips (Result~\ref{res:flip-symmetry}). A candidate for a third source is the inflation: windows of consecutive levels differ in size by $1/\lambda$, so a flip rate that depends on the level would give a direction (\hypo; not tested).
+\emph{Codes.} The absence of ambiguous erasure (Results~\ref{res:flip-erasure}, \ref{res:flip-cavity}) and the positive density of change in every disc are what a locally recoverable pattern needs; neither is a quantum code, and erasure was a classical rule. A Landauer-type cost \cite{landauer1961} would need a record of the erased tile, which was not modelled.
+
+%------------------------------------------------------------------------------------------------------------------------------------
+\section{A Hamiltonian for the bits}\label{sec:ham}
+Every term in this section is a definition; the modules are in \texttt{research/toymodel\_v6} and \texttt{v10}. Any state on a tensor product, read out locally, has CHSH at most $2\sqrt2$ \cite{cirelson1980}, so a Hamiltonian cannot be credited with the quantum bound, and a Hamiltonian of local constraints is a quantum constraint satisfaction problem whose ground state solves the classical one when the terms commute \cite{gharibian2015}.
+
+\subsection{The pair qubit}\label{sec:ham-pair}
+Put a qubit on each tile, $\sigma^z=+1$ convex and $-1$ reflex. With the area ledger as a penalty,
+\begin{equation}\label{eq:hbit}
+H=-J\sum_{\mathrm{pairs}}\sigma^x_i\sigma^x_j+g\sum_{\mathrm{pairs}}(\sigma^z_i+\sigma^z_j)^2-\sum_{A<B}K_{AB}\,\sigma^z_{A_1}\sigma^z_{B_1}-\varepsilon\sum_i\sigma^z_i .
+\end{equation}
+\begin{result}[\exact]\label{res:ham-pair}
+$\sigma^x_i\sigma^x_j$ flips both tiles of a pair, so it commutes with $Q^2$: the sector $Q=0$ is invariant for every $g$, and in it each pair is one qubit $\tau$ with $H_{\mathrm{eff}}=-J\sum\tau^x-\sum K_{AB}\tau^z_A\tau^z_B$; no limit $g\to\infty$ is needed. The uniform field vanishes on the sector, so the area term cannot bias a pair. One pair cannot violate CHSH: the only one-tile observables that commute with the ledger are functions of $\sigma^z$. For two pairs the ground state has concurrence $C=K/\sqrt{4J^2+K^2}$ \cite{wootters1998} and largest CHSH value $2\sqrt{1+C^2}$ \cite{horodecki1995}.
+\end{result}
+
+\subsection{Frustrated dipoles on patch clusters}\label{sec:ham-patch}
+On a patch the pairs are disjoint and the same along the flow, so each carries a pair qubit. The coupling is not chosen: with the bit read as a charge $\pm h$ at the centroid of its tile, a pair is a dipole and $K_{AB}$ is the Coulomb energy of two dipoles.
+\begin{result}[\exact; \negres\ for the two-pair picture]\label{res:ham-patch}
+The charges give an exact Ising coupling with both signs ($\qgYAntiFour$ of the couplings antiferromagnetic at level $4$), falling as $r^{-3}$ (fitted slope $\qgYSlope$). The patch is frustrated: the classical ground state leaves $\qgYFrusTwo$ of the bond weight unsatisfied on the six pairs of level $2$, and $\qgYFrusLo$ to $\qgYFrusHi$ on the central $6$ to $14$ pairs of level $3$. As the tunnelling goes to zero, the ground state of every such cluster is the cat $(|s\rangle+|{-s}\rangle)/\sqrt2$ of its classical ground state $s$, whose two-pair reductions have concurrence below $10^{-10}$. For two pairs that cat is a Bell state, which is why the two-pair model is most entangled at the Spectre end.
+\end{result}
+\begin{result}[\exact\snap; \numeric\snap]\label{res:ham-dipole-large}
+Result~\ref{res:ham-patch} continues beyond $14$ pairs. The exact ground state of the $N$ central pairs of level $3$ (all $2^{N-1}$ states, split in two blocks, Python with \texttt{numpy}) is unique up to the global flip for every even $N$ from $6$ to $28$, with unsatisfied weight $f=0.1649$ at $N=14$ and $0.1695$, $0.1723$, $0.1937$, $0.2046$, $0.2062$, $0.2111$, $0.2091$ at $N=16,\dots,28$; $f$ is not monotone in $N$. Annealing with descent agrees with the exact value at $N=14$ and $20$. Beyond that it gives upper bounds only, $f\le0.2293$ for the whole level-$3$ patch ($N=82$) and $f\le0.294$ for level $4$ ($N=804$), and the best energy is reached by one restart of $32$ to $128$, so these are not converged. \hypo: that $f$ tends to a bulk value near $0.29$.
+\end{result}
+Code: \texttt{research/toymodel\_v10/t10\_dipole.py}, a Python rebuild of the compiled solver of J.~Lockwood, whose exact values for $N=16$ to $22$ it reproduces.
+\begin{result}[\numeric]\label{res:ham-flow}
+Along the flow of Section~\ref{sec:flow}, on the clusters of $6$ to $14$ pairs, the largest pairwise concurrence peaks at $\qgYPeakLo$ to $\qgYPeakHi$ at $\tau=\qgYPeakTauLo$ to $\qgYPeakTauHi$, depending on the cluster, and vanishes at both ends. The largest CHSH value of any reduced two-pair state is $\qgYChshMax$, and $\qgYChshObs$ with the read-out visibility, above $2$ in one cluster of the five. At the Hat end the clusters are paramagnets with gap $4c$; the minimum of the gap moves with the cluster, so no transition is claimed.
+\end{result}
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.82\linewidth]{research/toymodel_v6/figures/t6_stage1_patch.png}
+\caption{The pairs of a Spectre patch as a transverse-field Ising model. (a) The level-$3$ patch: the $14$ central pairs (blue), other pairs (tan), couplings in red (antiferromagnetic) and blue (ferromagnetic). (b) The coupling at level $4$ against the distance of the pairs, with $r^{-3}$. (c) The gap of the even sector along the flow for clusters of $6$ to $14$ pairs and for two pairs. (d) The largest pairwise concurrence: zero at the frozen end for every cluster. (e) The largest CHSH of a reduced two-pair state.}\label{fig:ham-patch}
+\end{figure}
+
+\subsection{A $\mathbb{Z}_2$ gauge form of the constraint}\label{sec:ham-gauge}
+The patch has its own cell complex: tiles as sites, shared edges as links, interior vertices as plaquettes. Put a $\mathbb{Z}_2$ qubit on each link, a Gauss law $G_t=\prod_{l\ni t}X_l$ at each tile and a plaquette $B_p=\prod_{l\ni p}Z_l$ at each vertex.
+\begin{result}[\exact]\label{res:ham-gauge}
+At level $2$ the complex has $\qgYGTiles$ tiles, $\qgYGLinks$ links and $\qgYGPlaq$ plaquettes; it is a disc ($T-L+P=1$, also at levels $1$ and $3$). Every Gauss law commutes with every plaquette, their ranks over $\mathrm{GF}(2)$ are $T-1$ and $P$, and $T-1+P=L$: the plaquette limit has a unique ground state. The ledger is not the Gauss law: at every flat pair ($\qgYGPairsThree$ of $\qgYGPairsThree$ at level $3$) the shared vertex $P_8$ is a plaquette whose two links are the only links of the pair; $Z^m_{A_1}Z^m_{A_2}$ anticommutes with the two Gauss laws, its gauge-invariant forms are the Wilson lines along the two shared links, and their product is $B_{P_8}$.
+\end{result}
+\begin{result}[\exact]\label{res:flux-transfer}
+The flux through a set $S$ of plaquettes, $\prod_{p\in S}B_p$, equals the product of $Z_l$ over the cut of $S$ (the links with exactly one end in $S$), checked on $100$ random regions at each of levels $2$ and $3$. Hence a link term $X_l$ changes the flux through $S$ exactly when $l$ is in its cut. The plaquette limit commutes with every flux, and the pair parity $-Z_{A_1}Z_{A_2}$, which commutes with every term of the tile Hamiltonian, is a flux conserved for the whole flow.
+\end{result}
+The tiling supplies the complex and the place of the ledger in it, not the Gauss law, which is a choice. In the plaquette limit the ground state has no two-body Bell violation.
+
+\subsection{Reconnection: what the dictionary gives}\label{sec:reconnect}
+Comisso and Asenjo \cite{comisso2026} write general relativity in tetrad form with a vector potential $A^{\hat\alpha}$ and field $F^{\hat\alpha}=dA^{\hat\alpha}$; an ideal condition conserves the flux through transported surfaces and the connectivity of the field sheets, and relaxing it by a term $R$ changes the flux at the rate $\oint_{\partial S}R$ (we read their paper and did not check its derivations). Result~\ref{res:flux-transfer} is its discrete flux law. Four things we first expected do not hold. (i) \emph{Connectivity:} the sheets are trivial in the lifted tiling (Result~\ref{res:lift-flux}), and sheet connectivity has no $\mathbb{Z}_2$ analogue on a two-dimensional complex. (ii) \emph{Source:} the exchange density of their paper is linear in the matter stress-energy, so it vanishes in vacuum and cannot be the monopole source missing from Section~\ref{sec:gravity}; only a structural analogy survives (the two tiles of a pair exchange area while the sum is conserved). (iii) \emph{Helicity:} it needs a three-dimensional magnetic field; the planar tile has none. (iv) \emph{Scope:} their theorems are for a smooth spacetime with a tetrad.
+
+%------------------------------------------------------------------------------------------------------------------------------------
+\section{The $14$th vertex: from the Spectre to the Hat}\label{sec:flow}
+In the Spectre--Hat family a parameter $\tau\in[0,1]$ moves the tile from the Spectre ($\tau=0$) to the Hat ($\tau=1$): the length ratio $b(\tau)=a(1+(\sqrt3-1)\tau)$, the curve strength $k(\tau)=k_0(1-\tau)$ and the corner angle $\omega(\tau)=\omega_0(1-\tau)$ move linearly. The bit puts $P_8$ at $\pm h(\tau)$ from the chord, $h=a\tan(\omega/2)$; the distance between the two positions is the jump $d=2h$. At the Hat $\omega=0$ and the bit has merged (Figure~\ref{fig:flow3d}). The record, cost, validity and snap rules of the model are choices of the model, not results.
+\begin{figure}[t]\centering
+\includegraphics[width=0.82\linewidth]{figures/spectre_hat_time_3d.png}
+\caption{The expansion and collapse of the $14$th vertex, $\omega_0=120^\circ$. Left: every outline of the flow stacked along $\tau$ (vertical); blue and red, edges $7$ and $8$ for $s=+1$ and $s=-1$; black, the worldline of $P_8$. Right: the neighbourhood of $P_8$ only; the band between the branches is the jump $d(\tau)$, widest at the Spectre and closing at the Hat.}\label{fig:flow3d}
+\end{figure}
+\begin{result}[\exact]\label{res:flow-area}
+The area of the tile splits as $A_\pm=A_0(b)\pm ah$ with $A_0=2\sqrt3a^2+3ab+\sqrt3b^2$ independent of $k$ and $\omega$: the two bit values differ by $a$ times the jump $d=2h$ and by nothing else, and give the same tile iff $\omega=0$ (proof in Appendix~\ref{app:proofs}). At $\omega_0=120^\circ$, $a=1$: $d(0)=\qgWJumpZero$, $d(1/2)=\qgWJumpHalf$.
+\end{result}
+\begin{result}[\exact\ and \numeric]\label{res:flow-validity}
+The convex value $s=+1$ gives a simple closed curve at all $\qgWValidPoints$ points of a $5\times5\times11$ grid in $(b,k,\omega)$ up to $\omega=170^\circ$. The reflex value does not: for the straight tile ($k=0$, $a=1$) it is simple iff $h<h^*(b)=\min\bigl(\tfrac{3b+\sqrt3}{2},\tfrac{b+\sqrt3}{\sqrt3b-1}\bigr)$, so $\omega_c=2\arctan h^*$ is $\qgWOmegaCStraight^\circ$ at the Spectre and exactly $\qgWOmegaCHat^\circ$ at the Hat (Appendix~\ref{app:proofs}); for curved edges (Figure~\ref{fig:critical}) at $\tau=0$ it fails for $\omega_0$ above $\qgWOmegaCThree^\circ$, $\qgWOmegaCFive^\circ$, $\qgWOmegaCEight^\circ$ at $k_0=0.3,0.5,0.8$.
+\end{result}
+\begin{figure}[t]\centering
+\includegraphics[width=0.82\linewidth]{figures/spectre_hat_critical.png}
+\caption{The critical displacement $h^*$ of the reflex outline for curved edges ($\omega_c=2\arctan h^*$). (a) $\omega_c$ on a grid in $(b,k)$; (b) $h^*$ against $k$ at four values of $b$, with the closed-form vertex contact dashed; (c) the moving edges just below (green) and just above (red) $h^*$.}\label{fig:critical}
+\end{figure}
+\begin{result}[\exact]\label{res:flow-decouple}
+In the level-$3$ patch the edges $7$ and $8$ of each of the $\qgWCoupledTiles$ tiles in flat pairs meet only the partner tile, so the opening of a pair cannot be seen outside it: any choice of states and of $\omega$ per pair closes every seam. What the whole patch shares is $b$ and $k$; only $\omega$ is free pair by pair.
+\end{result}
+\begin{result}[\exact\ for monotonicity, \negres\ for an arrow]\label{res:flow-arrow}
+$A_0$, the reflex area $A_-$ and the jump $d$ are monotone along every admissible path in the box (up, up, down toward the Hat). The convex area and the bending energy are monotone along the linear flow but not along every path. Each of the three is a function of $b$ or $\omega$, so the orientation is a consistency check on the model, not a derivation of the direction of time. The allowed distinguishable bit values run $1,2,1$ for large $\omega_0$.
+\end{result}
+\begin{result}[\numeric\ and \negres]\label{res:flow-entropy}
+The counting entropy of the bits of a patch ($\qgWPairsThree$ bits at level $3$ while a pair has two valid distinct open states, and $0$ otherwise) is non-increasing along the linear flow in $\qgWGridMono$ of $\qgWGridCells$ grid cells of $(\omega_0,k_0)$, exactly the $\qgWGridValidStart$ cells in which the reflex outline is simple at the Spectre end; elsewhere it rises from $0$ and then falls. It does not fall toward the Hat but at it. Read as an entropy it points opposite to ``later means more entropy'', and it is an orientation only for $\omega_0$ below $\omega_c(k_0)$.
+\end{result}
+\begin{result}[\numeric\ and \negres]\label{res:flow-sign}
+The tangent angle of the outline lifts to a double cover in which it is antiperiodic (a spin structure that exists for every simple outline and needs no choice). The relative sign $-1$ between the two bit values would need a corner-turn difference of $360^\circ$ at $P_8$. Displacing $P_8$ by $\pm h(\cos\varphi,\sin\varphi)$ in any direction, for $b$ between $1$ and $\sqrt3$, $k_0\le0.3$ and all $h$ scanned, every deformation with two simple outlines has a difference below $2\pi$: the largest found is $\qgWDeltaSup^\circ$. So that sign is not reached by moving $P_8$; moving other vertices was not tried.
+\end{result}
+These results do not show that the bit at $P_8$ has anything to do with time. They show where the bit can be read, where it can be flipped and where a value is not allowed to exist.
+
+%------------------------------------------------------------------------------------------------------------------------------------
+\section{What is not obtained}\label{sec:gravity}
+\emph{Gravity.} Under layout rules stated before counting, the Chair44 chair selects a decomposition of its $192$ tips that is neutral, so it gives no $1/r$ source; the bit lengthens its own edges as $1/c$ to first order, the opposite of the space factor needed to bend light; under a field rule Gauss's law keeps the field finite at every radius, so the bits cannot form a horizon; and the reflex outline is valid only below the critical angle, which puts a floor on any overlap a tile can represent. These are negative results of the long draft (\negres); they say where the next model starts. A Bell violation with the tile's own settings exists for two pairs ($\qgZBellVis$ with the read-out visibility, no run discarded), not on clusters of $6$ to $14$ pairs ($\qgZBellPatch$), and an entropy that grows under unitary dynamics exists (Page value $\qgZPage$ against $\qgZQuenchMid$ bits at $\tau=0.3$), but its direction is that of the initial state: the Hamiltonians are real, so $S(-t)=S(t)$.
+
+\emph{Moves and arrow.} No closed flip cluster was reached, so nothing is said about Pachner-type moves (Section~\ref{sec:flips-physics}); flips are symmetric under reversal (Result~\ref{res:flip-symmetry}), and every orientation in the model is put in by hand or depends on the reading.
+
+\section{Open problems}\label{sec:open}
+Each item says what would count as an answer.
+\begin{enumerate}[leftmargin=1.6em,itemsep=1pt]
+\item \textbf{Do the flip clusters tile?} Refill the holes of the flips that are valid tilings with the exact search of Section~\ref{sec:flips-cavity}; find a hole with a second filling (none found); reproduce or refute the $2$-tile swap with reflections at $k=4$ reported by Lockwood (needs his erased tiles).
+\item \textbf{Closed clusters and moves.} A region of radius about $26$ for the placement list, and the change $(dV,dE,dF)$ of each closed cluster; whether a cluster is a word of Pachner moves.
+\item \textbf{The step and the rate.} Cluster size and flip density against the step ($0.015$ and below, with the tight tolerance); the other eleven classes and level $4$; a flip rate that depends on the level (the only candidate for an arrow from flips); a Langevin simulation against $T^{\alpha/2}$.
+\item \textbf{The pair rule.} A proof that the table of Result~\ref{res:ham-rg-closed} has no new type at any level, from the seam automaton.
+\item \textbf{The dipole model.} Converged annealing or an exact method for $N\ge82$, to decide whether the frustration reaches a bulk value near $0.29$; clusters beyond $14$ pairs along the flow, to decide whether the gap minimum is a transition; a non-abelian block map on the supertile boundaries.
+\item \textbf{Reconnection.} A definition of connectivity on the tiling for which a flip can be a reconnection in the sense of \cite{comisso2026}: a three-dimensional analogue of the sheets, of the non-absorbable term and of the helicity.
+\item \textbf{The $14$th vertex.} A deformation that moves vertices other than $P_8$ and reaches the relative sign $-1$, or a proof that none does.
+\end{enumerate}
+
+\section{Conclusion}
+A phason flip of the Spectre is a cluster of tiles at uniform density, symmetric under reversal, that rewires the contact graph of the tiles around a footprint in most cases while leaving the tetrad flux of the lift at zero. The pair structure on which the model's qubits sit is exactly finite: the pair counts obey a proved recurrence, the placement rule is a $53$-type table that closes at level $4$, a hole of up to $300$ tiles has one refilling, and the dipolar pair model has a unique frustrated classical ground state to $28$ pairs. The model has no arrow of time of its own, no source of gravity, and no demonstrated link to Pachner moves. What remains is narrow and testable: whether the clusters are tilings, whether a closed cluster exists, and whether the flip rate depends on the level.
+
+%------------------------------------------------------------------------------------------------------------------------------------
+\appendix
+\section{Proofs}\label{app:proofs}
+\begin{result}[\exact]\label{res:found-area}
+Let a tile have $14$ B\'ezier edges, each point symmetric about the midpoint of its chord ($P_0+P_3=P_1+P_2$). (i) Each edge encloses signed area $0$ with its chord, so the area of the tile is that of its chord polygon, $A_0(a,b)=2\sqrt3a^2+3ab+\sqrt3b^2$, for every curve strength $k$. (ii) The flat vertex $P_8$ is the midpoint of the straight chord $P_7P_9$ of length $2a$; moving it by $\pm h$ along the normal changes the area by $\pm ah$. (iii) All turning of a simple outline is at the corners, and moving $P_8$ by $\pm h$ turns the chords of edges $7$ and $8$ by $\varphi=\arctan(h/a)=\omega/2$, changing the corner turns at $P_7,P_8,P_9$ by $(-\varphi,2\varphi,-\varphi)$ and $(+\varphi,-2\varphi,+\varphi)$ for the two values.
+\end{result}
+\emph{Proof.} (i) The reflection through the midpoint of the chord is a rotation by $\pi$ and maps the edge to itself reversed and the chord to itself reversed, so it maps the loop (edge, then chord back) to the same loop with reversed orientation; a rotation preserves signed area and reversal changes its sign, so the area is $0$. (ii) The shoelace formula for the triangle $P_7P_8'P_9$ of base $2a$ and height $h$ added to or removed from the polygon. (iii) At the end of the edge the tangent is the reflection of the one at its start, hence parallel to it; a graph over the chord keeps its tangent in a half plane, so the net turning is $0$ and the Umlaufsatz puts the whole turning at the corners. \qed
+\begin{result}[\exact\ with a grid check]\label{res:found-valid}
+For the straight tile ($k=0$, $a=1$, $1\le b\le\sqrt3$) the reflex outline is a simple closed curve iff $h<h^*(b)=\min\bigl(\tfrac{3b+\sqrt3}{2},\tfrac{b+\sqrt3}{\sqrt3b-1}\bigr)$. The terms are equal at $b_\times=(1+2\sqrt7)/(3\sqrt3)=\qgWBx$.
+\end{result}
+\emph{Proof.} With $P_8=(\tfrac{3b}2+\sqrt3,-\tfrac{\sqrt3b}2)$, the edge $P_{12}P_{13}$ is the segment $x=\tfrac{\sqrt3}2$, $-\tfrac32\le y\le-\tfrac12$, which the horizontal path of $P_8$ meets at $h=\tfrac{3b}2+\tfrac{\sqrt3}2$; and $P_{11}=(b+\tfrac{\sqrt3}2,-\tfrac32)$ lies on the side from $P_9$ to $P_8'$ when $h(\sqrt3b-1)/2=\tfrac b2+\tfrac{\sqrt3}2$. That no other vertex or edge is met earlier was checked on $25$ values of $b$ against a direct test of simplicity. \qed
+
+\section{Reproduction}\label{app:repro}
+Every number, table and figure is rebuilt by one script from the root of \url{https://github.com/brentharts/spectre-monotile-py}:
+\begin{center}\texttt{python3 repo\_paper.py all}\end{center}
+It clones the other repositories that some modules import (Hat and Spectre, \url{https://github.com/brentharts/spectre}; \texttt{wada-coudene}, \url{https://github.com/panjea/wada-coudene}; and others), runs every self test, redraws the figures, writes the numbers of \texttt{build/quantgrav\_numbers.tex} and builds this document and the long draft; it takes about $45$ minutes, and \texttt{--long} adds the runs of more than ten minutes (the cavity of $300$ tiles among them). Numbers marked $\dagger$ come from the logs and JSON of \texttt{research/toymodel\_v8}, \texttt{v9} and \texttt{v10} and from \texttt{models/data/wada\_snapshot.json}. \texttt{REPRODUCE.md} gives the module and command for each statement. A mismatch with a snapshot is a reason to doubt this paper, not its source.
+
+\bibliographystyle{plain}
+\bibliography{quantgrav}
+
+\end{document}

@@ -10,6 +10,8 @@
 #   make pdf           build/symspectre.pdf (symbolic LaTeX document, needs pdflatex)
 #   make numbers       compute the numbers quoted in quantgrav.tex -> build/quantgrav_numbers.tex (about 20 s)
 #   make quantgrav     numbers + build/quantgrav.pdf (needs latexmk and pdflatex)
+#   make quantgravedit numbers + build/quantgravedit.pdf, the short focused paper
+#   make edit          build/quantgravedit.pdf only, reusing existing build/quantgrav_numbers.tex (seconds)
 #   make show          open the interactive per-edge variations window
 #   make show-fields   open the interactive distance-field window
 #   make show-fem      open the interactive finite-element window (torsion, modes, heat)
@@ -44,7 +46,7 @@ SLICE_PNG      := $(FIGDIR)/chair44_slice.png
 COMPARE_PNG    := $(FIGDIR)/chair44_compare.png
 
 .DEFAULT_GOAL := help
-.PHONY: help all check test verify figures pdf numbers quantgrav show show-fields show-fem show-curvature show-optimize show-patch show-diffract show-fractal install install-min clean
+.PHONY: help all check test verify figures pdf numbers quantgrav repro quantgravedit edit show show-fields show-fem show-curvature show-optimize show-patch show-diffract show-fractal install install-min clean
 
 help:  ## list the targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) | \
@@ -97,11 +99,21 @@ figures:  ## rebuild every figure in figures/
 pdf:  ## build/symspectre.pdf, the symbolic LaTeX document (needs pdflatex)
 	$(PYTHON) symspectre.py --outdir $(BUILD)
 
+repro:  ## everything from scratch: clone the other repositories, tests, figures, numbers, paper (python3 repo_paper.py all; see REPRODUCE.md)
+	$(PYTHON) repo_paper.py all
+
 numbers:  ## compute the numbers quoted in quantgrav.tex into build/quantgrav_numbers.tex
 	$(PYTHON) models/paper_numbers.py
 
 quantgrav: numbers  ## build/quantgrav.pdf, the working draft of the paper (needs latexmk)
 	latexmk -pdf -f -interaction=nonstopmode -outdir=$(BUILD) quantgrav.tex
+
+quantgravedit: numbers  ## build/quantgravedit.pdf, the short focused paper (numbers + latexmk)
+	latexmk -pdf -f -interaction=nonstopmode -outdir=$(BUILD) quantgravedit.tex
+
+edit:  ## quick rebuild of build/quantgravedit.pdf, reusing the numbers file (runs make numbers only if it is missing)
+	@test -f $(BUILD)/quantgrav_numbers.tex || $(MAKE) numbers
+	latexmk -pdf -f -interaction=nonstopmode -outdir=$(BUILD) quantgravedit.tex
 
 show:  ## run the tests, then open the interactive per-edge variations window
 	$(PYTHON) spectre_operator.py
