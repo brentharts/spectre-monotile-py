@@ -46,7 +46,7 @@ SLICE_PNG      := $(FIGDIR)/chair44_slice.png
 COMPARE_PNG    := $(FIGDIR)/chair44_compare.png
 
 .DEFAULT_GOAL := help
-.PHONY: help all check test verify figures pdf numbers quantgrav repro quantgravedit edit show show-fields show-fem show-curvature show-optimize show-patch show-diffract show-fractal install install-min clean
+.PHONY: help all check test verify figures pdf numbers quantgrav repro quantgravedit edit quantgravalt alt show show-fields show-fem show-curvature show-optimize show-patch show-diffract show-fractal install install-min clean
 
 help:  ## list the targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) | \
@@ -114,6 +114,13 @@ quantgravedit: numbers  ## build/quantgravedit.pdf, the short focused paper (num
 edit:  ## quick rebuild of build/quantgravedit.pdf, reusing the numbers file (runs make numbers only if it is missing)
 	@test -f $(BUILD)/quantgrav_numbers.tex || $(MAKE) numbers
 	latexmk -pdf -f -interaction=nonstopmode -outdir=$(BUILD) quantgravedit.tex
+
+quantgravalt: numbers  ## build/quantgravalt.pdf, the concise version (numbers + latexmk)
+	latexmk -pdf -f -interaction=nonstopmode -outdir=$(BUILD) quantgravalt.tex
+
+alt:  ## quick rebuild of build/quantgravalt.pdf, reusing the numbers file
+	@test -f $(BUILD)/quantgrav_numbers.tex || $(MAKE) numbers
+	latexmk -pdf -f -interaction=nonstopmode -outdir=$(BUILD) quantgravalt.tex
 
 show:  ## run the tests, then open the interactive per-edge variations window
 	$(PYTHON) spectre_operator.py
