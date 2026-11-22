@@ -47,6 +47,43 @@ Discrete approaches to quantum gravity ask for a background whose elementary cha
 
 \emph{Research question.} What does a flip do to the tiling and to its connectivity, and what is the Hamiltonian of the qubits it carries? Which features of a dynamics a quantum-gravity model needs (locality, a move set, an arrow of time, a source of gravity) are then present, absent or untested? The first question is answered by exact enumeration and measurement on patches, the second by exact reductions of a pair-qubit model.
 
+The whole paper is one pipeline, read from the top: a substrate fixes what a flip is, the tile's bit gives a Hamiltonian, the Hamiltonian's states are tested against relative entropy and a Hopf structure, and what is left over is stated as hypotheses.
+
+{\scriptsize
+\begin{equation}\label{eq:overview}
+\mathcal{P}_{\text{pair-qubit}}
+\;=\; \left\{ \begin{aligned}
+&\text{I. Substrate.}\quad (b,u{+}w)\ \text{present at phase } z \iff B_b\,z+d_{b,w}\in Z_0(S_b),\qquad \lambda^2=4+\sqrt{15} \\
+&\qquad \text{(Results~\ref{res:window-pieces}, \ref{res:index36})} \\
+&\Downarrow\quad \text{(phason step } z\mapsto z'=z+\delta e \text{)} \\
+&\text{II. Flip.}\quad \mathcal{F}(z,z')=\mathcal{T}(z)\triangle\mathcal{T}(z')=\mathcal{F}(z',z),\qquad \mathbb{E}\,|\mathcal{F}\cap D_\rho|\propto\rho^{2.25} \\
+&\qquad G(z)\not\cong G(z')\ \text{in } 75\%\ \text{of tile-changing flips},\qquad F^{\hat\alpha}=0\ \text{on every flip of the lift} \\
+&\qquad \text{(no arrow; Results~\ref{res:flip-symmetry}, \ref{res:flip-density}, \ref{res:flip-contact}, \ref{res:lift-flux})} \\
+&\Downarrow\quad \text{(the bit: } P_8 \text{ at } \pm h \text{ moves area } \pm a h \text{ inside a pair; ledger } Q=\sigma^z_i+\sigma^z_j=0 \text{)} \\
+&\text{III. Pairs.}\quad P_k=0,0,6,82,804,\dots\ \text{(order-5 recurrence)},\qquad \text{placement rule: 53 types, closed at level 4} \\
+&\qquad \text{(Results~\ref{res:found-pairs-proof}, \ref{res:ham-rg-closed})} \\
+&\Downarrow\quad \text{(one qubit } \tau_A \text{ per pair, along the Spectre--Hat flow } \tau\in[0,1]\text{)} \\
+&\text{IV. Hamiltonian.}\quad H(\tau)=-J(\tau)\sum_{A}\tau^x_A-\kappa(\tau)\sum_{A<B}W_{AB}\bigl(b(\tau)\bigr)\,\tau^z_A\tau^z_B \\
+&\qquad W_{AB}=\tfrac1{r_{AA'}}-\tfrac1{r_{AB'}}-\tfrac1{r_{BA'}}+\tfrac1{r_{BB'}}\ \propto r^{-3}\ \text{(frustrated dipoles)};\quad \text{Eq.~\ref{eq:hbit}; Results~\ref{res:ham-pair}, \ref{res:flow-patch}, \ref{res:ham-flow}} \\
+&\qquad h(\tau)=\tan\bigl(60^\circ(1-\tau)\bigr),\quad J=e^{-h^2/2},\quad \kappa=\kappa_{\mathrm{norm}}h^2,\quad b(\tau)=1+(\sqrt3-1)\tau \\
+&\Downarrow\quad \text{(ground state } \psi(\tau) \text{ and its reduced states } \rho_A \text{)} \\
+&\text{V. Entanglement and relative entropy.}\quad C_{pq}\ \text{peaks at } \tau_{\mathrm{eff}}\in[0.4,1.2],\ \text{no growth with size} \\
+&\qquad S_{\mathrm{rel}}(\rho_A\|\sigma_A)=\mathrm{Tr}\,\rho_A(\ln\rho_A-\ln\sigma_A)\ \propto\ \text{volume and } \delta^2,\ \text{not area (ledger neutral, bump area linear)} \\
+&\qquad K_A=-\ln\rho_A\approx\beta_{\mathrm{eff}}H_A\ \text{only for } |\beta|\lesssim 0.5 \\
+&\qquad \text{(Results~\ref{res:ent-flow}, \ref{res:rel-volume}, \ref{res:rel-area}, \ref{res:rel-thermal}, \ref{res:rel-negT}, \ref{res:rel-profile})} \\
+&\Downarrow\quad \text{(a pair of pair qubits, and the tiers)} \\
+&\text{VI. Hopf structure.}\quad (q_1,q_2)\in S^7\ \mapsto\ (2q_1\bar q_2,\ |q_1|^2-|q_2|^2)\in S^4:\quad |\vec r_1|^2+C^2=1 \\
+&\qquad D=(1-|\vec r_p|^2)-C_{pq}^2\ge0\ \text{(zero for a pure pair)} \\
+&\qquad I(T_i{:}T_j)\ \text{of tiers is set by the overlay, not the geometry;\ Results~\ref{res:hopf-s4}, \ref{res:hopf-leak}, \ref{res:hopf-tiers}} \\
+&\Downarrow\quad \text{(hypotheses, not tested)} \\
+&\text{VII. Candidates.}\quad \kappa\ \text{derived from the geometry};\quad \text{tier coupling from the nesting of level } k \text{ in } k{+}1 \\
+&\qquad \delta A\overset{?}{=}4G\,S_{\mathrm{rel}}\ \text{\cite{hartshornnariai,doraumuch}};\quad (dV,dE,dF)\overset{?}{\in}\text{Pachner moves}
+\end{aligned} \right.
+\end{equation}
+}
+
+Rows I to VI are exact or measured and row VII is not. Rows I to III are the substrate and are exact or enumerated; row IV is the Hamiltonian of the bits, whose couplings $W_{AB}$ are computed from the exact tile geometry at every $b$ and whose scales $J$, $\kappa$ and $h$ are those of the flow; row V is what the ground state says about entanglement and about the relative entropy of regions, mostly negatively: the relative entropy follows volume and no area observable of the model is proportional to it; row VI states which of the Hopf structure of two qubits the pair qubits keep, and that the link between tiers is a choice of overlay. The remaining gaps are the ones that would make the model a theory of gravity: a derived $\kappa$, a coupling between tiers from the nesting of the substitution, an area--entropy constant, and a relation to Pachner moves. Nothing in Eq.~\eqref{eq:overview} is a derivation of gravity.
+
 \begin{table}[t]
 \centering\footnotesize
 \begin{tabular}{@{}p{58mm}p{50mm}p{20mm}@{}}
