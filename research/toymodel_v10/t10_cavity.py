@@ -317,7 +317,10 @@ class Search:
             for j, v in enumerate(t.verts):
                 if v in self.cav_verts:
                     self.cover[v].append((t, j))
-        self.track = set(self.cav_verts)
+        # only vertices where a fixed tile meets the hole must stay vertices of the filling (edge to edge); a vertex
+        # interior to the hole may end up inside a new tile, so it is tracked only once a placed tile has a corner there
+        self.bound = {v for v in self.cav_verts if v in self.cover}
+        self.track = set(self.bound)
         self.cache = {}
 
     # directions covered at a vertex
@@ -389,9 +392,9 @@ class Search:
             self.hash.d[c].remove(t)
         for j, v in enumerate(t.verts):
             self.cover[v].pop()
-        # vertices that are not cavity vertices and have no tiles left leave the tracked set
+        # vertices that are not on the hole boundary and have no tiles left leave the tracked set
         for v in t.verts:
-            if v not in self.cav_verts and not self.cover[v]:
+            if v not in self.bound and not self.cover[v]:
                 self.track.discard(v)
                 del self.cover[v]
 
@@ -488,8 +491,9 @@ def test_e112_chiral_cavities_rigid():
 
 def test_e113_chirality_control():
     """with reflected tiles allowed the original is still found; count cavities (51 edge-adjacent pairs and the
-    nearest-k sets k = 1..6 around the centre) with a second filling.  Lockwood reports a 2-tile swap at k = 4;
-    this search finds none (recorded, not asserted: see README)."""
+    nearest-k sets k = 1..6 around the centre) with a second filling.  Lockwood reports a 2-tile swap at k = 4.
+    Before the fix of the interior-vertex bug (toymodel_v11) this search found none; now it finds the 2-tile
+    Mystic swap (recorded, not asserted: see toymodel_v11/README.md)."""
     tiles, cent, vmap = patch(4)
     d = np.linalg.norm(cent - cent[CENTRE], axis=1)
     near = [int(i) for i in np.argsort(d)[:25]]
