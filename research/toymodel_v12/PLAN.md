@@ -109,3 +109,15 @@ Decision: the 12 geometry bits are qubits with a tunnelling `Gamma` and a cost `
 ## 10. Revision 3 (2026-11-26): time evolution at `kappa = 0`
 
 Done (`t12_evolution.py`, 5 checks): ordered spreading of a flip (OTOC half-maximum at 2.75, 4.0, 4.5 for distance 1, 2, 3), no arrow (entropy even in `t`), local back-reaction of an excited slot on the rotors, and a global one at the symmetric point. Open: the same at `kappa != 0` (needs the symmetry basis), a larger closed substrate to fit a front (none exists for hats: only `GP(3,0)` tiles), S5(b), S6.
+
+## 11. Revision 4 (2026-11-26): the joint model at `kappa != 0`, second pass
+
+A symmetry basis cannot reach 2^42. Done instead (`t12_dressed.py`, 4 checks): CI(4) matter at every tiling with a convergence table against CI(6) and exact, and the joint model in the span of the 4096 dressed tilings. Result: two variational bounds, each better in one regime (dressed for slow flips, truncated-matter for fast flips); the geometry-matter entanglement is bracketed, not determined. Open: an ansatz containing both; S5(b); S6.
+
+## 12. Revision 5 (2026-11-26): S5(b) done, Negative
+
+`t12_holes.py` (3 checks). Holes are forced onto the 12 pentagons, hats never touch a cone point, no tiling mixes hands, and no complex within one edge flip (all 270) or in a sample of 600 multi-flip complexes has a hat tiling. H12.4 holds: curvature is not dynamical here. Consequence: on the hat substrate the only quantum geometry is the rotor register. A substrate with movable curvature has to come from elsewhere; the candidate already in hand is the closed Spectre folds (qwla `cone_moves.py`: one-tile moves change the cone multiset in 63% of 660 pairs), which is S1b of this plan.
+
+## 13. Revision 6 (2026-11-26): S7, write-up
+
+`quantgravalt.tex` has the new Section 8 (ten results, one figure, 19 pages, builds with no error or undefined reference). Not done in S7: macros from `models/paper_numbers.py` for these numbers (they are dagger numbers), and the same section for `quantgrav.tex`.

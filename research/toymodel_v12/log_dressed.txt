@@ -1,0 +1,34 @@
+ok test_basis_sizes
+ok test_ci2_matches_the_block_of_the_joint_module
+ok test_ci_is_variational_and_ordered
+ok test_kappa_zero_gives_the_geometry_model
+4 checks pass
+{'sigma': 4032, 'pairs': 10, 'CI2': -10.517138917625859, 'CI4': -10.558602637352788, 'CI6': -10.559499474199205, 'exact': -10.559502375319077, 'PT2': -10.532429764361115}
+{'sigma': 3584, 'pairs': 18, 'CI2': -19.067046658240272, 'CI4': -19.251737386992538, 'CI6': -19.267311755055403, 'exact': -19.267874585318932, 'PT2': -19.209093200095783}
+{'sigma': 65, 'pairs': 20, 'CI2': -21.057250017389258, 'CI4': -21.239382567502297, 'CI6': -21.25545185886045, 'exact': -21.25609925427974, 'PT2': -21.219218156044928}
+{'sigma': 2048, 'pairs': 25, 'CI2': -26.563405355575487, 'CI4': -26.96412886898497, 'PT2': -26.94028353474154}
+{'sigma': 0, 'pairs': 30, 'CI2': -32.038527950094306, 'CI4': -32.69684031115822, 'PT2': -32.719228725543935}
+  dressed 0 30
+  dressed 512 25
+  dressed 1024 25
+  dressed 1536 21
+  dressed 2048 25
+  dressed 2560 21
+  dressed 3072 21
+  dressed 3584 18
+{'min': 0.9073966145515442, 'mean': 0.9825536241842201, 'max': 1.0000001192092896}
+{'g': 0.0, 'kappa': 0.3, 'Gamma': 0.2, 'E0': -32.7677, 'gap': 5.7229, 'P_all0': 0.9877, 'P_all1': 0.0, 'mean_rotors_in_0': 11.9876, 'mean_pairs': 29.9382, 'var_pairs': 0.3086, 'mean_vertices': 140.0, 'mean_excited_slots': 1.0672, 'S_geometry_matter_bits': 0.0258, 'E0_joint_CI2': -32.1237, 'S_joint_CI2': 0.0025}
+{'g': 0.0, 'kappa': 0.3, 'Gamma': 1.0, 'E0': -34.4655, 'gap': 5.5108, 'P_all0': 0.7329, 'P_all1': 0.0, 'mean_rotors_in_0': 11.6865, 'mean_pairs': 28.4598, 'var_pairs': 7.4579, 'mean_vertices': 139.9728, 'mean_excited_slots': 1.002, 'S_geometry_matter_bits': 0.4003, 'E0_joint_CI2': -34.1433, 'S_joint_CI2': 0.0394}
+{'g': 0.0, 'kappa': 0.3, 'Gamma': 3.0, 'E0': -47.9022, 'gap': 5.6192, 'P_all0': 0.0761, 'P_all1': 0.0, 'mean_rotors_in_0': 9.4245, 'mean_pairs': 18.698, 'var_pairs': 37.4108, 'mean_vertices': 138.4245, 'mean_excited_slots': 0.5593, 'S_geometry_matter_bits': 1.2218, 'E0_joint_CI2': -48.9488, 'S_joint_CI2': 0.0684}
+{'g': 2.5, 'kappa': 0.3, 'Gamma': 0.2, 'E0': -2.8227, 'gap': 2.6304, 'P_all0': 0.9616, 'P_all1': 0.0, 'mean_rotors_in_0': 11.9607, 'mean_pairs': 29.8039, 'var_pairs': 0.9802, 'mean_vertices': 139.9995, 'mean_excited_slots': 1.0614, 'S_geometry_matter_bits': 0.0713}
+{'g': 2.5, 'kappa': 0.3, 'Gamma': 1.0, 'E0': -6.0522, 'gap': 0.9982, 'P_all0': 0.2734, 'P_all1': 0.0002, 'mean_rotors_in_0': 10.4124, 'mean_pairs': 22.9718, 'var_pairs': 38.5625, 'mean_vertices': 139.0901, 'mean_excited_slots': 0.7592, 'S_geometry_matter_bits': 1.0492, 'E0_joint_CI2': -6.0569, 'S_joint_CI2': 0.2034}
+{'g': 2.5, 'kappa': 0.3, 'Gamma': 3.0, 'E0': -28.3152, 'gap': 4.5348, 'P_all0': 0.0009, 'P_all1': 0.0011, 'mean_rotors_in_0': 5.8502, 'mean_pairs': 7.4998, 'var_pairs': 25.6001, 'mean_vertices': 131.7512, 'mean_excited_slots': 0.1356, 'S_geometry_matter_bits': 0.61, 'E0_joint_CI2': -28.8503, 'S_joint_CI2': 0.0426}
+{'t': 0.0, 'S_geometry_matter_bits': 1.2038780643135435e-06, 'mean_pairs': 29.99999999999978, 'S_reversed': 1.2038780643135435e-06}
+{'t': 0.5, 'S_geometry_matter_bits': 1.1838371558350105, 'mean_pairs': 20.945274005155188, 'S_reversed': 1.1838371558350105}
+{'t': 1.0, 'S_geometry_matter_bits': 0.9788092614911597, 'mean_pairs': 11.547538305854967, 'S_reversed': 0.9788092614911597}
+{'t': 2.0, 'S_geometry_matter_bits': 0.6256453484755448, 'mean_pairs': 6.941129122808446, 'S_reversed': 0.6256453484755448}
+{'t': 3.0, 'S_geometry_matter_bits': 1.003950529362874, 'mean_pairs': 13.10772289349375, 'S_reversed': 1.003950529362874}
+{'t': 4.0, 'S_geometry_matter_bits': 0.9614215849454955, 'mean_pairs': 15.779191792743035, 'S_reversed': 0.9614215849454955}
+{'t': 6.0, 'S_geometry_matter_bits': 1.0641919624919078, 'mean_pairs': 16.480127865897572, 'S_reversed': 1.0641919624919078}
+{'t': 8.0, 'S_geometry_matter_bits': 0.9016680310189154, 'mean_pairs': 11.391542106743415, 'S_reversed': 0.9016680310189154}
+{'t': 12.0, 'S_geometry_matter_bits': 0.7858173789661734, 'mean_pairs': 9.21976886720065, 'S_reversed': 0.7858173789661734}

@@ -9,6 +9,9 @@ Plan: `PLAN.md`. Needs a clone of `brentharts/hexasphere` (`export HEXASPHERE_DI
 | `t12_hamiltonian.py` | S3 | the fixed 30 x 30 dipole matrix on the icosahedron edges; exact classical ground state of the all-0 tiling; exact diagonalisation at fixed tiling | 4 | `results_hamiltonian.json` |
 | `t12_quantum_geometry.py` | S3, S4 | quantum geometry bits with flip tunnelling, edge qubits with the dormant rule; flip channel and flip energies | 5 | `results_quantum_geometry.json` |
 | `t12_evolution.py` | S3, S4 in time | exact evolution of the 12 geometry qubits at `kappa = 0`: signal of a flip, OTOC, entropy from a product state, back-reaction of an excited matter slot | 5 | `results_evolution.json`, `log_evolution.txt` |
+| `t12_dressed.py` | S3 at `kappa != 0` | matter by configuration interaction CI(4) at every tiling; the joint model in the span of the 4096 matter-dressed tilings; convergence table | 4 | `results_dressed.json`, `log_dressed.txt` |
+| `t12_holes.py` | S5(b) | exact cover with hats allowed on pentagon kites and any tile allowed as a hole; edge flips of the triangulation | 3 | `results_holes.json`, `log_holes.txt` |
+| `t12_figure.py` | S7 | draws `figures/fig_hattrick_register.png` for `quantgravalt.tex` (the two states of a rotor, the OTOC) | | |
 | `t12_curvature.py` | S5(a) | geodesics on the flat hat metric (the icosahedron), deflection at a cone point | 6 | `results_curvature.json` |
 
 ## Decisions (2026-11-25)
@@ -71,5 +74,51 @@ In a fixed matter sector `x_e = +-1` the model is `H_geo[x] = -Gamma sum X_p + g
 
 Reading (**Definition**): matter that is excited changes the local geometry (fewer pairs, more 4-valent vertices), and the change is short-ranged away from the symmetric point. It is not a 1/r law and the graph is too small to fit one.
 
+## The joint model at `kappa = 0.3`, second pass (`t12_dressed.py`)
+
+A symmetry basis does not reach the joint model: the space is 2^42 and the icosahedral group divides it by at most 60; the matter of the all-0 tiling alone is 2^30. Two things were done instead.
+
+**Matter at a fixed tiling: convergence (Exact where "exact" is given; Numeric otherwise).** CI(m) = slots in `|->` restricted to at most `m`; each CI is an upper bound. PT2 is second-order perturbation theory (not a bound).
+
+| pairs | CI(2) | CI(4) | CI(6) | exact | PT2 |
+|---|---|---|---|---|---|
+| 10 | -10.5171 | -10.5586 | -10.5595 | -10.5595 | -10.5324 |
+| 18 | -19.0670 | -19.2517 | -19.2673 | -19.2679 | -19.2091 |
+| 20 | -21.0573 | -21.2394 | -21.2555 | -21.2561 | -21.2192 |
+| 25 | -26.5634 | -26.9641 | | | -26.9403 |
+| 30 | -32.0385 | -32.6968 | | | -32.7192 |
+
+CI(4) is within 0.017 of exact at 20 pairs. At 30 pairs it is not converged: PT2 lies below it, and from the trend the error is of order 0.1 (an estimate, not a bound). CI(2), used in the first pass, is off by 0.2 at 18 pairs and by more than 0.66 at 30.
+
+**Dressed tilings (Definition; variational).** `|sigma~> = |sigma> (x) |psi0(sigma)>` with the CI(4) matter ground state of each tiling. The joint `H` in their span is `(E0(sigma) + g n0) delta - Gamma <psi0(sigma)|psi0(sigma')>` on flips. Overlap of the matter states of neighbouring tilings: 0.907 to 1, mean 0.983.
+
+| `g` | `Gamma` | `E0` dressed | `E0` first pass | P(all-0) | mean pairs | S(geometry:matter) dressed | first pass |
+|---|---|---|---|---|---|---|---|
+| 0 | 0.2 | **-32.768** | -32.124 | 0.988 | 29.9 | 0.026 | 0.003 |
+| 0 | 1 | **-34.466** | -34.143 | 0.733 | 28.5 | 0.40 | 0.039 |
+| 0 | 3 | -47.902 | **-48.949** | 0.076 | 18.7 | 1.22 | 0.068 |
+| 2.5 | 0.2 | -2.823 | (not converged) | 0.962 | 29.8 | 0.071 | |
+| 2.5 | 1 | -6.052 | **-6.057** | 0.273 | 23.0 | 1.05 | 0.20 |
+| 2.5 | 3 | -28.315 | **-28.850** | 0.001 | 7.5 | 0.61 | 0.043 |
+
+Both runs are upper bounds for the same Hamiltonian; the lower energy (bold) is the better state. The dressed states win for slow flips (`Gamma <= 1` at `g = 0`), the first pass for fast flips (`Gamma = 3`), where the matter cannot follow the geometry and the dressed ansatz is poor. **The geometry-matter entanglement is therefore not determined**: the dressed ansatz makes the matter follow each tiling and gives an upper-side value, the first pass truncates the matter and gives a lower-side one; where the dressed state wins it is 0.03 to 0.4 bit. Not a converged number at any point.
+
+* The symmetric point moves: with `kappa = 0.3` the all-0 tiling has matter energy -32.70 instead of -30, so the two icosahedral tilings are degenerate near `g = 2.72`, not 2.5. At `g = 2.5`, `Gamma = 0.2` (the point that did not converge before) the ground state is the all-0 tiling with probability 0.96, not the cat.
+* Evolution inside the dressed space from the all-0 tiling (`Gamma = 1`, `g = 2.5`; an adiabatic approximation): the geometry-matter entropy is 1.18, 0.98, 0.63, 1.00 bit at `t` = 0.5, 1, 2, 3 and stays near 1; the mean pair number falls from 30 to 6.9 at `t = 2` and returns to 11 to 16. Equal at `t` and `-t`: no arrow.
+
+## Can curvature move? (S5(b), `t12_holes.py`) **Negative**
+
+**Exact (angle sums).** In the flat-kite metric the cone points are the tiles that are not hexagons (deficit `60 (6 - d)` degrees for a tile of degree `d`). They belong to the kite complex, not to the hats, so no re-tiling of one complex moves curvature. Two questions were left, and both have the answer no.
+
+* **Are the holes free to be elsewhere on `GP(3,0)`?** No (**Exact**, searches exhausted). A hat fits on pentagon kites in 180 of 540 placements, but with hats allowed there and any of the 92 tiles allowed as a hole (up to 16 holes), the tilings are the same 4096, and every one has exactly the 12 pentagons as holes. With at most 6 holes there is none. So the holes are forced onto the cone points: no hat ever has a cone point at a corner.
+* **Both hands.** With mirrored hats allowed there are 8192 = 2 x 4096 tilings: no tiling mixes the two hands (unlike the plane, where the Mystic swap uses two reflected tiles).
+* **Can the complex change?** One edge flip of the triangulation is the elementary move that changes tile degrees (away from the pentagons it makes two pentagons and two heptagons, deficits +60, +60, -60, -60; the ledger stays 720). For each of the 270 edges the flipped complex has **no** hat tiling, with any tiles as holes up to 16 (searches exhausted, at most 8,472 nodes); for the four edge classes also with both hands.
+* **Further away (Numeric, a sample).** 600 random sequences of 2, 3, 4 or 6 flips (seed 12): 599 complexes have no tiling (all searches exhausted); the one that has is a flip followed by its reversal, `GP(3,0)` again.
+
+**Verdict for the model.** The Hat Trick sphere is isolated in three ways: in size (only `GP(3,0)` among the icosahedral spheres, qwla Stage 10a), in its hole set, and under local changes of the complex. The 12 cone points are a fixed background. The quantum geometry of this model is the 12 rotor bits, which change vertices, contacts and pairs (`dV = dE = -k`) but never the curvature: requirement R3 (dynamical geometry) is met only in that restricted sense. PLAN kill condition S5(b) is tripped.
+
+## In the paper
+`quantgravalt.tex`, Section "A closed substrate: the Hat Trick sphere" (Results sphere-register to sphere-frust, Figure `fig_hattrick_register.png`), with a sentence in the abstract, one in the conclusion and one open problem. All numbers there are marked with a dagger (copied from the result files here, not recomputed by `models/paper_numbers.py`). Two entries were added to `quantgrav.bib` (`thurston1998`, `deser1984`).
+
 ## Not done
-Convergence of the joint model at `kappa != 0` (needs more than 2 excitations or an icosahedral symmetry basis); the point `g = 2.5`, `kappa = 0.3`, `Gamma = 0.2` (near-degenerate doublet, Lanczos did not converge); time evolution at `kappa != 0`; S5(b) (moving holes); S6. A flat vertex facing a hole has no partner and no bit here. The couplings use centroids of the unrelaxed kite complex. `Gamma` and `g` are not derived from anything.
+A converged joint ground state at `kappa != 0` (two variational bounds exist, neither converged at 30 pairs; an ansatz that contains both, such as matter states of neighbouring tilings, was not built); time evolution at `kappa != 0`; S6. Complexes with tiles of degree 4 or 8 and more, or with a different number of tiles, were not searched beyond the flip samples. A flat vertex facing a hole has no partner and no bit here. The couplings use centroids of the unrelaxed kite complex. `Gamma` and `g` are not derived from anything.
