@@ -1,0 +1,22 @@
+ok test_evolution_is_unitary_and_time_reversal_symmetric
+ok test_excited_slot_repels_pairing_at_its_ends
+ok test_icosahedron_distances
+ok test_no_tunnelling_no_signal
+ok test_signal_reaches_neighbours_before_the_antipode
+5 checks pass
+{'Gamma': 0.3, 'g': 2.5, 'edge_mean_distance': [1.0, 1.5, 2.0, 2.5], 'edge_arrival': [1.0, 1.2000000000000002, 1.85, 2.0500000000000003], 'speed_fit': 1.2459016393442628, 'rotor_arrival_d1_d2_d3': [None, None, None]}
+{'Gamma': 0.3, 'g': 2.5, 'S_at_1_3_6_12': [0.04545197005487071, 0.33680314281836277, 0.2066602728398856, 0.23859248911903336], 'max_S': 0.3770561750786011, 'time_of_max': 8.0, 'long_time_mean': 0.5216923725791286, 'long_time_min': 0.32840046456759237, 'reversal_asymmetry': 0.0}
+{'dn_by_distance': {'0': -0.48545822615938683, '1': -0.48509437621002754, '2': -0.4850841699245779}, 'rotors_at_distance': {'0': 2, '1': 6, '2': 4}, 'excitation_energy': 0.00045984072820259847, 'd_pairs': -14.552796099559254, 'd_vertices': -14.556300846826915, 'Gamma': 0.3, 'g': 2.5}
+{'Gamma': 1.0, 'g': 2.5, 'edge_mean_distance': [1.0, 1.5, 2.0, 2.5], 'edge_arrival': [0.30000000000000004, 0.5, 0.8, 1.0], 'speed_fit': 2.0689655172413786, 'rotor_arrival_d1_d2_d3': [None, None, None]}
+{'Gamma': 1.0, 'g': 2.5, 'S_at_1_3_6_12': [1.0357831688162318, 2.2050857383531524, 2.63963153436087, 2.5904331479029956], 'max_S': 2.7294801590182773, 'time_of_max': 6.65, 'long_time_mean': 2.467633467877008, 'long_time_min': 1.9630690139377192, 'reversal_asymmetry': 0.0}
+{'dn_by_distance': {'0': -0.28610790305426964, '1': -0.2170245945820707, '2': -0.19535644540456226}, 'rotors_at_distance': {'0': 2, '1': 6, '2': 4}, 'excitation_energy': 0.23961141431528965, 'd_pairs': -6.258083031221845, 'd_vertices': -7.020862744874222, 'Gamma': 1.0, 'g': 2.5}
+{'Gamma': 3.0, 'g': 2.5, 'edge_mean_distance': [1.0, 1.5, 2.0, 2.5], 'edge_arrival': [0.1, 0.15000000000000002, 0.25, 0.30000000000000004], 'speed_fit': 6.999999999999996, 'rotor_arrival_d1_d2_d3': [None, None, None]}
+{'Gamma': 3.0, 'g': 2.5, 'S_at_1_3_6_12': [0.8819821773455228, 1.8002284898925651, 2.222434980397905, 1.8183252507338994], 'max_S': 2.475875077716329, 'time_of_max': 7.4, 'long_time_mean': 2.013913221916954, 'long_time_min': 1.684166403502077, 'reversal_asymmetry': 0.0}
+{'dn_by_distance': {'0': -0.07796114033022597, '1': -0.010538594096419005, '2': -0.00247890070783445}, 'rotors_at_distance': {'0': 2, '1': 6, '2': 4}, 'excitation_energy': 0.42470650877159954, 'd_pairs': -0.5888955456982243, 'd_vertices': -0.5564516946532478, 'Gamma': 3.0, 'g': 2.5}
+{'Gamma': 1.0, 'g': 0.0, 'edge_mean_distance': [1.0, 1.5, 2.0, 2.5], 'edge_arrival': [0.35000000000000003, 0.35000000000000003, 0.65, 0.65], 'speed_fit': 3.3333333333333326, 'rotor_arrival_d1_d2_d3': [0.35000000000000003, 0.65, 0.9]}
+{'Gamma': 1.0, 'g': 0.0, 'S_at_1_3_6_12': [0.257469899365605, 0.42899947334031396, 0.44779320825361657, 0.48378939070506344], 'max_S': 0.6235998434452477, 'time_of_max': 3.9000000000000004, 'long_time_mean': 0.47505681697467533, 'long_time_min': 0.22032095323662432, 'reversal_asymmetry': 0.0}
+{'dn_by_distance': {'0': -0.049752396200499316, '1': -0.0011747290058774877, '2': -4.649544230025948e-05}, 'rotors_at_distance': {'0': 2, '1': 6, '2': 4}, 'excitation_energy': 1.7705014026579207, 'd_pairs': -0.5074339995615027, 'd_vertices': -0.02626174146575977, 'Gamma': 1.0, 'g': 0.0}
+{'Gamma': 3.0, 'g': 0.0, 'edge_mean_distance': [1.0, 1.5, 2.0, 2.5], 'edge_arrival': [0.2, 0.2, 0.4, 0.4], 'speed_fit': 5.000000000000001, 'rotor_arrival_d1_d2_d3': [0.2, 0.4, 0.6000000000000001]}
+{'Gamma': 3.0, 'g': 0.0, 'S_at_1_3_6_12': [0.3085160565836949, 0.8051320857616294, 1.14575226118725, 1.5079696282697468], 'max_S': 1.5527146464574129, 'time_of_max': 11.15, 'long_time_mean': 1.6959719402169675, 'long_time_min': 1.154455557985128, 'reversal_asymmetry': 0.0}
+{'dn_by_distance': {'0': -0.08626478607834004, '1': -0.0067904640737046496, '2': -0.0009266323567456713}, 'rotors_at_distance': {'0': 2, '1': 6, '2': 4}, 'excitation_energy': 1.05140322681455, 'd_pairs': -0.8176328339653907, 'd_vertices': -0.2672615961641327, 'Gamma': 3.0, 'g': 0.0}
+{'Gamma': 1.0, 'g': 2.5, 'arrival_half_of_max': [2.75, 4.0, 4.5]}

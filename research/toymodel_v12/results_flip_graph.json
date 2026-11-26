@@ -1,0 +1,75 @@
+{
+ "tilings": 4096,
+ "distinct_bit_strings": 4096,
+ "regions": 12,
+ "region_sizes": [
+  40
+ ],
+ "icosahedron_edges": 30,
+ "pairs_are_edges_with_both_bits_zero": true,
+ "flips": 24576,
+ "all_flips_closed_5_for_5_on_40_kites": true,
+ "flips_changing_contact_graph": 24576,
+ "flip_table": [
+  {
+   "neighbours_in_state_1": 0,
+   "dV": 0,
+   "dE": 0,
+   "dF": 0,
+   "contacts_removed": 25,
+   "contacts_added": 25,
+   "degree_sequence_changed": false,
+   "count": 768
+  },
+  {
+   "neighbours_in_state_1": 1,
+   "dV": -1,
+   "dE": -1,
+   "dF": 0,
+   "contacts_removed": 25,
+   "contacts_added": 24,
+   "degree_sequence_changed": true,
+   "count": 3840
+  },
+  {
+   "neighbours_in_state_1": 2,
+   "dV": -2,
+   "dE": -2,
+   "dF": 0,
+   "contacts_removed": 25,
+   "contacts_added": 23,
+   "degree_sequence_changed": true,
+   "count": 7680
+  },
+  {
+   "neighbours_in_state_1": 3,
+   "dV": -3,
+   "dE": -3,
+   "dF": 0,
+   "contacts_removed": 25,
+   "contacts_added": 22,
+   "degree_sequence_changed": true,
+   "count": 7680
+  },
+  {
+   "neighbours_in_state_1": 4,
+   "dV": -4,
+   "dE": -4,
+   "dF": 0,
+   "contacts_removed": 25,
+   "contacts_added": 21,
+   "degree_sequence_changed": true,
+   "count": 3840
+  },
+  {
+   "neighbours_in_state_1": 5,
+   "dV": -5,
+   "dE": -5,
+   "dF": 0,
+   "contacts_removed": 25,
+   "contacts_added": 20,
+   "degree_sequence_changed": true,
+   "count": 768
+  }
+ ]
+}
