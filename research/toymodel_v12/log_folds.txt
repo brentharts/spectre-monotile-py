@@ -1,0 +1,119 @@
+ok test_every_fold_in_a_small_window_has_ledger_720
+ok test_flat_corner_is_index_eight
+ok test_move_graph_edges_are_one_tile_apart
+ok test_quantum_limits
+4 checks pass
+   98304 1989 210 s
+   163840 2452 360 s
+   196608 2522 431 s
+   229376 2673 510 s
+{
+ "subsets_tested": 262125,
+ "folds": 2709,
+ "ledger_all_720": true,
+ "negative_deficit_seen": false,
+ "by_size": {
+  "2": 36,
+  "3": 85,
+  "4": 181,
+  "5": 261,
+  "6": 316,
+  "7": 396,
+  "8": 472,
+  "9": 352,
+  "10": 261,
+  "11": 213,
+  "12": 106,
+  "13": 18,
+  "14": 8,
+  "15": 4
+ },
+ "deficit_values": {
+  "90": 8287,
+  "120": 7081,
+  "180": 1182,
+  "240": 517,
+  "270": 67
+ },
+ "cone_points": {
+  "4": 72,
+  "5": 264,
+  "6": 1108,
+  "7": 1242,
+  "8": 23
+ },
+ "cone_multisets": 18,
+ "pairs": {
+  "0": 293,
+  "1": 1410,
+  "2": 881,
+  "3": 125
+ },
+ "pairs_across_the_seam": 1120,
+ "pairs_total": 3547,
+ "edges": {
+  "add": 6890,
+  "swap": 14907
+ },
+ "components": [
+  2703,
+  6
+ ],
+ "n_components": 2,
+ "moves": {
+  "add": {
+   "moves": 6890,
+   "cone_multiset_changed": 3886,
+   "cone_count_changed": 3337,
+   "pair_set_changed": 3104,
+   "pair_count_changed": 1917,
+   "both_cones_and_pairs_changed": 1974,
+   "change_in_cone_count": {
+    "-3": 29,
+    "-2": 283,
+    "-1": 1509,
+    "0": 3553,
+    "1": 1208,
+    "2": 253,
+    "3": 55
+   },
+   "change_in_pair_count": {
+    "-1": 306,
+    "0": 4973,
+    "1": 1598,
+    "2": 13
+   }
+  },
+  "swap": {
+   "moves": 14907,
+   "cone_multiset_changed": 8130,
+   "cone_count_changed": 6884,
+   "pair_set_changed": 9088,
+   "pair_count_changed": 4183,
+   "both_cones_and_pairs_changed": 5595,
+   "change_in_cone_count": {
+    "-3": 156,
+    "-2": 618,
+    "-1": 2917,
+    "0": 8023,
+    "1": 2588,
+    "2": 544,
+    "3": 61
+   },
+   "change_in_pair_count": {
+    "-2": 33,
+    "-1": 2022,
+    "0": 10724,
+    "1": 2104,
+    "2": 24
+   }
+  }
+ }
+}
+{'Gamma': 0.0, 'E0': -3.0, 'gap': 0.0, 'mean_cone_points': 7.0, 'var_cone_points': 0.0, 'mean_pairs': 3.0, 'var_pairs': 0.0, 'mean_tiles': 7.0, 'var_tiles': 0.0, 'participation_bits': -0.0, 'max_probability': 1.0, 'P_cone_points': {'4': 0.0, '5': 0.0, '6': 0.0, '7': 1.0, '8': 0.0}, 'distinct_cone_multisets_with_P_above_1pct': 1}
+{'Gamma': 0.2, 'E0': -5.7737399619032965, 'gap': 0.30365398245548914, 'mean_cone_points': 6.4922698091229405, 'var_cone_points': 0.4458791516348555, 'mean_pairs': 1.1595575337523163, 'var_pairs': 0.29333273540325844, 'mean_tiles': 6.672117231850948, 'var_tiles': 1.7617412720037322, 'participation_bits': 9.432629182542318, 'max_probability': 0.013668436732901714, 'P_cone_points': {'4': 0.007476, '5': 0.061759, '6': 0.375566, '7': 0.541416, '8': 0.013782}, 'distinct_cone_multisets_with_P_above_1pct': 8}
+{'Gamma': 1.0, 'E0': -24.72456837666451, 'gap': 1.698974581227084, 'mean_cone_points': 6.500418171591192, 'var_cone_points': 0.4227801855161175, 'mean_pairs': 0.9223915641160703, 'var_pairs': 0.27014615761317207, 'mean_tiles': 6.328934548836249, 'var_tiles': 1.6815662333375556, 'participation_bits': 9.372992061070782, 'max_probability': 0.010300789687377918, 'P_cone_points': {'4': 0.005675, '5': 0.052791, '6': 0.393552, '7': 0.531407, '8': 0.016575}, 'distinct_cone_multisets_with_P_above_1pct': 8}
+{'Gamma': 3.0, 'E0': -72.36722449121939, 'gap': 5.200715346392968, 'mean_cone_points': 6.504961925119501, 'var_cone_points': 0.4182874637744334, 'mean_pairs': 0.8838397741575938, 'var_pairs': 0.2755736633967809, 'mean_tiles': 6.241606247414119, 'var_tiles': 1.6551798678205003, 'participation_bits': 9.346308942381583, 'max_probability': 0.010196487456882177, 'P_cone_points': {'4': 0.005236, '5': 0.05178, '6': 0.39244, '7': 0.533876, '8': 0.016669}, 'distinct_cone_multisets_with_P_above_1pct': 8}
+{'Gamma': 0.2, 'E0': -4.488014399775305, 'gap': 0.313295944251065, 'mean_cone_points': 6.268415853082284, 'var_cone_points': 0.6015918864590688, 'mean_pairs': 1.2522235678531217, 'var_pairs': 0.23840327900459268, 'mean_tiles': 7.999999999999999, 'var_tiles': 7.105427357601002e-15, 'participation_bits': 7.443613590842563, 'max_probability': 0.028004896474018045, 'P_cone_points': {'5': 0.191565, '6': 0.359501, '7': 0.437887, '8': 0.011047}, 'distinct_cone_multisets_with_P_above_1pct': 7, 'folds': 472, 'tiles': 8}
+{'Gamma': 1.0, 'E0': -17.844058416592265, 'gap': 3.435505349396694, 'mean_cone_points': 6.318134372496163, 'var_cone_points': 0.5289101491714234, 'mean_pairs': 1.0689799355955758, 'var_pairs': 0.17363432357566833, 'mean_tiles': 8.0, 'var_tiles': 0.0, 'participation_bits': 7.2883908169071425, 'max_probability': 0.028552759627603883, 'P_cone_points': {'5': 0.141397, '6': 0.413667, '7': 0.43034, '8': 0.014596}, 'distinct_cone_multisets_with_P_above_1pct': 7, 'folds': 472, 'tiles': 8}
+{'Gamma': 3.0, 'E0': -51.41558058322172, 'gap': 10.841926503661043, 'mean_cone_points': 6.324474283245796, 'var_cone_points': 0.5183185031982589, 'mean_pairs': 1.0478086760874783, 'var_pairs': 0.16902623335174516, 'mean_tiles': 7.999999999999997, 'var_tiles': 2.1316282072803006e-14, 'participation_bits': 7.268379387599207, 'max_probability': 0.029047247109375767, 'P_cone_points': {'5': 0.134702, '6': 0.420984, '7': 0.429452, '8': 0.014862}, 'distinct_cone_multisets_with_P_above_1pct': 7, 'folds': 472, 'tiles': 8}

@@ -121,3 +121,11 @@ A symmetry basis cannot reach 2^42. Done instead (`t12_dressed.py`, 4 checks): C
 ## 13. Revision 6 (2026-11-26): S7, write-up
 
 `quantgravalt.tex` has the new Section 8 (ten results, one figure, 19 pages, builds with no error or undefined reference). Not done in S7: macros from `models/paper_numbers.py` for these numbers (they are dagger numbers), and the same section for `quantgrav.tex`.
+
+## 14. Revision 7 (2026-11-26): S1b, closed Spectre folds
+
+`t12_folds.py` (4 checks): 2,709 folds in a window of 18 tiles, exhaustively; a connected move graph of 2,703 folds on which 55% of swaps change the cone multiset; a model in which the number of cone points has a quantum spread. Open: all gluings of a patch (not only the DP's first); a local definition of a move (adjacent tiles only) and an amplitude that is not uniform; larger windows; dipole couplings on a fold (needs an embedding or intrinsic distances); this result is not in `quantgravalt.tex` yet.
+
+## 15. Revision 8 (2026-11-26): folds tightened, and in the paper
+
+`t12_folds_local.py` (3 checks): all 8,136 gluings, local swaps, a definition-free measure (22% of local swaps must change the curvature), and the model on (patch, outcome) states (variance of the cone-point number 0.74 to 0.88). `quantgravalt.tex` has the subsection (three results; 20 pages). Open: a substrate with both movable curvature and many pairs; amplitudes from the geometry; larger windows.
