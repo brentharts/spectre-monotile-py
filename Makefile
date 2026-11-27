@@ -46,7 +46,7 @@ SLICE_PNG      := $(FIGDIR)/chair44_slice.png
 COMPARE_PNG    := $(FIGDIR)/chair44_compare.png
 
 .DEFAULT_GOAL := help
-.PHONY: help all check test verify figures pdf numbers quantgrav repro quantgravedit edit quantgravalt alt show show-fields show-fem show-curvature show-optimize show-patch show-diffract show-fractal install install-min clean
+.PHONY: help all check test verify figures pdf numbers quantgrav repro quantgravedit edit quantgravalt alt bits show show-fields show-fem show-curvature show-optimize show-patch show-diffract show-fractal install install-min clean
 
 help:  ## list the targets
 	@grep -hE '^[a-zA-Z_-]+:.*## ' $(MAKEFILE_LIST) | \
@@ -121,6 +121,9 @@ quantgravalt: numbers  ## build/quantgravalt.pdf, the concise version (numbers +
 alt:  ## quick rebuild of build/quantgravalt.pdf, reusing the numbers file
 	@test -f $(BUILD)/quantgrav_numbers.tex || $(MAKE) numbers
 	latexmk -pdf -f -interaction=nonstopmode -outdir=$(BUILD) quantgravalt.tex
+
+bits:  ## build/quantgravbits.pdf, the concise quantum-gravity paper (latexmk only; needs no numbers file)
+	latexmk -pdf -f -interaction=nonstopmode -outdir=$(BUILD) quantgravbits.tex
 
 show:  ## run the tests, then open the interactive per-edge variations window
 	$(PYTHON) spectre_operator.py
