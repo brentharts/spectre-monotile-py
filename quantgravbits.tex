@@ -3,7 +3,7 @@
 % Numbers are written in the text.  Those of Sections 3 to 6 come from the scripts of the qwla repository named in each
 % result (generic_phase.py, exact_window.py, hat_flips.py, ring_bits.py, qdeform_punctures.py, hat_chirality.py,
 % spectre_fold_flips.py, chi4_operator.py, spectre_mirror_outlines.py, joint_dmrg.py, spectre_fold_growth.py,
-% ribbon_directions.json, spectre_complement.py, hat_elastic.py); those of Section 2 and Result 9 are from quantgravalt.tex and the code of this repository.
+% ribbon_directions.json, spectre_complement.py, hat_elastic.py, null_cone_checks.py, null_cone_spin1.py); those of Section 2 and Result 9 are from quantgravalt.tex and the code of this repository.
 \documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -182,6 +182,14 @@ The flux $\Phi=\pm i$ is the same on every face, all six fermion modes have ener
 \caption{Quantisation levels of the twelve punctures. (a) Dimension of the state space at level $k$. (b) All levels of $H_k$ against $1/k$ (dots: lowest level), tending to the Heisenberg spectrum of Eq.~\eqref{eq:chain} (orange). (c) Level $2$: four levels with $1$, $15$, $15$, $1$ states, as predicted by six free Majorana modes of energy $\sqrt5$ (arrows).}\label{fig:levels}
 \end{figure}
 
+\begin{result}[\numeric]\label{res:cut}
+In the ground state of Eq.~\eqref{eq:chain} the entanglement entropy of a set $R$ of cone points follows the boundary of $R$ in the icosahedron. Over all $2047$ bipartitions,
+\begin{equation}\label{eq:cut}
+S(R)\approx0.077\,\bigl|\partial R\bigr|+0.234\,|R|+0.284\ \text{nats},
+\end{equation}
+with $|\partial R|$ the number of edges cut and $|R|$ the number of cone points ($R^2=0.963$, against $0.812$ for $|R|$ alone); at fixed $|R|$ from $2$ to $6$ the correlation of $S$ with $|\partial R|$ is $0.92$ to $0.98$. The largest entropy of six cone points is $3.19$, below $\ln132=4.88$. With spin-$1$ punctures (singlet space of dimension $4213$) the same fit gives $0.092$ per cut edge and $0.352$ per cone point ($R^2=0.942$). The state is far from a coherent polyhedron: its overlap with the coherent intertwiner of the regular dodecahedron is $6.5\cdot10^{-5}$, below the $1/132$ of a random singlet.
+\end{result}
+
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Two kinds of handedness}\label{sec:hands}
 \begin{result}[\exact]\label{res:flux}
@@ -237,6 +245,8 @@ The standard diagnostics give limited answers, and we only summarise them. The r
 
 The connection to wild embeddings is through the algebra only. Asselmeyer-Maluga and Kr\'ol identify the quantisation of a tame embedding with a wild one by way of the Temperley--Lieb tower and its type $\mathrm{II}_1$ limit \cite{asselmeyer2013,jones1983}; the step from the horned sphere to marked points is by analogy there. Our twelve punctures are tame, a Cantor set in a surface is always tame, and the $\mathrm{II}_1$ limit would need cone points at more and more scales, which the hat sphere does not have.
 
+A different algebraic route to the same kind of object has just appeared. Chandrasekaran \cite{chandrasekaran2026} quantises vacuum general relativity on the null cones of a causal diamond, obtains an algebra that generates a type~I factor, and argues that a diamond of bounded size has a finite-dimensional Hilbert space, hence a discrete area spectrum, whose trace gives the Bekenstein--Hawking entropy with a logarithmic correction. That work shows that such a space exists and does not exhibit a basis or its dimension; ours is the opposite case, an explicit finite space with no derivation from gravity. The two fit in form only: the puncture space is finite (dimension $132$, or $1$ to $131$ at level $k\le5$), its algebra is a full matrix algebra, so it is of type~I for any finite number of cone points and reaches type~$\mathrm{II}_1$ only in the tower limit above; fixing the spins of the punctures fixes an area sector; and the entropy of a region has a boundary term plus a volume term and a constant (Result~\ref{res:cut}). We know of no map from the Hilbert space of \cite{chandrasekaran2026}, built from Gaussian states of canonical pairs, to a punctured sphere, and that paper does not use punctures; the comparison is a suggestion of where an explicit model could be tested, not a result. We read its abstract, introduction and construction through its Section~4, not its entropy computation.
+
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Conclusion}\label{sec:conclusion}
 The monotile tilings give a quantum-geometry model whose main pieces, the moves, the register and the couplings, come from the tiling itself. In the plane the moves of the tiling are open ribbons, infinitely many per step and, up to one unproved step, each infinite: they never close into local clusters, yet they act on the pair qubits locally and at a fixed rate, and the fractal window decides where. On a closed surface the moves close, and the counting becomes exact: the hat sphere is a register of one bit per cone point, each flip is a closed ring with an exact Euler change, and the degrees of freedom sit where the curvature is, although the curvature itself does not move. Gauge invariance turns that register into the twelve-puncture space and the vertex count into the Heisenberg model on the icosahedron, and the skein quantisation continues it to a family of levels whose level-$2$ member is a free Majorana model with a uniform flux.
@@ -247,6 +257,7 @@ The model separates two things that are easy to conflate. The tile's chirality i
 \item The hat's hand is settled at the level of spectra (Result~\ref{res:chi4op}), and rigid hats give it a coupling $\lambda\approx10^{-7}K$ (Result~\ref{res:elastic}). Open: other elastic models (bending seams, curved panels), and what plays the role of the hand for the Spectre, where reflection does not act on the states.
 \item The joint ground state is known to about $0.02$ in energy, and geometry and matter are nearly a product (Result~\ref{res:dmrg}). Elasticity fixes $g$ up to a modulus $K$ (Result~\ref{res:elastic}). Open: larger bond dimension, a coupling $\kappa$ at which matter feeds back into the geometry, and $K$, $\Gamma$ and the level $k$ from the geometry rather than by choice.
 \item A closed substrate with both movable cone points and many pair qubits. Self-folds of Spectre patches stop at $15$ tiles, and two patches glued boundary to boundary close only when small; untried are folds with holes and other closed kite surfaces for the hat.
+\item A map, or a proof that none exists, between a finite puncture space such as ours and the finite-dimensional Hilbert space of a causal diamond in \cite{chandrasekaran2026}; a first test is whether the coefficient per cut edge in Eq.~\eqref{eq:cut} is fixed by symmetry or varies with the spin and the level.
 \end{enumerate}
 \bibliographystyle{plain}
 \bibliography{quantgrav}
