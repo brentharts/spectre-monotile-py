@@ -2,7 +2,7 @@
 % Build:  make bits   (writes build/quantgravbits.pdf; needs latexmk and pdflatex; no numbers file needed).
 % Numbers are written in the text.  Those of Sections 3 to 6 come from the scripts of the qwla repository named in each
 % result (generic_phase.py, exact_window.py, hat_flips.py, ring_bits.py, qdeform_punctures.py, hat_chirality.py,
-% spectre_fold_flips.py); those of Section 2 and Result 9 are from quantgravalt.tex and the code of this repository.
+% spectre_fold_flips.py, chi4_operator.py, spectre_mirror_outlines.py, joint_dmrg.py, spectre_fold_growth.py); those of Section 2 and Result 9 are from quantgravalt.tex and the code of this repository.
 \documentclass[11pt]{article}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -21,6 +21,7 @@
 \newcommand{\numeric}{\textbf{\textsc{Numeric}}}
 \newcommand{\negres}{\textbf{\textsc{Negative}}}
 \newcommand{\defn}{\textbf{\textsc{Definition}}}
+\newcommand{\argu}{\textbf{\textsc{Argument}}}
 \setlength{\emergencystretch}{3em}
 \theoremstyle{definition}
 \newtheorem{result}{Result}
@@ -33,7 +34,7 @@
 \maketitle
 
 \begin{abstract}
-\noindent We build a discrete model of quantum geometry from tilings by the hat and Spectre monotiles and ask what it has that a quantum-gravity model needs. In the plane a phason flip of the Spectre tiling, computed with an exact test of the fractal window, is never a local move: it is a ribbon of tiles that crosses every region tested, out to radius $100$, conserves the number of bump-and-dent pair qubits per unit length, and changes them only where its tiles sit on the lower edge of the window. On a closed surface the picture inverts. The Goldberg sphere $GP(3,0)$ has exactly $2^{12}$ hat tilings, one bit per cone point, every flip is a closed ring of five tiles around a cone point, and the vertex count is an exact nearest-neighbour function of the bits. Read as spins, the bits contain the gauge-invariant space of a sphere with twelve spin-$\tfrac12$ punctures, and the vertex count becomes the Heisenberg model on the icosahedron there. That model is the classical limit of a family obtained by the skein quantisation used for wild embeddings; at level $2$ it is a free Majorana model with the same flux through every face. The hat's handedness is visible in the bits through a four-bit term on helical paths, but it cannot fix the sign of that flux: the tiling breaks mirror symmetry, and the flux also needs time reversal broken.
+\noindent We build a discrete model of quantum geometry from tilings by the hat and Spectre monotiles and ask what it has that a quantum-gravity model needs. In the plane a phason flip of the Spectre tiling, computed with an exact test of the fractal window, is never a local move: it is a ribbon of tiles that crosses every region tested, and by an argument from two published theorems is infinite; it conserves the number of bump-and-dent pair qubits per unit length, and changes them only where its tiles sit on the lower edge of the window. On a closed surface the picture inverts. The Goldberg sphere $GP(3,0)$ has exactly $2^{12}$ hat tilings, one bit per cone point, every flip is a closed ring of five tiles around a cone point, and the vertex count is an exact nearest-neighbour function of the bits. Read as spins, the bits contain the gauge-invariant space of a sphere with twelve spin-$\tfrac12$ punctures, and the vertex count becomes the Heisenberg model on the icosahedron there. That model is the classical limit of a family obtained by the skein quantisation used for wild embeddings; at level $2$ it is a free Majorana model with the same flux through every face. The hat's handedness is visible in the bits through a four-bit term on helical paths, but it cannot fix the sign of that flux: the tiling breaks mirror symmetry, and the flux also needs time reversal broken. As an operator the hat's hand enters the spectrum only at even order at every level, and at level $2$ it is a four-Majorana interaction.
 \end{abstract}
 
 %------------------------------------------------------------------------------------------------------------------------------------
@@ -76,7 +77,7 @@ Rows I and III are the substrate and matter model of earlier work (Section~\ref{
 \item gauge invariance turns the geometric count into a Heisenberg model, and the skein quantisation gives a family of levels that ends at level $2$ in free Majoranas (Section~\ref{sec:quant});
 \item the tiling's handedness and the handedness of the quantised flux are separate, by a symmetry argument (Section~\ref{sec:hands}).
 \end{itemize}
-Every result carries one label: \exact\ (an identity, a proof or an exhausted search), \numeric\ (a computed number on a finite sample), \negres\ (an expectation the computation refutes), \defn\ (a choice of ours). Nothing here derives the Einstein equations. The code is in \cite{qwla} and \url{https://github.com/brentharts/spectre-monotile-py}, with the hat code in \cite{hexasphere} and the folds in \cite{ballgen}.
+Every result carries one label: \exact\ (an identity, a proof or an exhausted search), \numeric\ (a computed number on a finite sample), \negres\ (an expectation the computation refutes), \defn\ (a choice of ours), \argu\ (a deduction from cited theorems, with the steps we did not check named). Nothing here derives the Einstein equations. The code is in \cite{qwla} and \url{https://github.com/brentharts/spectre-monotile-py}, with the hat code in \cite{hexasphere} and the folds in \cite{ballgen}.
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Substrate and matter}\label{sec:substrate}
@@ -90,7 +91,11 @@ We take random internal phases (not derived from a substitution patch), enumerat
 \begin{result}[\numeric; \negres\ for local flips]\label{res:ribbon}
 At $R=36$ ($6$ phases, $24$ directions, $\delta=0.03$) and $R=60$ ($3$ phases, $12$ directions, $\delta$ from $0.0075$ to $0.06$) no cluster is closed. Every cluster that is not a single edge tile is a ribbon of $26$ to $272$ tiles crossing the disc, about $0.95$ tiles per unit of extent; removed and added footprints agree everywhere more than $8$ from the edge, and the ribbon's two ends lie at the edge of the enumerated tiles. At $R=100$ the ends move out with that edge and the longest ribbon has $362$ tiles. The length of a ribbon does not depend on $\delta$; the number of ribbons does ($2$, $11$, $16$, $41$ distinct ribbons at $\delta=0.0075$, $0.015$, $0.03$, $0.06$).
 \end{result}
-A phason flip of the Spectre tiling is therefore not a local move, and the planar tiling offers no closed cluster with a Pachner-type Euler change. What a ribbon does to the matter is still local:
+A phason flip of the Spectre tiling is therefore not a local move, and the planar tiling offers no closed cluster with a Pachner-type Euler change. The runs cannot say whether a ribbon ends beyond the region; an argument can.
+\begin{result}[\argu]\label{res:infinite}
+For non-singular phases $z$, $z'$ every cluster of the flip $\mathcal{T}(z)\to\mathcal{T}(z')$ is infinite, and a generic Spectre tiling has no finite flip of any kind. Suppose a cluster were finite. No other changed tile overlaps it and both sets are tilings, so its removed and added tiles cover the same region, and exchanging them in $\mathcal{T}(z)$ gives a tiling $\mathcal{T}''\neq\mathcal{T}(z)$ by Spectres that agrees with $\mathcal{T}(z)$ outside a bounded set. Every tiling by Spectres is hierarchical \cite{smith2023}, so $\mathcal{T}''$ belongs to the hull, which has pure point dynamical spectrum with continuous eigenfunctions and comes from a cut-and-project scheme with regular windows \cite{bgms}. Two tilings that agree outside a bounded set are proximal, hence have the same image on the torus of the scheme, and over a non-singular point the fibre is a single tiling: $\mathcal{T}''=\mathcal{T}(z)$, a contradiction. Two steps are standard and were not checked against a source: that a hierarchical tiling lies in the substitution hull, and that the torus map of a regular model set is one-to-one over non-singular points.
+\end{result}
+What a ribbon does to the matter is still local:
 \begin{result}[\numeric]\label{res:ribbon-pairs}
 Along the $25$ active ribbons of the $R=60$ runs (total length $2084$ inside radius $52$) $496$ pairs are destroyed and $500$ created, $0.24$ of each per unit length, and every ribbon nets to within $\pm2$ of zero. The events come in sites with two spacings (gaps near $1$ to $2$ and near $6$ to $8$), neither periodic nor Poisson.
 \end{result}
@@ -128,7 +133,10 @@ where a slot keeps its state while it is switched off.
 \begin{result}[\exact; \defn\ for $\Gamma$, $g$]\label{res:joint}
 $X_p$ permutes the basis states of geometry and slots, so a flip is unitary and its own inverse on a fixed finite space, with no boundary term and no conserved pair number. At $\kappa=0$ and with all slots in $|+\rangle$ the geometry alone is $-\Gamma\sum X_p+g\sum(1-\sigma_p)-J\sum_{\langle pq\rangle}(1-\sigma_p)(1-\sigma_q)$, at $g=5J/2$ the transverse-field Ising model on the icosahedron, whose two ordered states are the two symmetric tilings. The number of pair qubits and of vertices are then observables with a quantum spread (\numeric: at $g=0$, $\Gamma=3$, $J=1$ the mean pair number is $17.8$ of $30$).
 \end{result}
-Two limits of this closed substrate matter. Its curvature is a fixed background: the cone points belong to the kite grid, no re-tiling moves them, and no other Goldberg sphere with odd $T\le39$ carries a hat tiling (\exact). On closed folds of Spectre patches \cite{ballgen} the cone points do move under local changes of the patch ($22\%$ of local swaps must change the multiset of deficits), and an exact search for second tilings finds flips only in clusters that contain a cone point ($151$ of $1079$ clusters of two to four tiles, against none of $1243$ without one; \numeric, the search misses some tilings, so these are lower bounds). On both closed surfaces the flips that close sit at cone points.
+\begin{result}[\numeric]\label{res:dmrg}
+With the dipole coupling on, the ground state of Eq.~\eqref{eq:joint} on the $2^{42}$ states is found by two-site DMRG with the $42$ sites on a line; at $\kappa=0$ it reproduces the exact $12$-qubit energy to $2\cdot10^{-8}$. At $J=1$, $\kappa=0.3$, $g=0$ the energies at bond dimension $32$, $64$, $128$ are $-32.884$, $-32.943$, $-32.962$ for $\Gamma=0.2$; $-34.771$, $-34.823$, $-34.842$ for $\Gamma=1$; and $-49.111$, $-49.141$, $-49.151$ for $\Gamma=3$. Each is an upper bound, lower by $0.19$ to $0.38$ than the earlier variational bounds, and the last step in bond dimension is $0.011$ to $0.020$, so the energies are converged to about $0.02$ and not better. At bond dimension $128$ the all-$0$ tiling has probability $0.987$, $0.722$, $0.082$ and the mean number of pair qubits is $29.9$, $28.4$, $19.1$: with matter correlations included, the number of matter qubits remains a quantum observable of the geometry.
+\end{result}
+Two limits of this closed substrate matter. Its curvature is a fixed background: the cone points belong to the kite grid, no re-tiling moves them, and no other Goldberg sphere with odd $T\le39$ carries a hat tiling (\exact). On closed folds of Spectre patches \cite{ballgen} the cone points do move under local changes of the patch ($22\%$ of local swaps must change the multiset of deficits), and an exact search for second tilings finds flips only in clusters that contain a cone point ($151$ of $1079$ clusters of two to four tiles, against none of $1243$ without one; \numeric, the search misses some tilings, so these are lower bounds). On both closed surfaces the flips that close sit at cone points. The Spectre folds stay small, however: the share of random disc patches that glue shut falls from $0.34$ at $8$ tiles to $0.0025$ at $24$, guided growth of closable patches stops at $15$ tiles with at most $3$ pairs, and two copies of a patch can never be glued along their boundaries (none of about $1650$ patches of $5$ to $150$ tiles; \numeric, \negres), because a Spectre boundary does not fit its own reversal.
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Gauge invariance and quantisation}\label{sec:quant}
@@ -188,7 +196,22 @@ Let $K$ be complex conjugation in the tiling basis. Every function of the tiling
 \begin{equation}\label{eq:hands}
 R:\ (\chi_4,\Phi)\mapsto(-\chi_4,-\Phi),\qquad K:\ (\chi_4,\Phi)\mapsto(\chi_4,-\Phi),\qquad RK:\ (\chi_4,\Phi)\mapsto(-\chi_4,\Phi).
 \end{equation}
-A term in the energy linear in both, $c\,\chi_4\,\Phi$, is odd under $K$, so it vanishes in any description that is symmetric under $K$. The hat breaks mirror symmetry; the flux needs, in addition, time reversal broken, and that is what choosing the sign of the level does. If $K$ is read as time reversal, the tiling supplies a spatial hand and not an arrow. This is a symmetry argument: $\chi_4$ has not been built as an operator on the $132$ singlets or on the level-$2$ states.
+A term in the energy linear in both, $c\,\chi_4\,\Phi$, is odd under $K$, so it vanishes in any description that is symmetric under $K$. The hat breaks mirror symmetry; the flux needs, in addition, time reversal broken, and that is what choosing the sign of the level does. If $K$ is read as time reversal, the tiling supplies a spatial hand and not an arrow.
+\begin{result}[\exact]\label{res:chi4op}
+The argument holds as a computation. On the $132$ singlets
+\begin{equation}\label{eq:chi4op}
+\begin{gathered}
+\Pi\,\chi_4\,\Pi=\frac1{15}\sum_{a\text{-}b\text{-}c\text{-}d}h_{abcd}\Bigl[(ab)(cd)+(ac)(bd)+(ad)(bc)\Bigr],\qquad (pq)=\vec S_p\cdot\vec S_q,\\
+X_k=\sum_{a\text{-}b\text{-}c\text{-}d}h_{abcd}\Bigl(\tfrac14-\frac{e_{ab}}{d_k}\Bigr)\Bigl(\tfrac14-\frac{e_{cd}}{d_k}\Bigr),
+\end{gathered}
+\end{equation}
+where $X_k$ is the level-$k$ form of the part on the two end edges of each path. A reflection sends $X_k\mapsto-X_k$; the spectrum of $H_k+\lambda X_k$ is identical at $+\lambda$ and $-\lambda$, and at $A$ and $A^{-1}$, for $k=2,3,6,20$ and classically; and $\langle X_k\rangle=\langle\chi_4\rangle=0$ in the ground state. With the scalar chirality $C=\sum_{\triangle}\vec S_i\cdot(\vec S_j\times\vec S_k)$, which is odd under both $R$ and $K$, the ground energy of $H+\lambda X+\mu C$ is even in $\lambda$ and in $\mu$ separately, with no term $\lambda\mu$; the hat term weakens the chirality induced by $\mu$ equally for both of its signs. At level $2$,
+\begin{equation}\label{eq:x2}
+X_2=\frac14\sum_{a\text{-}b\text{-}c\text{-}d}h_{abcd}\,\Gamma_{ab}\Gamma_{cd}=-\frac14\sum_{a\text{-}b\text{-}c\text{-}d}h_{abcd}\,s_{ab}s_{cd}\,\gamma_a\gamma_b\gamma_c\gamma_d ,
+\end{equation}
+a four-Majorana interaction: the free model of Eq.~\eqref{eq:majorana} cannot contain the hat's hand, and an interaction can, at second order in its strength.
+\end{result}
+For the Spectre there is no analogue of $\chi_4$, because a reflection does not map its states to states: of $2525$ distinct outlines of clusters of one to five tiles, only the mirror-symmetric Mystic has a mirror image that Spectres of the same hand can tile (\numeric; the search misses some tilings). The Spectre's hand is not a term in an energy but a restriction on which regions exist.
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Discussion}\label{sec:discussion}
@@ -200,14 +223,14 @@ The connection to wild embeddings is through the algebra only. Asselmeyer-Maluga
 
 %------------------------------------------------------------------------------------------------------------------------------------
 \section{Conclusion}\label{sec:conclusion}
-The monotile tilings give a quantum-geometry model whose main pieces, the moves, the register and the couplings, come from the tiling itself. In the plane the moves of the tiling are open ribbons: they never close into local clusters, yet they act on the pair qubits locally and at a fixed rate, and the fractal window decides where. On a closed surface the moves close, and the counting becomes exact: the hat sphere is a register of one bit per cone point, each flip is a closed ring with an exact Euler change, and the degrees of freedom sit where the curvature is, although the curvature itself does not move. Gauge invariance turns that register into the twelve-puncture space and the vertex count into the Heisenberg model on the icosahedron, and the skein quantisation continues it to a family of levels whose level-$2$ member is a free Majorana model with a uniform flux.
+The monotile tilings give a quantum-geometry model whose main pieces, the moves, the register and the couplings, come from the tiling itself. In the plane the moves of the tiling are open, infinite ribbons: they never close into local clusters, yet they act on the pair qubits locally and at a fixed rate, and the fractal window decides where. On a closed surface the moves close, and the counting becomes exact: the hat sphere is a register of one bit per cone point, each flip is a closed ring with an exact Euler change, and the degrees of freedom sit where the curvature is, although the curvature itself does not move. Gauge invariance turns that register into the twelve-puncture space and the vertex count into the Heisenberg model on the icosahedron, and the skein quantisation continues it to a family of levels whose level-$2$ member is a free Majorana model with a uniform flux.
 
-The model separates two things that are easy to conflate. The tile's chirality is a property of space: it is visible in the tilings through a four-bit term on helical paths and leaves every Hamiltonian above unchanged. The chirality of the quantised theory, the sign of the flux, is tied to complex conjugation and so to time reversal, and the tiling does not choose it. What the model lacks for gravity is equally clear: the curvature on the sphere is fixed, the scales $\Gamma$, $g$, $\kappa$ and the level $k$ are put in by hand, no area law or Newtonian limit appears, and nothing distinguishes a direction of time. The next steps are therefore concrete:
+The model separates two things that are easy to conflate. The tile's chirality is a property of space: it is visible in the tilings through a four-bit term on helical paths, leaves every Hamiltonian above unchanged, and as an operator shifts the spectrum only at even order. The chirality of the quantised theory, the sign of the flux, is tied to complex conjugation and so to time reversal, and the tiling does not choose it. What the model lacks for gravity is equally clear: the curvature on the sphere is fixed, the scales $\Gamma$, $g$, $\kappa$ and the level $k$ are put in by hand, no area law or Newtonian limit appears, and nothing distinguishes a direction of time. The next steps are therefore concrete:
 \begin{enumerate}[leftmargin=1.6em,itemsep=1pt]
-\item Are the planar ribbons infinite? They reach radius $100$ in one phase; a proof would need the geometry of the window.
-\item $\chi_4$ as an operator on the gauge-invariant and level-$2$ spaces, and whether the one-handed Spectre gives a term of the same kind on its closed folds.
-\item A converged ground state of Eq.~\eqref{eq:joint} at $\kappa\neq0$, and values of $\Gamma$, $g$ and the level $k$ from the geometry rather than by choice.
-\item A closed substrate with both movable cone points and many pair qubits: the hat sphere has the second, the Spectre folds the first.
+\item Make Result~\ref{res:infinite} a theorem: check the two standard steps against the literature, and describe the ribbons (their directions, and whether one phase step always produces infinitely many).
+\item The hat's hand is now settled at the level of spectra (Result~\ref{res:chi4op}). Open: a physical origin for a coupling $\lambda$, and what plays the role of the hand for the Spectre, where reflection does not act on the states.
+\item The joint ground state is known to about $0.02$ in energy (Result~\ref{res:dmrg}). Open: larger bond dimension, the entanglement between geometry and matter, and values of $\Gamma$, $g$ and the level $k$ from the geometry rather than by choice.
+\item A closed substrate with both movable cone points and many pair qubits. Self-folds of Spectre patches stop at $15$ tiles and doubles do not exist; untried are two different patches with complementary boundaries, folds with holes, and other closed kite surfaces for the hat.
 \end{enumerate}
 \bibliographystyle{plain}
 \bibliography{quantgrav}
