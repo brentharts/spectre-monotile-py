@@ -32,7 +32,7 @@
 \maketitle
 
 \begin{abstract}
-\noindent We build a discrete model of quantum geometry from tilings by the hat and Spectre monotiles and ask what it has that a quantum-gravity model needs. In the plane a phason flip of the Spectre tiling, computed with an exact test of the fractal window, is never a local move: it is a ribbon of tiles that crosses every region tested, and, granted that a locally re-tiled Spectre tiling stays in the hull, is infinite; it conserves the number of bump-and-dent pair qubits per unit length, and changes them only where its tiles sit on the lower edge of the window. On a closed surface the picture inverts. The Goldberg sphere $GP(3,0)$ has exactly $2^{12}$ hat tilings, one bit per cone point, every flip is a closed ring of five tiles around a cone point, and the vertex count is an exact nearest-neighbour function of the bits. Read as spins, the bits contain the gauge-invariant space of a sphere with twelve spin-$\tfrac12$ punctures, and the vertex count becomes the Heisenberg model on the icosahedron there. That model is the classical limit of a family obtained by the skein quantisation used for wild embeddings; at level $2$ it is a free Majorana model with the same flux through every face. The hat's handedness is visible in the bits through a four-bit term on helical paths, but it cannot fix the sign of that flux: the tiling breaks mirror symmetry, and the flux also needs time reversal broken. As an operator the hat's hand enters the spectrum only at even order at every level, and at level $2$ it is a four-Majorana interaction.
+\noindent We build a discrete model of quantum geometry from tilings by the hat and Spectre monotiles and ask what it has that a quantum-gravity model needs. In the plane a phason flip of the Spectre tiling, computed with an exact test of the fractal window, is never a local move: it is a ribbon of tiles that crosses every region tested, and, granted that a locally re-tiled Spectre tiling stays in the hull, is infinite; it conserves the number of bump-and-dent pair qubits per unit length, and changes them only where its tiles sit on the lower edge of the window. Each ribbon is a directed word in three letters, straight, left and right, read off the supertile hierarchy, and the ribbons that change pairs run on a forest of finite trees with one fork per level-$2$ supertile. On a closed surface the picture inverts. The Goldberg sphere $GP(3,0)$ has exactly $2^{12}$ hat tilings, one bit per cone point, every flip is a closed ring of five tiles around a cone point, and the vertex count is an exact nearest-neighbour function of the bits. Read as spins, the bits contain the gauge-invariant space of a sphere with twelve spin-$\tfrac12$ punctures, and the vertex count becomes the Heisenberg model on the icosahedron there. That model is the classical limit of a family obtained by the skein quantisation used for wild embeddings; at level $2$ it is a free Majorana model with the same flux through every face. The hat's handedness is visible in the bits through a four-bit term on helical paths, but it cannot fix the sign of that flux: the tiling breaks mirror symmetry, and the flux also needs time reversal broken. As an operator the hat's hand enters the spectrum only at even order at every level, and at level $2$ it is a four-Majorana interaction.
 \end{abstract}
 
 %------------------------------------------------------------------------------------------------------------------------------------
@@ -78,7 +78,7 @@ Equation~\eqref{eq:overview2} is its quantisation: reading each bit of row IV as
 
 Rows I and III are the substrate and matter model of a longer account (Section~\ref{sec:substrate}). Rows II and IV to VII are new here:
 \begin{itemize}[leftmargin=1.4em,itemsep=1pt]
-\item flips of the plane are open ribbons, and whether they act on the qubits is decided by the window (Section~\ref{sec:plane});
+\item flips of the plane are open ribbons; whether they act on the qubits is decided by the window, and their path is a word fixed by the supertile hierarchy (Section~\ref{sec:plane});
 \item on the sphere the space of tilings is a register of one bit per cone point, a flip is a closed ring, and its Euler change is an exact nearest-neighbour term (Section~\ref{sec:sphere});
 \item gauge invariance turns the geometric count into a Heisenberg model, and the skein quantisation gives a family of levels that ends at level $2$ in free Majoranas (Section~\ref{sec:quant});
 \item the tiling's handedness and the handedness of the quantised flux are separate, by a symmetry argument (Section~\ref{sec:hands}).
@@ -111,7 +111,7 @@ at a high level the two tilings differ in at most about $41$ supertiles. What re
 
 \emph{Infinitely many ribbons.} The tiles removed by a step are those whose window point leaves the window; they are $2.7\%$ of the $O$ tiles and $8.6\%$ of the $G$ tiles at $\delta=0.03$ (\numeric, nearly proportional to $\delta$ between $0.0075$ and $0.06$), a positive density in the plane. A ribbon has about one tile per unit length and so zero density; hence one step moves infinitely many ribbons, about $0.017R$ of them through a disc of radius $R$, as the runs show.
 
-\emph{Directions.} A ribbon is a fixed object of the tiling, not of the step: with $72$ step directions at one phase, each of ten ribbons flips for a connected arc of directions, $10^\circ$ to $135^\circ$ wide (one $195^\circ$), and is the same ribbon throughout the arc (\numeric). The directions of the ribbons are not confined to a few values. A supertile does carry an arrow at every level (its centroid lies $0.529\lambda^n$ from the centre of its quad, with aspect ratio $1.36$; \exact), but supertiles occur in six orientations in equal numbers, so the tiling has no net arrow, and the ribbon directions do not cluster modulo $60^\circ$ ($8$ ribbons). Putting the hierarchy on generic-phase patches with the local rule of the second route (it applies to all $9880$ tiles tested), the ribbons turn out to avoid supertile boundaries ($44\%$ of ribbon tiles touch another level-$2$ supertile, against $58\%$ of all tiles; $22$ ribbons) and to be made of particular tile types: $47\%$ of ribbon tiles belong to Mystics, against $23\%$ of all tiles, and the type $\Psi$ is almost absent ($0.7\%$ against $16\%$; \numeric). A ribbon follows a chain of tile types, not the shape of a supertile. The tiling also has \emph{stacks}, chains of two or three tiles of one orientation, each the translate of the last by a vector of length $\sqrt6$; they hold $57.8\%$ of all tiles and have three axes $60^\circ$ apart (\exact). The translation is fixed in the tile's frame, so a stack is a directed vector, with six possible directions. Of the $22$ ribbon clusters $8$ contain no stack at all; the others are chains of stacks, and in the three that are single strands every stack points the same way along the ribbon ($112$ of $113$ steps) and the vector turns by $\pm60^\circ$ from one stack to the next ($56$ left, $56$ right, one straight; \numeric). Such a ribbon is a directed walk: it has an arrow, and its direction, the mean of its stack vectors, is fixed by the sequence of left and right turns.
+\emph{Directions.} A ribbon is a fixed object of the tiling, not of the step: with $72$ step directions at one phase, each of ten ribbons flips for a connected arc of directions, $10^\circ$ to $135^\circ$ wide (one $195^\circ$), and is the same ribbon throughout the arc (\numeric). The directions of the ribbons are not confined to a few values. A supertile does carry an arrow at every level (its centroid lies $0.529\lambda^n$ from the centre of its quad, with aspect ratio $1.36$; \exact), but supertiles occur in six orientations in equal numbers, so the tiling has no net arrow, and the ribbon directions do not cluster modulo $60^\circ$ ($8$ ribbons). What a ribbon follows is the subject of Result~\ref{res:words}.
 \end{result}
 What a ribbon does to the matter is still local:
 \begin{result}[\numeric]\label{res:ribbon-pairs}
@@ -120,6 +120,29 @@ Along the $25$ active ribbons of the $R=60$ runs (total length $2084$ inside rad
 \begin{result}[\numeric]\label{res:silent}
 The other $15$ ribbon samples change no pair at all, and the reason is the window. A two-tile ($G$) tile is never at a pair site ($0$ of $1129$ removed); a one-tile ($O$) tile is at a pair site exactly when its window point lies on the lower edge of $Z_0(O)$: the cut $z_y<0$ sorts $91\%$ of $2462$ removed $O$ tiles correctly. A silent ribbon has $0.07$ of its $O$ tiles below that cut ($0.05$ to $0.11$), an active one $0.33$ ($0.26$ to $0.52$). The tiles around a ribbon are ordinary in both cases.
 \end{result}
+
+\begin{result}[\numeric; \exact\ for the network]\label{res:words}
+\emph{A ribbon is a directed word, read off the hierarchy.} The composition rule of Result~\ref{res:infinite} puts tile and supertile labels on a patch at a generic phase (it applies to all $9880$ tiles tested). In three patches of radius $110$ with $22$ ribbon clusters:
+
+\emph{Composition.} Ribbons avoid supertile boundaries ($44\%$ of ribbon tiles touch another level-$2$ supertile, against $58\%$ of all tiles) and are made of particular tiles: $47\%$ of ribbon tiles belong to Mystics, against $23\%$ of all tiles, and the type $\Psi$ is almost absent ($0.7\%$ against $16\%$).
+
+\emph{Silent ribbons are chains of stacks.} A \emph{stack} is a chain of two or three tiles of one orientation, each the translate of the last by a vector of length $\sqrt6$ that is fixed in the tile's frame; stacks hold $57.8\%$ of all tiles and point in six directions (\exact). The ribbons with stacks are the silent ones of Result~\ref{res:silent}: none of their tiles is at a pair site, against $33$ to $35\%$ in the ribbons without stacks (correlation $-0.997$ over the clusters). In a single strand every stack points the same way along the ribbon ($112$ of $113$ steps), and the stack vector turns by $\pm60^\circ$ from one stack to the next.
+
+\emph{Both kinds are words in three letters.} With stacks $a=(\Delta,\Gamma)$, $b=(\Delta,\Pi,\Gamma)$, $c=(\Sigma,\Pi,\Gamma)$ for a silent ribbon, and motifs $A=(\Phi,\Sigma,\Xi,\Gamma)$, $B=(\Theta,\Sigma,\Gamma)$ for an active one,
+\begin{equation}\label{eq:words}
+\begin{array}{lccc}
+ & \text{straight on} & \text{turn left by } 60^\circ & \text{turn right by } 60^\circ\\[2pt]
+\text{silent} & a\,c\,c\,b & a\,c\,b & a\,c\,c\\
+\text{active} & A & B \text{ with its Mystic in } \Sigma & B \text{ with its Mystic in } \Delta
+\end{array}
+\end{equation}
+where the turn of a silent ribbon is a function of two consecutive stacks ($100$ of $100$ steps) and that of an active one is given by the supertile of the Mystic of $B$ ($48$ of $49$). Each kind has an arrow, and the labels, that is the hierarchy, fix the path.
+
+\emph{The network of active ribbons.} The links from one Mystic of an active ribbon to the next take three relative poses, of lengths $9.55$ (straight), $7.33$ and $10.62$ (the two turns). Applied to every Mystic of a substitution patch they give a directed network: a Mystic has at most one link in, and none, one (straight) or two (both turns) out (\exact, levels $3$ to $6$). The forks are the Mystics of $\Gamma$ supertiles, one per level-$2$ supertile; chains begin in $\Lambda$ and $\Pi$ supertiles and end in $\Psi$ and $\Xi$ ones. So the network is a forest of finite trees that begin and end inside the tiling, of $11$, $30$, $210$, \dots\ Mystics, about half of the network at each further level; the largest trees of a patch are those cut by its boundary. The words along them have linear factor complexity, as substitution words do, and the words of all seven observed active ribbons occur in them.
+
+\emph{What fixes the direction.} Against its arrow an active ribbon is fixed by the tiling. At a fork the branch belongs to the phase and not to the step: $61$ of $74$ observed forks take the same branch for every step direction, $10$ take both at once, $3$ change. Since the trees are finite and a ribbon is not, a ribbon must leave each tree; the clusters that join an active strand to a silent one suggest how.
+\end{result}
+The two turns of an active ribbon are different links, not mirror images of each other. This is where the Spectre's hand appears: a reflection exchanges the side on which the short link turns.
 
 \begin{figure}[t]\centering
 \includegraphics[width=\linewidth]{ribbon_1_silent_vs_active.png}
@@ -152,7 +175,7 @@ where a slot keeps its state while it is switched off.
 $X_p$ permutes the basis states of geometry and slots, so a flip is unitary and its own inverse on a fixed finite space, with no boundary term and no conserved pair number. At $\kappa=0$ and with all slots in $|+\rangle$ the geometry alone is $-\Gamma\sum X_p+g\sum(1-\sigma_p)-J\sum_{\langle pq\rangle}(1-\sigma_p)(1-\sigma_q)$, at $g=5J/2$ the transverse-field Ising model on the icosahedron, whose two ordered states are the two symmetric tilings. The number of pair qubits and of vertices are then observables with a quantum spread (\numeric: at $g=0$, $\Gamma=3$, $J=1$ the mean pair number is $17.8$ of $30$).
 \end{result}
 \begin{result}[\numeric]\label{res:dmrg}
-With the dipole coupling on, the ground state of Eq.~\eqref{eq:joint} on the $2^{42}$ states is found by two-site DMRG; at $\kappa=0$ it reproduces the exact $12$-qubit energy to $2\cdot10^{-8}$. At $J=1$, $\kappa=0.3$, $g=0$ and bond dimension $128$ the energies are $-32.962$, $-34.842$, $-49.151$ for $\Gamma=0.2$, $1$, $3$, upper bounds converged to about $0.02$. The all-$0$ tiling has probability $0.987$, $0.722$, $0.082$ and the mean number of pair qubits is $29.9$, $28.4$, $19.1$: with matter correlations included, the number of matter qubits remains a quantum observable of the geometry. The entanglement between geometry and matter is $0.0014$, $0.029$, $0.063$ bits, a tenth or less of that of a state that dresses each tiling with its own matter ground state ($0.026$, $0.40$, $1.22$). The geometry decides which matter qubits exist, but the matter hardly feeds back into the geometry.
+With the dipole coupling on, the ground state of Eq.~\eqref{eq:joint} on the $2^{42}$ states is found by two-site DMRG; at $\kappa=0$ it reproduces the exact $12$-qubit energy to $2\cdot10^{-8}$. At $J=1$, $\kappa=0.3$, $g=0$ and bond dimension $128$ the energies are $-32.962$, $-34.842$, $-49.151$ for $\Gamma=0.2$, $1$, $3$, upper bounds; each doubling of the bond dimension lowers them by about a third of the previous step, which extrapolates to $-32.97$, $-34.85$, $-49.16$ with $0.01$ still to come. The all-$0$ tiling has probability $0.987$, $0.722$, $0.082$ and the mean number of pair qubits is $29.9$, $28.4$, $19.1$: with matter correlations included, the number of matter qubits remains a quantum observable of the geometry. The entanglement between geometry and matter is $0.0014$, $0.029$, $0.063$ bits, a tenth or less of that of a state that dresses each tiling with its own matter ground state ($0.026$, $0.40$, $1.22$). A stronger dipole coupling does not change this: at $\Gamma=1$ and bond dimension $64$, $\kappa=0.3$, $1$, $2$, $4$ give probabilities $0.72$, $0.94$, $0.98$, $0.996$ for the all-$0$ tiling and entanglements $0.023$, $0.012$, $0.003$, $0.001$ bits. The matter acts back on the geometry as a classical bias towards the tiling with the most pair qubits, and the two become less entangled, not more. The geometry decides which matter qubits exist; the matter selects a geometry without becoming entangled with it.
 \end{result}
 Two limits of this closed substrate matter. Its curvature is a fixed background: the cone points belong to the kite grid, no re-tiling moves them, and no other Goldberg sphere with odd $T\le39$ carries a hat tiling (\exact). On closed folds of Spectre patches the cone points do move under local changes of the patch, and an exact search for second tilings finds flips only in clusters that contain a cone point ($151$ of $1079$ clusters of two to four tiles, against none of $1243$ without one; \numeric, lower bounds). On both closed surfaces the flips that close sit at cone points. The Spectre folds stay small, however: guided growth of closable patches stops at $15$ tiles with at most $3$ pairs, and of all $670\,647$ pairs of distinct outlines of clusters of one to five tiles only $13$ glue shut boundary to boundary (\numeric, \negres). A boundary vertex of $270^\circ$ can only meet one of at most $90^\circ$, so long boundaries almost never fit.
 
@@ -262,14 +285,96 @@ A different algebraic route to the same kind of object has just appeared. Chandr
 \section{Conclusion}\label{sec:conclusion}
 The monotile tilings give a quantum-geometry model whose main pieces, the moves, the register and the couplings, come from the tiling itself. In the plane the moves of the tiling are open ribbons, infinitely many per step and, up to one unproved step, each infinite: they never close into local clusters, yet they act on the pair qubits locally and at a fixed rate, and the fractal window decides where. On a closed surface the moves close, and the counting becomes exact: the hat sphere is a register of one bit per cone point, each flip is a closed ring with an exact Euler change, and the degrees of freedom sit where the curvature is, although the curvature itself does not move. Gauge invariance turns that register into the twelve-puncture space and the vertex count into the Heisenberg model on the icosahedron, and the skein quantisation continues it to a family of levels whose level-$2$ member is a free Majorana model with a uniform flux.
 
-The model separates two things that are easy to conflate. The tile's chirality is a property of space: it is visible in the tilings through a four-bit term on helical paths, leaves every Hamiltonian above unchanged, and as an operator shifts the spectrum only at even order. The chirality of the quantised theory, the sign of the flux, is tied to complex conjugation and so to time reversal, and the tiling does not choose it. What the model lacks for gravity is equally clear: the curvature on the sphere is fixed, of the scales only $g$ follows from the geometry (from the elasticity of rigid hats, up to a modulus), while $\Gamma$, $\kappa$ and the level $k$ are put in by hand, no area law or Newtonian limit appears, and nothing distinguishes a direction of time. The next steps are therefore concrete:
+The model separates two things that are easy to conflate. The tile's chirality is a property of space: it is visible in the tilings through a four-bit term on helical paths, leaves every Hamiltonian above unchanged, and as an operator shifts the spectrum only at even order. The chirality of the quantised theory, the sign of the flux, is tied to complex conjugation and so to time reversal, and the tiling does not choose it. What the model lacks for gravity is equally clear: the curvature on the sphere is fixed, of the scales only $g$ follows from the geometry (from the elasticity of rigid hats, up to a modulus), while $\Gamma$, $\kappa$ and the level $k$ are put in by hand, no area law or Newtonian limit appears, and nothing distinguishes a direction of time. The questions that remain are few and concrete; they are collected in Appendix~\ref{app:open}, and Appendix~\ref{app:fit} sets out in formulas how the results depend on one another.
+
+\appendix
+%------------------------------------------------------------------------------------------------------------------------------------
+\section{Open questions}\label{app:open}
 \begin{enumerate}[leftmargin=1.6em,itemsep=1pt]
-\item Close the gap in Result~\ref{res:infinite}. By Eq.~\eqref{eq:confine} it is finite and the hole test passes at $r=10$; what is left is to extract the radius of the composition rule from the proof of \cite{smith2023} (and rerun the test if it exceeds $10$), and to carry the hole statement from Spectres to supertiles. Also open: the rule behind the sequence of turns that fixes the direction of a stacked ribbon, and the ribbons without stacks.
-\item The hat's hand is settled at the level of spectra (Result~\ref{res:chi4op}), and rigid hats give it a coupling $\lambda\approx10^{-7}K$ (Result~\ref{res:elastic}). Open: other elastic models (bending seams, curved panels), and what plays the role of the hand for the Spectre, where reflection does not act on the states.
-\item The joint ground state is known to about $0.02$ in energy, and geometry and matter are nearly a product (Result~\ref{res:dmrg}). Elasticity fixes $g$ up to a modulus $K$ (Result~\ref{res:elastic}). Open: larger bond dimension, a coupling $\kappa$ at which matter feeds back into the geometry, and $K$, $\Gamma$ and the level $k$ from the geometry rather than by choice.
-\item A closed substrate with both movable cone points and many pair qubits. Self-folds of Spectre patches stop at $15$ tiles, and two patches glued boundary to boundary close only when small; untried are folds with holes and other closed kite surfaces for the hat.
-\item A map, or a proof that none exists, between a finite puncture space such as ours and the finite-dimensional Hilbert space of a causal diamond in \cite{chandrasekaran2026}; the coefficient per cut edge in Eq.~\eqref{eq:cut} is not fixed by symmetry (Result~\ref{res:cut}), and at levels above $2$ only discs along the Hamiltonian cycle are treated.
+\item Close the gap in Result~\ref{res:infinite}. By Eq.~\eqref{eq:confine} it is finite and the hole test passes at $r=10$; what is left is to extract the radius of the composition rule from the proof of \cite{smith2023} (and rerun the test if it exceeds $10$), and to carry the hole statement from Spectres to supertiles. For the ribbons of Result~\ref{res:words}: the substitution behind their words, and what in the phase decides the branch at a fork.
+\item The scales. Elasticity fixes $g$ and the coupling of the hat's hand up to a modulus $K$ (Result~\ref{res:elastic}); $K$, $\Gamma$, $\kappa$ and the level $k$ are still chosen by hand, and a derivation of any of them from the geometry is open.
+\item A closed substrate with both movable cone points and many pair qubits. A hat tiling of a flat torus or Klein bottle would be periodic, which the hat forbids \cite{smith2024hat}, so a closed kite surface for the hat needs cone points, and the other Goldberg spheres tested (odd $T\le39$) carry no hat tiling; self-folds of Spectre patches stop at $15$ tiles, and two patches glued boundary to boundary close only when small.
 \end{enumerate}
+
+%------------------------------------------------------------------------------------------------------------------------------------
+\section{How the pieces fit together}\label{app:fit}
+This appendix restates the main results as five chains of formulas, each brace naming the result it rests on. Nothing here is new.
+
+\paragraph{From a phason step to words.} One step of the internal phase changes the tiling along ribbons, and each ribbon is a word:
+\begin{equation}\label{eq:fit-ribbon}
+\begin{gathered}
+\underbrace{\mathcal{T}(z)\,\triangle\,\mathcal{T}(z+\delta e)}_{\text{tiles whose window point leaves } Z_0}
+\;=\;\bigsqcup_j R_j ,\\[4pt]
+R_j=\begin{cases}
+\overbrace{\;\cdots\,a\,c\,c\,b\;\,a\,c\,b\;\,a\,c\,c\,b\;\,a\,c\,c\,\cdots}^{\text{stacks; no tile at a pair site}} & \text{silent}\\[6pt]
+\underbrace{\;\cdots\,A\,B_\Sigma\,A\,A\,B_\Delta\,A\,A\,B_\Sigma\,A\,B_\Delta\cdots}_{\text{motifs; } 0.24 \text{ pairs destroyed and created per unit length}} & \text{active}
+\end{cases}
+\end{gathered}
+\end{equation}
+(Results~\ref{res:ribbon}, \ref{res:ribbon-pairs}, \ref{res:silent}, \ref{res:words}). In both kinds the word is over three letters, $w\in\{\mathrm{s},\mathrm{l},\mathrm{r}\}$, by Eq.~\eqref{eq:words}.
+
+\paragraph{From a word to a path.} Let $p_n$ be the position and $L_n$ the frame of the $n$-th Mystic of an active ribbon. With $\rho(\theta)$ the rotation by $\theta$,
+\begin{equation}\label{eq:fit-path}
+\begin{gathered}
+p_{n+1}=p_n+L_n\,\ell_{w_n},\qquad L_{n+1}=L_n\,\rho(\theta_{w_n}),\qquad
+\underbrace{\theta_{\mathrm s}=0,\quad \theta_{\mathrm l}=-\theta_{\mathrm r}=-60^\circ}_{\text{turns of Eq.~\eqref{eq:words}, in the frame}},\\
+\underbrace{\ell_{\mathrm s}=\bigl(6+2\sqrt3,\;3-\sqrt3\bigr)}_{|\ell_{\mathrm s}|=9.55},\qquad
+\underbrace{\ell_{\mathrm l}=\bigl(\tfrac92+\sqrt3,\;3+\tfrac{\sqrt3}2\bigr)}_{|\ell_{\mathrm l}|=7.33},\qquad
+\underbrace{\ell_{\mathrm r}=\bigl(6+\tfrac{3\sqrt3}2,\;\tfrac92+\sqrt3\bigr)}_{|\ell_{\mathrm r}|=10.62},\\
+p_N-p_0=\sum_{n<N}\underbrace{L_0\,\rho\Bigl(\textstyle\sum_{m<n}\theta_{w_m}\Bigr)}_{\text{heading: one of six, at most four used}}\ \underbrace{\ell_{w_n}}_{\text{three links}} ,
+\end{gathered}
+\end{equation}
+where the frame of a tile is a reflection, so that the turn by $-60^\circ$ in the frame is a left turn in the plane. The direction of a ribbon is the direction of this sum: it is fixed by the word, and the word by the labels. The two turning links have different lengths, which is the mirror-odd datum of the Spectre tiling.
+
+\paragraph{From the hierarchy to the network.} Applying the three links to every Mystic gives a forest. The label $X$ of the level-$1$ supertile of a Mystic decides its role,
+\begin{equation}\label{eq:fit-forest}
+\begin{gathered}
+\underbrace{X\in\{\Lambda,\Pi\}}_{\text{root: no link in}}\ \longrightarrow\
+\underbrace{X\in\{\Delta,\Sigma,\Pi\}}_{\text{one link out, } \mathrm s}\ \longrightarrow\
+\underbrace{X=\Gamma}_{\substack{\text{fork: } \mathrm l \text{ and } \mathrm r;\\ \text{one per level-2 supertile}}}\ \longrightarrow\ \cdots\ \longrightarrow\
+\underbrace{X\in\{\Psi,\Xi\}}_{\text{end: no link out}},\\[4pt]
+\text{trees of}\ \ \overbrace{11,\ 30,\ 210,\ \dots}^{\text{Mystics per tree}}\ \ \text{holding}\ \ \overbrace{44\%,\ 26\%,\ 14\%,\ \dots}^{\text{of the network}} ,
+\end{gathered}
+\end{equation}
+so every tree is finite, a ribbon is longer than any tree, and it must pass from tree to tree (Result~\ref{res:words}).
+
+\paragraph{Why a flip cannot be finite.} If $\mathcal{T}''$ agrees with $\mathcal{T}$ outside radius $R$, their level-$n$ supertiles agree outside $R_n$, and
+\begin{equation}\label{eq:fit-confine}
+\begin{gathered}
+\frac{R_n}{\lambda^n}
+=\underbrace{\frac{R}{\lambda^n}}_{\to\,0}
++\underbrace{r\sum_{j=1}^{n}\lambda^{-j}}_{\substack{\text{the supertile of a unit is fixed}\\ \text{by the units within } r=10}}
++\underbrace{D\sum_{j=0}^{n-1}\lambda^{-j}}_{\substack{\text{offset of a unit from}\\ \text{its supertile, } D=3.5}}
+\ \xrightarrow[n\to\infty]{}\ \rho^*=\frac{r+D\lambda}{\lambda-1}=11.0 ,\\[4pt]
+\underbrace{\rho^*+3.4+2.7=17.1}_{\text{radius of a hole about a tile}}
+\ \Longrightarrow\
+\underbrace{336 \text{ classes of holes, each with one filling}}_{\text{complete search}}
+\end{gathered}
+\end{equation}
+(Result~\ref{res:infinite}). The two steps not proved are the value of $r$ for arbitrary tilings and the passage of the last brace from Spectres to supertiles (Appendix~\ref{app:open}).
+
+\paragraph{From a count to a quantum model.} On the sphere the same kind of chain runs from the Euler characteristic to free fermions:
+\begin{equation}\label{eq:fit-chain}
+\begin{gathered}
+\underbrace{V(\sigma)=V_0-\sum_{\langle pq\rangle}\sigma_p\sigma_q}_{\text{vertex count of a tiling (Result~\ref{res:euler})}}
+\ \xrightarrow{\ \Pi\ }\
+\underbrace{V_0-\tfrac{15}2-\tfrac13\sum_{\langle pq\rangle}\vec S_p\cdot\vec S_q}_{\text{gauge-invariant part (Result~\ref{res:punctures})}}\\[4pt]
+\xrightarrow{\ \vec S_p\cdot\vec S_q=\frac14-\frac12e_{pq}\ }\
+\underbrace{H_k=\sum_{\langle pq\rangle}\Bigl(\tfrac14-\frac{e_{pq}}{d_k}\Bigr)}_{\text{skein levels (Result~\ref{res:levels})}}
+\ \xrightarrow{\ k=2\ }\
+\underbrace{-\tfrac{15}2-\tfrac i2\sum_{\langle pq\rangle}s_{pq}\gamma_p\gamma_q}_{\text{free Majoranas (Result~\ref{res:majorana})}} .
+\end{gathered}
+\end{equation}
+The entanglement of the ground state follows the same family. For a disc $A$ of cone points, with $p_c$ the weight of total charge $c$,
+\begin{equation}\label{eq:fit-entropy}
+\begin{gathered}
+S(A)=\underbrace{\sum_cp_c\ln d_c}_{\substack{\langle L\rangle,\ L \text{ central:}\\ \text{no boundary law}}}
++\underbrace{\sum_cp_c\bigl[-\ln p_c+S(\rho_c)\bigr]}_{\text{carries the dependence on the cut}}\\[4pt]
+\approx\ \underbrace{\alpha_k\,|\partial A|}_{\alpha_2=0.069,\ \alpha_\infty=0.113}+\underbrace{\beta_k\,|A|}_{\beta_2=0.025,\ \beta_\infty=0.216}+\text{const}
+\end{gathered}
+\end{equation}
+(Result~\ref{res:cut}; fits on the $75$ arcs): the level $k$ controls the volume term, which nearly vanishes for the free model of Eq.~\eqref{eq:fit-chain}.
+
 \bibliographystyle{plain}
 \bibliography{quantgrav}
 
